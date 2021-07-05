@@ -1,10 +1,11 @@
+import {Block, Header} from '@components';
+import {theme} from '@theme';
 import React from 'react';
-import {Block, Text} from '@components';
 
 const HomeScreen = () => {
   return (
-    <Block>
-      <Text>HomeScreen</Text>
+    <Block flex paddingHorizontal={16} backgroundColor={theme.colors.white}>
+      <Header canGoBack title="Homescreen" />
     </Block>
   );
 };

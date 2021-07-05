@@ -9,11 +9,10 @@ export const theme = {
     white: '#ffffff',
     black: '#000000',
     placeholder: '#9DA3AF',
-    blue: '#0d5cb6',
+    blue: '#045694',
     red: '#FF2424',
     green: '#088A08',
     yellow: '#FFDF00',
-
     orange: '#F59523',
     tomato: '#FF6853',
   },

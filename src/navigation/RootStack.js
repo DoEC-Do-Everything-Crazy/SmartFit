@@ -11,7 +11,7 @@ const RootStack = () => {
   return (
     <NavigationContainer>
       <StatusBar
-        barStyle="light-content"
+        barStyle="dark-content"
         backgroundColor={'transparent'}
         translucent
       />

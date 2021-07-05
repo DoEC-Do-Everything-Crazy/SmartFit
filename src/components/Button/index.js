@@ -10,14 +10,12 @@ import {useSelector} from 'react-redux';
 import styles from './styles';
 
 const Button = ({onPress, title, titleStyle, containerStyle, disabled}) => {
-  const config = useSelector(state => state.config.data);
-
   return (
     <Pressable disabled={disabled} onPress={onPress}>
       <Block
         style={{
           ...styles.container,
-          backgroundColor: config.general_active_color,
+          backgroundColor: theme.colors.blue,
           opacity: disabled ? 0.7 : 1,
           ...containerStyle,
         }}>
