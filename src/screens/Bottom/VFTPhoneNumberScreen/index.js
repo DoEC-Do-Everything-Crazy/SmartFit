@@ -1,7 +1,7 @@
-import {Block, Header, Button} from '@components';
-import {theme} from '@theme';
-import React, {Component} from 'react';
-import {View, Text, TextInput, Touchableopacity} from 'react-native';
+import { Block, Header, Button } from '@components';
+import { theme } from '@theme';
+import React, { Component } from 'react';
+import { View, Text, TextInput, Touchableopacity } from 'react-native';
 
 export default class VFTPhoneNumberScreen extends Component {
   constructor(props) {
@@ -21,11 +21,11 @@ export default class VFTPhoneNumberScreen extends Component {
   };
 
   render() {
-    const {number1, number2, number3, number4, number5, number6} = this.state;
+    const { number1, number2, number3, number4, number5, number6 } = this.state;
     return (
-      <View style={{flex: 1, backgroundColor: '#FFF'}}>
+      <View style={{ flex: 1, backgroundColor: '#FFF' }}>
         <Header canGoBack title="Sign in with phone number" />
-        <View style={{marginTop: 100}}>
+        <View style={{ marginTop: 100 }}>
           <Text
             style={{
               fontFamily: 'roboto',
@@ -49,7 +49,7 @@ export default class VFTPhoneNumberScreen extends Component {
               keyboardType="number-pad"
               value={number1}
               onChangeText={number1 => {
-                this.setState({number1: number1});
+                this.setState({ number1: number1 });
                 if (number1 != '') {
                   this.refs.number2ref.focus();
                 }
@@ -76,7 +76,7 @@ export default class VFTPhoneNumberScreen extends Component {
               keyboardType="number-pad"
               value={number2}
               onChangeText={number2 => {
-                this.setState({number2: number2});
+                this.setState({ number2: number2 });
                 if (number2 != '') {
                   this.refs.number3ref.focus();
                 }
@@ -103,7 +103,7 @@ export default class VFTPhoneNumberScreen extends Component {
               keyboardType="number-pad"
               value={number3}
               onChangeText={number3 => {
-                this.setState({number3: number3});
+                this.setState({ number3: number3 });
                 if (number3 != '') {
                   this.refs.number4ref.focus();
                 }
@@ -130,7 +130,7 @@ export default class VFTPhoneNumberScreen extends Component {
               keyboardType="number-pad"
               value={number4}
               onChangeText={number4 => {
-                this.setState({number4: number4});
+                this.setState({ number4: number4 });
                 if (number4 != '') {
                   this.refs.number5ref.focus();
                 }
@@ -157,7 +157,7 @@ export default class VFTPhoneNumberScreen extends Component {
               keyboardType="number-pad"
               value={number5}
               onChangeText={number5 => {
-                this.setState({number5: number5});
+                this.setState({ number5: number5 });
                 if (number5 != '') {
                   this.refs.number6ref.focus();
                 }
@@ -184,7 +184,7 @@ export default class VFTPhoneNumberScreen extends Component {
               keyboardType="number-pad"
               value={number6}
               onChangeText={number6 => {
-                this.setState({number6: number6});
+                this.setState({ number6: number6 });
                 if (number6 != '') {
                   alert('OK Bro');
                 }
@@ -206,7 +206,7 @@ export default class VFTPhoneNumberScreen extends Component {
             />
           </View>
         </View>
-        <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+        <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
           <Text
             style={{
               fontFamily: 'roboto',
