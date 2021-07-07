@@ -1,35 +1,36 @@
+import {icons} from '@assets';
 import {Block, Header, Text} from '@components';
 import {theme} from '@theme';
 import React from 'react';
 import {Image, Pressable} from 'react-native';
 import styles from './style';
 
-const SendEmail = props => {
+const SendEmail = () => {
   return (
     <Block flex paddingHorizontal={16} backgroundColor={theme.colors.white}>
       <Header canGoBack title="Vertify email" />
       <Block alignCenter marginTop={40} backgroundColor={theme.colors.white}>
         <Image
+          resizeMode="contain"
           style={styles.image}
-          source={require('@assets/icons/sendemail.png')}
+          source={icons.sendemail}
         />
         <Block alignCenter>
           <Text
-            paddingVertical={10}
             center
-            color={theme.colors.blue}
+            size={18}
+            paddingVertical={10}
             fontType="bold"
-            size={18}>
+            color={theme.colors.blue}>
             CONFIRM YOUR EMAIL ADDRESS
           </Text>
           <Block alignCenter paddingVertical={10}>
             <Text size={18}>We sent a confirmation email to:</Text>
             <Text size={18} fontType="bold">
-              {' '}
-              {props.email} congkhanh2424@gmail.com{' '}
+              congkhanh2424@gmail.com
             </Text>
             <Text size={18}>Check your email and click on the</Text>
-            <Text size={18}>confirmation link to continue</Text>
+            <Text size={18}>confirmation link to continue.</Text>
           </Block>
           <Pressable
             marginTop={30}
