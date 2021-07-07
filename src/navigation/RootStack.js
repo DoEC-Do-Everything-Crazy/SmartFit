@@ -17,9 +17,10 @@ const RootStack = () => {
       />
       <Stack.Navigator
         mode="modal"
-        initialRouteName={routes.BOTTOM_TAB}
+        initialRouteName={routes.SEND_EMAIL}
         screenOptions={{headerShown: false}}>
         <Stack.Screen name={routes.BOTTOM_TAB} component={BottomNavigation} />
+        <Stack.Screen name={routes.SEND_EMAIL} component={auth.SEND_EMAIL} />
       </Stack.Navigator>
       <Stack.Screen name={routes.LOGIN_SCREEN} component={auth.LOGIN_SCREEN} />
       <Stack.Screen
