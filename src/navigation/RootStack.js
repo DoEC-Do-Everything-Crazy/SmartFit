@@ -11,16 +11,21 @@ const RootStack = () => {
   return (
     <NavigationContainer>
       <StatusBar
-        barStyle="dark-content"
+        barStyle="light-content"
         backgroundColor={'transparent'}
         translucent
       />
       <Stack.Navigator
         mode="modal"
-        initialRouteName={routes.BOTTOM_TAB}
+        initialRouteName={routes.LOGIN_SCREEN}
         screenOptions={{headerShown: false}}>
         <Stack.Screen name={routes.BOTTOM_TAB} component={BottomNavigation} />
         <Stack.Screen name={routes.SEND_EMAIL} component={auth.SEND_EMAIL} />
+        <Stack.Screen
+          name={routes.LOGIN_SCREEN}
+          component={auth.LOGIN_SCREEN}
+        />
+        {/* <Stack.Screen name={routes.BOTTOM_TAB} component={BottomNavigation} /> */}
       </Stack.Navigator>
       <Stack.Screen name={routes.LOGIN_SCREEN} component={auth.LOGIN_SCREEN} />
       <Stack.Screen
