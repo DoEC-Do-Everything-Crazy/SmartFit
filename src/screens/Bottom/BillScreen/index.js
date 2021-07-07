@@ -1,12 +1,12 @@
 import {Block, Header} from '@components';
 import React from 'react';
 
-const HomeScreen = () => {
+const BillScreen = () => {
   return (
     <Block paddingHorizontal={16}>
-      <Header canGoBack title="HomeScreen" />
+      <Header canGoBack title="BillScreen" />
     </Block>
   );
 };
 
-export default HomeScreen;
+export default BillScreen;

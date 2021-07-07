@@ -30,7 +30,6 @@ const HeaderCommon = ({title, canGoBack, cart}) => {
         row
         alignCenter
         paddingTop={top + 10}
-        paddingHorizontal={12}
         paddingVertical={16}
         space="between">
         {canGoBack && (
