@@ -19,8 +19,12 @@ const RootStack = () => {
         mode="modal"
         initialRouteName={routes.BOTTOM_TAB}
         screenOptions={{headerShown: false}}>
-        <Stack.Screen name={routes.BOTTOM_TAB} component={BottomNavigation} />
+        <Stack.Screen
+          name={routes.UPDATE_PROFILE}
+          component={auth.UPDATE_PROFILE}
+        />
       </Stack.Navigator>
+      <Stack.Screen name={routes.BOTTOM_TAB} component={BottomNavigation} />
       <Stack.Screen name={routes.LOGIN_SCREEN} component={auth.LOGIN_SCREEN} />
       <Stack.Screen
         name={routes.SIGNUP_SCREEN}
