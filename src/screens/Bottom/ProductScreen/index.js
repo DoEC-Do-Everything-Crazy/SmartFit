@@ -4,7 +4,7 @@ import React from 'react';
 const ProductScreen = () => {
   return (
     <Block paddingHorizontal={16}>
-      <Header canGoBack title="ProductScreen" />
+      <Header title="ProductScreen" />
     </Block>
   );
 };

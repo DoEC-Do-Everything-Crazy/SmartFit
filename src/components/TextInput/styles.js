@@ -20,6 +20,7 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     borderWidth: 1,
+    borderColor: theme.colors.blue,
     backgroundColor: theme.colors.white,
     borderRadius: getSize.s(5),
     height: getSize.s(45),
@@ -27,8 +28,8 @@ export default StyleSheet.create({
   leftIcon: {
     position: 'absolute',
     left: getSize.m(12),
-    height: getSize.s(14),
-    width: getSize.s(14),
+    height: getSize.s(20),
+    width: getSize.s(20),
   },
   rightIcon: {
     position: 'absolute',

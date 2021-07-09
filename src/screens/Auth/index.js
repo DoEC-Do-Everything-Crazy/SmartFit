@@ -1,5 +1,6 @@
 import LoginScreen from './LoginScreen';
 import SignUpScreen from './SignUpScreen';
+import UpdateProfileScreen from './UpdateProfileScreen';
 import SendEmail from './SignUpScreen/navigation/SendEmail';
 import VFTPhoneNumberScreen from './VFTPhoneNumberScreen';
 
@@ -8,4 +9,5 @@ export const auth = {
   SIGNUP_SCREEN: SignUpScreen,
   SEND_EMAIL: SendEmail,
   VFTPHONENUMBERSCREEN: VFTPhoneNumberScreen,
+  UPDATE_PROFILE: UpdateProfileScreen,
 };

@@ -11,7 +11,7 @@ const RootStack = () => {
   return (
     <NavigationContainer>
       <StatusBar
-        barStyle="light-content"
+        barStyle="dark-content"
         backgroundColor={'transparent'}
         translucent
       />
@@ -20,18 +20,19 @@ const RootStack = () => {
         initialRouteName={routes.BOTTOM_TAB}
         screenOptions={{headerShown: false}}>
         <Stack.Screen name={routes.BOTTOM_TAB} component={BottomNavigation} />
-        <Stack.Screen name={routes.SEND_EMAIL} component={auth.SEND_EMAIL} />
         <Stack.Screen
           name={routes.LOGIN_SCREEN}
           component={auth.LOGIN_SCREEN}
         />
-        {/* <Stack.Screen name={routes.BOTTOM_TAB} component={BottomNavigation} /> */}
+        <Stack.Screen
+          name={routes.SIGNUP_SCREEN}
+          component={auth.SIGNUP_SCREEN}
+        />
+        <Stack.Screen
+          name={routes.UPDATE_PROFILE}
+          component={auth.UPDATE_PROFILE}
+        />
       </Stack.Navigator>
-      <Stack.Screen name={routes.LOGIN_SCREEN} component={auth.LOGIN_SCREEN} />
-      <Stack.Screen
-        name={routes.SIGNUP_SCREEN}
-        component={auth.SIGNUP_SCREEN}
-      />
     </NavigationContainer>
   );
 };

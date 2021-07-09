@@ -4,7 +4,7 @@ import React from 'react';
 const BillScreen = () => {
   return (
     <Block paddingHorizontal={16}>
-      <Header canGoBack title="BillScreen" />
+      <Header title="BillScreen" />
     </Block>
   );
 };

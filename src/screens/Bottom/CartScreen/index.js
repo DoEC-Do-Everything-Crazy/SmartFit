@@ -4,7 +4,7 @@ import React from 'react';
 const CartScreen = () => {
   return (
     <Block paddingHorizontal={16}>
-      <Header canGoBack title="CartScreen" />
+      <Header title="CartScreen" />
     </Block>
   );
 };
