@@ -4,8 +4,6 @@ import {StyleSheet} from 'react-native';
 export default StyleSheet.create({
   container: {
     flexDirection: 'row',
-    marginLeft: 16,
-    marginRight: 16,
     justifyContent: 'center',
     alignItems: 'center',
     height: getSize.v(60),

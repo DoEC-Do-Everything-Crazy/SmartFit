@@ -21,7 +21,7 @@ const LoginScreen = () => {
         </Block>
       </Block>
       <Block style={styles.container}>
-        <Block marginTop={120}>
+        <Block marginTop={120} paddingHorizontal={16}>
           <Button
             title="Sign In Phone Number"
             onPress={() => {}}

@@ -21,6 +21,15 @@ const RootStack = () => {
         screenOptions={{headerShown: false}}>
         <Stack.Screen name={routes.BOTTOM_TAB} component={BottomNavigation} />
         <Stack.Screen
+          name={routes.ENTER_PHONE_NUMBER_SCREEN}
+          component={auth.ENTER_PHONE_NUMBER_SCREEN}
+        />
+        <Stack.Screen name={routes.SEND_EMAIL} component={auth.SEND_EMAIL} />
+        <Stack.Screen
+          name={routes.VFTPHONENUMBERSCREEN}
+          component={auth.VFTPHONENUMBERSCREEN}
+        />
+        <Stack.Screen
           name={routes.LOGIN_SCREEN}
           component={auth.LOGIN_SCREEN}
         />

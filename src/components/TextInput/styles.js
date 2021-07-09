@@ -13,7 +13,6 @@ export default StyleSheet.create({
   defaultStyles: {
     fontFamily: theme.fonts.fontFamily.default,
     minHeight: getSize.m(38),
-    paddingHorizontal: getSize.m(16),
   },
   inputContainer: {
     flexDirection: 'row',
@@ -23,7 +22,7 @@ export default StyleSheet.create({
     borderColor: theme.colors.blue,
     backgroundColor: theme.colors.white,
     borderRadius: getSize.s(5),
-    height: getSize.s(45),
+    height: getSize.s(60),
   },
   leftIcon: {
     position: 'absolute',

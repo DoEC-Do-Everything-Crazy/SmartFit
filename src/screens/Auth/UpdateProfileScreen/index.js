@@ -1,21 +1,14 @@
-import React, {useRef, useState} from 'react';
-import {TextInput, Block, Header, Button} from '@components';
 import {icons} from '@assets';
-import {
-  StyleSheet,
-  KeyboardAvoidingView,
-  TouchableOpacity,
-  Platform,
-  Image,
-  Text,
-  View,
-} from 'react-native';
-import {theme} from '@theme';
-import {height, width} from '@utils/responsive';
+import {Block, Button, Header, TextInput} from '@components';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {Picker} from '@react-native-picker/picker';
-import * as yup from 'yup';
+import {theme} from '@theme';
+import {height} from '@utils/responsive';
 import {Formik} from 'formik';
+import React, {useState} from 'react';
+import {Image, Platform, Text, TouchableOpacity} from 'react-native';
+import * as yup from 'yup';
+import styles from './styles';
 
 const UpdateProfileScreen = () => {
   const [date, setDate] = useState(new Date());
@@ -153,45 +146,3 @@ const UpdateProfileScreen = () => {
 };
 
 export default UpdateProfileScreen;
-
-const styles = StyleSheet.create({
-  group: {
-    justifyContent: 'space-around',
-  },
-  input: {
-    height: 60,
-  },
-  holderInput: {
-    fontSize: 100,
-  },
-  button: {
-    height: 600,
-  },
-  calendar: {
-    flex: 1,
-  },
-  gender: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingLeft: '3%',
-    borderColor: theme.colors.lightGray,
-    borderWidth: 1,
-    borderRadius: 5,
-  },
-  img: {
-    height: 14,
-    width: 14,
-  },
-  picker: {
-    width: width - 20,
-    backgroundColor: 'yellow',
-    height: 60,
-  },
-  text: {
-    color: theme.colors.red,
-    fontSize: 12,
-    position: 'relative',
-    bottom: '2%',
-    left: '4%',
-  },
-});
