@@ -10,7 +10,8 @@ import {Image, Platform, Text, TouchableOpacity} from 'react-native';
 import * as yup from 'yup';
 import styles from './styles';
 
-const UpdateProfileScreen = () => {
+const UpdateProfileScreen = ({route}) => {
+  const {phone} = route.params;
   const [date, setDate] = useState(new Date());
   const [selectedGender, setSelectedGender] = useState();
   const [mode, setMode] = useState('date');
@@ -46,7 +47,7 @@ const UpdateProfileScreen = () => {
       initialValues={{
         fullName: '',
         email: '',
-        phone: '',
+        phone: phone,
       }}
       onSubmit={console.log('Success')}>
       {({
@@ -94,6 +95,7 @@ const UpdateProfileScreen = () => {
                 value={values.phone}
                 onChangeText={handleChange('phone')}
                 onBlur={handleBlur('phone')}
+                disabled="true"
               />
               {errors.phone && touched.phone && (
                 <Text style={styles.text}>{errors.phone}</Text>

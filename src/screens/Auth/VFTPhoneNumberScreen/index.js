@@ -4,7 +4,12 @@ import {Block, Header, Button} from '@components';
 import React, {useState, useRef, useEffect} from 'react';
 import {Text, TextInput} from 'react-native';
 
-const VFTPhoneNumberScreen = () => {
+import {useNavigation} from '@react-navigation/core';
+import {routes} from '@navigation/routes';
+
+const VFTPhoneNumberScreen = ({route}) => {
+  const navigation = useNavigation();
+  const {phone} = route.params;
   const [number1, setNumber1] = useState('');
   const [number2, setNumber2] = useState('');
   const [number3, setNumber3] = useState('');
@@ -70,7 +75,7 @@ const VFTPhoneNumberScreen = () => {
             textAlign: 'center',
             marginBottom: 75,
           }}>
-          Code is send to 0862 090 010
+          Code is send to {phone}
         </Text>
         <Block flex justifyContent="space-evenly" flexDirection="row">
           <TextInput
@@ -250,7 +255,14 @@ const VFTPhoneNumberScreen = () => {
           Request again
         </Text>
       </Block>
-      <Button title="Verify and Create Account" height={45} marginLeft={10} />
+      <Button
+        onPress={() => {
+          navigation.navigate(routes.UPDATE_PROFILE, {phone});
+        }}
+        title="Verify and Create Account"
+        height={45}
+        marginLeft={10}
+      />
     </Block>
   );
 };

@@ -3,8 +3,12 @@ import {theme} from '@theme';
 import React, {useState} from 'react';
 import styles from './style';
 
+import {useNavigation} from '@react-navigation/core';
+import {routes} from '@navigation/routes';
+
 const EnterPhoneNumberScreen = () => {
-  const [phone, setstate] = useState('');
+  const navigation = useNavigation();
+  const [phone, setPhone] = useState('');
   return (
     <Block flex paddingHorizontal={16} backgroundColor={theme.colors.white}>
       <Header canGoBack title="Sign in with phone number" />
@@ -14,12 +18,18 @@ const EnterPhoneNumberScreen = () => {
         </Text>
         <Block marginBottom={10}>
           <TextInput
+            onChangeText={text => setPhone(text)}
             inputStyle={styles.textInput}
             keyboardType="numeric"
             placeholder="0344 108 493"
           />
         </Block>
-        <Button title="Send" />
+        <Button
+          onPress={() => {
+            navigation.navigate(routes.VFTPHONENUMBERSCREEN, {phone});
+          }}
+          title="Send"
+        />
       </Block>
     </Block>
   );
