@@ -11,10 +11,11 @@ const BottomTabNavigation = () => {
   return (
     <Tab.Navigator tabBar={props => <CustomTabBar {...props} />}>
       {/* <Tab.Screen name={routes.HOMESCREEN} component={bottom.HOMESCREEN} /> */}
-      <Tab.Screen
+      <Tab.Screen name={routes.COURSESCREEN} component={bottom.COURSESCREEN} />
+      {/* <Tab.Screen
         name={routes.VFTPHONENUMBERSCREEN}
         component={auth.VFTPHONENUMBERSCREEN}
-      />
+      /> */}
       {/* <Tab.Screen name={routes.HOMESCREEN} component={bottom.HOMESCREEN} />
       <Tab.Screen name={routes.HOMESCREEN} component={bottom.HOMESCREEN} />
       <Tab.Screen name={routes.HOMESCREEN} component={bottom.HOMESCREEN} />
@@ -24,3 +25,4 @@ const BottomTabNavigation = () => {
 };
 
 export default BottomTabNavigation;
+

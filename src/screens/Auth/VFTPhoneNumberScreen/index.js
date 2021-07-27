@@ -2,7 +2,7 @@
 /* eslint-disable react-native/no-inline-styles */
 import {Block, Header, Button} from '@components';
 import React, {useState, useRef, useEffect} from 'react';
-import {Text, TextInput} from 'react-native';
+import {Text, TextInput, StyleSheet, Dimensions} from 'react-native';
 
 const VFTPhoneNumberScreen = () => {
   const [number1, setNumber1] = useState('');
@@ -61,166 +61,72 @@ const VFTPhoneNumberScreen = () => {
     <Block flex backgroundColor="#FFF">
       <Header canGoBack title="Sign in with phone number" />
       <Block marginTop={100}>
-        <Text
-          style={{
-            fontFamily: 'roboto',
-            fontStyle: 'normal',
-            fontWeight: 'bold',
-            fontSize: 18,
-            textAlign: 'center',
-            marginBottom: 75,
-          }}>
-          Code is send to 0862 090 010
-        </Text>
+        <Text style={styles.text}>Code is send to 0862 090 010</Text>
         <Block flex justifyContent="space-evenly" flexDirection="row">
           <TextInput
             ref={inputRef1}
-            maxLenght={1}
+            maxLength={1}
             keyboardType="number-pad"
             value={number1}
             onChangeText={text => {
               setNumber1(text);
             }}
-            style={{
-              backgroundColor: '#F5F4F2',
-              fontWeight: '600',
-              justifyContent: 'center',
-              color: 'black',
-              textAlign: 'center',
-              alignSelf: 'center',
-              padding: 10,
-              fontSize: 20,
-              height: 55,
-              width: '12.5%',
-              borderRadius: 10,
-              borderWidth: 0.5,
-              borderColor: 'grey',
-            }}
+            style={styles.textInput}
           />
 
           <TextInput
             ref={inputRef2}
-            maxLenght={1}
+            maxLength={1}
             keyboardType="number-pad"
             value={number2}
             onChangeText={text => {
               setNumber2(text);
             }}
-            style={{
-              backgroundColor: '#F5F4F2',
-              fontWeight: '600',
-              justifyContent: 'center',
-              color: 'black',
-              textAlign: 'center',
-              alignSelf: 'center',
-              padding: 10,
-              fontSize: 20,
-              height: 55,
-              width: '12.5%',
-              borderRadius: 10,
-              borderWidth: 0.5,
-              borderColor: 'grey',
-            }}
+            style={styles.textInput}
           />
 
           <TextInput
             ref={inputRef3}
-            maxLenght={1}
+            maxLength={1}
             keyboardType="number-pad"
             value={number3}
             onChangeText={text => {
               setNumber3(text);
             }}
-            style={{
-              backgroundColor: '#F5F4F2',
-              fontWeight: '600',
-              justifyContent: 'center',
-              color: 'black',
-              textAlign: 'center',
-              alignSelf: 'center',
-              padding: 10,
-              fontSize: 20,
-              height: 55,
-              width: '12.5%',
-              borderRadius: 10,
-              borderWidth: 0.5,
-              borderColor: 'grey',
-            }}
+            style={styles.textInput}
           />
 
           <TextInput
             ref={inputRef4}
-            maxLenght={1}
+            maxLength={1}
             keyboardType="number-pad"
             value={number4}
             onChangeText={text => {
               setNumber4(text);
             }}
-            style={{
-              backgroundColor: '#F5F4F2',
-              fontWeight: '600',
-              justifyContent: 'center',
-              color: 'black',
-              textAlign: 'center',
-              alignSelf: 'center',
-              padding: 10,
-              fontSize: 20,
-              height: 55,
-              width: '12.5%',
-              borderRadius: 10,
-              borderWidth: 0.5,
-              borderColor: 'grey',
-            }}
+            style={styles.textInput}
           />
 
           <TextInput
             ref={inputRef5}
-            maxLenght={1}
+            maxLength={1}
             keyboardType="number-pad"
             value={number5}
             onChangeText={text => {
               setNumber5(text);
             }}
-            style={{
-              backgroundColor: '#F5F4F2',
-              fontWeight: '600',
-              justifyContent: 'center',
-              color: 'black',
-              textAlign: 'center',
-              alignSelf: 'center',
-              padding: 10,
-              fontSize: 20,
-              height: 55,
-              width: '12.5%',
-              borderRadius: 10,
-              borderWidth: 0.5,
-              borderColor: 'grey',
-            }}
+            style={styles.textInput}
           />
 
           <TextInput
             ref={inputRef6}
-            maxLenght={1}
+            maxLength={1}
             keyboardType="number-pad"
             value={number6}
             onChangeText={text => {
               setNumber6(text);
             }}
-            style={{
-              backgroundColor: '#F5F4F2',
-              fontWeight: '600',
-              justifyContent: 'center',
-              color: 'black',
-              textAlign: 'center',
-              alignSelf: 'center',
-              padding: 10,
-              fontSize: 20,
-              height: 55,
-              width: '12.5%',
-              borderRadius: 10,
-              borderWidth: 0.5,
-              borderColor: 'grey',
-            }}
+            style={styles.textInput}
           />
         </Block>
       </Block>
@@ -236,23 +142,47 @@ const VFTPhoneNumberScreen = () => {
           }}>
           Didn’t receive code?
         </Text>
-        <Text
-          style={{
-            fontFamily: 'roboto',
-            fontStyle: 'normal',
-            fontWeight: 'bold',
-            fontSize: 18,
-            textAlign: 'center',
-            marginTop: 60,
-            marginLeft: 5,
-            color: 'blue',
-          }}>
-          Request again
-        </Text>
+        <Text style={styles.textRequestAgain}>Request again</Text>
       </Block>
       <Button title="Verify and Create Account" height={45} marginLeft={10} />
     </Block>
   );
 };
+
+const styles = StyleSheet.create({
+  textRequestAgain: {
+    fontFamily: 'roboto',
+    fontStyle: 'normal',
+    fontWeight: 'bold',
+    fontSize: 18,
+    textAlign: 'center',
+    marginTop: 60,
+    marginLeft: 5,
+    color: 'blue',
+  },
+  text: {
+    fontFamily: 'roboto',
+    fontStyle: 'normal',
+    fontWeight: 'bold',
+    fontSize: 18,
+    textAlign: 'center',
+    marginBottom: 75,
+  },
+  textInput: {
+    backgroundColor: '#F5F4F2',
+    fontWeight: '600',
+    justifyContent: 'center',
+    color: 'black',
+    textAlign: 'center',
+    alignSelf: 'center',
+    padding: 10,
+    fontSize: 20,
+    height: 55,
+    width: '12.5%',
+    borderRadius: 10,
+    borderWidth: 0.5,
+    borderColor: 'grey',
+  },
+});
 
 export default VFTPhoneNumberScreen;

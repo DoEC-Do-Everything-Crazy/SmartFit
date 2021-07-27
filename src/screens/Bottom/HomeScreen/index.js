@@ -1,10 +1,12 @@
-import {Block, Header, Button} from '@components';
-import {theme} from '@theme';
-import React, {Component} from 'react';
-import {View, Text, TextInput, Touchableopacity} from 'react-native';
+import {Block, Header} from '@components';
+import React from 'react';
 
 const HomeScreen = () => {
-  return <Header canGoBack title="HomeScreen" />;
+  return (
+    <Block paddingHorizontal={16}>
+      <Header title="HomeScreen" />
+    </Block>
+  );
 };
 
 export default HomeScreen;
