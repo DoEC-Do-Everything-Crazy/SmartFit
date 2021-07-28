@@ -11,7 +11,7 @@ const InfoScreen = () => {
       <Header title="InfoScreen" />
       <Button
         title="Đăng nhập tại đây"
-        onPress={() => navigation.navigate(routes.SEND_EMAIL)}
+        onPress={() => navigation.navigate(routes.ENTER_PHONE_NUMBER_SCREEN)}
       />
     </Block>
   );
