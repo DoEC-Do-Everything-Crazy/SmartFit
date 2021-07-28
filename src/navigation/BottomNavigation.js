@@ -3,19 +3,19 @@ import {routes} from '@navigation/routes';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {bottom} from '@screens/Bottom';
 import React from 'react';
+
 const Tab = createBottomTabNavigator();
 
 const BottomTabNavigation = () => {
   return (
     <Tab.Navigator tabBar={props => <CustomTabBar {...props} />}>
-      <Tab.Screen name={routes.HOMESCREEN} component={bottom.HOMESCREEN} />
+      <Tab.Screen name={routes.HOME_SCREEN} component={bottom.HOME_SCREEN} />
       <Tab.Screen
-        name={routes.PRODUCTSCREEN}
-        component={bottom.PRODUCTSCREEN}
+        name={routes.PRODUCT_SCREEN}
+        component={bottom.PRODUCT_SCREEN}
       />
-      <Tab.Screen name={routes.CARTSCREEN} component={bottom.CARTSCREEN} />
-      <Tab.Screen name={routes.BILLSCREEN} component={bottom.BILLSCREEN} />
-      <Tab.Screen name={routes.INFOSCREEN} component={bottom.INFOSCREEN} />
+      <Tab.Screen name={routes.CART_SCREEN} component={bottom.CART_SCREEN} />
+      <Tab.Screen name={routes.INFO_SCREEN} component={bottom.INFO_SCREEN} />
     </Tab.Navigator>
   );
 };

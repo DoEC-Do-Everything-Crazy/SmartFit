@@ -26,7 +26,7 @@ const RootStack = () => {
         />
         <Stack.Screen name={routes.SEND_EMAIL} component={auth.SEND_EMAIL} />
         <Stack.Screen
-          name={routes.VFTPHONENUMBERSCREEN}
+          name={routes.VFT_PHONENUMBER_SCREEN}
           component={auth.VFTPHONENUMBERSCREEN}
         />
         <Stack.Screen

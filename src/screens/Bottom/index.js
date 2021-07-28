@@ -5,9 +5,9 @@ import InfoScreen from '@screens/Bottom/InfoScreen';
 import CartScreen from '@screens/Bottom/CartScreen';
 
 export const bottom = {
-  HOMESCREEN: HomeScreen,
-  BILLSCREEN: BillScreen,
-  PRODUCTSCREEN: ProductScreen,
-  INFOSCREEN: InfoScreen,
-  CARTSCREEN: CartScreen,
+  HOME_SCREEN: HomeScreen,
+  BILL_SCREEN: BillScreen,
+  PRODUCT_SCREEN: ProductScreen,
+  INFO_SCREEN: InfoScreen,
+  CART_SCREEN: CartScreen,
 };
