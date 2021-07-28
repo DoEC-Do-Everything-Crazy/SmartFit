@@ -13,6 +13,9 @@ const icons = {
   birthday: require('./icons/Birthday.png'),
   gender: require('./icons/Gender.png'),
   phone: require('./icons/Phone.png'),
+  apple: require('./icons/Apple.png'),
+  subtract: require('./icons/Subtract.png'),
+  heart: require('./icons/heart.png'),
 };
 
 const lotties = {};
