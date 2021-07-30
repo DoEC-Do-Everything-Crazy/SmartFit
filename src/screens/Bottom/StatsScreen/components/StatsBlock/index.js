@@ -19,36 +19,38 @@ const StatsBlock = ({
 }) => {
   return (
     <Block
-      shadow={15}
+      shadow={20}
       width={width}
       height={height}
       borderRadius={10}
       backgroundColor="white"
-      marginVertical={getSize.m(8)}
-      paddingVertical={getSize.m(10)}
-      paddingHorizontal={getSize.m(10)}>
-      <Block row space="between">
-        <Text style={styles.text}>{title}</Text>
-        <Block width={getSize.s(20)} height={getSize.v(20)} radius={20}>
-          <Image source={icon} />
+      marginVertical={8}
+      paddingVertical={10}
+      paddingHorizontal={10}>
+      <Pressable>
+        <Block row space="between">
+          <Text style={styles.text}>{title}</Text>
+          <Block width={getSize.s(20)} height={getSize.v(20)} radius={20}>
+            <Image source={icon} />
+          </Block>
         </Block>
-      </Block>
-      <Block alignCenter height="30%">
-        {circular ? (
-          <CircularProgress
-            value={valueCir}
-            inActiveStrokeColor={'#2ecc71'}
-            inActiveStrokeOpacity={0.2}
-            textColor={'black'}
-          />
-        ) : (
-          <Text></Text>
-        )}
-        {heart ? <Image source={icons.heart} /> : <Text></Text>}
-      </Block>
-      {clock ? <Text style={styles.clock}>08:00</Text> : <Text></Text>}
-      {clock ? <Text style={styles.clock1}>Hours</Text> : <Text></Text>}
-      {bmp ? <Text>110 bpm</Text> : <Text></Text>}
+        <Block alignCenter height="30%">
+          {circular ? (
+            <CircularProgress
+              value={valueCir}
+              inActiveStrokeColor={'#2ecc71'}
+              inActiveStrokeOpacity={0.2}
+              textColor={'black'}
+            />
+          ) : (
+            <Text></Text>
+          )}
+          {heart ? <Image source={icons.heart} /> : <Text></Text>}
+        </Block>
+        {clock ? <Text style={styles.clock}>08:00</Text> : <Text></Text>}
+        {clock ? <Text style={styles.clock1}>Hours</Text> : <Text></Text>}
+        {bmp ? <Text>110 bpm</Text> : <Text></Text>}
+      </Pressable>
     </Block>
   );
 };
