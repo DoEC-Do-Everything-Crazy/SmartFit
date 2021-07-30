@@ -28,7 +28,7 @@ const Item = ({item, onPress, backgroundColor, textColor}) => (
 );
 
 const DateCategory = () => {
-  const [selectedId, setSelectedId] = useState(null);
+  const [selectedId, setSelectedId] = useState(1);
   const _renderItem = ({item}) => {
     const backgroundColor = item.id === selectedId ? '#045694' : 'white';
     const color = item.id === selectedId ? 'white' : 'black';
