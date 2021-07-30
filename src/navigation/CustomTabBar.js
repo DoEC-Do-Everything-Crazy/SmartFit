@@ -82,11 +82,11 @@ const CustomTabBar = ({state, descriptors, navigation}) => {
         const iconTab =
           route.name === routes.HOME_SCREEN
             ? icons.home
-            : route.name === routes.PRODUCT_SCREEN
-            ? icons.info
+            : route.name === routes.STATS_SCREEN
+            ? icons.stats
             : route.name === routes.CART_SCREEN
-            ? icons.phone
-            : icons.sendemail;
+            ? icons.notification
+            : icons.info;
 
         const isFocused = state.index === index;
 
@@ -144,8 +144,7 @@ const styles = StyleSheet.create({
   cover: {
     height: getSize.s(40),
     borderRadius: getSize.m(8),
-    // backgroundColor: theme.colors.while,
-    backgroundColor: `${theme.colors.blue}80`,
+    backgroundColor: `${theme.colors.blue}30`,
   },
 });
 
