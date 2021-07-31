@@ -1,6 +1,6 @@
 import {Block, Button, Header, Text, TextInput} from '@components';
 import {theme} from '@theme';
-import React, {useState} from 'react';
+import React from 'react';
 import {Formik} from 'formik';
 import * as yup from 'yup';
 import styles from './style';
