@@ -6,4 +6,8 @@ export default StyleSheet.create({
     height: getSize.s(18),
     width: getSize.s(18),
   },
+  iconHeader: {
+    height: getSize.s(20),
+    width: getSize.s(20),
+  },
 });

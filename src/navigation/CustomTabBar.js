@@ -1,26 +1,94 @@
+/* eslint-disable react-native/no-inline-styles */
 import {icons} from '@assets';
-import {Block} from '@components';
 import {theme} from '@theme';
 import {getSize} from '@utils/responsive';
 import React from 'react';
-import {Image, Pressable, StyleSheet} from 'react-native';
+import {
+  Animated,
+  Image,
+  StyleSheet,
+  TouchableWithoutFeedback,
+  View,
+} from 'react-native';
+import {routes} from './routes';
+
+const TabItem = ({icon, label, active, onPress, index}) => {
+  const totalNotification = 3;
+
+  const animation = new Animated.Value(0);
+
+  Animated.spring(animation, {
+    toValue: active ? 1 : 0,
+    stiffness: 100,
+    useNativeDriver: true,
+  }).start();
+
+  const iconTranslate = animation.interpolate({
+    inputRange: [0, 1],
+    outputRange: [4, 0],
+  });
+
+  const labelTranslate = animation.interpolate({
+    inputRange: [0, 1],
+    outputRange: [20, 0],
+  });
+
+  const translateX = animation.interpolate({
+    inputRange: [0, 1],
+    outputRange: [20, 0],
+  });
+
+  return (
+    <TouchableWithoutFeedback onPress={onPress}>
+      <Animated.View style={styles.container}>
+        <Animated.View
+          style={{
+            transform: [{translateX: iconTranslate}],
+            opacity: active ? 1 : 0.4,
+          }}>
+          <Image style={styles.icon} source={icon} resizeMode="contain" />
+        </Animated.View>
+        <Animated.View
+          style={[
+            styles.centered,
+            {transform: [{translateX: labelTranslate}]},
+          ]}>
+          {active ? (
+            <Animated.Text style={styles.label}>
+              {index === 2
+                ? totalNotification > 0
+                  ? `${label} (${totalNotification || 0})`
+                  : label
+                : label}
+            </Animated.Text>
+          ) : null}
+        </Animated.View>
+        <Animated.View
+          style={[StyleSheet.absoluteFill, {transform: [{translateX}]}]}>
+          <Animated.View style={[styles.cover, {opacity: animation}]} />
+        </Animated.View>
+      </Animated.View>
+    </TouchableWithoutFeedback>
+  );
+};
 
 const CustomTabBar = ({state, descriptors, navigation}) => {
   return (
-    <Block row alignCenter backgroundColor="transparent">
+    <View style={styles.bar}>
       {state.routes.map((route, index) => {
         const {options} = descriptors[route.key];
+        const label =
+          options.tabBarLabel !== undefined ? options.tabBarLabel : route.name;
+        const iconTab =
+          route.name === routes.HOME_SCREEN
+            ? icons.home
+            : route.name === routes.STATS_SCREEN
+            ? icons.stats
+            : route.name === routes.CART_SCREEN
+            ? icons.notification
+            : icons.info;
+
         const isFocused = state.index === index;
-        const icon =
-          index === 0
-            ? icons.home
-            : index === 1
-            ? icons.home
-            : index === 2
-            ? icons.home
-            : index === 3
-            ? icons.home
-            : icons.home;
 
         const onPress = () => {
           const event = navigation.emit({
@@ -33,62 +101,51 @@ const CustomTabBar = ({state, descriptors, navigation}) => {
           }
         };
 
-        const onLongPress = () => {
-          navigation.emit({
-            type: 'tabLongPress',
-            target: route.key,
-          });
-        };
-
         return (
-          <Pressable
+          <TabItem
             key={index}
-            accessibilityRole="button"
-            accessibilityStates={isFocused ? ['selected'] : []}
-            accessibilityLabel={options.tabBarAccessibilityLabel}
-            testID={options.tabBarTestID}
+            icon={iconTab}
+            label={isFocused ? label : null}
+            active={isFocused}
+            index={index}
             onPress={onPress}
-            onLongPress={onLongPress}
-            style={styles.buttonCommon}>
-            <Image source={icon} style={styles.iconstyle(isFocused)} />
-          </Pressable>
+          />
         );
       })}
-    </Block>
+    </View>
   );
 };
 
-export default CustomTabBar;
 const styles = StyleSheet.create({
-  iconstyle: isFocused => ({
-    width: getSize.s(22),
-    height: getSize.s(22),
-    resizeMode: 'contain',
-    tintColor: isFocused ? theme.colors.blue : theme.colors.lightGray,
-  }),
+  bar: {
+    flexDirection: 'row',
+    backgroundColor: 'white',
+    padding: getSize.m(12),
+    paddingBottom: getSize.m(25),
+  },
   container: {
-    position: 'relative',
-    width: 75,
+    flexGrow: 1,
     alignItems: 'center',
-  },
-  background: {
-    position: 'absolute',
-    top: 0,
-  },
-  button: {
-    top: -25,
+    flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center',
-    width: 50,
-    height: 50,
-    borderRadius: 27,
-    backgroundColor: theme.colors.blue,
+    height: getSize.s(40),
+    paddingHorizontal: getSize.m(4),
   },
-  buttonCommon: {
-    height: 48,
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: theme.colors.white,
+  icon: {
+    width: getSize.s(18),
+    tintColor: 'blue',
+  },
+  label: {
+    color: theme.colors.blue,
+    fontSize: getSize.m(12),
+    marginLeft: getSize.m(5),
+    fontFamily: 'Quicksand-Medium',
+  },
+  cover: {
+    height: getSize.s(40),
+    borderRadius: getSize.m(8),
+    backgroundColor: `${theme.colors.blue}30`,
   },
 });
+
+export default CustomTabBar;

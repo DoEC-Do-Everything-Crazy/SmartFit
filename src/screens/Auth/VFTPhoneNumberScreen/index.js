@@ -4,7 +4,12 @@ import {Block, Header, Button} from '@components';
 import React, {useState, useRef, useEffect} from 'react';
 import {Text, TextInput, StyleSheet, Dimensions} from 'react-native';
 
-const VFTPhoneNumberScreen = () => {
+import {useNavigation} from '@react-navigation/core';
+import {routes} from '@navigation/routes';
+
+const VFTPhoneNumberScreen = ({route}) => {
+  const navigation = useNavigation();
+  const {phone} = route.params;
   const [number1, setNumber1] = useState('');
   const [number2, setNumber2] = useState('');
   const [number3, setNumber3] = useState('');
@@ -61,7 +66,21 @@ const VFTPhoneNumberScreen = () => {
     <Block flex backgroundColor="#FFF">
       <Header canGoBack title="Sign in with phone number" />
       <Block marginTop={100}>
+<<<<<<< HEAD
         <Text style={styles.text}>Code is send to 0862 090 010</Text>
+=======
+        <Text
+          style={{
+            fontFamily: 'roboto',
+            fontStyle: 'normal',
+            fontWeight: 'bold',
+            fontSize: 18,
+            textAlign: 'center',
+            marginBottom: 75,
+          }}>
+          Code is send to {phone}
+        </Text>
+>>>>>>> 0da4778de0c473fa2e90bca2bc17d6907a57e0ef
         <Block flex justifyContent="space-evenly" flexDirection="row">
           <TextInput
             ref={inputRef1}
@@ -144,7 +163,14 @@ const VFTPhoneNumberScreen = () => {
         </Text>
         <Text style={styles.textRequestAgain}>Request again</Text>
       </Block>
-      <Button title="Verify and Create Account" height={45} marginLeft={10} />
+      <Button
+        onPress={() => {
+          navigation.navigate(routes.UPDATE_PROFILE, {phone});
+        }}
+        title="Verify and Create Account"
+        height={45}
+        marginLeft={10}
+      />
     </Block>
   );
 };

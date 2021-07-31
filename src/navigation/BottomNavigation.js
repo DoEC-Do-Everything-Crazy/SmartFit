@@ -2,7 +2,6 @@ import CustomTabBar from '@navigation/CustomTabBar';
 import {routes} from '@navigation/routes';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {bottom} from '@screens/Bottom';
-import {auth} from '@screens/Auth';
 import React from 'react';
 
 const Tab = createBottomTabNavigator();
@@ -10,16 +9,35 @@ const Tab = createBottomTabNavigator();
 const BottomTabNavigation = () => {
   return (
     <Tab.Navigator tabBar={props => <CustomTabBar {...props} />}>
-      {/* <Tab.Screen name={routes.HOMESCREEN} component={bottom.HOMESCREEN} /> */}
       <Tab.Screen name={routes.COURSESCREEN} component={bottom.COURSESCREEN} />
-      {/* <Tab.Screen
-        name={routes.VFTPHONENUMBERSCREEN}
-        component={auth.VFTPHONENUMBERSCREEN}
-      /> */}
-      {/* <Tab.Screen name={routes.HOMESCREEN} component={bottom.HOMESCREEN} />
-      <Tab.Screen name={routes.HOMESCREEN} component={bottom.HOMESCREEN} />
-      <Tab.Screen name={routes.HOMESCREEN} component={bottom.HOMESCREEN} />
-      <Tab.Screen name={routes.HOMESCREEN} component={bottom.HOMESCREEN} /> */}
+      <Tab.Screen
+        name={routes.HOME_SCREEN}
+        component={bottom.HOME_SCREEN}
+        options={{
+          tabBarLabel: 'Home',
+        }}
+      />
+      <Tab.Screen
+        name={routes.STATS_SCREEN}
+        component={bottom.STATS_SCREEN}
+        options={{
+          tabBarLabel: 'Stats',
+        }}
+      />
+      <Tab.Screen
+        name={routes.CART_SCREEN}
+        component={bottom.CART_SCREEN}
+        options={{
+          tabBarLabel: 'Notification',
+        }}
+      />
+      <Tab.Screen
+        name={routes.INFO_SCREEN}
+        component={bottom.INFO_SCREEN}
+        options={{
+          tabBarLabel: 'Infomation',
+        }}
+      />
     </Tab.Navigator>
   );
 };
