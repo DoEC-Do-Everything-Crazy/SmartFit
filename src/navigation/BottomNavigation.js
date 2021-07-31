@@ -25,4 +25,3 @@ const BottomTabNavigation = () => {
 };
 
 export default BottomTabNavigation;
-

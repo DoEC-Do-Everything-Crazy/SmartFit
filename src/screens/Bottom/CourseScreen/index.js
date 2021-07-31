@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   Text,
@@ -6,30 +6,39 @@ import {
   Dimensions,
   TouchableOpacity,
   FlatList,
+  ImageBackground,
   Image,
 } from 'react-native';
-import {Block} from '@components';
-import {FlatGrid} from 'react-native-super-grid';
+import {Block, Button} from '@components';
 
 const CourseScreen = () => {
-  const [items] = React.useState([
-    {name: 'GYM', code: '#1abc9c'},
-    {name: '2ECC71', code: '#2ecc71'},
-    {name: '3498DB', code: '#3498db'},
-    {name: '9B59B6', code: '#9b59b6'},
-    {name: '34495E', code: '#34495e'},
-    {name: '16A085', code: '#16a085'},
-    {name: '27AE60', code: '#27ae60'},
-    {name: '2980b9', code: '#2980b9'},
-    {name: '8E44AD', code: '#8e44ad'},
-    {name: '2C3E50', code: '#2c3e50'},
-    {name: 'f1c40f', code: '#f1c40f'},
-    {name: 'e67e22', code: '#e67e22'},
-    {name: '27AE60', code: '#27ae60'},
-    {name: '2980b9', code: '#2980b9'},
-    {name: 'e67e22', code: '#e67e22'},
-    {name: '27AE60', code: '#27ae60'},
-  ]);
+  const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [pageCurrent, setPageCurrent] = useState(1);
+
+  useEffect(() => {
+    setIsLoading(true);
+    getData();
+  }, [getData, pageCurrent]);
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const getData = async () => {
+    const apiURL =
+      'https://jsonplaceholder.typicode.com/photos?_limit=10&page=1' +
+      pageCurrent;
+    fetch(apiURL)
+      .then(res => res.json())
+      .then(resJSON => {
+        setData(data.concat(resJSON));
+        setIsLoading(false);
+      });
+  };
+
+  const handleLoadMore = () => {
+    console.log('handleLoadMore' + ' ' + pageCurrent);
+    setPageCurrent(pageCurrent + 1);
+    setIsLoading(true);
+  };
 
   return (
     <Block style={styles.blockContainer}>
@@ -42,7 +51,7 @@ const CourseScreen = () => {
             text;
           }}
         />
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.imageButton}>
           <Image
             source={require('@assets/icons/cart.png')}
             style={styles.iconCart}
@@ -51,56 +60,55 @@ const CourseScreen = () => {
       </Block>
       <Block style={styles.blockFlatGrid}>
         <FlatList
-          itemDimension={125}
-          data={items}
+          data={data}
           style={styles.gridView}
           spacing={10}
+          keyExtractor={(item, index) => index.toString()}
+          onEndReachedThreshold={0}
           renderItem={({item}) => (
             <Block flexDirection={'column'} width={width}>
-              <Block
-                style={[styles.blockHorizontal, {backgroundColor: item.code}]}>
-                <Text style={styles.itemNameHorizontal}>{item.name}</Text>
-              </Block>
+              <ImageBackground
+                source={{uri: item.url}}
+                style={styles.imageHorizontal}>
+                <Text style={styles.itemNameHorizontal}>{item.title}</Text>
+              </ImageBackground>
               <Block flexDirection={'row'}>
                 <Block flexDirection={'column'}>
-                  <Block
-                    backgroundColor={item.code}
-                    height={183}
-                    width={183}
-                    marginTop={16}
-                    borderRadius={5}
-                    justifyContent={'center'}
-                    alignItems={'center'}>
+                  <ImageBackground
+                    source={{uri: item.url}}
+                    style={styles.imageColumOne}>
                     <Text style={styles.itemNameHorizontalColumOne}>
-                      {item.name}
+                      {item.title}
                     </Text>
-                  </Block>
-                  <Block
-                    backgroundColor={item.code}
-                    height={183}
-                    width={183}
-                    marginTop={16}
-                    borderRadius={5}
-                    justifyContent={'center'}
-                    alignItems={'center'}>
+                  </ImageBackground>
+                  <ImageBackground
+                    source={{uri: item.url}}
+                    style={[styles.imageColumOne]}>
                     <Text style={styles.itemNameHorizontalColumOne}>
-                      {item.name}
+                      {item.title}
                     </Text>
-                  </Block>
+                  </ImageBackground>
                 </Block>
-                <Block
-                  width={width / 2.3}
-                  backgroundColor={item.code}
-                  marginTop={16}
-                  marginLeft={16}
-                  borderRadius={5}>
+                <ImageBackground
+                  source={{uri: item.url}}
+                  style={styles.imageColumTwo}>
                   <Text style={styles.itemNameHorizontalColumTwo}>
-                    {item.name}
+                    {item.title}
                   </Text>
-                </Block>
+                </ImageBackground>
               </Block>
             </Block>
           )}
+        />
+      </Block>
+      <Block position={'absolute'} bottom={0} margin={0}>
+        <Button
+          titleStyle={styles.seeMoreButtonText}
+          containerStyle={styles.seeMoreButton}
+          position={'absolute'}
+          bottom={0}
+          title="See More..."
+          onPress={() => handleLoadMore()}
         />
       </Block>
     </Block>
@@ -117,6 +125,7 @@ const styles = StyleSheet.create({
     margin: 0,
     padding: 0,
     backgroundColor: '#045694',
+    alignItems: 'center',
     flex: 1,
   },
   blockFlatGrid: {
@@ -141,7 +150,25 @@ const styles = StyleSheet.create({
     color: '#000000',
     borderRadius: 50,
   },
-  button: {
+  seeMoreButton: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: 16,
+    width: width / 1.095,
+    height: 48,
+    borderColor: '#045694',
+    borderWidth: 1,
+  },
+  seeMoreButtonText: {
+    color: '#045694',
+    fontSize: 15,
+    textAlign: 'center',
+    textTransform: 'uppercase',
+    fontWeight: 'bold',
+    shadowColor: '#045694',
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+  },
+  imageButton: {
     backgroundColor: '#045694',
   },
   iconCart: {
@@ -155,22 +182,31 @@ const styles = StyleSheet.create({
   gridView: {
     margin: 16,
   },
-  blockHorizontal: {
-    borderRadius: 8,
-    width: width / 1.085,
+  imageHorizontal: {
+    borderRadius: 5,
+    width: width / 1.095,
     height: 192,
     marginTop: 16,
+    overflow: 'hidden',
   },
-  itemContainer: {
-    justifyContent: 'flex-end',
-    flexDirection: 'column-reverse',
-    width: width,
-    height: height,
+  imageColumOne: {
+    height: 183,
+    width: 183,
+    marginTop: 16,
     borderRadius: 5,
-    padding: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    overflow: 'hidden',
+  },
+  imageColumTwo: {
+    width: width / 2.3,
+    marginTop: 16,
+    marginLeft: 16,
+    borderRadius: 5,
+    overflow: 'hidden',
   },
   itemNameHorizontal: {
-    fontSize: 40,
+    fontSize: 20,
     color: '#fff',
     fontWeight: '600',
     textTransform: 'uppercase',
@@ -179,14 +215,14 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   itemNameHorizontalColumOne: {
-    fontSize: 40,
+    fontSize: 20,
     color: '#fff',
     fontWeight: '600',
     textTransform: 'uppercase',
     marginTop: 100,
   },
   itemNameHorizontalColumTwo: {
-    fontSize: 40,
+    fontSize: 20,
     color: '#fff',
     fontWeight: '600',
     textTransform: 'uppercase',
@@ -199,5 +235,8 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontSize: 12,
     color: '#fff',
+  },
+  activityIndicator: {
+    marginLeft: 8,
   },
 });
