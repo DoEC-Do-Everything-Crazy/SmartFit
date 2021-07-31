@@ -16,6 +16,7 @@ const StatsBlock = ({
   valueCir,
   clock,
   bmp,
+  onPress,
 }) => {
   return (
     <Block
@@ -27,7 +28,7 @@ const StatsBlock = ({
       marginVertical={8}
       paddingVertical={10}
       paddingHorizontal={10}>
-      <Pressable>
+      <Pressable onPress={onPress}>
         <Block row space="between">
           <Text style={styles.text}>{title}</Text>
           <Block width={getSize.s(20)} height={getSize.v(20)} radius={20}>

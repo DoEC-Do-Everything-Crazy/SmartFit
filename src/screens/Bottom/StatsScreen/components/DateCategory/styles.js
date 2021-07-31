@@ -7,7 +7,7 @@ export default StyleSheet.create({
     paddingVertical: 5,
     paddingHorizontal: 12,
     borderRadius: 8,
-    marginHorizontal: 5,
+    marginHorizontal: 20,
   },
 
   text: {
