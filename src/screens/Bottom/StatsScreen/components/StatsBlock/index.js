@@ -2,7 +2,7 @@ import {icons} from '@assets';
 import {Block, Text} from '@components';
 import {getSize} from '@utils/responsive';
 import React from 'react';
-import {Image} from 'react-native';
+import {Image, Pressable} from 'react-native';
 import CircularProgress from 'react-native-circular-progress-indicator';
 import styles from './styles';
 
