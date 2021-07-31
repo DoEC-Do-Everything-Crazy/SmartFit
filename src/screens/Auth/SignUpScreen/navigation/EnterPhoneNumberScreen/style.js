@@ -11,5 +11,6 @@ export default StyleSheet.create({
     position: 'relative',
     bottom: '2%',
     left: '4%',
+    marginTop: 8,
   },
 });
