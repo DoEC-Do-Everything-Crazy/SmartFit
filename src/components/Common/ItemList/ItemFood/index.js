@@ -9,7 +9,7 @@ const ItemFood = ({picture, title, group_id, index}) => {
       <Block
         width={48}
         height={48}
-        radius={24}
+        radius={30}
         backgroundColor={theme.colors.blue}></Block>
       <Text center>Food</Text>
     </Block>
