@@ -20,7 +20,7 @@ const StatsScreen = () => {
         />
         <DateCategory />
       </Block>
-      <Block row height="50%" alignCenter marginVertical={10}>
+      <Block row height="50%" alignCenter marginTop={32}>
         <Block>
           <StatsBlock
             width={width / 2 - 24}

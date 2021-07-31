@@ -3,9 +3,9 @@ import {theme} from '@theme';
 import {width} from '@utils/responsive';
 import React from 'react';
 
-const ItemFood = ({picture, title, group_id}) => {
+const ItemFood = ({picture, title, group_id, index}) => {
   return (
-    <Block alignCenter width={width / 6}>
+    <Block key={index} alignCenter width={width / 6}>
       <Block
         width={48}
         height={48}
