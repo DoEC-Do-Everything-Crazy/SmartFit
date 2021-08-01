@@ -7,9 +7,7 @@ import {theme} from '@theme';
 const data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 const ListHorizontal = () => {
-  const _renderItem = (item, index) => (
-    <ItemHorizontal key={index} index={index} />
-  );
+  const _renderItem = (item, index) => <ItemHorizontal index={index} />;
 
   return (
     <Block flex marginTop={32}>

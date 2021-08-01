@@ -5,9 +5,9 @@ import React from 'react';
 import {Image} from 'react-native';
 import styles from './styles';
 
-const ItemVertical = ({picture, title, group_id}) => {
+const ItemVertical = ({picture, title, group_id, index}) => {
   return (
-    <Block paddingHorizontal={16} marginTop={16}>
+    <Block key={index} paddingHorizontal={16} marginTop={16}>
       <Image
         style={styles.image}
         source={{

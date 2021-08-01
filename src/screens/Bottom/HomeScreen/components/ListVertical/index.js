@@ -1,13 +1,13 @@
 import {Block, Text} from '@components';
 import ItemVertical from '@components/Common/ItemList/ItemVertical';
-import {ScrollView} from 'react-native';
+import {ScrollView, FlatList} from 'react-native';
 import React from 'react';
 import {theme} from '@theme';
 
 const data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 const ListVertical = () => {
-  const _renderItem = (index, item) => <ItemVertical key={index} />;
+  const _renderItem = (index, item) => <ItemVertical index={index} />;
   return (
     <Block flex marginTop={32}>
       <Block row alignCenter marginHorizontal={16} space="between">
@@ -16,9 +16,14 @@ const ListVertical = () => {
         </Text>
         <Text size={20}>See all</Text>
       </Block>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        {data.map(_renderItem)}
-      </ScrollView>
+      <FlatList
+        data={data}
+        keyExtractor={item => item.item_id}
+        renderItem={_renderItem}
+      />
+      {/* <ScrollView showsVerticalScrollIndicator={false}>
+          {data.map(_renderItem)}
+        </ScrollView> */}
     </Block>
   );
 };
