@@ -64,8 +64,6 @@ const VFTPhoneNumberScreen = ({route}) => {
     <Block flex backgroundColor="#FFF">
       <Header canGoBack title="Sign in with phone number" />
       <Block marginTop={100}>
-
-
         <Text style={styles.text}>Code is send to 0862 090 010</Text>
 
         <Text
@@ -79,7 +77,6 @@ const VFTPhoneNumberScreen = ({route}) => {
           }}>
           Code is send to {phone}
         </Text>
-
 
         <Block flex justifyContent="space-evenly" flexDirection="row">
           <TextInput

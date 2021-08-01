@@ -8,7 +8,6 @@ import ListFood from './components/ListFood';
 import styles from './styles';
 import ListHorizontal from './components/ListHorizontal';
 import ListVertical from './components/ListVertical';
-import React from 'react';
 
 const HomeScreen = () => {
   const {top} = useSafeAreaInsets();

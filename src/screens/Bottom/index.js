@@ -14,5 +14,4 @@ export const bottom = {
   CART_SCREEN: CartScreen,
   STATS_SCREEN: StatsScreen,
   COURSESCREEN: CourseScreen,
-
 };

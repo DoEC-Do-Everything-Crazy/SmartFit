@@ -62,6 +62,10 @@ const RootStack = () => {
           name={routes.UPDATE_PROFILE}
           component={auth.UPDATE_PROFILE}
         />
+        <Stack.Screen
+          name={routes.COURSESCREEN}
+          component={bottom.COURSESCREEN}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
