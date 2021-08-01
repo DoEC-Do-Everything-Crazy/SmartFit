@@ -1,15 +1,8 @@
-import React, {useState, useEffect} from 'react';
-import {
-  StyleSheet,
-  Text,
-  TextInput,
-  Dimensions,
-  TouchableOpacity,
-  FlatList,
-  ImageBackground,
-  Image,
-} from 'react-native';
 import {Block, Button, Header} from '@components';
+import {width} from '../../../utils/responsive';
+import React, {useEffect, useState} from 'react';
+import {FlatList, ImageBackground, Text} from 'react-native';
+import styles from './styles';
 
 const CourseScreen = () => {
   const [data, setData] = useState([]);
@@ -53,7 +46,9 @@ const CourseScreen = () => {
           renderItem={({item}) => (
             <Block flexDirection={'column'} width={width}>
               <ImageBackground
-                source={{uri: item.url}}
+                source={{
+                  uri: 'https://diadiemnghean.com/wp-content/uploads/2020/05/assortment-of-colorful-ripe-tropical-fruits-top-royalty-free-image-995518546-1564092355.jpg',
+                }}
                 style={styles.imageHorizontal}>
                 <Text style={styles.itemNameHorizontal}>{item.title}</Text>
               </ImageBackground>
@@ -101,127 +96,3 @@ const CourseScreen = () => {
 };
 
 export default CourseScreen;
-
-const {width, height} = Dimensions.get('window');
-const styles = StyleSheet.create({
-  blockContainer: {
-    width: width,
-    height: height,
-    margin: 0,
-    padding: 0,
-    backgroundColor: '#045694',
-    alignItems: 'center',
-    flex: 1,
-  },
-  blockFlatGrid: {
-    width: width,
-    height: height,
-    borderRadius: 20,
-    backgroundColor: '#FFFFFF',
-  },
-  blockHeader: {
-    backgroundColor: '#045694',
-    flexDirection: 'row',
-    padding: 20,
-  },
-  textInput: {
-    backgroundColor: '#FFFFFF',
-    borderColor: '#E7EFF6',
-    width: width / 1.35,
-    height: 40,
-    fontSize: 20,
-    padding: 5,
-    paddingLeft: 10,
-    color: '#000000',
-    borderRadius: 50,
-  },
-  seeMoreButton: {
-    backgroundColor: '#FFFFFF',
-    borderRadius: 16,
-    width: width / 1.095,
-    height: 48,
-    borderColor: '#045694',
-    borderWidth: 1,
-  },
-  seeMoreButtonText: {
-    color: '#045694',
-    fontSize: 15,
-    textAlign: 'center',
-    textTransform: 'uppercase',
-    fontWeight: 'bold',
-    shadowColor: '#045694',
-    shadowOpacity: 0.8,
-    shadowRadius: 2,
-  },
-  imageButton: {
-    backgroundColor: '#045694',
-  },
-  iconCart: {
-    tintColor: '#FFFFFF',
-    width: 35,
-    height: 40,
-    padding: 5,
-    marginLeft: 20,
-    marginRight: 10,
-  },
-  gridView: {
-    margin: 16,
-  },
-  imageHorizontal: {
-    borderRadius: 5,
-    width: width / 1.095,
-    height: 192,
-    marginTop: 16,
-    overflow: 'hidden',
-  },
-  imageColumOne: {
-    height: 183,
-    width: 183,
-    marginTop: 16,
-    borderRadius: 5,
-    justifyContent: 'center',
-    alignItems: 'center',
-    overflow: 'hidden',
-  },
-  imageColumTwo: {
-    width: width / 2.3,
-    marginTop: 16,
-    marginLeft: 16,
-    borderRadius: 5,
-    overflow: 'hidden',
-  },
-  itemNameHorizontal: {
-    fontSize: 20,
-    color: '#fff',
-    fontWeight: '600',
-    textTransform: 'uppercase',
-    position: 'absolute',
-    bottom: 0,
-    margin: 10,
-  },
-  itemNameHorizontalColumOne: {
-    fontSize: 20,
-    color: '#fff',
-    fontWeight: '600',
-    textTransform: 'uppercase',
-    marginTop: 100,
-  },
-  itemNameHorizontalColumTwo: {
-    fontSize: 20,
-    color: '#fff',
-    fontWeight: '600',
-    textTransform: 'uppercase',
-    position: 'absolute',
-    bottom: 15,
-    left: 45,
-    right: 45,
-  },
-  itemCode: {
-    fontWeight: '600',
-    fontSize: 12,
-    color: '#fff',
-  },
-  activityIndicator: {
-    marginLeft: 8,
-  },
-});
