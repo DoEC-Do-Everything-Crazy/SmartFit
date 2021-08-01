@@ -18,7 +18,38 @@ const Header = props => {
 const HeaderHome = () => {
   const {top} = useSafeAreaInsets();
 
-  return <Block></Block>;
+  return (
+    <Block
+      row
+      alignCenter
+      paddingTop={top + 10}
+      paddingHorizontal={16}
+      space="between">
+      <Block
+        row
+        alignCenter
+        radius={10}
+        height={40}
+        space="between"
+        paddingHorizontal={16}
+        width="90%"
+        backgroundColor={theme.colors.white}>
+        <Text>Search</Text>
+        <Image
+          source={icons.search}
+          style={styles.iconHeader}
+          resizeMode="contain"
+        />
+      </Block>
+      <Pressable>
+        <Image
+          source={icons.cart}
+          style={styles.iconHeader}
+          resizeMode="contain"
+        />
+      </Pressable>
+    </Block>
+  );
 };
 
 const HeaderCommon = ({title, canGoBack, cart}) => {
@@ -30,7 +61,6 @@ const HeaderCommon = ({title, canGoBack, cart}) => {
         row
         alignCenter
         paddingTop={top + 10}
-        paddingHorizontal={12}
         paddingVertical={16}
         space="between">
         {canGoBack && (
