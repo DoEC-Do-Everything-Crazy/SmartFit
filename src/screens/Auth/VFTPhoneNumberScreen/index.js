@@ -1,5 +1,3 @@
-/* eslint-disable no-alert */
-/* eslint-disable react-native/no-inline-styles */
 import {Block, Header, Button} from '@components';
 import React, {useState, useRef, useEffect} from 'react';
 import {Text, TextInput, StyleSheet, Dimensions} from 'react-native';
@@ -66,9 +64,10 @@ const VFTPhoneNumberScreen = ({route}) => {
     <Block flex backgroundColor="#FFF">
       <Header canGoBack title="Sign in with phone number" />
       <Block marginTop={100}>
-<<<<<<< HEAD
+
+
         <Text style={styles.text}>Code is send to 0862 090 010</Text>
-=======
+
         <Text
           style={{
             fontFamily: 'roboto',
@@ -80,7 +79,8 @@ const VFTPhoneNumberScreen = ({route}) => {
           }}>
           Code is send to {phone}
         </Text>
->>>>>>> 0da4778de0c473fa2e90bca2bc17d6907a57e0ef
+
+
         <Block flex justifyContent="space-evenly" flexDirection="row">
           <TextInput
             ref={inputRef1}

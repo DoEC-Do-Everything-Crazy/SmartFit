@@ -9,7 +9,6 @@ const Tab = createBottomTabNavigator();
 const BottomTabNavigation = () => {
   return (
     <Tab.Navigator tabBar={props => <CustomTabBar {...props} />}>
-      <Tab.Screen name={routes.COURSESCREEN} component={bottom.COURSESCREEN} />
       <Tab.Screen
         name={routes.HOME_SCREEN}
         component={bottom.HOME_SCREEN}
