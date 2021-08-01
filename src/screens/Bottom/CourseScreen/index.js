@@ -9,7 +9,7 @@ import {
   ImageBackground,
   Image,
 } from 'react-native';
-import {Block, Button} from '@components';
+import {Block, Button, Header} from '@components';
 
 const CourseScreen = () => {
   const [data, setData] = useState([]);
@@ -42,22 +42,7 @@ const CourseScreen = () => {
 
   return (
     <Block style={styles.blockContainer}>
-      <Block style={styles.blockHeader}>
-        <TextInput
-          style={styles.textInput}
-          placeholderTextColor="#045694"
-          placeholder={'Search...'}
-          onChangeText={text => {
-            text;
-          }}
-        />
-        <TouchableOpacity style={styles.imageButton}>
-          <Image
-            source={require('@assets/icons/cart.png')}
-            style={styles.iconCart}
-          />
-        </TouchableOpacity>
-      </Block>
+      <Header type="Home" />
       <Block style={styles.blockFlatGrid}>
         <FlatList
           data={data}
