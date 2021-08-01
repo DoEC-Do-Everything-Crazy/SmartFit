@@ -28,6 +28,7 @@ const StatsScreen = () => {
             title="Steps"
             circular
             valueCir={2285}
+            onPress={() => console.log('aaa')}
           />
           <StatsBlock
             width={width / 2 - 24}

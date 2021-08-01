@@ -6,18 +6,14 @@ import styles from './styles';
 const data = [
   {
     id: 1,
-    title: 'Daily',
-  },
-  {
-    id: 2,
     title: 'Weekly',
   },
   {
-    id: 3,
+    id: 2,
     title: 'Monthly',
   },
   {
-    id: 4,
+    id: 3,
     title: 'Yearly',
   },
 ];
@@ -43,7 +39,10 @@ const DateCategory = () => {
   };
   return (
     <Block>
-      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        justifyContent="center">
         {data.map((item, i) => (
           <_renderItem key={i} item={item} />
         ))}
