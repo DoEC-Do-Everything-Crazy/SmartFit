@@ -1,8 +1,6 @@
-/* eslint-disable no-alert */
-/* eslint-disable react-native/no-inline-styles */
 import {Block, Header, Button} from '@components';
 import React, {useState, useRef, useEffect} from 'react';
-import {Text, TextInput} from 'react-native';
+import {Text, TextInput, StyleSheet, Dimensions} from 'react-native';
 
 import {useNavigation} from '@react-navigation/core';
 import {routes} from '@navigation/routes';
@@ -66,6 +64,8 @@ const VFTPhoneNumberScreen = ({route}) => {
     <Block flex backgroundColor="#FFF">
       <Header canGoBack title="Sign in with phone number" />
       <Block marginTop={100}>
+        <Text style={styles.text}>Code is send to 0862 090 010</Text>
+
         <Text
           style={{
             fontFamily: 'roboto',
@@ -77,6 +77,7 @@ const VFTPhoneNumberScreen = ({route}) => {
           }}>
           Code is send to {phone}
         </Text>
+
         <Block flex justifyContent="space-evenly" flexDirection="row">
           <TextInput
             ref={inputRef1}
@@ -86,21 +87,7 @@ const VFTPhoneNumberScreen = ({route}) => {
             onChangeText={text => {
               setNumber1(text);
             }}
-            style={{
-              backgroundColor: '#F5F4F2',
-              fontWeight: '600',
-              justifyContent: 'center',
-              color: 'black',
-              textAlign: 'center',
-              alignSelf: 'center',
-              padding: 10,
-              fontSize: 20,
-              height: 55,
-              width: '12.5%',
-              borderRadius: 10,
-              borderWidth: 0.5,
-              borderColor: 'grey',
-            }}
+            style={styles.textInput}
           />
 
           <TextInput
@@ -111,21 +98,7 @@ const VFTPhoneNumberScreen = ({route}) => {
             onChangeText={text => {
               setNumber2(text);
             }}
-            style={{
-              backgroundColor: '#F5F4F2',
-              fontWeight: '600',
-              justifyContent: 'center',
-              color: 'black',
-              textAlign: 'center',
-              alignSelf: 'center',
-              padding: 10,
-              fontSize: 20,
-              height: 55,
-              width: '12.5%',
-              borderRadius: 10,
-              borderWidth: 0.5,
-              borderColor: 'grey',
-            }}
+            style={styles.textInput}
           />
 
           <TextInput
@@ -136,21 +109,7 @@ const VFTPhoneNumberScreen = ({route}) => {
             onChangeText={text => {
               setNumber3(text);
             }}
-            style={{
-              backgroundColor: '#F5F4F2',
-              fontWeight: '600',
-              justifyContent: 'center',
-              color: 'black',
-              textAlign: 'center',
-              alignSelf: 'center',
-              padding: 10,
-              fontSize: 20,
-              height: 55,
-              width: '12.5%',
-              borderRadius: 10,
-              borderWidth: 0.5,
-              borderColor: 'grey',
-            }}
+            style={styles.textInput}
           />
 
           <TextInput
@@ -161,21 +120,7 @@ const VFTPhoneNumberScreen = ({route}) => {
             onChangeText={text => {
               setNumber4(text);
             }}
-            style={{
-              backgroundColor: '#F5F4F2',
-              fontWeight: '600',
-              justifyContent: 'center',
-              color: 'black',
-              textAlign: 'center',
-              alignSelf: 'center',
-              padding: 10,
-              fontSize: 20,
-              height: 55,
-              width: '12.5%',
-              borderRadius: 10,
-              borderWidth: 0.5,
-              borderColor: 'grey',
-            }}
+            style={styles.textInput}
           />
 
           <TextInput
@@ -186,21 +131,7 @@ const VFTPhoneNumberScreen = ({route}) => {
             onChangeText={text => {
               setNumber5(text);
             }}
-            style={{
-              backgroundColor: '#F5F4F2',
-              fontWeight: '600',
-              justifyContent: 'center',
-              color: 'black',
-              textAlign: 'center',
-              alignSelf: 'center',
-              padding: 10,
-              fontSize: 20,
-              height: 55,
-              width: '12.5%',
-              borderRadius: 10,
-              borderWidth: 0.5,
-              borderColor: 'grey',
-            }}
+            style={styles.textInput}
           />
 
           <TextInput
@@ -211,21 +142,7 @@ const VFTPhoneNumberScreen = ({route}) => {
             onChangeText={text => {
               setNumber6(text);
             }}
-            style={{
-              backgroundColor: '#F5F4F2',
-              fontWeight: '600',
-              justifyContent: 'center',
-              color: 'black',
-              textAlign: 'center',
-              alignSelf: 'center',
-              padding: 10,
-              fontSize: 20,
-              height: 55,
-              width: '12.5%',
-              borderRadius: 10,
-              borderWidth: 0.5,
-              borderColor: 'grey',
-            }}
+            style={styles.textInput}
           />
         </Block>
       </Block>
@@ -241,19 +158,7 @@ const VFTPhoneNumberScreen = ({route}) => {
           }}>
           Didn’t receive code?
         </Text>
-        <Text
-          style={{
-            fontFamily: 'roboto',
-            fontStyle: 'normal',
-            fontWeight: 'bold',
-            fontSize: 18,
-            textAlign: 'center',
-            marginTop: 60,
-            marginLeft: 5,
-            color: 'blue',
-          }}>
-          Request again
-        </Text>
+        <Text style={styles.textRequestAgain}>Request again</Text>
       </Block>
       <Button
         onPress={() => {
@@ -266,5 +171,41 @@ const VFTPhoneNumberScreen = ({route}) => {
     </Block>
   );
 };
+
+const styles = StyleSheet.create({
+  textRequestAgain: {
+    fontFamily: 'roboto',
+    fontStyle: 'normal',
+    fontWeight: 'bold',
+    fontSize: 18,
+    textAlign: 'center',
+    marginTop: 60,
+    marginLeft: 5,
+    color: 'blue',
+  },
+  text: {
+    fontFamily: 'roboto',
+    fontStyle: 'normal',
+    fontWeight: 'bold',
+    fontSize: 18,
+    textAlign: 'center',
+    marginBottom: 75,
+  },
+  textInput: {
+    backgroundColor: '#F5F4F2',
+    fontWeight: '600',
+    justifyContent: 'center',
+    color: 'black',
+    textAlign: 'center',
+    alignSelf: 'center',
+    padding: 10,
+    fontSize: 20,
+    height: 55,
+    width: '12.5%',
+    borderRadius: 10,
+    borderWidth: 0.5,
+    borderColor: 'grey',
+  },
+});
 
 export default VFTPhoneNumberScreen;

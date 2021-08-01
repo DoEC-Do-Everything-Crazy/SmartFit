@@ -2,11 +2,14 @@ import {Block, Text} from '@components';
 import ItemVertical from '@components/Common/ItemList/ItemVertical';
 import {theme} from '@theme';
 import React from 'react';
-import {FlatList} from 'react-native';
+import {ScrollView, FlatList, Pressable} from 'react-native';
+import {useNavigation} from '@react-navigation/core';
+import {routes} from '@navigation/routes';
 
 const data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 const ListVertical = () => {
+  const navigation = useNavigation();
   const _renderItem = (index, item) => <ItemVertical index={index} />;
   return (
     <Block flex marginTop={32}>
@@ -14,11 +17,15 @@ const ListVertical = () => {
         <Text size={20} fontType="bold" color={theme.colors.blue}>
           Hot Course
         </Text>
-        <Text size={20}>See all</Text>
+        <Pressable onPress={() => navigation.navigate(routes.COURSESCREEN)}>
+          <Text size={20}>See all</Text>
+        </Pressable>
       </Block>
       <FlatList
+        showsVerticalScrollIndicator={false}
+        nestedScrollEnabled
         data={data}
-        keyExtractor={item => item.item_id}
+        keyExtractor={(item, index) => index}
         renderItem={_renderItem}
       />
       {/* <ScrollView showsVerticalScrollIndicator={false}>

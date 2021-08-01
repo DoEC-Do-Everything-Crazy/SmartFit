@@ -5,10 +5,11 @@ import {Image} from 'react-native';
 import styles from './styles';
 
 const ItemHorizontal = ({picture, title, group_id, index}) => {
+  console.log('index', index);
   return (
     <Block
       key={index}
-      style={index === 0 ? {marginLeft: 16} : {}}
+      style={{marginLeft: index === 0 ? 16 : 0}}
       marginRight={16}>
       <Image
         style={styles.image}

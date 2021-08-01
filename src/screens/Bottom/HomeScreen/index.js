@@ -14,7 +14,7 @@ const HomeScreen = () => {
 
   return (
     <Block flex backgroundColor={theme.colors.blue}>
-      <Header type="Home" title="HomeScreen" />
+      <Header type="Home" />
       <Block
         absolute
         style={styles.container}
