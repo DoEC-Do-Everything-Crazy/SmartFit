@@ -1,8 +1,8 @@
 import {Block, Text} from '@components';
 import ItemVertical from '@components/Common/ItemList/ItemVertical';
-import {ScrollView, FlatList} from 'react-native';
-import React from 'react';
 import {theme} from '@theme';
+import React from 'react';
+import {FlatList} from 'react-native';
 
 const data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
