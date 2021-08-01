@@ -1,13 +1,13 @@
 import {Block, Text} from '@components';
 import ItemHorizontal from '@components/Common/ItemList/ItemHorizontal';
-import {ScrollView, FlatList} from 'react-native';
-import React from 'react';
 import {theme} from '@theme';
+import React from 'react';
+import {FlatList} from 'react-native';
 
 const data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 const ListHorizontal = () => {
-  const _renderItem = (item, index) => <ItemHorizontal index={index} />;
+  const _renderItem = ({item, index}) => <ItemHorizontal index={index} />;
 
   return (
     <Block flex marginTop={32}>
@@ -22,17 +22,14 @@ const ListHorizontal = () => {
         </Text>
         <Text size={20}>See all</Text>
       </Block>
-      {/* <FlatList
+      <FlatList
         showsHorizontalScrollIndicator={false}
         horizontal
         nestedScrollEnabled
         data={data}
         keyExtractor={(item, index) => index}
         renderItem={_renderItem}
-      /> */}
-      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-        {data.map(_renderItem)}
-      </ScrollView>
+      />
     </Block>
   );
 };
