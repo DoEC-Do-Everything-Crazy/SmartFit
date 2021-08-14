@@ -5,6 +5,7 @@ import InfoScreen from '@screens/Bottom/InfoScreen';
 import CartScreen from '@screens/Bottom/CartScreen';
 import StatsScreen from '@screens/Bottom/StatsScreen';
 import CourseScreen from './CourseScreen';
+import NotificationScreen from '@screens/Bottom/NotificationScreen';
 
 export const bottom = {
   HOME_SCREEN: HomeScreen,
@@ -14,4 +15,5 @@ export const bottom = {
   CART_SCREEN: CartScreen,
   STATS_SCREEN: StatsScreen,
   COURSESCREEN: CourseScreen,
+  NOTIFICATION_SCREEN: NotificationScreen,
 };

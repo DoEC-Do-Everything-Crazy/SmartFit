@@ -52,7 +52,7 @@ const HeaderHome = () => {
   );
 };
 
-const HeaderCommon = ({title, canGoBack, cart}) => {
+const HeaderCommon = ({title, canGoBack, cart, colorTheme}) => {
   const {top} = useSafeAreaInsets();
   const navigation = useNavigation();
   return (
@@ -60,6 +60,7 @@ const HeaderCommon = ({title, canGoBack, cart}) => {
       <Block
         row
         alignCenter
+        paddingHorizontal={16}
         paddingTop={top + 10}
         paddingVertical={16}
         space="between">
@@ -69,26 +70,23 @@ const HeaderCommon = ({title, canGoBack, cart}) => {
               source={icons.back}
               style={styles.iconBack}
               resizeMode="contain"
+              tintColor={colorTheme}
             />
           </Pressable>
         )}
 
         {title && (
-          <Text
-            flex
-            center
-            size={17}
-            fontType="semibold"
-            color={theme.colors.blue}>
+          <Text flex center size={17} fontType="bold" color={colorTheme}>
             {title}
           </Text>
         )}
         {cart && (
           <Pressable onPress={() => navigation.goBack()}>
             <Image
-              source={icons.back}
-              style={styles.iconBack}
+              source={icons.cart}
+              style={styles.iconCart}
               resizeMode="contain"
+              tintColor={colorTheme}
             />
           </Pressable>
         )}

@@ -4,6 +4,7 @@ import {Text, TextInput, StyleSheet, Dimensions} from 'react-native';
 
 import {useNavigation} from '@react-navigation/core';
 import {routes} from '@navigation/routes';
+import {theme} from '@theme';
 
 const VFTPhoneNumberScreen = ({route}) => {
   const navigation = useNavigation();
@@ -62,10 +63,12 @@ const VFTPhoneNumberScreen = ({route}) => {
 
   return (
     <Block flex backgroundColor="#FFF">
-      <Header canGoBack title="Sign in with phone number" />
+      <Header
+        canGoBack
+        title="Sign in with phone number"
+        colorTheme={theme.colors.blue}
+      />
       <Block marginTop={100}>
-        <Text style={styles.text}>Code is send to 0862 090 010</Text>
-
         <Text
           style={{
             fontFamily: 'roboto',
@@ -78,7 +81,7 @@ const VFTPhoneNumberScreen = ({route}) => {
           Code is send to {phone}
         </Text>
 
-        <Block flex justifyContent="space-evenly" flexDirection="row">
+        <Block row flex justifyContent="space-evenly">
           <TextInput
             ref={inputRef1}
             maxLength={1}
@@ -160,14 +163,16 @@ const VFTPhoneNumberScreen = ({route}) => {
         </Text>
         <Text style={styles.textRequestAgain}>Request again</Text>
       </Block>
-      <Button
-        onPress={() => {
-          navigation.navigate(routes.UPDATE_PROFILE, {phone});
-        }}
-        title="Verify and Create Account"
-        height={45}
-        marginLeft={10}
-      />
+      <Block paddingHorizontal={16}>
+        <Button
+          onPress={() => {
+            navigation.navigate(routes.UPDATE_PROFILE, {phone});
+          }}
+          title="Verify and Create Account"
+          height={45}
+          marginLeft={10}
+        />
+      </Block>
     </Block>
   );
 };

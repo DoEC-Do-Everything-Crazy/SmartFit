@@ -31,9 +31,13 @@ const EnterPhoneNumberScreen = () => {
         });
       }}>
       {({handleChange, handleBlur, handleSubmit, touched, errors, values}) => (
-        <Block flex paddingHorizontal={16} backgroundColor={theme.colors.white}>
-          <Header canGoBack title="Sign in with phone number" />
-          <Block flex justifyCenter>
+        <Block flex backgroundColor={theme.colors.white}>
+          <Header
+            canGoBack
+            colorTheme={theme.colors.blue}
+            title="Sign in with phone number"
+          />
+          <Block flex justifyCenter paddingHorizontal={16}>
             <Text center marginBottom={30}>
               Enter your phone number to receive OTP
             </Text>

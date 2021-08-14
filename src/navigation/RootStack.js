@@ -66,6 +66,10 @@ const RootStack = () => {
           name={routes.COURSESCREEN}
           component={bottom.COURSESCREEN}
         />
+        <Stack.Screen
+          name={routes.NOTIFICATION_SCREEN}
+          component={bottom.NOTIFICATION_SCREEN}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

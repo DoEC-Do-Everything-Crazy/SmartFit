@@ -60,11 +60,15 @@ const UpdateProfileScreen = ({route}) => {
         isValid,
         dirty,
       }) => (
-        <Block flex paddingHorizontal={16} backgroundColor={theme.colors.white}>
-          <Header canGoBack title="Update Profile" />
+        <Block flex backgroundColor={theme.colors.white}>
+          <Header
+            canGoBack
+            title="Update Profile"
+            colorTheme={theme.colors.blue}
+          />
           <Block height={height / 9} />
 
-          <Block height={height * 0.75}>
+          <Block height={height * 0.75} paddingHorizontal={16}>
             <Block style={styles.group} height={height / 1.5}>
               <TextInput
                 placeholder="Fullname"

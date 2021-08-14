@@ -10,4 +10,8 @@ export default StyleSheet.create({
     height: getSize.s(20),
     width: getSize.s(20),
   },
+  iconCart: {
+    height: getSize.s(25),
+    width: getSize.s(25),
+  },
 });

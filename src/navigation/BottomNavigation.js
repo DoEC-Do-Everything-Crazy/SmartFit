@@ -24,8 +24,8 @@ const BottomTabNavigation = () => {
         }}
       />
       <Tab.Screen
-        name={routes.CART_SCREEN}
-        component={bottom.CART_SCREEN}
+        name={routes.NOTIFICATION_SCREEN}
+        component={bottom.NOTIFICATION_SCREEN}
         options={{
           tabBarLabel: 'Notification',
         }}
