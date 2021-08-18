@@ -1,12 +1,12 @@
 import {icons} from '@assets';
 import {Block} from '@components';
 import React from 'react';
-import {Image, Text, TouchableOpacity} from 'react-native';
+import {Image, Text, Pressable} from 'react-native';
 import styles from './styles';
 
 const ItemNotification = ({title, content, date, onPress}) => {
   return (
-    <TouchableOpacity style={styles.item} onPress={onPress}>
+    <Pressable style={styles.item} onPress={onPress}>
       <Block row>
         <Image style={styles.image} source={icons.emailNotification} />
         <Block
@@ -14,8 +14,9 @@ const ItemNotification = ({title, content, date, onPress}) => {
           paddingLeft={30}
           paddingRight={15}
           borderRadius={8}
-          marginHorizontal={10}
-          backgroundColor="#F8F8F8">
+          marginLeft={10}
+          backgroundColor="#F8F8F8"
+          paddingBottom={15}>
           <Block marginTop={12} row space="between">
             <Text style={styles.title}>{title}</Text>
             <Text>{date}</Text>
@@ -23,7 +24,7 @@ const ItemNotification = ({title, content, date, onPress}) => {
           <Text>{content}</Text>
         </Block>
       </Block>
-    </TouchableOpacity>
+    </Pressable>
   );
 };
 

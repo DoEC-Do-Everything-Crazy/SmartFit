@@ -102,8 +102,9 @@ const ListNotification = () => {
       }}
     />
   );
+
   return (
-    <Block>
+    <Block marginTop={10}>
       <FlatList
         showsVerticalScrollIndicator={false}
         nestedScrollEnabled

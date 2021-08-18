@@ -84,7 +84,7 @@ const CustomTabBar = ({state, descriptors, navigation}) => {
             ? icons.home
             : route.name === routes.STATS_SCREEN
             ? icons.stats
-            : route.name === routes.CART_SCREEN
+            : route.name === routes.NOTIFICATION_SCREEN
             ? icons.notification
             : icons.info;
 
