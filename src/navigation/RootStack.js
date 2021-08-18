@@ -30,16 +30,16 @@ const RootStack = () => {
           component={bottom.PRODUCT_SCREEN}
         />
         <Stack.Screen
-          name={routes.CART_SCREEN}
-          component={bottom.CART_SCREEN}
-        />
-        <Stack.Screen
           name={routes.INFO_SCREEN}
           component={bottom.INFO_SCREEN}
         />
         <Stack.Screen
           name={routes.STATS_SCREEN}
           component={bottom.STATS_SCREEN}
+        />
+        <Stack.Screen
+          name={routes.NOTIFICATION_SCREEN}
+          component={bottom.NOTIFICATION_SCREEN}
         />
         <Stack.Screen
           name={routes.ENTER_PHONE_NUMBER_SCREEN}
@@ -65,10 +65,6 @@ const RootStack = () => {
         <Stack.Screen
           name={routes.COURSESCREEN}
           component={bottom.COURSESCREEN}
-        />
-        <Stack.Screen
-          name={routes.NOTIFICATION_SCREEN}
-          component={bottom.NOTIFICATION_SCREEN}
         />
       </Stack.Navigator>
     </NavigationContainer>
