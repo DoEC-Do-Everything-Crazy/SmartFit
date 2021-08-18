@@ -21,7 +21,9 @@ const ItemNotification = ({title, content, date, onPress}) => {
             <Text style={styles.title}>{title}</Text>
             <Text>{date}</Text>
           </Block>
-          <Text>{content}</Text>
+          <Block marginBottom={12}>
+            <Text>{content}</Text>
+          </Block>
         </Block>
       </Block>
     </Pressable>

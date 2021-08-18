@@ -1,7 +1,6 @@
 import {Block, Text} from '@components';
 import React, {useState} from 'react';
-import {ScrollView, Pressable} from 'react-native';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {Pressable} from 'react-native';
 import styles from './styles';
 
 const DATA = [
@@ -20,7 +19,6 @@ const DATA = [
 ];
 
 const CategorySort = () => {
-  const {top} = useSafeAreaInsets();
   const [selectedId, setSelectedId] = useState(1);
 
   const Item = ({item, onPress, backgroundColor, textColor}) => (
