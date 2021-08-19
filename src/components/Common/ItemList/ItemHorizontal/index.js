@@ -5,7 +5,6 @@ import {Image} from 'react-native';
 import styles from './styles';
 
 const ItemHorizontal = ({picture, title, group_id, index}) => {
-  console.log('index', index);
   return (
     <Block
       key={index}

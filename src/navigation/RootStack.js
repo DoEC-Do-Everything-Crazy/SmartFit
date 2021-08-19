@@ -6,6 +6,7 @@ import {routes} from '../navigation/routes';
 import BottomNavigation from './BottomNavigation';
 import {auth} from '@screens/Auth';
 import {bottom} from '@screens/Bottom';
+import {common} from '@screens/Common';
 
 const Stack = createStackNavigator();
 const RootStack = () => {
@@ -65,6 +66,19 @@ const RootStack = () => {
         <Stack.Screen
           name={routes.COURSESCREEN}
           component={bottom.COURSESCREEN}
+        />
+        <Stack.Screen
+          name={routes.DETAILS_COURSE_SCREEN}
+          component={common.DETAILS_COURSE_SCREEN}
+        />
+        {/* Tabs */}
+        <Stack.Screen
+          name={routes.TAB_DETAILS}
+          component={common.TAB_DETAILS}
+        />
+        <Stack.Screen
+          name={routes.TAB_LESSSON}
+          component={common.TAB_LESSSON}
         />
       </Stack.Navigator>
     </NavigationContainer>
