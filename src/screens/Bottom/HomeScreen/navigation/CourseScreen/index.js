@@ -1,5 +1,5 @@
 import {Block, Button, Header} from '@components';
-import {width} from '../../../utils/responsive';
+import {width} from '../../../../../utils/responsive';
 import React, {useEffect, useState} from 'react';
 import {FlatList, ImageBackground, Text} from 'react-native';
 import styles from './styles';
