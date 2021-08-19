@@ -12,4 +12,5 @@ export const bottom = {
   STATS_SCREEN: StatsScreen,
   COURSESCREEN: CourseScreen,
   NOTIFICATION_SCREEN: NotificationScreen,
+  COURCE_SCREEN: CourseScreen,
 };

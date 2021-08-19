@@ -81,10 +81,10 @@ const HeaderCommon = ({title, canGoBack, cart, colorTheme}) => {
           </Text>
         )}
         {cart && (
-          <Pressable onPress={() => navigation.goBack()}>
+          <Pressable onPress={() => {}}>
             <Image
               source={icons.cart}
-              style={styles.iconCart}
+              style={styles.iconBack}
               resizeMode="contain"
               tintColor={colorTheme}
             />

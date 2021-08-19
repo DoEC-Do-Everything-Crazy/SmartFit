@@ -3,14 +3,13 @@ import {StyleSheet, Platform} from 'react-native';
 
 export default StyleSheet.create({
   item: {
-    width: width - 32,
-    height: 240,
+    width: width,
+    height: '100%',
   },
   imageContainer: {
     flex: 1,
     marginBottom: Platform.select({ios: 0, android: 1}),
     backgroundColor: 'white',
-    // borderRadius: 8,
   },
   image: {
     borderRadius: getSize.s(10),
