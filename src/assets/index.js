@@ -20,6 +20,8 @@ const icons = {
   notification: require('./icons/notification.png'),
   search: require('./icons/search.png'),
   emailNotification: require('./icons/emailNotification.png'),
+  avatar: require('./icons/avatar.png'),
+  phoneIf: require('./icons/phoneIf.png'),
 };
 
 const lotties = {};
