@@ -3,7 +3,7 @@ import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
   image: {
-    top: 14,
+    top: 17,
     left: 6,
     zIndex: 1,
     width: getSize.s(85),
@@ -14,5 +14,7 @@ export default StyleSheet.create({
 
   imageInfo: {
     tintColor: '#444C5C',
+    width: 15,
+    height: 15,
   },
 });

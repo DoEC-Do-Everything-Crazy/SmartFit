@@ -30,7 +30,7 @@ const InfoProfile = ({image, name, phoneNumber, email, gene, birthday}) => {
           </Text>
           <Block>
             <Block row marginTop={6} marginBottom={3}>
-              <Image source={icons.phoneIf} />
+              <Image style={styles.imageInfo} source={icons.phoneIf} />
               <Text size={14} marginLeft={10}>
                 {phoneNumber}
               </Text>
