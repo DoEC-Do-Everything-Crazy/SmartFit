@@ -1,13 +1,12 @@
-import React from 'react';
-import {View, Image} from 'react-native';
-import {Block, Text} from '@components';
-import {width} from '@utils';
 import {icons} from '@assets';
+import {Block, Text} from '@components';
+import React from 'react';
+import {Image} from 'react-native';
 import styles from './styles';
 
 const InfoProfile = ({image, name, phoneNumber, email, gene, birthday}) => {
   return (
-    <Block marginTop={10} paddingHorizontal={16} height="35%">
+    <Block height="25%" marginTop={10} paddingHorizontal={16}>
       <Block flex row>
         <Image
           style={styles.image}
@@ -17,43 +16,51 @@ const InfoProfile = ({image, name, phoneNumber, email, gene, birthday}) => {
         />
         <Block
           flex
-          height={200}
-          paddingLeft={80}
+          height={155}
+          paddingLeft={55}
           paddingRight={15}
           borderWidth={1}
           borderColor="grey"
           borderRadius={20}
-          marginLeft={60}
+          marginLeft={50}
           marginRight={5}
-          paddingBottom={15}>
-          <Text center size={20} color="#444C5C" marginTop={12}>
+          paddingBottom={5}>
+          <Text center size={18} color="#444C5C" marginTop={3} fontType="bold">
             {name}
           </Text>
           <Block>
-            <Block row marginTop={12} marginBottom={3}>
+            <Block row marginTop={6} marginBottom={3}>
               <Image source={icons.phoneIf} />
-              <Text marginLeft={10}>{phoneNumber}</Text>
+              <Text size={14} marginLeft={10}>
+                {phoneNumber}
+              </Text>
             </Block>
             <Block row marginVertical={3}>
               <Image
                 style={styles.imageInfo}
                 source={icons.emailNotification}
               />
-              <Text marginLeft={10}>{email}</Text>
+              <Text size={14} marginLeft={10}>
+                {email}
+              </Text>
             </Block>
             <Block row marginVertical={3}>
               <Image
                 style={styles.imageInfo}
                 source={icons.emailNotification}
               />
-              <Text marginLeft={10}>{gene}</Text>
+              <Text size={14} marginLeft={10}>
+                {gene}
+              </Text>
             </Block>
             <Block row marginVertical={3}>
               <Image
                 style={styles.imageInfo}
                 source={icons.emailNotification}
               />
-              <Text marginLeft={10}>{birthday}</Text>
+              <Text size={14} marginLeft={10}>
+                {birthday}
+              </Text>
             </Block>
           </Block>
         </Block>

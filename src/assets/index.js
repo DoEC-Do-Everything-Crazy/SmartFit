@@ -22,6 +22,11 @@ const icons = {
   emailNotification: require('./icons/emailNotification.png'),
   avatar: require('./icons/avatar.png'),
   phoneIf: require('./icons/phoneIf.png'),
+  line: require('./icons/line.png'),
+  heartPf: require('./icons/heartPf.png'),
+  payment: require('./icons/payment.png'),
+  promotion: require('./icons/promotion.png'),
+  setting: require('./icons/setting.png'),
 };
 
 const lotties = {};

@@ -1,5 +1,6 @@
 import {icons} from '@assets';
 import {Block} from '@components';
+import ItemFeature from '@components/Common/ItemList/ItemFeature';
 import {theme} from '@theme';
 import {getSize, width} from '@utils/responsive';
 import React from 'react';
@@ -9,7 +10,7 @@ import StatsBlock from './components/StatsBlock';
 
 const StatsScreen = () => {
   return (
-    <Block flex paddingHorizontal={16} backgroundColor={theme.colors.white}>
+    <Block flex backgroundColor={theme.colors.white}>
       <Block height="20%">
         <Header
           image={
@@ -20,7 +21,7 @@ const StatsScreen = () => {
         />
         <DateCategory />
       </Block>
-      <Block row height="50%" alignCenter marginTop={32}>
+      <Block row height="50%" alignCenter paddingHorizontal={16} marginTop={32}>
         <Block>
           <StatsBlock
             width={width / 2 - 24}
@@ -49,9 +50,15 @@ const StatsScreen = () => {
           />
         </Block>
       </Block>
-      <Block height="30%">
-        <StatsBlock height={50} title={'Daily Meals'} icon={icons.apple} />
-        <StatsBlock
+      <Block height="30%" marginTop={10} paddingHorizontal={16}>
+        <ItemFeature
+          shadow
+          height={50}
+          title={'Daily Meals'}
+          icon={icons.apple}
+        />
+        <ItemFeature
+          shadow
           height={50}
           title={'Other Information'}
           icon={icons.subtract}
