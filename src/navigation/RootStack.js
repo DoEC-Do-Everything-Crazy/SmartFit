@@ -19,7 +19,7 @@ const RootStack = () => {
       />
       <Stack.Navigator
         mode="modal"
-        initialRouteName={routes.BOTTOM_TAB}
+        initialRouteName={routes.COURSE_LIST_SCREEN}
         screenOptions={{headerShown: false}}>
         <Stack.Screen name={routes.BOTTOM_TAB} component={BottomNavigation} />
         <Stack.Screen
@@ -66,6 +66,10 @@ const RootStack = () => {
         <Stack.Screen
           name={routes.COURSESCREEN}
           component={bottom.COURSESCREEN}
+        />
+        <Stack.Screen
+          name={routes.COURSE_LIST_SCREEN}
+          component={common.COURSE_LIST_SCREEN}
         />
         <Stack.Screen
           name={routes.DETAILS_COURSE_SCREEN}
