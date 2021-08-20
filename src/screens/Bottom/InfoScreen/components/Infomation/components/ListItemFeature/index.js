@@ -28,9 +28,9 @@ const data = [
 const ListItemFeature = () => {
   const _renderItem = ({item}) => (
     <ItemFeature
-      icon={item.image}
       height={50}
       borderWidth={0.5}
+      icon={item.image}
       title={item.title}
       onPress={() => {
         console.log(item.title);
@@ -38,7 +38,7 @@ const ListItemFeature = () => {
     />
   );
   return (
-    <Block height="50%" paddingHorizontal={16}>
+    <Block paddingHorizontal={16} height="50%">
       <Block row alignCenter marginHorizontal={16} space="between"></Block>
       <FlatList
         showsVerticalScrollIndicator={false}

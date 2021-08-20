@@ -1,5 +1,6 @@
 import {icons} from '@assets';
 import {Block, Text} from '@components';
+import {theme} from '@theme';
 import React from 'react';
 import {Image} from 'react-native';
 import styles from './styles';
@@ -16,22 +17,28 @@ const InfoProfile = ({image, name, phoneNumber, email, gene, birthday}) => {
         />
         <Block
           flex
+          justifyCenter
           height={155}
           paddingLeft={55}
           paddingRight={15}
           borderWidth={1}
-          borderColor="grey"
           borderRadius={20}
           marginLeft={50}
           marginRight={5}
-          paddingBottom={5}>
-          <Text center size={18} color="#444C5C" marginTop={3} fontType="bold">
+          paddingBottom={5}
+          borderColor="grey">
+          <Text
+            center
+            size={18}
+            marginTop={3}
+            color={theme.colors.darkBlue}
+            fontType="bold">
             {name}
           </Text>
           <Block>
             <Block row marginTop={6} marginBottom={3}>
               <Image style={styles.imageInfo} source={icons.phoneIf} />
-              <Text size={14} marginLeft={10}>
+              <Text size={14} color={theme.colors.darkBlue} marginLeft={10}>
                 {phoneNumber}
               </Text>
             </Block>
@@ -40,7 +47,7 @@ const InfoProfile = ({image, name, phoneNumber, email, gene, birthday}) => {
                 style={styles.imageInfo}
                 source={icons.emailNotification}
               />
-              <Text size={14} marginLeft={10}>
+              <Text size={14} marginLeft={10} color={theme.colors.darkBlue}>
                 {email}
               </Text>
             </Block>
@@ -49,7 +56,7 @@ const InfoProfile = ({image, name, phoneNumber, email, gene, birthday}) => {
                 style={styles.imageInfo}
                 source={icons.emailNotification}
               />
-              <Text size={14} marginLeft={10}>
+              <Text size={14} marginLeft={10} color={theme.colors.darkBlue}>
                 {gene}
               </Text>
             </Block>
@@ -58,7 +65,7 @@ const InfoProfile = ({image, name, phoneNumber, email, gene, birthday}) => {
                 style={styles.imageInfo}
                 source={icons.emailNotification}
               />
-              <Text size={14} marginLeft={10}>
+              <Text size={14} marginLeft={10} color={theme.colors.darkBlue}>
                 {birthday}
               </Text>
             </Block>

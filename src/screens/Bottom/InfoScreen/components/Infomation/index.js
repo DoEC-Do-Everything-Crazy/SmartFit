@@ -28,7 +28,7 @@ const DATA_STATISTICAL_PROFILE = [
 const Information = () => {
   return (
     <Block flex backgroundColor={theme.colors.blue}>
-      <Header canGoBack title="Infomation" colorTheme={theme.colors.white} />
+      <Header title="Infomation" colorTheme={theme.colors.white} />
       <Block flex style={styles.container} backgroundColor={theme.colors.white}>
         <InfoProfile
           image={DATA_INFO[0].image}

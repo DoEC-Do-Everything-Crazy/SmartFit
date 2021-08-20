@@ -3,23 +3,24 @@ import {Block, Text} from '@components';
 import {width} from '@utils/responsive';
 import React from 'react';
 import {Image} from 'react-native';
+import {theme} from '@theme';
 
 const StatisticalProfile = ({balance, course}) => {
   return (
-    <Block justifyCenter height="10%">
-      <Block row space="between" paddingHorizontal={width / 4.5}>
+    <Block height="10%" justifyCenter>
+      <Block row paddingHorizontal={width / 4.5} space="between">
         <Block justifyCenter alignCenter>
-          <Text color="#444C5C" fontType="bold">
+          <Text color={theme.colors.darkBlue} fontType="bold">
             {balance}
           </Text>
-          <Text color="#444C5C">Balance</Text>
+          <Text color={theme.colors.darkBlue}>Balance</Text>
         </Block>
         <Image source={icons.line} />
         <Block justifyCenter alignCenter>
-          <Text color="#444C5C" fontType="bold">
+          <Text color={theme.colors.darkBlue} fontType="bold">
             {course}
           </Text>
-          <Text color="#444C5C">Course</Text>
+          <Text color={theme.colors.darkBlue}>Course</Text>
         </Block>
       </Block>
     </Block>
