@@ -7,7 +7,7 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import ListFood from './components/ListFood';
 import styles from './styles';
 import ListRecommended from './components/ListRecommended';
-import ListHotCourse from './components/ListHotCourse';
+import ListHotCourse from './components/HotCource';
 
 const HomeScreen = () => {
   const {top} = useSafeAreaInsets();
@@ -16,12 +16,11 @@ const HomeScreen = () => {
     <Block flex backgroundColor={theme.colors.blue}>
       <Header type="Home" />
       <Block
-        absolute
-        style={styles.container}
-        marginTop={top + 70}
-        width={width}
-        height={height}
-        backgroundColor={theme.colors.white}>
+        flex
+        alignCenter
+        marginTop={16}
+        backgroundColor={theme.colors.white}
+        style={styles.container}>
         <ScrollView>
           <ListFood />
           <ListRecommended />

@@ -1,20 +1,23 @@
 import {Block, Text} from '@components';
-import {theme} from '@theme';
-import {width} from '@utils/responsive';
 import React from 'react';
-import {ImageBackground} from 'react-native';
+import {ImageBackground, Pressable} from 'react-native';
 import styles from './styles';
+import {useNavigation} from '@react-navigation/core';
+import {routes} from '@navigation/routes';
 
 const ItemCourseBig = ({title, url}) => {
+  const navigation = useNavigation();
   return (
     <Block>
-      <ImageBackground
-        source={{
-          uri: 'http://welcomelafrance.com/wp-content/uploads/2019/10/meo-anh-long-ngan.jpg',
-        }}
-        style={styles.imageHorizontal}>
-        <Text style={styles.text}>GYM</Text>
-      </ImageBackground>
+      <Pressable onPress={() => navigation.navigate(routes.COURSE_LIST_SCREEN)}>
+        <ImageBackground
+          source={{
+            uri: 'http://welcomelafrance.com/wp-content/uploads/2019/10/meo-anh-long-ngan.jpg',
+          }}
+          style={styles.imageHorizontal}>
+          <Text style={styles.text}>GYM</Text>
+        </ImageBackground>
+      </Pressable>
       <Block row>
         <Block>
           <ImageBackground

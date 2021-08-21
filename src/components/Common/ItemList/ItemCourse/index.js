@@ -8,7 +8,7 @@ import styles from './styles';
 
 const ItemCourse = ({picture, title, group_id, index}) => {
   return (
-    <Block flex key={index} marginTop={30}>
+    <Block flex key={index} marginTop={30} marginBottom={16}>
       <Block
         radius={16}
         borderWidth={0.3}
