@@ -3,7 +3,7 @@ import {theme} from '@theme';
 import {width} from '@utils/responsive';
 import React from 'react';
 
-const ItemFood = ({picture, title, group_id, index}) => {
+const ItemMenu = ({picture, title, group_id, index}) => {
   return (
     <Block key={index} alignCenter width={width / 6}>
       <Block
@@ -16,4 +16,4 @@ const ItemFood = ({picture, title, group_id, index}) => {
   );
 };
 
-export default ItemFood;
+export default ItemMenu;

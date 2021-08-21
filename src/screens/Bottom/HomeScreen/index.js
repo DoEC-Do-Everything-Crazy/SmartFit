@@ -4,7 +4,7 @@ import {height, width} from '@utils/responsive';
 import React from 'react';
 import {ScrollView} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import ListFood from './components/ListFood';
+import ListMenu from './components/ListMenu';
 import styles from './styles';
 import ListRecommended from './components/ListRecommended';
 import ListHotCourse from './components/HotCource';
@@ -22,7 +22,7 @@ const HomeScreen = () => {
         backgroundColor={theme.colors.white}
         style={styles.container}>
         <ScrollView>
-          <ListFood />
+          <ListMenu />
           <ListRecommended />
           <ListHotCourse />
         </ScrollView>
