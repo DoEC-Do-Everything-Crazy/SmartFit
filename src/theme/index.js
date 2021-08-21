@@ -3,19 +3,20 @@ export const theme = {
     text: '#242424',
     background: '#f5f5f5',
     lightGray: '#A5A5A5',
-    gray: '#424242',
+    gray: '#9098B1',
     smoke: '#E6E6E6',
     lightSmoke: '#F7F7F8',
     white: '#ffffff',
     black: '#000000',
     placeholder: '#9DA3AF',
-    blue: '#0d5cb6',
+    blue: '#045694',
     red: '#FF2424',
     green: '#088A08',
     yellow: '#FFDF00',
-
     orange: '#F59523',
     tomato: '#FF6853',
+    darkBlue: '#444C5C',
+    yellowFood: '#FFC107',
   },
 
   fonts: {
