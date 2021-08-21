@@ -20,6 +20,7 @@ const icons = {
   notification: require('./icons/notification.png'),
   search: require('./icons/search.png'),
   emailNotification: require('./icons/emailNotification.png'),
+  ratings: require('./icons/star.png'),
 };
 
 const lotties = {};
