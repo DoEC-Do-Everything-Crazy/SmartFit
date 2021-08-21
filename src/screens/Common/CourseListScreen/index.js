@@ -9,7 +9,7 @@ import {FlatList} from 'react-native';
 import styles from './styles';
 
 const CourseListScreen = () => {
-  const data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  const data = [1, 2, 3, 4, 5, 6, 7];
   const {top} = useSafeAreaInsets();
   const _renderItem = (item, index) => <ItemCourse index={index} />;
   return (
