@@ -10,7 +10,6 @@ const StatsBlock = ({
   title,
   height,
   width,
-  icon,
   circular,
   heart,
   valueCir,
@@ -29,12 +28,7 @@ const StatsBlock = ({
       paddingVertical={10}
       paddingHorizontal={10}>
       <Pressable onPress={onPress}>
-        <Block row space="between">
-          <Text style={styles.text}>{title}</Text>
-          <Block width={getSize.s(20)} height={getSize.v(20)} radius={20}>
-            <Image source={icon} />
-          </Block>
-        </Block>
+        <Text style={styles.text}>{title}</Text>
         <Block alignCenter height="30%">
           {circular ? (
             <CircularProgress
