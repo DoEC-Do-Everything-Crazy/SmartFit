@@ -1,5 +1,5 @@
 import {Block, Text} from '@components';
-import ItemVertical from '@components/Common/ItemList/ItemVertical';
+import ItemHotCourse from '@components/Common/ItemList/ItemHotCourse';
 import {theme} from '@theme';
 import React from 'react';
 import {ScrollView, FlatList, Pressable} from 'react-native';
@@ -8,9 +8,9 @@ import {routes} from '@navigation/routes';
 
 const data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-const ListVertical = () => {
+const ListHotCourse = () => {
   const navigation = useNavigation();
-  const _renderItem = (index, item) => <ItemVertical index={index} />;
+  const _renderItem = (index, item) => <ItemHotCourse index={index} />;
   return (
     <Block flex marginTop={32}>
       <Block row alignCenter marginHorizontal={16} space="between">
@@ -21,18 +21,16 @@ const ListVertical = () => {
           <Text size={20}>See all</Text>
         </Pressable>
       </Block>
-      <FlatList
-        showsVerticalScrollIndicator={false}
-        nestedScrollEnabled
-        data={data}
-        keyExtractor={(item, index) => index}
-        renderItem={_renderItem}
-      />
-      {/* <ScrollView showsVerticalScrollIndicator={false}>
-          {data.map(_renderItem)}
-        </ScrollView> */}
+      <Block flex>
+        <FlatList
+          showsVerticalScrollIndicator={false}
+          data={data}
+          keyExtractor={(item, index) => index}
+          renderItem={_renderItem}
+        />
+      </Block>
     </Block>
   );
 };
 
-export default ListVertical;
+export default ListHotCourse;

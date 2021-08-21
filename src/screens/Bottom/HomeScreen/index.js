@@ -6,8 +6,8 @@ import {ScrollView} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import ListFood from './components/ListFood';
 import styles from './styles';
-import ListHorizontal from './components/ListHorizontal';
-import ListVertical from './components/ListVertical';
+import ListRecommended from './components/ListRecommended';
+import ListHotCourse from './components/ListHotCourse';
 
 const HomeScreen = () => {
   const {top} = useSafeAreaInsets();
@@ -24,8 +24,8 @@ const HomeScreen = () => {
         backgroundColor={theme.colors.white}>
         <ScrollView>
           <ListFood />
-          <ListHorizontal />
-          <ListVertical />
+          <ListRecommended />
+          <ListHotCourse />
         </ScrollView>
       </Block>
     </Block>

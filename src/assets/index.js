@@ -31,6 +31,8 @@ const icons = {
 
 const lotties = {};
 
-const images = {};
+const images = {
+  lesson: require('./images/lesson.png'),
+};
 
 export {icons, lotties, images};

@@ -1,4 +1,4 @@
-import {Block} from '@components';
+import {Block, Text} from '@components';
 import ItemLesson from '@components/Common/ItemList/ItemLesson';
 import {theme} from '@theme';
 import React from 'react';
@@ -10,6 +10,9 @@ const ListStep = () => {
   const _renderItem = (item, index) => <ItemLesson index={index} />;
   return (
     <Block flex paddingHorizontal={16} backgroundColor={theme.colors.white}>
+      <Text size={30} fontType="bold">
+        Lessons 1
+      </Text>
       <FlatList
         showsVerticalScrollIndicator={false}
         data={data}

@@ -1,13 +1,13 @@
 import {Block, Text} from '@components';
-import ItemHorizontal from '@components/Common/ItemList/ItemHorizontal';
+import ItemRecommended from '@components/Common/ItemList/ItemRecommended';
 import {theme} from '@theme';
 import React from 'react';
 import {FlatList} from 'react-native';
 
 const data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-const ListHorizontal = () => {
-  const _renderItem = ({item, index}) => <ItemHorizontal index={index} />;
+const ListRecommended = () => {
+  const _renderItem = ({item, index}) => <ItemRecommended index={index} />;
 
   return (
     <Block flex marginTop={32}>
@@ -34,4 +34,4 @@ const ListHorizontal = () => {
   );
 };
 
-export default ListHorizontal;
+export default ListRecommended;
