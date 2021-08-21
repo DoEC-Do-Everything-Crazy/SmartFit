@@ -8,7 +8,7 @@ import styles from './styles';
 const InfoProfile = ({image, name, phoneNumber, email, gene, birthday}) => {
   return (
     <Block height="25%" marginTop={10} paddingHorizontal={16}>
-      <Block flex row>
+      <Block flex row alignCenter>
         <Image
           style={styles.image}
           source={{
@@ -23,7 +23,7 @@ const InfoProfile = ({image, name, phoneNumber, email, gene, birthday}) => {
           paddingRight={15}
           borderWidth={1}
           borderRadius={20}
-          marginLeft={50}
+          marginLeft={40}
           marginRight={5}
           paddingBottom={5}
           borderColor="grey">

@@ -7,7 +7,7 @@ import styles from './styles';
 const Header = ({image, name, date}) => {
   const {top} = useSafeAreaInsets();
   return (
-    <Block row paddingVertical={16} marginTop={top}>
+    <Block row paddingVertical={16} marginHorizontal={16} marginTop={top}>
       <Image
         style={styles.image}
         source={{
