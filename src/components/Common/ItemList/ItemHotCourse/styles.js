@@ -1,6 +1,5 @@
-import {StyleSheet} from 'react-native';
 import {getSize, width} from '@utils/responsive';
-import {theme} from '@theme';
+import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
   image: {

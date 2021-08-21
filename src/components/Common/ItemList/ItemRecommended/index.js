@@ -4,7 +4,7 @@ import React from 'react';
 import {Image} from 'react-native';
 import styles from './styles';
 
-const ItemHorizontal = ({picture, title, group_id, index}) => {
+const ItemRecommended = ({picture, title, group_id, index}) => {
   return (
     <Block
       key={index}
@@ -26,4 +26,4 @@ const ItemHorizontal = ({picture, title, group_id, index}) => {
   );
 };
 
-export default ItemHorizontal;
+export default ItemRecommended;

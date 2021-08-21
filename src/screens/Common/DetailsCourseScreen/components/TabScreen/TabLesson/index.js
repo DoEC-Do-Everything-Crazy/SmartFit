@@ -35,10 +35,10 @@ const TabLesson = () => {
         activeDotIndex={index}
         carouselRef={isCarousel}
         dotStyle={{
-          width: 10,
-          height: 10,
-          borderRadius: 5,
-          marginHorizontal: 0,
+          width: 15,
+          height: 15,
+          borderRadius: 15,
+          marginHorizontal: -5,
           backgroundColor: theme.colors.blue,
         }}
         inactiveDotOpacity={0.4}
