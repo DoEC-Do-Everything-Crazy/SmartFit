@@ -2,11 +2,14 @@ import {Block, Text} from '@components';
 import ItemRecommended from '@components/Common/ItemList/ItemRecommended';
 import {theme} from '@theme';
 import React from 'react';
-import {FlatList} from 'react-native';
+import {FlatList, Pressable} from 'react-native';
+import {useNavigation} from '@react-navigation/core';
+import {routes} from '@navigation/routes';
 
 const data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 const ListRecommended = () => {
+  const navigation = useNavigation();
   const _renderItem = ({item, index}) => <ItemRecommended index={index} />;
 
   return (
@@ -20,7 +23,9 @@ const ListRecommended = () => {
         <Text size={20} fontType="bold" color={theme.colors.blue}>
           Recommended
         </Text>
-        <Text size={20}>See all</Text>
+        <Pressable onPress={() => navigation.navigate(routes.FOOD_LIST_SCREEN)}>
+          <Text size={20}>See all</Text>
+        </Pressable>
       </Block>
       <FlatList
         showsHorizontalScrollIndicator={false}

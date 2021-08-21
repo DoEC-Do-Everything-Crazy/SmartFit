@@ -16,6 +16,7 @@ export const theme = {
     orange: '#F59523',
     tomato: '#FF6853',
     darkBlue: '#444C5C',
+    yellowFood: '#FFC107',
   },
 
   fonts: {
