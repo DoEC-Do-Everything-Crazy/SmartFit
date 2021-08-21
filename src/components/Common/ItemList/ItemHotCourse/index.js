@@ -1,13 +1,12 @@
 import {Block, Text} from '@components';
+import {routes} from '@navigation/routes';
+import {useNavigation} from '@react-navigation/core';
 import {theme} from '@theme';
-import {width} from '@utils/responsive';
 import React from 'react';
 import {Image, Pressable} from 'react-native';
 import styles from './styles';
-import {useNavigation} from '@react-navigation/core';
-import {routes} from '@navigation/routes';
 
-const ItemVertical = ({picture, title, group_id, index}) => {
+const ItemHotCourse = ({picture, title, group_id, index}) => {
   const navigation = useNavigation();
   return (
     <Pressable
@@ -29,4 +28,4 @@ const ItemVertical = ({picture, title, group_id, index}) => {
   );
 };
 
-export default ItemVertical;
+export default ItemHotCourse;

@@ -4,7 +4,8 @@ import {theme} from '@theme';
 
 export default StyleSheet.create({
   image: {
-    width: getSize.s(80),
-    height: getSize.s(80),
+    borderRadius: getSize.m(5),
+    width: getSize.s(64),
+    height: getSize.s(64),
   },
 });
