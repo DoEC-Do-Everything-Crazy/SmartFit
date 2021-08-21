@@ -21,7 +21,7 @@ const HomeScreen = () => {
         marginTop={16}
         backgroundColor={theme.colors.white}
         style={styles.container}>
-        <ScrollView>
+        <ScrollView showsVerticalScrollIndicator={false}>
           <ListMenu />
           <ListRecommended />
           <ListHotCourse />
