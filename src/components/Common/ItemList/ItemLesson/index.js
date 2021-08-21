@@ -4,7 +4,7 @@ import React from 'react';
 import {Image} from 'react-native';
 import styles from './styles';
 
-const ItemFood = ({picture, title, group_id, index}) => {
+const ItemStep = ({picture, title, group_id, index}) => {
   return (
     <Block
       flex
@@ -36,4 +36,4 @@ const ItemFood = ({picture, title, group_id, index}) => {
   );
 };
 
-export default ItemFood;
+export default ItemStep;
