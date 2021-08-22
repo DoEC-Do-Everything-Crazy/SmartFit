@@ -13,17 +13,16 @@ const CourseListScreen = () => {
   const {top} = useSafeAreaInsets();
   const _renderItem = (item, index) => <ItemCourse index={index} />;
   return (
-    <Block flex backgroundColor={theme.colors.blue}>
-      <Header canGoBack title="GYM" colorTheme={theme.colors.white} />
-      <Block marginTop={-top - 10}>
-        <Header type="Home" />
-      </Block>
-      <Block
-        flex
-        alignCenter
-        marginTop={16}
-        backgroundColor={theme.colors.white}
-        style={styles.container}>
+    <Block flex>
+      <Header
+        canGoBack
+        title="GYM"
+        colorTheme={theme.colors.blue}
+        filter
+        search
+      />
+
+      <Block flex alignCenter style={styles.container}>
         <FlatList
           showsVerticalScrollIndicator={false}
           data={data}

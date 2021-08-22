@@ -43,7 +43,7 @@ const CourseScreen = () => {
   );
   return (
     <Block flex marginBottom={16} backgroundColor={theme.colors.blue}>
-      <Header canGoBack title="Cource" colorTheme={theme.colors.white} />
+      <Header canGoBack title="Course" colorTheme={theme.colors.white} />
       <Block marginTop={-top - 10}>
         <Header type="Home" />
       </Block>
