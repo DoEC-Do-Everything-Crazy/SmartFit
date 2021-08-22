@@ -29,12 +29,15 @@ const icons = {
   setting: require('./icons/setting.png'),
   ratings: require('./icons/star.png'),
   filter: require('./icons/Filter.png'),
+  iHeart: require('./icons/iHeart.png'),
+  plus: require('./icons/plus.png'),
 };
 
 const lotties = {};
 
 const images = {
   lesson: require('./images/lesson.png'),
+  food: require('./images/food.png'),
 };
 
 export {icons, lotties, images};
