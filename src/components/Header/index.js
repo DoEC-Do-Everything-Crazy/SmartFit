@@ -52,7 +52,7 @@ const HeaderHome = () => {
   );
 };
 
-const HeaderCommon = ({title, canGoBack, cart, colorTheme}) => {
+const HeaderCommon = ({title, canGoBack, cart, search, filter, colorTheme}) => {
   const {top} = useSafeAreaInsets();
   const navigation = useNavigation();
   return (
@@ -84,6 +84,17 @@ const HeaderCommon = ({title, canGoBack, cart, colorTheme}) => {
           <Pressable onPress={() => {}}>
             <Image
               source={icons.cart}
+              style={styles.iconBack}
+              resizeMode="contain"
+              tintColor={colorTheme}
+            />
+          </Pressable>
+        )}
+
+        {search && (
+          <Pressable onPress={() => {}}>
+            <Image
+              source={icons.search}
               style={styles.iconBack}
               resizeMode="contain"
               tintColor={colorTheme}

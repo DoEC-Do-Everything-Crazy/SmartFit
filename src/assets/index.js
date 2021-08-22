@@ -28,6 +28,7 @@ const icons = {
   promotion: require('./icons/promotion.png'),
   setting: require('./icons/setting.png'),
   ratings: require('./icons/star.png'),
+  filter: require('./icons/Filter.png'),
 };
 
 const lotties = {};
