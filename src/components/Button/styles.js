@@ -9,7 +9,7 @@ export default StyleSheet.create({
     height: getSize.v(60),
     paddingHorizontal: getSize.m(20),
     marginVertical: getSize.m(20),
-    borderRadius: getSize.m(5),
+    borderRadius: getSize.m(8),
   },
   leftIcon: {
     width: getSize.s(18),
