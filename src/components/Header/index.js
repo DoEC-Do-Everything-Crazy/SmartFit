@@ -6,6 +6,7 @@ import {icons} from '@assets';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {theme} from '@theme';
 import styles from './styles';
+import {routes} from '@navigation/routes';
 
 const Header = props => {
   if (props.type === 'Home') {
@@ -17,7 +18,7 @@ const Header = props => {
 
 const HeaderHome = () => {
   const {top} = useSafeAreaInsets();
-
+  const navigation = useNavigation();
   return (
     <Block
       row
@@ -25,22 +26,16 @@ const HeaderHome = () => {
       paddingTop={top + 10}
       paddingHorizontal={16}
       space="between">
-      <Block
-        row
-        alignCenter
-        radius={10}
-        height={40}
-        space="between"
-        paddingHorizontal={16}
-        width="90%"
-        backgroundColor={theme.colors.white}>
+      <Pressable
+        style={styles.search}
+        onPress={() => navigation.navigate(routes.SEARCH_SCREEN)}>
         <Text>Search</Text>
         <Image
           source={icons.search}
           style={styles.iconHeader}
           resizeMode="contain"
         />
-      </Block>
+      </Pressable>
       <Pressable>
         <Image
           source={icons.cart}
