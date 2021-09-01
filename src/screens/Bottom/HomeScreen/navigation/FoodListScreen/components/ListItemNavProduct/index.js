@@ -38,12 +38,6 @@ const ListItemNavProduct = () => {
     <ItemNavProduct
       backgroundColor={item.id % 2 == 0 ? '#D9FFDF' : '#B0EFEF'}
       backgroundRating={item.id % 2 == 0 ? '#D9FFDF' : '#B0EFEF'}
-      //   title={item.title}#B0EFEF
-      //   content={item.content}
-      //   date={item.date}
-      //   onPress={() => {
-      //     console.log(item.title);
-      //   }}
     />
   );
   return (

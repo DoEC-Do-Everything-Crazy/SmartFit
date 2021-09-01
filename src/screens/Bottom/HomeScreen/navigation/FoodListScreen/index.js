@@ -5,7 +5,7 @@ import Search from './components/Search';
 import ListItemPopular from './components/ListItemPopular';
 import ListItemNavProduct from './components/ListItemNavProduct';
 
-const ProductScreen = () => {
+const FoodListScreen = () => {
   return (
     <Block flex backgroundColor={theme.colors.white}>
       <Header
@@ -21,4 +21,4 @@ const ProductScreen = () => {
   );
 };
 
-export default ProductScreen;
+export default FoodListScreen;

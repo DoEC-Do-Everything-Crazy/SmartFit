@@ -23,7 +23,7 @@ const ListRecommended = () => {
         <Text size={20} fontType="bold" color={theme.colors.blue}>
           Recommended
         </Text>
-        <Pressable onPress={() => navigation.navigate(routes.PRODUCT_SCREEN)}>
+        <Pressable onPress={() => navigation.navigate(routes.FOOD_LIST_SCREEN)}>
           <Text size={20}>See all</Text>
         </Pressable>
       </Block>
