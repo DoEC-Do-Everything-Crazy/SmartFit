@@ -1,10 +1,10 @@
-import {Block, Text, Header, TextInput} from '@components';
-import React, {useState} from 'react';
-import {theme} from '@theme';
-import styles from './styles';
-import {Image, FlatList, Pressable} from 'react-native';
 import {icons} from '@assets';
+import {Block, Header, Text, TextInput} from '@components';
 import ItemSearch from '@components/Common/ItemList/ItemSearch';
+import {theme} from '@theme';
+import React, {useState} from 'react';
+import {FlatList, Image, Pressable} from 'react-native';
+import styles from './styles';
 
 const dataSearch = [
   {
@@ -22,9 +22,11 @@ const dataSearch = [
 ];
 
 const SearchScreen = () => {
-  const [data, setData] = useState([1, 2, 3, 4, 5, 6]);
+  const [data, setData] = useState('');
   const [key, setKey] = useState('');
+
   const _renderItem = ({item}) => <ItemSearch />;
+
   const _renderItemSearch = ({item}) => (
     <Block>
       <Text fontType="bold" marginTop={12}>

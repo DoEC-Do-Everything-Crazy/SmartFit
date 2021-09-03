@@ -12,12 +12,6 @@ export default StyleSheet.create({
     justifyContent: 'space-between',
     marginTop: getSize.m(10),
   },
-  iconNext: {
-    tintColor: theme.colors.blue,
-    marginRight: getSize.s(10),
-    width: getSize.s(16),
-    height: getSize.s(16),
-  },
   imageSearch: {
     width: getSize.s(36),
     height: getSize.s(36),

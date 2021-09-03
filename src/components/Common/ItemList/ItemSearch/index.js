@@ -1,11 +1,10 @@
-import {icons, images} from '@assets';
+import {images} from '@assets';
 import {Block, Text} from '@components';
 import {routes} from '@navigation/routes';
 import {useNavigation} from '@react-navigation/core';
 import React from 'react';
 import {Image, Pressable} from 'react-native';
 import styles from './styles';
-import {theme} from './../../../../theme/index';
 
 const ItemSearch = ({item_id, picture, thumbnail, title}) => {
   const navigation = useNavigation();
