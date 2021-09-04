@@ -5,6 +5,7 @@ import TabDetails from './DetailsCourseScreen/components/TabScreen/TabDetails';
 import ProductListScreen from '../Common/ProductListScreen';
 import FoodDetailsScreen from '../Common/FoodDetailsScreen';
 import SearchScreen from './SearchScreen';
+import FilterScreen from '../Common/FilterScreen';
 
 export const common = {
   DETAILS_COURSE_SCREEN: DetailsCourseScreen,
@@ -14,4 +15,5 @@ export const common = {
   PRODUCT_LIST_SCREEN: ProductListScreen,
   FOOD_DETAILS_SCREEN: FoodDetailsScreen,
   SEARCH_SCREEN: SearchScreen,
+  FILTER_SCREEN: FilterScreen,
 };

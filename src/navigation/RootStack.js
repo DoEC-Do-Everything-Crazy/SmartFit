@@ -92,6 +92,10 @@ const RootStack = () => {
           name={routes.TAB_LESSSON}
           component={common.TAB_LESSSON}
         />
+        <Stack.Screen
+          name={routes.FILTER_SCREEN}
+          component={common.FILTER_SCREEN}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
