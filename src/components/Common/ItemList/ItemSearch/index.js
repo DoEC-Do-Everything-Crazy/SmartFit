@@ -5,6 +5,7 @@ import {useNavigation} from '@react-navigation/core';
 import React from 'react';
 import {Image, Pressable} from 'react-native';
 import styles from './styles';
+import {theme} from './../../../../theme/index';
 
 const ItemSearch = ({item_id, picture, thumbnail, title}) => {
   const navigation = useNavigation();

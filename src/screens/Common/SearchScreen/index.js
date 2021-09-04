@@ -22,7 +22,7 @@ const dataSearch = [
 ];
 
 const SearchScreen = () => {
-  const [data, setData] = useState('');
+  const [data, setData] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9]);
   const [key, setKey] = useState('');
 
   const _renderItem = ({item}) => <ItemSearch />;
