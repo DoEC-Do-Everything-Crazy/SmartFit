@@ -31,6 +31,7 @@ const icons = {
   filter: require('./icons/Filter.png'),
   iHeart: require('./icons/iHeart.png'),
   plus: require('./icons/plus.png'),
+  x: require('./icons/x.png'),
 };
 
 const lotties = {};

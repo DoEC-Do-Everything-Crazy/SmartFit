@@ -41,10 +41,15 @@ const ItemNavProduct = ({backgroundColor, backgroundRating}) => {
             tintColor={backgroundRating}
           />
           <Text size={12}>123 Reviewed</Text>
-          <Text right size={18} fontType="bold">
-            $3.39
-          </Text>
         </Block>
+        <Text
+          right
+          size={18}
+          paddingBottom={8}
+          paddingRight={8}
+          fontType="bold">
+          $3.39
+        </Text>
       </Block>
     </Pressable>
   );

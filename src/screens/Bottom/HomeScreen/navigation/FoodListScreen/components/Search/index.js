@@ -2,10 +2,13 @@ import {icons} from '@assets';
 import {Block} from '@components';
 import {theme} from '@theme';
 import React, {useState} from 'react';
+import {useNavigation} from '@react-navigation/core';
 import {Image, TextInput, TouchableOpacity} from 'react-native';
+import {routes} from '@navigation/routes';
 import styles from './styles';
 
 const Search = () => {
+  const navigation = useNavigation();
   const [search, setSearch] = useState(null);
   return (
     <Block height={48} marginHorizontal={16}>
@@ -28,7 +31,9 @@ const Search = () => {
             }}
           />
         </Block>
-        <TouchableOpacity style={styles.touch}>
+        <TouchableOpacity
+          style={styles.touch}
+          onPress={() => navigation.navigate(routes.FILTER_SCREEN)}>
           <Image style={styles.icons} source={icons.filter} />
         </TouchableOpacity>
       </Block>
