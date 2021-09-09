@@ -3,6 +3,7 @@ import {Block} from '@components';
 import React from 'react';
 import {Image, Text, Pressable} from 'react-native';
 import styles from './styles';
+import {theme} from '@theme';
 
 const ItemNotification = ({title, content, date, onPress}) => {
   return (
@@ -15,7 +16,7 @@ const ItemNotification = ({title, content, date, onPress}) => {
           paddingRight={15}
           borderRadius={8}
           marginLeft={10}
-          backgroundColor="#F8F8F8"
+          backgroundColor={theme.colors.white}
           paddingBottom={15}>
           <Block marginTop={12} row space="between">
             <Text style={styles.title}>{title}</Text>

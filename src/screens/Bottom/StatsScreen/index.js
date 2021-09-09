@@ -10,7 +10,7 @@ import StatsBlock from './components/StatsBlock';
 
 const StatsScreen = () => {
   return (
-    <Block flex backgroundColor={theme.colors.white}>
+    <Block flex backgroundColor={theme.colors.background}>
       <Block height="20%">
         <Header
           image={

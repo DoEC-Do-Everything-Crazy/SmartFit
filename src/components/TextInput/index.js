@@ -1,7 +1,7 @@
 import {theme} from '@theme';
 import {getSize} from '@utils/responsive';
 import {isEmpty} from 'lodash';
-import React, {useState} from 'react';
+import React, {useState, useMemo} from 'react';
 import {Image, StyleSheet, TextInput, TouchableOpacity} from 'react-native';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -28,9 +28,12 @@ const InputText = ({...props}) => {
     isError,
     disabled,
     errorContainerStyle,
+    isFocus,
+    isBlur,
     ...inputProps
   } = props;
   const [secureEye, setSecureEye] = useState(true);
+  const [isInput, setInput] = useState(true);
 
   const textStyle = [
     styles.resetStyles,
@@ -48,6 +51,13 @@ const InputText = ({...props}) => {
     {fontSize: getSize.m(size ? size : 14)},
     {...StyleSheet.flatten(inputProps.style)},
   ];
+
+  const borderColor = useMemo(() => {
+    if (isInput) {
+      return theme.colors.white;
+    }
+    return theme.colors.blue;
+  }, [isInput]);
 
   const _renderSecureIcon = () => {
     return (
@@ -86,6 +96,8 @@ const InputText = ({...props}) => {
   const _renderInput = () => {
     return (
       <TextInput
+        onFocus={() => setInput(false)}
+        onBlur={() => setInput(true)}
         ref={ref}
         autoCorrect={false}
         textAlignVertical={props.multiline ? 'top' : 'center'}
@@ -103,7 +115,16 @@ const InputText = ({...props}) => {
   };
 
   return (
-    <Block flexShrink style={containerInputStyle}>
+    <Block
+      flexShrink
+      style={[
+        containerInputStyle,
+        {
+          borderRadius: 8,
+          borderColor: borderColor,
+          borderWidth: 1,
+        },
+      ]}>
       {!isEmpty(label) && _renderLabel()}
       <Block
         style={[

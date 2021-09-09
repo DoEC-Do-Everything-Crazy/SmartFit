@@ -32,6 +32,7 @@ const icons = {
   iHeart: require('./icons/iHeart.png'),
   plus: require('./icons/plus.png'),
   x: require('./icons/x.png'),
+  fullname: require('./icons/fullname.png'),
 };
 
 const lotties = {};

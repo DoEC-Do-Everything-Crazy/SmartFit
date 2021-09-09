@@ -20,7 +20,7 @@ const TabLesson = () => {
     );
   };
   return (
-    <Block flex backgroundColor={theme.colors.white}>
+    <Block flex backgroundColor={theme.colors.background}>
       <Carousel
         sliderWidth={screenWidth}
         sliderHeight={screenWidth}

@@ -10,7 +10,7 @@ export default StyleSheet.create({
     position: 'absolute',
     borderTopLeftRadius: getSize.m(32),
     borderTopRightRadius: getSize.m(32),
-    backgroundColor: theme.colors.white,
+    backgroundColor: theme.colors.background,
   },
   logo: {
     width: getSize.s(70),
@@ -23,6 +23,6 @@ export default StyleSheet.create({
   containerStyle: {
     borderWidth: 1,
     borderColor: theme.colors.blue,
-    backgroundColor: theme.colors.white,
+    backgroundColor: theme.colors.background,
   },
 });

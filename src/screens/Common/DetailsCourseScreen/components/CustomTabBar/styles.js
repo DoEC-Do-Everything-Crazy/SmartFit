@@ -9,7 +9,7 @@ export default StyleSheet.create({
     borderRadius: getSize.m(6),
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: isFocused ? theme.colors.blue : theme.colors.white,
+    backgroundColor: isFocused ? theme.colors.blue : theme.colors.background,
   }),
   txt: isFocused => ({
     color: isFocused ? theme.colors.white : theme.colors.blue,

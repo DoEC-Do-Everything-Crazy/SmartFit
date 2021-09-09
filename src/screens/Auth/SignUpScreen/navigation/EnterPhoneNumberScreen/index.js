@@ -31,7 +31,7 @@ const EnterPhoneNumberScreen = () => {
         });
       }}>
       {({handleChange, handleBlur, handleSubmit, touched, errors, values}) => (
-        <Block flex backgroundColor={theme.colors.white}>
+        <Block flex backgroundColor={theme.colors.background}>
           <Header
             canGoBack
             colorTheme={theme.colors.blue}
@@ -54,8 +54,12 @@ const EnterPhoneNumberScreen = () => {
                 <Text style={styles.text}>{errors.phoneNumber}</Text>
               )}
             </Block>
-            <Button onPress={handleSubmit} title="Send" />
           </Block>
+          <Button
+            containerStyle={{justifyContent: 'flex-end'}}
+            onPress={handleSubmit}
+            title="Send"
+          />
         </Block>
       )}
     </Formik>

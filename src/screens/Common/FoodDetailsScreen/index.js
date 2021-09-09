@@ -39,7 +39,7 @@ const FoodDetailsScreen = () => {
   const isSeemore = () => setSeemore(!seeMore);
 
   return (
-    <Block flex backgroundColor={theme.colors.white}>
+    <Block flex backgroundColor={theme.colors.background}>
       <Header canGoBack title="Food Details" colorTheme={theme.colors.black} />
       <Text size={30} fontType="bold" marginHorizontal={16}>
         Mixed Vegetables

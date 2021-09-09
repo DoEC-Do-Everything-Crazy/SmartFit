@@ -56,7 +56,7 @@ const TabDetails = () => {
   };
 
   return (
-    <Block flex backgroundColor={theme.colors.white}>
+    <Block flex backgroundColor={theme.colors.background}>
       <Block paddingHorizontal={16}>
         <Carousel
           loop

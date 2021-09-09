@@ -14,7 +14,7 @@ const FilterScreen = () => {
   const {top} = useSafeAreaInsets();
   const navigation = useNavigation();
   return (
-    <Block flex backgroundColor={theme.colors.white}>
+    <Block flex backgroundColor={theme.colors.background}>
       <ScrollView>
         <Block row marginTop={top + 20} alignCenter marginHorizontal={16}>
           <Pressable onPress={() => navigation.goBack()}>

@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: 'white',
     padding: getSize.m(12),
-    paddingBottom: getSize.m(25),
+    paddingBottom: getSize.m(15),
   },
   container: {
     flexGrow: 1,

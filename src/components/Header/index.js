@@ -11,6 +11,8 @@ import {routes} from '@navigation/routes';
 const Header = props => {
   if (props.type === 'Home') {
     return <HeaderHome {...props} />;
+  } else if (props.type === 'Bottom') {
+    return <HeaderBottom {...props} />;
   } else {
     return <HeaderCommon {...props} />;
   }
@@ -47,31 +49,34 @@ const HeaderHome = () => {
   );
 };
 
-const HeaderCommon = ({title, canGoBack, cart, search, filter, colorTheme}) => {
+const HeaderCommon = ({title, canGoBack, cart, search}) => {
   const {top} = useSafeAreaInsets();
   const navigation = useNavigation();
   return (
     <Block>
       <Block
         row
+        shadow
         alignCenter
         paddingHorizontal={16}
         paddingTop={top + 10}
         paddingVertical={16}
-        space="between">
+        marginBottom={16}
+        space="between"
+        backgroundColor={theme.colors.header}>
         {canGoBack && (
           <Pressable onPress={() => navigation.goBack()}>
             <Image
               source={icons.back}
               style={styles.iconBack}
               resizeMode="contain"
-              tintColor={colorTheme}
+              tintColor={theme.colors.blue}
             />
           </Pressable>
         )}
 
         {title && (
-          <Text flex center size={17} fontType="bold" color={colorTheme}>
+          <Text flex center size={17} fontType="bold" color={theme.colors.blue}>
             {title}
           </Text>
         )}
@@ -81,7 +86,7 @@ const HeaderCommon = ({title, canGoBack, cart, search, filter, colorTheme}) => {
               source={icons.cart}
               style={styles.iconBack}
               resizeMode="contain"
-              tintColor={colorTheme}
+              tintColor={theme.colors.blue}
             />
           </Pressable>
         )}
@@ -92,11 +97,31 @@ const HeaderCommon = ({title, canGoBack, cart, search, filter, colorTheme}) => {
               source={icons.search}
               style={styles.iconBack}
               resizeMode="contain"
-              tintColor={colorTheme}
+              tintColor={theme.colors.blue}
             />
           </Pressable>
         )}
       </Block>
+    </Block>
+  );
+};
+
+const HeaderBottom = ({title}) => {
+  const {top} = useSafeAreaInsets();
+  return (
+    <Block
+      row
+      alignCenter
+      paddingHorizontal={16}
+      paddingTop={top + 10}
+      paddingVertical={16}
+      space="between"
+      backgroundColor={theme.colors.blue}>
+      {title && (
+        <Text flex center size={17} fontType="bold" color={theme.colors.white}>
+          {title}
+        </Text>
+      )}
     </Block>
   );
 };

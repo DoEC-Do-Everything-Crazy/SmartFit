@@ -29,7 +29,6 @@ const ListItemFeature = () => {
   const _renderItem = ({item}) => (
     <ItemFeature
       height={50}
-      borderWidth={0.5}
       icon={item.image}
       title={item.title}
       onPress={() => {
@@ -39,7 +38,6 @@ const ListItemFeature = () => {
   );
   return (
     <Block paddingHorizontal={16} height="50%">
-      <Block row alignCenter marginHorizontal={16} space="between"></Block>
       <FlatList
         showsVerticalScrollIndicator={false}
         nestedScrollEnabled

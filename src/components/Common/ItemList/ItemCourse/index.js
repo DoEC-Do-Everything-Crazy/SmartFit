@@ -1,14 +1,13 @@
-import {images, icons} from '@assets';
-
-import {theme} from '@theme';
+import {icons} from '@assets';
 import {Block, Text} from '@components';
+import {theme} from '@theme';
 import React from 'react';
 import {Image} from 'react-native';
 import styles from './styles';
 
 const ItemCourse = ({picture, title, group_id, index}) => {
   return (
-    <Block flex key={index} marginTop={30} marginBottom={16}>
+    <Block flex key={index} marginTop={6} marginBottom={26}>
       <Block
         radius={16}
         borderWidth={0.3}

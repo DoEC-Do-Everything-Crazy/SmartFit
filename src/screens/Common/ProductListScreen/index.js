@@ -14,7 +14,7 @@ const ProductListScreen = () => {
   const _renderItemCarousel = ({item, index}) => <ItemCarousel />;
   const _renderItemFood = ({item, index}) => <ItemProduct />;
   return (
-    <Block flex marginBottom={16} backgroundColor={theme.colors.white}>
+    <Block flex marginBottom={16} backgroundColor={theme.colors.background}>
       <Header
         canGoBack
         cart

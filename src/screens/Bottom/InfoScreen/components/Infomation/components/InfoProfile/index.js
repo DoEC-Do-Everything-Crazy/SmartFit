@@ -21,12 +21,11 @@ const InfoProfile = ({image, name, phoneNumber, email, gene, birthday}) => {
           height={155}
           paddingLeft={55}
           paddingRight={15}
-          borderWidth={1}
           borderRadius={20}
           marginLeft={40}
           marginRight={5}
           paddingBottom={5}
-          borderColor="grey">
+          backgroundColor={theme.colors.white}>
           <Text
             center
             size={18}

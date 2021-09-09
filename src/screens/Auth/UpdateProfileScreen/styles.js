@@ -4,12 +4,13 @@ import {theme} from '@theme';
 
 export default StyleSheet.create({
   group: {
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
   },
   input: {
     height: 60,
   },
   holderInput: {
+    marginTop: getSize.m(20),
     fontSize: 100,
   },
   button: {
@@ -22,8 +23,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingLeft: '3%',
-    borderColor: theme.colors.lightGray,
-    borderWidth: 1,
+    backgroundColor: theme.colors.white,
     borderRadius: 5,
   },
   img: {

@@ -7,7 +7,7 @@ import ListItemNavProduct from './components/ListItemNavProduct';
 
 const FoodListScreen = () => {
   return (
-    <Block flex backgroundColor={theme.colors.white}>
+    <Block flex backgroundColor={theme.colors.background}>
       <Header
         canGoBack
         cart
