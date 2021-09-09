@@ -44,8 +44,8 @@ const RootStack = () => {
         />
         <Stack.Screen name={routes.SEND_EMAIL} component={auth.SEND_EMAIL} />
         <Stack.Screen
-          name={routes.VFT_PHONENUMBER_SCREEN}
-          component={auth.VFTPHONENUMBERSCREEN}
+          name={routes.VFT_PHONE_NUMBER_SCREEN}
+          component={auth.VFT_PHONE_NUMBER_SCREEN}
         />
         <Stack.Screen
           name={routes.LOGIN_SCREEN}
@@ -60,8 +60,8 @@ const RootStack = () => {
           component={auth.UPDATE_PROFILE}
         />
         <Stack.Screen
-          name={routes.COURSESCREEN}
-          component={bottom.COURSESCREEN}
+          name={routes.COURSE_SCREEN}
+          component={bottom.COURSE_SCREEN}
         />
         <Stack.Screen
           name={routes.COURSE_LIST_SCREEN}
@@ -81,17 +81,14 @@ const RootStack = () => {
         />
         <Stack.Screen
           name={routes.SEARCH_SCREEN}
-          component={common.SEARCH_SCREEN}
+          component={bottom.SEARCH_SCREEN}
         />
         {/* Tabs */}
         <Stack.Screen
           name={routes.TAB_DETAILS}
           component={common.TAB_DETAILS}
         />
-        <Stack.Screen
-          name={routes.TAB_LESSSON}
-          component={common.TAB_LESSSON}
-        />
+        <Stack.Screen name={routes.TAB_LESSON} component={common.TAB_LESSON} />
         <Stack.Screen
           name={routes.FILTER_SCREEN}
           component={common.FILTER_SCREEN}

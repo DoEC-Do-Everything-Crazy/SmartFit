@@ -28,7 +28,7 @@ const DetailsCourseScreen = () => {
           options={{
             tabBarLabel: 'Lessons',
           }}
-          name={routes.TAB_LESSSON}
+          name={routes.TAB_LESSON}
           component={TabLesson}
         />
       </Tab.Navigator>

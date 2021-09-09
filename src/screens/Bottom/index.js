@@ -4,13 +4,14 @@ import StatsScreen from '@screens/Bottom/StatsScreen';
 import CourseScreen from './HomeScreen/navigation/CourseScreen';
 import FoodListScreen from './HomeScreen/navigation/FoodListScreen';
 import HomeScreen from './HomeScreen';
+import SearchScreen from './SearchScreen';
 
 export const bottom = {
   HOME_SCREEN: HomeScreen,
   INFO_SCREEN: InfoScreen,
   STATS_SCREEN: StatsScreen,
-  COURSESCREEN: CourseScreen,
+  COURSE_SCREEN: CourseScreen,
   NOTIFICATION_SCREEN: NotificationScreen,
-  COURCE_SCREEN: CourseScreen,
   FOOD_LIST_SCREEN: FoodListScreen,
+  SEARCH_SCREEN: SearchScreen,
 };

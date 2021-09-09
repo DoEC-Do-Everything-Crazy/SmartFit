@@ -37,7 +37,7 @@ const SearchScreen = () => {
 
   return (
     <Block flex backgroundColor={theme.colors.background}>
-      <Header title="Search" canGoBack colorTheme={theme.colors.black} />
+      <Header title="Search" colorTheme={theme.colors.black} />
       <Block paddingHorizontal={16}>
         <TextInput
           placeholder="Search"

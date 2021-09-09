@@ -9,7 +9,7 @@ export const auth = {
   LOGIN_SCREEN: LoginScreen,
   SIGNUP_SCREEN: SignUpScreen,
   SEND_EMAIL: SendEmail,
-  VFTPHONENUMBERSCREEN: VFTPhoneNumberScreen,
+  VFT_PHONE_NUMBER_SCREEN: VFTPhoneNumberScreen,
   UPDATE_PROFILE: UpdateProfileScreen,
   ENTER_PHONE_NUMBER_SCREEN: EnterPhoneNumberScreen,
 };
