@@ -83,6 +83,14 @@ const RootStack = () => {
           name={routes.SEARCH_SCREEN}
           component={bottom.SEARCH_SCREEN}
         />
+        <Stack.Screen
+          name={routes.ONBOARD_SCREEN}
+          component={common.ONBOARD_SCREEN}
+        />
+        <Stack.Screen
+          name={routes.ONBOARD_SCREEN}
+          component={common.ONBOARD_SCREEN}
+        />
         {/* Tabs */}
         <Stack.Screen
           name={routes.TAB_DETAILS}
