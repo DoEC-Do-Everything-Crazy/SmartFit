@@ -2,6 +2,7 @@ import {Block, Header} from '@components';
 import ItemCourse from '@components/Common/ItemList/ItemCourse';
 import {theme} from '@theme';
 import React from 'react';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {FlatList} from 'react-native';
 
 const CourseListScreen = () => {
