@@ -101,6 +101,14 @@ const RootStack = () => {
           name={routes.FILTER_SCREEN}
           component={common.FILTER_SCREEN}
         />
+        <Stack.Screen
+          name={routes.FOOD_DETAILS_SCREEN}
+          component={common.FOOD_DETAILS_SCREEN}
+        />
+        <Stack.Screen
+          name={routes.CART_SCREEN}
+          component={common.CART_SCREEN}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
