@@ -4,6 +4,7 @@ import {theme} from '@theme';
 import Search from './components/Search';
 import ListItemPopular from './components/ListItemPopular';
 import ListItemNavProduct from './components/ListItemNavProduct';
+import {ScrollView} from 'react-native';
 
 const FoodListScreen = () => {
   return (
@@ -14,9 +15,11 @@ const FoodListScreen = () => {
         title="Healthy Food"
         colorTheme={theme.colors.blue}
       />
-      <Search />
-      <ListItemNavProduct />
-      <ListItemPopular />
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <Search />
+        <ListItemNavProduct />
+        <ListItemPopular />
+      </ScrollView>
     </Block>
   );
 };
