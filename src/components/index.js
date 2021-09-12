@@ -6,5 +6,16 @@ import Carousel from './Carousel';
 import Shimmer from './Shimmer';
 import CheckBox from './CheckBox';
 import TextInput from './TextInput';
+import EmptyScreen from './EmptyScreen';
 
-export {Block, Text, Button, Header, Carousel, Shimmer, CheckBox, TextInput};
+export {
+  Block,
+  Text,
+  Button,
+  Header,
+  Carousel,
+  Shimmer,
+  CheckBox,
+  TextInput,
+  EmptyScreen,
+};

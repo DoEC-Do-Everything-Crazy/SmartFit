@@ -2,6 +2,7 @@ import {Block, Text} from '@components';
 import ItemCart from '@components/Common/ItemList/ItemCart';
 import React from 'react';
 import {FlatList} from 'react-native';
+import {theme} from '@theme';
 
 const CartList = ({DATA}) => {
   const renderItem = ({item}) => (

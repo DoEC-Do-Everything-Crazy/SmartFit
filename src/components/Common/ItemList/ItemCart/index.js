@@ -1,10 +1,9 @@
-import React from 'react';
-import {Block, Text} from '@components';
-import {Image, Pressable} from 'react-native';
-import {theme} from '@theme';
-import {width} from '@utils/responsive';
-import Swipeout from 'react-native-swipeout';
 import {icons} from '@assets';
+import {Block, Text} from '@components';
+import {theme} from '@theme';
+import React from 'react';
+import {Image, Pressable} from 'react-native';
+import Swipeout from 'react-native-swipeout';
 
 const ItemCart = ({title, image, price, id}) => {
   const swipeoutBtns = [
@@ -16,7 +15,7 @@ const ItemCart = ({title, image, price, id}) => {
           <Image source={icons.addToCart} />
         </Pressable>
       ),
-      backgroundColor: 'transparent',
+      backgroundColor: '#ff0000',
       underlayColor: 'red',
     },
     {
@@ -27,7 +26,7 @@ const ItemCart = ({title, image, price, id}) => {
           <Image source={icons.addToCart} />
         </Pressable>
       ),
-      backgroundColor: 'transparent',
+      backgroundColor: '#ff0',
     },
   ];
   return (
