@@ -5,7 +5,6 @@ import TabDetails from './DetailsCourseScreen/components/TabScreen/TabDetails';
 import ProductListScreen from '../Common/ProductListScreen';
 import FoodDetailsScreen from '../Common/FoodDetailsScreen';
 import OnBoardScreen from './OnBoardScreen';
-import SearchScreen from './SearchScreen';
 import FilterScreen from '../Common/FilterScreen';
 import CartScreen from '../Common/CartScreen';
 

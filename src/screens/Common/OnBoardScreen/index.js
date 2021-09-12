@@ -1,10 +1,10 @@
-import React, {useCallback, useRef, useState} from 'react';
-
 import {Text} from '@components';
 import {theme} from '@theme';
-import {Dimensions, Image, View, TouchableOpacity} from 'react-native';
+import React, {useCallback, useRef, useState} from 'react';
+import {Dimensions, Image, TouchableOpacity, View} from 'react-native';
 import Carousel, {Pagination} from 'react-native-snap-carousel';
 import styles from './styles';
+
 const {width: SliderWidth} = Dimensions.get('screen');
 
 const OnBoardScreen = () => {

@@ -88,16 +88,6 @@ const RootStack = () => {
           component={common.ONBOARD_SCREEN}
         />
         <Stack.Screen
-          name={routes.ONBOARD_SCREEN}
-          component={common.ONBOARD_SCREEN}
-        />
-        {/* Tabs */}
-        <Stack.Screen
-          name={routes.TAB_DETAILS}
-          component={common.TAB_DETAILS}
-        />
-        <Stack.Screen name={routes.TAB_LESSON} component={common.TAB_LESSON} />
-        <Stack.Screen
           name={routes.FILTER_SCREEN}
           component={common.FILTER_SCREEN}
         />
@@ -109,6 +99,13 @@ const RootStack = () => {
           name={routes.CART_SCREEN}
           component={common.CART_SCREEN}
         />
+
+        {/* Tabs */}
+        <Stack.Screen
+          name={routes.TAB_DETAILS}
+          component={common.TAB_DETAILS}
+        />
+        <Stack.Screen name={routes.TAB_LESSON} component={common.TAB_LESSON} />
       </Stack.Navigator>
     </NavigationContainer>
   );
