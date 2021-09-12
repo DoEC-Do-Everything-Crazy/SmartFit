@@ -1,6 +1,6 @@
 import React, {useCallback, useRef, useState} from 'react';
 
-import {Text} from '@components';
+import {EmptyScreen, Text} from '@components';
 import {theme} from '@theme';
 import {Dimensions, Image, View, TouchableOpacity} from 'react-native';
 import Carousel, {Pagination} from 'react-native-snap-carousel';
@@ -30,16 +30,7 @@ const OnBoardScreen = () => {
 
   const _renderItem = useCallback(({item}) => {
     return (
-      <View style={styles.renderRoot}>
-        <Image
-          source={{
-            uri: item.img,
-          }}
-          style={styles.image}
-        />
-        <Text style={styles.renderTitle}>{item.title}</Text>
-        <Text style={styles.renderText}>{item.text}</Text>
-      </View>
+      <EmptyScreen picture={item.img} title={item.title} text={item.text} />
     );
   }, []);
 
