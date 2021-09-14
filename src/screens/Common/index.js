@@ -6,6 +6,7 @@ import ProductListScreen from '../Common/ProductListScreen';
 import FoodDetailsScreen from '../Common/FoodDetailsScreen';
 import OnBoardScreen from './OnBoardScreen';
 import FilterScreen from '../Common/FilterScreen';
+import OrderScreen from '../Common/OrderScreen';
 
 export const common = {
   DETAILS_COURSE_SCREEN: DetailsCourseScreen,
@@ -16,4 +17,5 @@ export const common = {
   FOOD_DETAILS_SCREEN: FoodDetailsScreen,
   FILTER_SCREEN: FilterScreen,
   ONBOARD_SCREEN: OnBoardScreen,
+  ORDER_SCREEN: OrderScreen,
 };

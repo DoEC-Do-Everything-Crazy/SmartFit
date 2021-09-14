@@ -19,7 +19,7 @@ const RootStack = () => {
       />
       <Stack.Navigator
         mode="modal"
-        initialRouteName={routes.ONBOARD_SCREEN}
+        initialRouteName={routes.ORDER_SCREEN}
         screenOptions={{headerShown: false}}>
         <Stack.Screen name={routes.BOTTOM_TAB} component={BottomNavigation} />
         <Stack.Screen
@@ -87,7 +87,10 @@ const RootStack = () => {
           name={routes.ONBOARD_SCREEN}
           component={common.ONBOARD_SCREEN}
         />
-
+        <Stack.Screen
+          name={routes.ORDER_SCREEN}
+          component={common.ORDER_SCREEN}
+        />
         {/* Tabs */}
         <Stack.Screen
           name={routes.TAB_DETAILS}
