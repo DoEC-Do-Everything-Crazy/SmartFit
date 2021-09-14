@@ -1,4 +1,3 @@
-import {images} from '@assets';
 import {Block, Text} from '@components';
 import React, {useState} from 'react';
 import {Pressable} from 'react-native';
@@ -14,7 +13,7 @@ const ItemOrder = ({picture, title, group_id, index}) => {
       marginTop={16}
       padding={16}
       radius={5}
-      borderWidth={0.3}>
+      color={theme.colors.white}>
       <Block width="100%">
         <Block row flex={1}>
           <Block row flex={1}>

@@ -44,7 +44,7 @@ const OrderScreen = () => {
   };
   return (
     <Block flex marginBottom={16} backgroundColor={theme.colors.background}>
-      <Header canGoBack cart title="Order" colorTheme={theme.colors.black} />
+      <Header canGoBack title="Order" colorTheme={theme.colors.black} />
       <Block
         flex
         paddingHorizontal={16}
