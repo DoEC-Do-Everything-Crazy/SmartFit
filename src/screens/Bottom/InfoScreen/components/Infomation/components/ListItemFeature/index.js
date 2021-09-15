@@ -21,6 +21,11 @@ const data = [
   },
   {
     id: 4,
+    title: 'Order',
+    image: icons.order,
+  },
+  {
+    id: 5,
     title: 'Setting',
     image: icons.setting,
   },

@@ -1,19 +1,19 @@
-import {Block, Header, Text, Button} from '@components';
+import {Block, Button, Header, Text} from '@components';
 import {theme} from '@theme';
-import React, {useState} from 'react';
+import {getSize} from '@utils/responsive';
+import React from 'react';
 import {Rating} from 'react-native-ratings';
-import ItemStats from './components/ItemStats';
-import {Image, Pressable} from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
-import styles from './styles';
-import {icons, images} from '@assets';
-import {height, getSize} from '@utils/responsive';
+import {ScrollView} from 'react-native';
+import DescriptionDetail from './components/DescriptionDetail';
+import ProductContent from './components/ProductContent';
+import RatingValue from './components/RatingValue';
+import Review from './components/Review';
 
 const data = [
   {
     id: 1,
     title: 'Protein',
-    stats: '60g',
+    stats: '160g',
   },
   {
     id: 2,
@@ -27,86 +27,47 @@ const data = [
   },
 ];
 
+const data_review = [
+  {
+    id: 1,
+    image: 'https://pbs.twimg.com/media/EYVxlOSXsAExOpX?format=jpg&name=small',
+    name: 'Khanh',
+    ratings: 5,
+  },
+  {
+    id: 2,
+    image: 'https://pbs.twimg.com/media/EYVxlOSXsAExOpX?format=jpg&name=small',
+    name: 'Khanh 1',
+    ratings: 5,
+  },
+  {
+    id: 3,
+    image: 'https://pbs.twimg.com/media/EYVxlOSXsAExOpX?format=jpg&name=small',
+    name: 'Khanh 2',
+    ratings: 5,
+  },
+];
+
 const FoodDetailsScreen = () => {
-  const [seeMore, setSeemore] = useState(true);
-  const _renderItem = item => (
-    <ItemStats title={item.title} stats={item.stats} />
-  );
-
-  const numberOfLines = seeMore ? 0 : 2;
-  const txtSeemore = seeMore ? 'Collapse' : 'See more';
-
-  const isSeemore = () => setSeemore(!seeMore);
-
   return (
     <Block flex backgroundColor={theme.colors.background}>
       <Header canGoBack title="Food Details" colorTheme={theme.colors.black} />
-      <Text size={30} fontType="bold" marginHorizontal={16}>
-        Mixed Vegetables
-      </Text>
-      <Block
-        row
-        alignCenter
-        space="between"
-        paddingVertical={10}
-        paddingHorizontal={16}>
-        <Rating
-          type="custom"
-          ratingColor="#FF7F50"
-          ratingCount={5}
-          imageSize={24}
-          tintColor={theme.colors.white}
-          ratingBackgroundColor={theme.colors.lightGray}
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <ProductContent data={data} />
+        <DescriptionDetail />
+        <RatingValue />
+        <Review data={data_review} />
+      </ScrollView>
+      <Block paddingHorizontal={16}>
+        <Button
+          title="BUY NOW"
+          containerStyle={{backgroundColor: theme.colors.blue}}
+          titleStyle={{
+            fontSize: getSize.m(18),
+            fontWeight: 'bold',
+            color: theme.colors.white,
+          }}
         />
-      </Block>
-      <Block flex>
-        <Block row alignCenter space="between">
-          <Block alignCenter justifyCenter width="40%">
-            {data.map(_renderItem)}
-          </Block>
-          <Block
-            width="60%"
-            style={styles.linearGradient}
-            backgroundColor={theme.colors.blueLight}>
-            <Image
-              resizeMode="contain"
-              source={icons.iHeart}
-              style={styles.iconHeart}
-            />
-            <Block flex alignCenter justifyCenter>
-              <Image source={images.food} style={styles.image} />
-              <Text size={32} marginTop={20} fontType="bold">
-                $ 3,99
-              </Text>
-            </Block>
-          </Block>
-        </Block>
-        <Block flex marginTop={32} paddingHorizontal={16}>
-          <Text
-            size={16}
-            numberOfLines={numberOfLines}
-            color={theme.colors.textLight}
-            fontType="bold">
-            Fake food no healthy Fake food no healthy Fake food no healthy Fake
-            food no healthy Fake food no healthy Fake food no healthy
-          </Text>
-          <Pressable onPress={() => isSeemore()}>
-            <Text size={16} fontType="bold" color={theme.colors.orange}>
-              {txtSeemore}
-            </Text>
-          </Pressable>
-        </Block>
-        <Block paddingHorizontal={16}>
-          <Button
-            title="BUY NOW"
-            containerStyle={{backgroundColor: theme.colors.lightBlue}}
-            titleStyle={{
-              fontSize: getSize.m(18),
-              fontWeight: 'bold',
-              color: theme.colors.black,
-            }}
-          />
-        </Block>
       </Block>
     </Block>
   );

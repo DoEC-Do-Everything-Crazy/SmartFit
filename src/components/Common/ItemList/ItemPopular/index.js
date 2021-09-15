@@ -1,4 +1,5 @@
 import {Block, Text} from '@components';
+import {theme} from '@theme';
 import {width} from '@utils/responsive';
 import React from 'react';
 import {Image, Pressable, TouchableOpacity} from 'react-native';
@@ -8,18 +9,18 @@ const ItemPopular = () => {
   return (
     <Pressable style={styles.press} onPress={() => console.log('Press')}>
       <Block
+        shadow
         height={150}
         width={width / 3 - 20}
         marginHorizontal={8}
-        borderWidth={1}
         borderRadius={8}
         marginVertical={8}
-        borderColor="#FFCCB6"
-        space="between">
+        space="between"
+        backgroundColor={theme.colors.white}>
         <Image
           style={styles.image}
           source={{
-            uri: 'https://img-global.cpcdn.com/recipes/7ebf84f0d5977606/680x482cq70/healthy-food-chu%E1%BB%97i-series-gi%E1%BA%A3m-can-recipe-main-photo.jpg',
+            uri: 'https://images.unsplash.com/photo-1514995669114-6081e934b693?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80',
           }}
         />
         <Block>

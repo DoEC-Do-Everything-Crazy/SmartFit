@@ -8,14 +8,10 @@ export default StyleSheet.create({
     borderTopLeftRadius: getSize.s(16),
   },
   iconHeart: {
-    position: 'absolute',
-    right: getSize.m(16),
-    top: getSize.m(16),
     width: getSize.s(24),
     height: getSize.s(24),
   },
   image: {
-    marginTop: getSize.m(16),
     width: getSize.s(200),
     height: getSize.s(200),
   },

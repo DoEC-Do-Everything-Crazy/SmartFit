@@ -3,7 +3,7 @@ import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
   image: {
-    width: width / 3 - 24,
+    width: width / 3 - 20,
     height: 70,
     alignSelf: 'center',
     borderTopLeftRadius: 8,

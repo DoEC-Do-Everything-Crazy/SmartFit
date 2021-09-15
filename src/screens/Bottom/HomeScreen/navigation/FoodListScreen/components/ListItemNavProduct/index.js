@@ -34,14 +34,9 @@ const data = [
   },
 ];
 const ListItemNavProduct = () => {
-  const _renderItem = ({item}) => (
-    <ItemNavProduct
-      backgroundColor={item.id % 2 == 0 ? '#D9FFDF' : '#B0EFEF'}
-      backgroundRating={item.id % 2 == 0 ? '#D9FFDF' : '#B0EFEF'}
-    />
-  );
+  const _renderItem = ({item}) => <ItemNavProduct />;
   return (
-    <Block marginHorizontal={8} marginVertical={15}>
+    <Block marginHorizontal={8} marginBottom={15}>
       <FlatList
         showsHorizontalScrollIndicator={false}
         horizontal
