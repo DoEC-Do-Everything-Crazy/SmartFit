@@ -8,6 +8,7 @@ import OnBoardScreen from './OnBoardScreen';
 import FilterScreen from '../Common/FilterScreen';
 import OrderScreen from '../Common/OrderScreen';
 import OrderDetailScreen from '../Common/OrderDetailScreen';
+import CartScreen from '../Common/CartScreen';
 
 export const common = {
   DETAILS_COURSE_SCREEN: DetailsCourseScreen,
@@ -20,4 +21,5 @@ export const common = {
   ONBOARD_SCREEN: OnBoardScreen,
   ORDER_SCREEN: OrderScreen,
   ORDER_DETAIL_SCREEN: OrderDetailScreen,
+  CART_SCREEN: CartScreen,
 };

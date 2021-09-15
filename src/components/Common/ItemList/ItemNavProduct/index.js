@@ -2,16 +2,21 @@ import {icons} from '@assets';
 import {Block, Text} from '@components';
 import {width} from '@utils/responsive';
 import React from 'react';
+import {useNavigation} from '@react-navigation/core';
 import {Image, Pressable} from 'react-native';
 import {Rating} from 'react-native-ratings';
+import {routes} from '@navigation/routes';
 import styles from './styles';
 
 const ItemNavProduct = ({backgroundColor, backgroundRating}) => {
+  const navigation = useNavigation();
   return (
-    <Pressable style={styles.press} onPress={() => console.log('Press')}>
+    <Pressable
+      style={styles.press}
+      onPress={() => navigation.navigate(routes.FOOD_DETAILS_SCREEN)}>
       <Block
         width={width / 2 - 32}
-        height={250}
+        height={260}
         padding={5}
         borderRadius={8}
         marginHorizontal={8}
@@ -45,7 +50,7 @@ const ItemNavProduct = ({backgroundColor, backgroundRating}) => {
         <Text
           right
           size={18}
-          paddingBottom={8}
+          paddingBottom={10}
           paddingRight={8}
           fontType="bold">
           $3.39

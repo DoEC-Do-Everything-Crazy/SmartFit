@@ -55,7 +55,7 @@ const TabItem = ({icon, label, active, onPress, index}) => {
           ]}>
           {active ? (
             <Animated.Text style={styles.label}>
-              {index === 2
+              {index === 3
                 ? totalNotification > 0
                   ? `${label} (${totalNotification || 0})`
                   : label

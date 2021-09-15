@@ -33,6 +33,10 @@ const icons = {
   plus: require('./icons/plus.png'),
   x: require('./icons/x.png'),
   fullname: require('./icons/fullname.png'),
+  addToCart: require('./icons/addTocart.png'),
+  bags: require('./icons/bags.png'),
+  cart_data: require('./icons/cart_data.png'),
+  cartDelete: require('./icons/cartDelete.png'),
 };
 
 const lotties = {};

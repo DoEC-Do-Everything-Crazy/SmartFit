@@ -19,7 +19,7 @@ const RootStack = () => {
       />
       <Stack.Navigator
         mode="modal"
-        initialRouteName={routes.ORDER_DETAIL_SCREEN}
+        initialRouteName={routes.BOTTOM_TAB}
         screenOptions={{headerShown: false}}>
         <Stack.Screen name={routes.BOTTOM_TAB} component={BottomNavigation} />
         <Stack.Screen
@@ -95,16 +95,24 @@ const RootStack = () => {
           name={routes.ORDER_DETAIL_SCREEN}
           component={common.ORDER_DETAIL_SCREEN}
         />
+        <Stack.Screen
+          name={routes.FILTER_SCREEN}
+          component={common.FILTER_SCREEN}
+        />
+        <Stack.Screen
+          name={routes.FOOD_DETAILS_SCREEN}
+          component={common.FOOD_DETAILS_SCREEN}
+        />
+        <Stack.Screen
+          name={routes.CART_SCREEN}
+          component={common.CART_SCREEN}
+        />
         {/* Tabs */}
         <Stack.Screen
           name={routes.TAB_DETAILS}
           component={common.TAB_DETAILS}
         />
         <Stack.Screen name={routes.TAB_LESSON} component={common.TAB_LESSON} />
-        <Stack.Screen
-          name={routes.FILTER_SCREEN}
-          component={common.FILTER_SCREEN}
-        />
       </Stack.Navigator>
     </NavigationContainer>
   );

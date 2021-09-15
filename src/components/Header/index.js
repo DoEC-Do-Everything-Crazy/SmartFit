@@ -38,7 +38,7 @@ const HeaderHome = () => {
           resizeMode="contain"
         />
       </Pressable>
-      <Pressable>
+      <Pressable onPress={() => navigation.navigate(routes.CART_SCREEN)}>
         <Image
           source={icons.cart}
           style={styles.iconHeader}
@@ -81,7 +81,10 @@ const HeaderCommon = ({title, canGoBack, cart, search}) => {
           </Text>
         )}
         {cart && (
-          <Pressable onPress={() => {}}>
+          <Pressable
+            onPress={() => {
+              navigation.navigate(routes.CART_SCREEN);
+            }}>
             <Image
               source={icons.cart}
               style={styles.iconBack}
