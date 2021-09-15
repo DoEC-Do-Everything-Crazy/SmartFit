@@ -2,7 +2,10 @@ import {icons} from '@assets';
 import {Block} from '@components';
 import ItemFeature from '@components/Common/ItemList/ItemFeature';
 import React from 'react';
+import {useNavigation} from '@react-navigation/core';
 import {FlatList} from 'react-native';
+import {routes} from '@navigation/routes';
+
 const data = [
   {
     id: 1,
@@ -31,6 +34,7 @@ const data = [
   },
 ];
 const ListItemFeature = () => {
+  const navigation = useNavigation();
   const _renderItem = ({item}) => (
     <ItemFeature
       height={50}
@@ -38,6 +42,9 @@ const ListItemFeature = () => {
       title={item.title}
       onPress={() => {
         console.log(item.title);
+        if (item.title === 'Order') {
+          navigation.navigate(routes.ORDER_SCREEN);
+        }
       }}
     />
   );
