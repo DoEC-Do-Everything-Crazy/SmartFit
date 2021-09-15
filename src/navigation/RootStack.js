@@ -88,6 +88,14 @@ const RootStack = () => {
           component={common.ONBOARD_SCREEN}
         />
         <Stack.Screen
+          name={routes.ORDER_SCREEN}
+          component={common.ORDER_SCREEN}
+        />
+        <Stack.Screen
+          name={routes.ORDER_DETAIL_SCREEN}
+          component={common.ORDER_DETAIL_SCREEN}
+        />
+        <Stack.Screen
           name={routes.FILTER_SCREEN}
           component={common.FILTER_SCREEN}
         />
@@ -99,7 +107,6 @@ const RootStack = () => {
           name={routes.CART_SCREEN}
           component={common.CART_SCREEN}
         />
-
         {/* Tabs */}
         <Stack.Screen
           name={routes.TAB_DETAILS}
