@@ -9,7 +9,7 @@ const ItemOrderDetail = ({picture, title, group_id, index}) => {
       flex
       row
       key={index}
-      radius={5}
+      radius={8}
       marginTop={16}
       backgroundColor={theme.colors.white}>
       <Block height="100%">
