@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
     color: theme.colors.blue,
     fontSize: getSize.m(12),
     marginLeft: getSize.m(5),
-    fontFamily: 'Quicksand-Medium',
+    // fontFamily: 'Quicksand-Medium',
   },
   cover: {
     height: getSize.s(40),

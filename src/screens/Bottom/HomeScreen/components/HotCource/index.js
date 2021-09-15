@@ -17,7 +17,7 @@ const ListVertical = () => {
         <Text size={20} fontType="bold" color={theme.colors.blue}>
           Hot Course
         </Text>
-        <Pressable onPress={() => navigation.navigate(routes.COURSESCREEN)}>
+        <Pressable onPress={() => navigation.navigate(routes.COURSE_SCREEN)}>
           <Text size={20}>See all</Text>
         </Pressable>
       </Block>
