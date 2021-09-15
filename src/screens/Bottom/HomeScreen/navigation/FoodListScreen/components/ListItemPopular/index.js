@@ -4,16 +4,7 @@ import React from 'react';
 import {FlatList} from 'react-native';
 const data = [1, 2, 3, 4, 5, 6, 7, 8];
 const ListItemPopular = () => {
-  const _renderItem = ({item}) => (
-    <ItemPopular
-    //   title={item.title}
-    //   content={item.content}
-    //   date={item.date}
-    //   onPress={() => {
-    //     console.log(item.title);
-    //   }}
-    />
-  );
+  const _renderItem = ({item}) => <ItemPopular />;
   return (
     <Block flex>
       <Block row marginHorizontal={16} marginBottom={10} space="between">

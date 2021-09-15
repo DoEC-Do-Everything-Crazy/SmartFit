@@ -1,10 +1,9 @@
 import {Block, Text} from '@components';
-import {theme} from '@theme';
 import React from 'react';
 
 const ItemStats = ({id, title, stats}) => {
   return (
-    <Block marginVertical={30} alignCenter backgroundColor={theme.colors.white}>
+    <Block marginVertical={20} alignCenter>
       <Text size={22} fontType="bold">
         {stats}
       </Text>

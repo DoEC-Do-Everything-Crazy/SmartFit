@@ -37,6 +37,8 @@ const icons = {
   bags: require('./icons/bags.png'),
   cart_data: require('./icons/cart_data.png'),
   cartDelete: require('./icons/cartDelete.png'),
+  order: require('./icons/order.png'),
+  like: require('./icons/like.png'),
 };
 
 const lotties = {};

@@ -16,7 +16,6 @@ const FoodListScreen = () => {
         colorTheme={theme.colors.blue}
       />
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Search />
         <ListItemNavProduct />
         <ListItemPopular />
       </ScrollView>

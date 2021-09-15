@@ -14,7 +14,7 @@ const CartScreen = () => {
 };
 
 const Cart = () => (
-  <Block flex>
+  <Block flex backgroundColor={theme.colors.background}>
     <Header canGoBack colorTheme={theme.colors.blue} title="Cart" />
     <CartList DATA={DATA} />
     <PayInfo />
