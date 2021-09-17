@@ -7,6 +7,7 @@ import Shimmer from './Shimmer';
 import CheckBox from './CheckBox';
 import TextInput from './TextInput';
 import EmptyScreen from './EmptyScreen';
+import BottomSheet from './BottomSheet';
 
 export {
   Block,
@@ -18,4 +19,5 @@ export {
   CheckBox,
   TextInput,
   EmptyScreen,
+  BottomSheet,
 };

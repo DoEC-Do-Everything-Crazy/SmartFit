@@ -7,7 +7,7 @@ import BottomNavigation from './BottomNavigation';
 import {auth} from '@screens/Auth';
 import {bottom} from '@screens/Bottom';
 import {common} from '@screens/Common';
-
+import {Host} from 'react-native-portalize';
 const Stack = createStackNavigator();
 const RootStack = () => {
   return (
