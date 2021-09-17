@@ -46,6 +46,8 @@ const lotties = {};
 const images = {
   lesson: require('./images/lesson.png'),
   food: require('./images/food.png'),
+  image: require('./images/image.png'),
+  favorite: require('./images/favorite.png'),
 };
 
 export {icons, lotties, images};

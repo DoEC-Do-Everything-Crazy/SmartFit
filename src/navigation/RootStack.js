@@ -107,6 +107,10 @@ const RootStack = () => {
           name={routes.CART_SCREEN}
           component={common.CART_SCREEN}
         />
+        <Stack.Screen
+          name={routes.YOUR_FAVORITE_SCREEN}
+          component={common.YOUR_FAVORITE_SCREEN}
+        />
         {/* Tabs */}
         <Stack.Screen
           name={routes.TAB_DETAILS}

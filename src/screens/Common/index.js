@@ -5,10 +5,11 @@ import TabDetails from './DetailsCourseScreen/components/TabScreen/TabDetails';
 import ProductListScreen from '../Common/ProductListScreen';
 import FoodDetailsScreen from '../Common/FoodDetailsScreen';
 import OnBoardScreen from './OnBoardScreen';
-import FilterScreen from '../Common/FilterScreen';
-import OrderScreen from '../Common/OrderScreen';
-import OrderDetailScreen from '../Common/OrderDetailScreen';
-import CartScreen from '../Common/CartScreen';
+import FilterScreen from './FilterScreen';
+import OrderScreen from './OrderScreen';
+import OrderDetailScreen from './OrderDetailScreen';
+import CartScreen from './CartScreen';
+import YourFavoriteScreen from './YourFavoriteScreen';
 
 export const common = {
   DETAILS_COURSE_SCREEN: DetailsCourseScreen,
@@ -22,4 +23,5 @@ export const common = {
   ORDER_SCREEN: OrderScreen,
   ORDER_DETAIL_SCREEN: OrderDetailScreen,
   CART_SCREEN: CartScreen,
+  YOUR_FAVORITE_SCREEN: YourFavoriteScreen,
 };

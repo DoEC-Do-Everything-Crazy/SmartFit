@@ -11,6 +11,7 @@ const data = [
     id: 1,
     title: 'Your favorite',
     image: icons.heartPf,
+    navigation: routes.YOUR_FAVORITE_SCREEN,
   },
   {
     id: 2,
@@ -26,6 +27,7 @@ const data = [
     id: 4,
     title: 'Order',
     image: icons.order,
+    navigation: routes.ORDER_SCREEN,
   },
   {
     id: 5,
@@ -35,19 +37,19 @@ const data = [
 ];
 const ListItemFeature = () => {
   const navigation = useNavigation();
-  const _renderItem = ({item}) => (
-    <ItemFeature
-      height={50}
-      icon={item.image}
-      title={item.title}
-      onPress={() => {
-        console.log(item.title);
-        if (item.title === 'Order') {
-          navigation.navigate(routes.ORDER_SCREEN);
-        }
-      }}
-    />
-  );
+  const _renderItem = ({item}) => {
+    const onPress = () => {
+      navigation.navigate(item.navigation);
+    };
+    return (
+      <ItemFeature
+        height={50}
+        icon={item.image}
+        title={item.title}
+        onPress={onPress}
+      />
+    );
+  };
   return (
     <Block paddingHorizontal={16} height="50%">
       <FlatList
