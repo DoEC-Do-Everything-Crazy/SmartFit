@@ -8,11 +8,10 @@ export default StyleSheet.create({
     height: '100%',
   },
   itemHeader: {
-    justifyContent: 'center',
     paddingVertical: 5,
     paddingHorizontal: 20,
     borderRadius: 8,
-    marginHorizontal: 12,
+    marginHorizontal: 5,
     alignItems: 'center',
   },
   imageContainer: {

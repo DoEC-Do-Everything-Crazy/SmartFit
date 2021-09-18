@@ -51,7 +51,8 @@ const OrderScreen = () => {
           horizontal
           scrollEnabled={false}
           showsHorizontalScrollIndicator={false}
-          justifyContent="center">
+          justifyContent="center"
+          alignItems="center">
           {dataHeader.map((item, i) => (
             <_renderItemHeader key={i} item={item} />
           ))}
