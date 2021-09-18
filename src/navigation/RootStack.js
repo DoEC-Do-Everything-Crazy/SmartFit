@@ -111,6 +111,10 @@ const RootStack = () => {
           name={routes.YOUR_FAVORITE_SCREEN}
           component={common.YOUR_FAVORITE_SCREEN}
         />
+        <Stack.Screen
+          name={routes.SETTING_SCREEN}
+          component={common.SETTING_SCREEN}
+        />
         {/* Tabs */}
         <Stack.Screen
           name={routes.TAB_DETAILS}

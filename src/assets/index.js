@@ -40,6 +40,8 @@ const icons = {
   order: require('./icons/order.png'),
   like: require('./icons/like.png'),
   camera: require('./icons/camera.png'),
+  right: require('./icons/right.png'),
+  lock: require('./icons/lock.png'),
 };
 
 const lotties = {};
