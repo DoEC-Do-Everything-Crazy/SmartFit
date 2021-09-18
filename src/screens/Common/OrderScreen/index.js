@@ -5,7 +5,6 @@ import React, {useState} from 'react';
 import {FlatList, Pressable, ScrollView} from 'react-native';
 import ItemOrder from '@components/Common/ItemList/ItemOrder';
 import styles from './styles';
-
 const data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 const dataHeader = [
   {
@@ -27,7 +26,6 @@ const Item = ({item, onPress, backgroundColor, textColor}) => (
   </Pressable>
 );
 const OrderScreen = () => {
-  const [index, setIndex] = useState(0);
   const _renderItem = (item, index) => <ItemOrder index={index} />;
   const [selectedId, setSelectedId] = useState(1);
   const _renderItemHeader = ({item}) => {

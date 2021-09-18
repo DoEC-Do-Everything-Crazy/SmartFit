@@ -19,7 +19,7 @@ const RootStack = () => {
       />
       <Stack.Navigator
         mode="modal"
-        initialRouteName={routes.BOTTOM_TAB}
+        initialRouteName={routes.ORDER_SCREEN}
         screenOptions={{headerShown: false}}>
         <Stack.Screen name={routes.BOTTOM_TAB} component={BottomNavigation} />
         <Stack.Screen
