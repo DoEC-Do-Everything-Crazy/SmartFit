@@ -1,19 +1,19 @@
-import {Block, Camera, Text, TextInput} from '@components';
-import React, {useState, useRef} from 'react';
+import {icons} from '@assets';
+import {Block, Text, TextInput} from '@components';
+import {BottomSheet} from '@components/BottomSheet';
+import {theme} from '@theme';
+import React, {useRef, useState} from 'react';
 import {
-  Pressable,
-  Platform,
-  KeyboardAvoidingView,
   Image,
+  KeyboardAvoidingView,
+  Platform,
+  Pressable,
   ScrollView,
 } from 'react-native';
-import styles from './styles';
-import {theme} from '@theme';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {BottomSheet} from '@components/BottomSheet';
 import {Rating} from 'react-native-ratings';
-import {icons} from '@assets';
-import {checkPermission, PERMISSION_TYPE} from '../../../../hook/permissions';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import styles from './styles';
+import {checkPermission, PERMISSION_TYPE} from '@hooks/permissions';
 
 const ItemOrder = ({picture, title, group_id, index}) => {
   const modalizRef = useRef(null);
@@ -22,12 +22,14 @@ const ItemOrder = ({picture, title, group_id, index}) => {
   const keyboardVerticalOffset = Platform.OS === 'ios' ? 'padding' : 'height';
   const {bottom} = useSafeAreaInsets();
   const [isCamera, setCamera] = useState(false);
+
   const handleCamera = async () => {
     const resultSP = await checkPermission(PERMISSION_TYPE.camera);
     if (resultSP === true) {
       setCamera(true);
     }
   };
+
   return (
     <>
       <Block
@@ -109,7 +111,6 @@ const ItemOrder = ({picture, title, group_id, index}) => {
             )}
           </Block>
         </Block>
-
         <BottomSheet ref={modalizRef}>
           <KeyboardAvoidingView
             style={styles.sendControlContainerOuter}

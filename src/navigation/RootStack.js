@@ -8,6 +8,7 @@ import {auth} from '@screens/Auth';
 import {bottom} from '@screens/Bottom';
 import {common} from '@screens/Common';
 import {Host} from 'react-native-portalize';
+
 const Stack = createStackNavigator();
 const RootStack = () => {
   return (
@@ -20,7 +21,7 @@ const RootStack = () => {
       <Host>
         <Stack.Navigator
           mode="modal"
-          initialRouteName={routes.ORDER_SCREEN}
+          initialRouteName={routes.BOTTOM_TAB}
           screenOptions={{headerShown: false}}>
           <Stack.Screen name={routes.BOTTOM_TAB} component={BottomNavigation} />
           <Stack.Screen

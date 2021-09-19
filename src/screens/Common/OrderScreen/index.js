@@ -1,11 +1,12 @@
 import {Block, Header, Text} from '@components';
-
+import ItemOrder from '@components/Common/ItemList/ItemOrder';
 import {theme} from '@theme';
 import React, {useState} from 'react';
 import {FlatList, Pressable, ScrollView} from 'react-native';
-import ItemOrder from '@components/Common/ItemList/ItemOrder';
 import styles from './styles';
+
 const data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
 const dataHeader = [
   {
     id: 1,
@@ -25,6 +26,7 @@ const Item = ({item, onPress, backgroundColor, textColor}) => (
     <Text style={[styles.text, textColor]}>{item.title}</Text>
   </Pressable>
 );
+
 const OrderScreen = () => {
   const _renderItem = (item, index) => <ItemOrder index={index} />;
   const [selectedId, setSelectedId] = useState(1);
