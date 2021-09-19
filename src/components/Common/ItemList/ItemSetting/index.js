@@ -46,7 +46,7 @@ const Item = ({isSwitch, name, isPinCode}) => {
   );
 };
 
-const ItemFeature = ({data, title}) => {
+const ItemSetting = ({data, title}) => {
   const renderItem = item => (
     <Item
       isSwitch={item.isSwitch}
@@ -71,4 +71,4 @@ const ItemFeature = ({data, title}) => {
   );
 };
 
-export default ItemFeature;
+export default ItemSetting;
