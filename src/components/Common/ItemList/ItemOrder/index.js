@@ -13,6 +13,7 @@ import {
 import {Rating} from 'react-native-ratings';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import styles from './styles';
+import {checkPermission, PERMISSION_TYPE} from '@hooks/permissions';
 
 const ItemOrder = ({picture, title, group_id, index}) => {
   const modalizRef = useRef(null);
@@ -20,6 +21,15 @@ const ItemOrder = ({picture, title, group_id, index}) => {
   const [comment, setComment] = useState('');
   const keyboardVerticalOffset = Platform.OS === 'ios' ? 'padding' : 'height';
   const {bottom} = useSafeAreaInsets();
+  const [isCamera, setCamera] = useState(false);
+
+  const handleCamera = async () => {
+    const resultSP = await checkPermission(PERMISSION_TYPE.camera);
+    if (resultSP === true) {
+      setCamera(true);
+    }
+  };
+
   return (
     <>
       <Block
@@ -29,7 +39,7 @@ const ItemOrder = ({picture, title, group_id, index}) => {
         marginTop={16}
         padding={16}
         radius={8}
-        color={theme.colors.white}>
+        backgroundColor={theme.colors.white}>
         <Block width="100%">
           <Block row flex={1}>
             <Block row flex={1}>
@@ -41,7 +51,7 @@ const ItemOrder = ({picture, title, group_id, index}) => {
               <Text>05-12-2019</Text>
             </Block>
           </Block>
-          <Block marginLeft={10} row>
+          <Block row>
             <Text>Tracking number:</Text>
             <Text marginLeft={10} fontType="bold">
               IW3475453455
@@ -158,7 +168,7 @@ const ItemOrder = ({picture, title, group_id, index}) => {
                   justifyCenter
                   alignCenter
                   style={styles.image}>
-                  <Pressable>
+                  <Pressable onPress={handleCamera}>
                     <Image source={icons.camera} />
                   </Pressable>
                   <Text paddingVertical={5} fontType="bold" size={12}>

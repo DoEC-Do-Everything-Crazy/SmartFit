@@ -6,6 +6,7 @@ import {FlatList, Pressable, ScrollView} from 'react-native';
 import styles from './styles';
 
 const data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
 const dataHeader = [
   {
     id: 1,
@@ -25,8 +26,8 @@ const Item = ({item, onPress, backgroundColor, textColor}) => (
     <Text style={[styles.text, textColor]}>{item.title}</Text>
   </Pressable>
 );
+
 const OrderScreen = () => {
-  const [index, setIndex] = useState(0);
   const _renderItem = (item, index) => <ItemOrder index={index} />;
   const [selectedId, setSelectedId] = useState(1);
   const _renderItemHeader = ({item}) => {
@@ -52,7 +53,8 @@ const OrderScreen = () => {
           horizontal
           scrollEnabled={false}
           showsHorizontalScrollIndicator={false}
-          justifyContent="center">
+          justifyContent="center"
+          alignItems="center">
           {dataHeader.map((item, i) => (
             <_renderItemHeader key={i} item={item} />
           ))}

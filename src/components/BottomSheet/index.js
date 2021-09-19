@@ -16,7 +16,6 @@ export const BottomSheet = forwardRef((props, ref) => {
         modalStyle={styles.modal}
         avoidKeyboardLikeIOS={true}
         closeOnOverlayTap={true}
-        // scrollViewProps={{ scrollEnabled: false, bounces: true }}
         panGestureEnabled={false}
         {...props}>
         {props.children}

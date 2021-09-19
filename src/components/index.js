@@ -7,6 +7,7 @@ import Shimmer from './Shimmer';
 import CheckBox from './CheckBox';
 import TextInput from './TextInput';
 import EmptyScreen from './EmptyScreen';
+import Camera from './Camera';
 import BottomSheet from './BottomSheet';
 
 export {
@@ -19,5 +20,6 @@ export {
   CheckBox,
   TextInput,
   EmptyScreen,
+  Camera,
   BottomSheet,
 };
