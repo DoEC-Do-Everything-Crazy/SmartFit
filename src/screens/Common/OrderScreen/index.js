@@ -1,9 +1,8 @@
 import {Block, Header, Text} from '@components';
-
+import ItemOrder from '@components/Common/ItemList/ItemOrder';
 import {theme} from '@theme';
 import React, {useState} from 'react';
 import {FlatList, Pressable, ScrollView} from 'react-native';
-import ItemOrder from '@components/Common/ItemList/ItemOrder';
 import styles from './styles';
 
 const data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];

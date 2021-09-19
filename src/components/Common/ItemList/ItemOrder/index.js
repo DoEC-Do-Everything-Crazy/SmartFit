@@ -1,19 +1,18 @@
-import {Block, Button, Text, TextInput} from '@components';
-import React, {useState, useRef} from 'react';
+import {icons} from '@assets';
+import {Block, Text, TextInput} from '@components';
+import {BottomSheet} from '@components/BottomSheet';
+import {theme} from '@theme';
+import React, {useRef, useState} from 'react';
 import {
-  Pressable,
-  Platform,
-  KeyboardAvoidingView,
   Image,
+  KeyboardAvoidingView,
+  Platform,
+  Pressable,
   ScrollView,
 } from 'react-native';
-import styles from './styles';
-import {theme} from '@theme';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {BottomSheet} from '@components/BottomSheet';
 import {Rating} from 'react-native-ratings';
-import {icons} from '@assets';
-import {TouchableOpacity} from 'react-native-gesture-handler';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import styles from './styles';
 
 const ItemOrder = ({picture, title, group_id, index}) => {
   const modalizRef = useRef(null);
