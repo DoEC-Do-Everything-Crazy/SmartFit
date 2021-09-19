@@ -42,7 +42,9 @@ const icons = {
   camera: require('./icons/camera.png'),
 };
 
-const lotties = {};
+const lotties = {
+  emptySearch: require('./lotties/emptySearch.json'),
+};
 
 const images = {
   lesson: require('./images/lesson.png'),
