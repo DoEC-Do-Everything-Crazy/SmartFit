@@ -13,7 +13,7 @@ import {
 import {Rating} from 'react-native-ratings';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import styles from './styles';
-import {checkPermission, PERMISSION_TYPE} from '@hooks/permissions';
+import {checkPermission, PERMISSION_TYPE} from 'hook/permissions';
 
 const ItemOrder = ({picture, title, group_id, index}) => {
   const modalizRef = useRef(null);

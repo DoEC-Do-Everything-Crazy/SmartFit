@@ -8,10 +8,10 @@ export default StyleSheet.create({
     height: '100%',
   },
   itemHeader: {
-    paddingVertical: 5,
-    paddingHorizontal: 20,
-    borderRadius: 8,
-    marginHorizontal: 5,
+    paddingVertical: getSize.s(5),
+    paddingHorizontal: getSize.s(20),
+    borderRadius: getSize.s(8),
+    marginHorizontal: getSize.s(5),
     alignItems: 'center',
   },
   imageContainer: {
@@ -22,10 +22,10 @@ export default StyleSheet.create({
   image: {
     borderRadius: getSize.s(10),
     width: width,
-    height: 240,
+    height: getSize.s(240),
   },
   text: {
-    fontSize: 18,
+    fontSize: getSize.s(18),
     fontWeight: 'bold',
     textAlign: 'center',
   },
