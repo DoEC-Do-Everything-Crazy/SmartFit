@@ -10,6 +10,7 @@ import OrderScreen from './OrderScreen';
 import OrderDetailScreen from './OrderDetailScreen';
 import CartScreen from './CartScreen';
 import YourFavoriteScreen from './YourFavoriteScreen';
+import SettingScreen from './SettingScreen';
 
 export const common = {
   DETAILS_COURSE_SCREEN: DetailsCourseScreen,
@@ -24,4 +25,5 @@ export const common = {
   ORDER_DETAIL_SCREEN: OrderDetailScreen,
   CART_SCREEN: CartScreen,
   YOUR_FAVORITE_SCREEN: YourFavoriteScreen,
+  SETTING_SCREEN: SettingScreen,
 };
