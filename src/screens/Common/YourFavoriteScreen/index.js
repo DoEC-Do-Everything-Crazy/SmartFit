@@ -3,7 +3,6 @@ import ItemFavorite from '@components/Common/ItemList/ItemFavorite';
 import {theme} from '@theme';
 import React from 'react';
 import {Text, FlatList} from 'react-native';
-import {getSize} from '@utils/responsive';
 
 const DATA = [1, 2, 3, 4, 5, 6];
 
@@ -18,8 +17,6 @@ const YourFavoriteScreen = () => {
       <Header canGoBack title="Favorite" colorTheme={theme.colors.black} />
       <Block flex paddingHorizontal={16}>
         <FlatList
-          showsVerticalScrollIndicator={false}
-          style={{marginBottom: getSize.m(16)}}
           numColumns={2}
           data={[1, 2, 3, 4, 5, 6, 7, 8]}
           renderItem={_renderItemCarousel}

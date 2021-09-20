@@ -1,19 +1,19 @@
-import {icons} from '@assets';
-import {Block, Text, TextInput} from '@components';
-import {BottomSheet} from '@components/BottomSheet';
-import {theme} from '@theme';
-import React, {useRef, useState} from 'react';
+import {Block, Button, Text, TextInput} from '@components';
+import React, {useState, useRef} from 'react';
 import {
-  Image,
-  KeyboardAvoidingView,
-  Platform,
   Pressable,
+  Platform,
+  KeyboardAvoidingView,
+  Image,
   ScrollView,
 } from 'react-native';
-import {Rating} from 'react-native-ratings';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import styles from './styles';
-import {checkPermission, PERMISSION_TYPE} from 'hook/permissions';
+import {theme} from '@theme';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {BottomSheet} from '@components/BottomSheet';
+import {Rating} from 'react-native-ratings';
+import {icons} from '@assets';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
 const ItemOrder = ({picture, title, group_id, index}) => {
   const modalizRef = useRef(null);
@@ -21,15 +21,6 @@ const ItemOrder = ({picture, title, group_id, index}) => {
   const [comment, setComment] = useState('');
   const keyboardVerticalOffset = Platform.OS === 'ios' ? 'padding' : 'height';
   const {bottom} = useSafeAreaInsets();
-  const [isCamera, setCamera] = useState(false);
-
-  const handleCamera = async () => {
-    const resultSP = await checkPermission(PERMISSION_TYPE.camera);
-    if (resultSP === true) {
-      setCamera(true);
-    }
-  };
-
   return (
     <>
       <Block
@@ -39,7 +30,7 @@ const ItemOrder = ({picture, title, group_id, index}) => {
         marginTop={16}
         padding={16}
         radius={8}
-        backgroundColor={theme.colors.white}>
+        color={theme.colors.white}>
         <Block width="100%">
           <Block row flex={1}>
             <Block row flex={1}>
@@ -51,7 +42,7 @@ const ItemOrder = ({picture, title, group_id, index}) => {
               <Text>05-12-2019</Text>
             </Block>
           </Block>
-          <Block row>
+          <Block marginLeft={10} row>
             <Text>Tracking number:</Text>
             <Text marginLeft={10} fontType="bold">
               IW3475453455
@@ -168,7 +159,7 @@ const ItemOrder = ({picture, title, group_id, index}) => {
                   justifyCenter
                   alignCenter
                   style={styles.image}>
-                  <Pressable onPress={handleCamera}>
+                  <Pressable>
                     <Image source={icons.camera} />
                   </Pressable>
                   <Text paddingVertical={5} fontType="bold" size={12}>

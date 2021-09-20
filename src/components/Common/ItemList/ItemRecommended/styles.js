@@ -15,7 +15,5 @@ export default StyleSheet.create({
     bottom: 0,
     paddingVertical: getSize.m(8),
     paddingHorizontal: getSize.m(16),
-    borderBottomLeftRadius: getSize.m(10),
-    borderBottomRightRadius: getSize.m(10),
   },
 });

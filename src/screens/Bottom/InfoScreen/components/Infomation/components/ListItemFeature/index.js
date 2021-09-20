@@ -33,7 +33,6 @@ const data = [
     id: 5,
     title: 'Setting',
     image: icons.setting,
-    navigation: routes.SETTING_SCREEN,
   },
 ];
 const ListItemFeature = () => {

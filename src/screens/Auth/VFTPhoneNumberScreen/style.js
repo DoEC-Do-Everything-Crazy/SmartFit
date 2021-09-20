@@ -24,7 +24,7 @@ export default StyleSheet.create({
     backgroundColor: '#F5F4F2',
     fontWeight: '600',
     justifyContent: 'center',
-    color: 'black',
+    color: '#0DD886',
     textAlign: 'center',
     alignSelf: 'center',
     padding: 10,

@@ -11,10 +11,16 @@ const ItemFavorite = ({picture, title, group_id, index, marginTop}) => {
     <Block
       alignCenter
       marginTop={marginTop}
+      radius={8}
       width={(width - 48) / 2}
-      marginRight={16}>
-      <Block style={styles.content}>
-        <Text size={22} marginTop={16} fontType="bold">
+      height={260}
+      padding={16}
+      marginBottom={16}
+      marginRight={16}
+      backgroundColor={theme.colors.white}>
+      <Image source={images.favorite} style={styles.image} />
+      <Block alignCenter justifyCenter>
+        <Text size={22} marginTop={12} fontType="bold">
           Veggie tomato mix
         </Text>
         <Text
@@ -30,7 +36,6 @@ const ItemFavorite = ({picture, title, group_id, index, marginTop}) => {
           style={styles.iconHeart}
         />
       </Block>
-      <Image source={images.food} style={styles.image} />
     </Block>
   );
 };

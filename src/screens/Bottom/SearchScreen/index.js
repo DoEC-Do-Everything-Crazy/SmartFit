@@ -1,5 +1,5 @@
-import {icons, lotties} from '@assets';
-import {Block, Header, Text, TextInput, Empty} from '@components';
+import {icons} from '@assets';
+import {Block, Header, Text, TextInput} from '@components';
 import ItemSearch from '@components/Common/ItemList/ItemSearch';
 import {theme} from '@theme';
 import React, {useState} from 'react';
@@ -22,7 +22,7 @@ const dataSearch = [
 ];
 
 const SearchScreen = () => {
-  const [data, setData] = useState('');
+  const [data, setData] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9]);
   const [key, setKey] = useState('');
 
   const _renderItem = ({item}) => <ItemSearch />;
@@ -58,8 +58,7 @@ const SearchScreen = () => {
           />
         ) : (
           <Block>
-            <Empty lottie={lotties.emptySearch} />
-            {/* <Block>
+            <Block>
               <Text fontType="bold" color={theme.colors.blue}>
                 History
               </Text>
@@ -80,7 +79,7 @@ const SearchScreen = () => {
                 keyExtractor={item => item.id}
                 renderItem={_renderItemSearch}
               />
-            </Block> */}
+            </Block>
           </Block>
         )}
       </Block>
