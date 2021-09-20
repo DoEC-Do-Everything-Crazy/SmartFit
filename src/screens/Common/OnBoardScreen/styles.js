@@ -14,20 +14,24 @@ export default StyleSheet.create({
   },
 
   renderTitle: {
-    marginTop: getSize.s(50),
+    marginTop: getSize.s(30),
+    fontSize: getSize.s(24),
     fontWeight: 'bold',
     textAlign: 'center',
   },
 
   renderText: {
+    marginTop: getSize.s(10),
+    fontSize: getSize.s(16),
+    width: getSize.s(350),
     textAlign: 'center',
   },
 
   pagination: {
-    width: 10,
-    height: 10,
-    borderRadius: 5,
-    marginHorizontal: 8,
+    width: getSize.s(10),
+    height: getSize.s(10),
+    borderRadius: getSize.s(5),
+    marginHorizontal: getSize.s(8),
   },
 
   bodyLayout: {
@@ -39,13 +43,13 @@ export default StyleSheet.create({
   },
   button: {
     backgroundColor: theme.colors.blue,
-    height: 48,
-    marginHorizontal: 16,
+    height: getSize.s(48),
+    marginHorizontal: getSize.s(16),
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 20,
-    marginTop: 10,
-    borderRadius: 8,
+    marginBottom: getSize.s(20),
+    marginTop: getSize.s(10),
+    borderRadius: getSize.s(8),
   },
   image: {
     width: getSize.s(200),

@@ -1,11 +1,11 @@
 import {Block} from '@components';
 import React from 'react';
 import {FlatList} from 'react-native';
-import ItemFeature from './ItemFeature';
+import ItemSetting from '@components/Common/ItemList/ItemSetting';
 
 const ListFeatureSetting = ({data}) => {
   const _renderItem = ({index}) => (
-    <ItemFeature
+    <ItemSetting
       title={data[index].title}
       data={data[index].data_item_switch}
     />
