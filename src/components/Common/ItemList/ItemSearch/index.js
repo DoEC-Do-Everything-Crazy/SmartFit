@@ -5,14 +5,13 @@ import {useNavigation} from '@react-navigation/core';
 import React from 'react';
 import {Image, Pressable} from 'react-native';
 import styles from './styles';
-import {theme} from './../../../../theme/index';
 
 const ItemSearch = ({item_id, picture, thumbnail, title}) => {
   const navigation = useNavigation();
 
   return (
     <Pressable
-      onPress={() => navigation.navigate(routes.COURCE_SCREEN)}
+      onPress={() => navigation.navigate(routes.FOOD_DETAILS_SCREEN)}
       style={styles.container}>
       <Block row alignCenter width="85%">
         <Block
@@ -24,7 +23,7 @@ const ItemSearch = ({item_id, picture, thumbnail, title}) => {
           height={56}>
           <Image source={images.food} style={styles.imageSearch} />
         </Block>
-        <Block row alignCenter width="100%" space="between">
+        <Block row alignCenter width="95%" space="between">
           <Block marginLeft={15}>
             <Text size={16} fontType="bold">
               Mixed Salad
