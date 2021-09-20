@@ -5,10 +5,13 @@ import {Dimensions, TouchableOpacity, View} from 'react-native';
 import Carousel, {Pagination} from 'react-native-snap-carousel';
 import styles from './styles';
 import {lotties} from '@assets';
+import {useNavigation} from '@react-navigation/core';
+import {routes} from '@navigation/routes';
 
 const {width: SliderWidth} = Dimensions.get('screen');
 
 const OnBoardScreen = () => {
+  const navigation = useNavigation();
   const [activeIndex, setActivateIndex] = useState(0);
   const carouselRef = useRef(null);
   const [carouselState] = useState([
@@ -41,8 +44,6 @@ const OnBoardScreen = () => {
           <Text style={styles.renderText}>{item.text}</Text>
         </Block>
       </Block>
-
-      // <EmptyScreen picture={item.img} title={item.title} text={item.text} />
     );
   }, []);
 
@@ -74,7 +75,9 @@ const OnBoardScreen = () => {
         }
       </View>
       <View style={styles.bottomLayout}>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate(routes.BOTTOM_TAB)}
+          style={styles.button}>
           <Text color={theme.colors.white} size={18}>
             Apply
           </Text>
