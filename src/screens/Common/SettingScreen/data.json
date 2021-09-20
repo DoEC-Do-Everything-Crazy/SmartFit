@@ -20,7 +20,7 @@
             {
                 "name": "Change password",
                 "isSwitch": false,
-                "navigation": "CHANGE_PASSWORD"
+                "navigation": "CHANGE_PIN_CODE"
             },
             {
                 "name": "Using pincode",

@@ -12,6 +12,7 @@ import CartScreen from './CartScreen';
 import YourFavoriteScreen from './YourFavoriteScreen';
 import SettingScreen from './SettingScreen';
 import ChangePassword from './ChangePassword';
+import ChangePinCode from './ChangePinCode';
 
 export const common = {
   DETAILS_COURSE_SCREEN: DetailsCourseScreen,
@@ -28,4 +29,5 @@ export const common = {
   YOUR_FAVORITE_SCREEN: YourFavoriteScreen,
   SETTING_SCREEN: SettingScreen,
   CHANGE_PASSWORD: ChangePassword,
+  CHANGE_PIN_CODE: ChangePinCode,
 };

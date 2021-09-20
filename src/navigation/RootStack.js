@@ -121,6 +121,10 @@ const RootStack = () => {
             name={routes.CHANGE_PASSWORD}
             component={common.CHANGE_PASSWORD}
           />
+          <Stack.Screen
+            name={routes.CHANGE_PIN_CODE}
+            component={common.CHANGE_PIN_CODE}
+          />
           {/* Tabs */}
           <Stack.Screen
             name={routes.TAB_DETAILS}
