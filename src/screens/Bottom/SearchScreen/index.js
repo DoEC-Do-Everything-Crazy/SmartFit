@@ -58,8 +58,7 @@ const SearchScreen = () => {
           />
         ) : (
           <Block>
-            <Empty lottie={lotties.emptySearch} />
-            {/* <Block>
+            <Block>
               <Text fontType="bold" color={theme.colors.blue}>
                 History
               </Text>
@@ -80,7 +79,7 @@ const SearchScreen = () => {
                 keyExtractor={item => item.id}
                 renderItem={_renderItemSearch}
               />
-            </Block> */}
+            </Block>
           </Block>
         )}
       </Block>

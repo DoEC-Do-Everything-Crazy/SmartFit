@@ -7,6 +7,7 @@
             {
                 "name": "Update profile",
                 "isSwitch": false
+               
             }
         ]
     },
@@ -18,7 +19,8 @@
         "data_item_switch": [
             {
                 "name": "Change password",
-                "isSwitch": false
+                "isSwitch": false,
+                "navigation": "CHANGE_PASSWORD"
             },
             {
                 "name": "Using pincode",
