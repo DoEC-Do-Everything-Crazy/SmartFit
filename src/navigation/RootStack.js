@@ -21,7 +21,7 @@ const RootStack = () => {
       <Host>
         <Stack.Navigator
           mode="modal"
-          initialRouteName={routes.BOTTOM_TAB}
+          initialRouteName={routes.ONBOARD_SCREEN}
           screenOptions={{headerShown: false}}>
           <Stack.Screen name={routes.BOTTOM_TAB} component={BottomNavigation} />
           <Stack.Screen
