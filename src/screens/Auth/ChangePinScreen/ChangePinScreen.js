@@ -7,7 +7,6 @@ import {routes} from '@navigation/routes';
 import {theme} from '@theme';
 
 const ChangePinScreen = () => {
-  const navigation = useNavigation();
   const [number1, setNumber1] = useState('');
   const [number2, setNumber2] = useState('');
   const [number3, setNumber3] = useState('');
