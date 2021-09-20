@@ -46,6 +46,9 @@ const icons = {
 
 const lotties = {
   emptySearch: require('./lotties/emptySearch.json'),
+  convenient: require('./lotties/convenient.json'),
+  learn: require('./lotties/learn.json'),
+  like: require('./lotties/like.json'),
 };
 
 const images = {

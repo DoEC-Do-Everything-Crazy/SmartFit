@@ -3,13 +3,13 @@ import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
   icon: {
-    height: getSize.s(110),
-    width: getSize.s(110),
+    height: getSize.s(300),
+    width: getSize.s(300),
     marginBottom: getSize.m(20),
   },
   lottie: {
-    height: getSize.s(110),
-    width: getSize.s(110),
+    height: getSize.s(300),
+    width: getSize.s(300),
     marginBottom: getSize.m(20),
   },
   button: {

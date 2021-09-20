@@ -1,9 +1,10 @@
-import {EmptyScreen, Text} from '@components';
+import {Block, Empty, Text} from '@components';
 import {theme} from '@theme';
 import React, {useCallback, useRef, useState} from 'react';
-import {Dimensions, Image, TouchableOpacity, View} from 'react-native';
+import {Dimensions, TouchableOpacity, View} from 'react-native';
 import Carousel, {Pagination} from 'react-native-snap-carousel';
 import styles from './styles';
+import {lotties} from '@assets';
 
 const {width: SliderWidth} = Dimensions.get('screen');
 
@@ -12,25 +13,36 @@ const OnBoardScreen = () => {
   const carouselRef = useRef(null);
   const [carouselState] = useState([
     {
-      img: 'https://gocbinhluan.com/public/photos/shares/201911/20191130/20191130_hinh12.jpg',
-      text: 'Something text.......................',
-      title: 'Title',
+      lotties: lotties.learn,
+      title: 'Learn anytime and anywhere',
+      text: 'Quarantine is the perfect time to spend your day learning something new, from anywhere!',
     },
     {
-      img: 'https://gocbinhluan.com/public/photos/shares/201911/20191130/20191130_hinh12.jpg',
-      text: 'Something text.......................',
-      title: 'Title',
+      lotties: lotties.convenient,
+      title: 'convenient',
+      text: 'We bring convenience to users in choosing products about sports, courses, healthy meals at home.',
     },
     {
-      img: 'https://gocbinhluan.com/public/photos/shares/201911/20191130/20191130_hinh12.jpg',
-      text: 'Something text.......................',
-      title: 'Title',
+      lotties: lotties.like,
+      title: 'Prestige and quality',
+      text: 'The quality and reputation of the service are our core values, so customers will always feel secure when using the service.',
     },
   ]);
 
   const _renderItem = useCallback(({item}) => {
     return (
-      <EmptyScreen picture={item.img} title={item.title} text={item.text} />
+      <Block style={styles.renderRoot}>
+        <Block flex />
+        <Block flex>
+          <Empty lottie={item.lotties} />
+        </Block>
+        <Block flex>
+          <Text style={styles.renderTitle}>{item.title}</Text>
+          <Text style={styles.renderText}>{item.text}</Text>
+        </Block>
+      </Block>
+
+      // <EmptyScreen picture={item.img} title={item.title} text={item.text} />
     );
   }, []);
 
