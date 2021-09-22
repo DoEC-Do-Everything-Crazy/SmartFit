@@ -32,7 +32,7 @@ export default StyleSheet.create({
   },
   picker: {
     width: width - 20,
-    backgroundColor: 'yellow',
+    // backgroundColor: 'yellow',
     height: 60,
   },
   text: {

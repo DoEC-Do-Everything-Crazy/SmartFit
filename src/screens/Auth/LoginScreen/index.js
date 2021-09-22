@@ -40,7 +40,7 @@ const LoginScreen = () => {
               Sign In Phone Number
             </Text>
           </TouchableOpacity>
-          <Block row alignCenter justifyCenter marginVertical={16}>
+          <Block row alignCenter justifyCenter margin={16}>
             <Block
               width={150}
               borderWidth={0.7}
