@@ -1,13 +1,13 @@
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import React from 'react';
-import {StatusBar} from 'react-native';
-import {routes} from '../navigation/routes';
-import BottomNavigation from './BottomNavigation';
 import {auth} from '@screens/Auth';
 import {bottom} from '@screens/Bottom';
 import {common} from '@screens/Common';
+import React from 'react';
+import {StatusBar} from 'react-native';
 import {Host} from 'react-native-portalize';
+import {routes} from '../navigation/routes';
+import BottomNavigation from './BottomNavigation';
 
 const Stack = createStackNavigator();
 const RootStack = () => {
@@ -21,8 +21,12 @@ const RootStack = () => {
       <Host>
         <Stack.Navigator
           mode="modal"
-          initialRouteName={routes.ONBOARD_SCREEN}
+          initialRouteName={routes.FLASH_SCREEN}
           screenOptions={{headerShown: false}}>
+          <Stack.Screen
+            name={routes.FLASH_SCREEN}
+            component={auth.FLASH_SCREEN}
+          />
           <Stack.Screen name={routes.BOTTOM_TAB} component={BottomNavigation} />
           <Stack.Screen
             name={routes.HOME_SCREEN}
