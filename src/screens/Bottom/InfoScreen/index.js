@@ -3,7 +3,7 @@ import Information from './components/Infomation';
 import InviteLogin from './components/InviteLogin';
 
 const InfoScreen = () => {
-  const [isLogined, setIsLogined] = useState(true);
+  const [isLogined, setIsLogined] = useState(false);
 
   return isLogined ? <Information /> : <InviteLogin />;
 };

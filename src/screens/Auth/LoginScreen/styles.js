@@ -3,26 +3,13 @@ import {getSize, width, height} from '@utils/responsive';
 import {theme} from '@theme';
 
 export default StyleSheet.create({
-  container: {
-    height: height,
-    width: width,
-    marginTop: getSize.m(175),
-    position: 'absolute',
-    borderTopLeftRadius: getSize.m(32),
-    borderTopRightRadius: getSize.m(32),
-    backgroundColor: theme.colors.background,
-  },
-  logo: {
-    width: getSize.s(70),
-    height: getSize.s(70),
-  },
-  titleStyle: {
-    fontSize: getSize.m(18),
-    fontWeight: 'bold',
-  },
-  containerStyle: {
-    borderWidth: 1,
-    borderColor: theme.colors.blue,
-    backgroundColor: theme.colors.background,
+  container: {flex: 1, alignItems: 'center'},
+  button: {
+    height: 60,
+    backgroundColor: theme.colors.blue,
+    borderRadius: 8,
+    marginHorizontal: 16,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });

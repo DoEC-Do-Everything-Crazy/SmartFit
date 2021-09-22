@@ -11,30 +11,22 @@ const CartList = ({DATA}) => {
   const swipeoutBtns = [
     {
       component: (
-        <Block
-          style={{
-            flex: 1,
-            justifyContent: 'center',
-            marginLeft: 20,
-          }}>
+        <Block style={styles.component_icon}>
           <Image source={icons.addToCart} />
         </Block>
       ),
-      backgroundColor: 'transparent',
-      underlayColor: 'red',
+      underlayColor: 'transparent',
     },
     {
       component: (
-        <Block
-          style={{
-            flex: 1,
-            justifyContent: 'center',
-            marginRight: 20,
-          }}>
+        <Block style={styles.component_icon}>
           <Image source={icons.cartDelete} />
         </Block>
       ),
-      backgroundColor: 'transparent',
+      underlayColor: 'transparent',
+      onPress: () => {
+        console.log('delete');
+      },
     },
   ];
   const onSwipeOpen = index => {

@@ -11,12 +11,12 @@ const ItemCart = ({title, image, price}) => {
         console.log('aa');
       }}>
       <Block
-        width={320}
+        justifyCenter
         height={100}
-        backgroundColor={theme.colors.white}
-        marginVertical={5}
         borderRadius={20}
-        justifyCenter>
+        marginHorizontal={16}
+        marginVertical={5}
+        backgroundColor={theme.colors.white}>
         <Block row alignCenter marginHorizontal={8}>
           <Image style={styles.image} source={{uri: image}} />
           <Block marginHorizontal={8}>
