@@ -51,19 +51,13 @@ const InfoProfile = ({image, name, phoneNumber, email, gene, birthday}) => {
               </Text>
             </Block>
             <Block row marginVertical={3}>
-              <Image
-                style={styles.imageInfo}
-                source={icons.emailNotification}
-              />
+              <Image style={styles.imageInfo} source={icons.gender_info} />
               <Text size={14} marginLeft={10} color={theme.colors.darkBlue}>
                 {gene}
               </Text>
             </Block>
             <Block row marginVertical={3}>
-              <Image
-                style={styles.imageInfo}
-                source={icons.emailNotification}
-              />
+              <Image style={styles.imageInfo} source={icons.birday} />
               <Text size={14} marginLeft={10} color={theme.colors.darkBlue}>
                 {birthday}
               </Text>

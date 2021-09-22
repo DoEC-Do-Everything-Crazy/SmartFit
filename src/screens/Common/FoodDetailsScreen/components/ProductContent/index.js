@@ -40,11 +40,11 @@ const ProductContent = ({data}) => {
           <Image source={images.food} style={styles.image} />
           <Rating
             type="custom"
-            ratingColor="#3498db"
             ratingBackgroundColor="#c8c7c8"
             ratingCount={5}
             imageSize={24}
-            tintColor={theme.colors.background}
+            readonly={true}
+            tintColor={theme.colors.white}
           />
           <Text size={32} marginTop={5} fontType="bold">
             $ 3,99

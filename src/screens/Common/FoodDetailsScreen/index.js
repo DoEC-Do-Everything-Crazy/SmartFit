@@ -58,17 +58,15 @@ const FoodDetailsScreen = () => {
         <RatingValue />
         <Review data={data_review} />
       </ScrollView>
-      <Block paddingHorizontal={16}>
-        <Button
-          title="BUY NOW"
-          containerStyle={{backgroundColor: theme.colors.blue}}
-          titleStyle={{
-            fontSize: getSize.m(18),
-            fontWeight: 'bold',
-            color: theme.colors.white,
-          }}
-        />
-      </Block>
+      <Button
+        title="BUY NOW"
+        containerStyle={{backgroundColor: theme.colors.blue}}
+        titleStyle={{
+          fontSize: getSize.m(18),
+          fontWeight: 'bold',
+          color: theme.colors.white,
+        }}
+      />
     </Block>
   );
 };

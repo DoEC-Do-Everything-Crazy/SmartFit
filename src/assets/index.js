@@ -42,6 +42,8 @@ const icons = {
   camera: require('./icons/camera.png'),
   right: require('./icons/right.png'),
   lock: require('./icons/lock.png'),
+  birday: require('./icons/birday.png'),
+  gender_info: require('./icons/gender_info.png'),
 };
 
 const lotties = {
