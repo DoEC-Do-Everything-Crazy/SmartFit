@@ -74,7 +74,7 @@
 		<string>Quicksand-SemiBold.ttf</string>
 		<string>SimpleLineIcons.ttf</string>
 		<string>Zocial.ttf</string>
-		<key>NSCameraUsageDescription</key>
+		<string>NSCameraUsageDescription</string>
 		<string>Your own description of the purpose</string>
 	</array>
 </dict>

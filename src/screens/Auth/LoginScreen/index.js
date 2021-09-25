@@ -1,13 +1,16 @@
-import {icons, images} from '@assets';
 import {Block, Text} from '@components';
-import {routes} from '@navigation/routes';
-import {useNavigation} from '@react-navigation/core';
-import {theme} from '@theme';
-import React from 'react';
 import {Image, ImageBackground, TouchableOpacity} from 'react-native';
+import React, {useEffect} from 'react';
+
+import {AuthService} from '@services';
+import auth from '@react-native-firebase/auth';
+import {icons} from '@assets';
+import {routes} from '@navigation/routes';
+import styles from './styles';
+import {theme} from '@theme';
+import {useNavigation} from '@react-navigation/core';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {width} from 'utils/responsive';
-import styles from './styles';
 
 const LoginScreen = () => {
   const {top} = useSafeAreaInsets();
@@ -60,15 +63,26 @@ const LoginScreen = () => {
             />
           </Block>
           <Block row marginHorizontal={120} space="between">
-            <Block
-              justifyCenter
-              alignCenter
-              width={50}
-              height={50}
-              borderRadius={50}
-              backgroundColor={theme.colors.white}>
-              <Image style={{width: 25, height: 25}} source={icons.google} />
-            </Block>
+            <TouchableOpacity
+              onPress={() => {
+                AuthService.googleLogin()
+                  .then(() => {
+                    console.log('Signed in with Google!');
+                  })
+                  .catch(error => {
+                    console.log('error', error);
+                  });
+              }}>
+              <Block
+                justifyCenter
+                alignCenter
+                width={50}
+                height={50}
+                borderRadius={50}
+                backgroundColor={theme.colors.white}>
+                <Image style={{width: 25, height: 25}} source={icons.google} />
+              </Block>
+            </TouchableOpacity>
             <Block
               justifyCenter
               alignCenter
