@@ -1,12 +1,14 @@
 import {Block, Empty, Text} from '@components';
-import {theme} from '@theme';
-import React, {useCallback, useRef, useState} from 'react';
-import {Dimensions, TouchableOpacity, View} from 'react-native';
 import Carousel, {Pagination} from 'react-native-snap-carousel';
-import styles from './styles';
+import {Dimensions, TouchableOpacity, View} from 'react-native';
+import React, {useCallback, useRef, useState} from 'react';
+
+import {StackActions} from '@react-navigation/native';
 import {lotties} from '@assets';
-import {useNavigation} from '@react-navigation/core';
 import {routes} from '@navigation/routes';
+import styles from './styles';
+import {theme} from '@theme';
+import {useNavigation} from '@react-navigation/core';
 
 const {width: SliderWidth} = Dimensions.get('screen');
 
@@ -76,7 +78,12 @@ const OnBoardScreen = () => {
       </View>
       <View style={styles.bottomLayout}>
         <TouchableOpacity
-          onPress={() => navigation.navigate(routes.BOTTOM_TAB)}
+          onPress={() => {
+            navigation.reset({
+              index: 0,
+              routes: [{name: routes.LOGIN_SCREEN}],
+            });
+          }}
           style={styles.button}>
           <Text color={theme.colors.white} size={18}>
             Apply
