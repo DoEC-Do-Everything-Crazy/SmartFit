@@ -6,11 +6,11 @@
  * @flow strict-local
  */
 
+import AppContainer from '@navigation';
 import React from 'react';
-import RootStack from '@navigation/RootStack';
 
 const App = () => {
-  return <RootStack />;
+  return <AppContainer />;
 };
 
 export default App;

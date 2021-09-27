@@ -7,12 +7,36 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:879619453458:android:fb03c95282488bc934decb",
+        "mobilesdk_app_id": "1:879619453458:android:82ad373e3e2696b034decb",
         "android_client_info": {
           "package_name": "com.smartfit"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "879619453458-91ao60oq7gj8e0levbkhhh1pb24j8fr3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.smartfit",
+            "certificate_hash": "d432e5a77619712e20f15f66a8435c269df7b179"
+          }
+        },
+        {
+          "client_id": "879619453458-bu5k3ikdncrlh36s6v0ag30rmsuuj67k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.smartfit",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "879619453458-k6eanegc9ni0tk7h1v1eide1vb0fp1jh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.smartfit",
+            "certificate_hash": "2fe2bffb0d9bb61901b901ff009d6c1850914270"
+          }
+        },
         {
           "client_id": "879619453458-gd5qkvo0e2spndn433bvjcslpvreoc4l.apps.googleusercontent.com",
           "client_type": 3
