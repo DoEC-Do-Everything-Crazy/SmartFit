@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, {useEffect, useState} from 'react';
 
 import AuthStack from './AuthStack';
@@ -17,13 +18,12 @@ const AppContainer = () => {
 
   // Handle user state changes
   function onAuthStateChanged(usr) {
-    console.log('AAAAAAA');
     if (usr) {
       setUser(usr);
     } else {
       setUser(null);
     }
-    console.log('user', user);
+
     if (initializing) {
       setInitializing(false);
     }
