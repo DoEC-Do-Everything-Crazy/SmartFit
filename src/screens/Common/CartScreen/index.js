@@ -17,7 +17,15 @@ const Cart = () => (
   <Block flex backgroundColor={theme.colors.background}>
     <Header canGoBack colorTheme={theme.colors.blue} title="Cart" />
     <CartList DATA={DATA} />
-    <PayInfo />
+    <Block paddingHorizontal={16}>
+      <PayInfo
+        title1="Order"
+        titlePrice1={112}
+        title2="Delivery"
+        titlePrice2={15}
+        total={127}
+      />
+    </Block>
     <Pressable style={styles.press}>
       <Text fontType="bold" color={theme.colors.white}>
         ORDER

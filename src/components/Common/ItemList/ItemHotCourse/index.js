@@ -5,12 +5,17 @@ import {theme} from '@theme';
 import React from 'react';
 import {Image, Pressable} from 'react-native';
 import styles from './styles';
-
+import {useDispatch} from 'react-redux';
+import {changeScreen} from 'reduxs/reducers';
 const ItemHotCourse = ({picture, title, group_id, index}) => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
   return (
     <Pressable
-      onPress={() => navigation.navigate(routes.DETAILS_COURSE_SCREEN)}>
+      onPress={() => {
+        navigation.navigate(routes.DETAILS_COURSE_SCREEN);
+        dispatch(changeScreen(''));
+      }}>
       <Block key={index} paddingHorizontal={16} marginTop={16}>
         <Image
           style={styles.image}
