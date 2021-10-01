@@ -1,11 +1,17 @@
 import {icons} from '@assets';
 import {Block, Text} from '@components';
 import {theme} from '@theme';
-import React from 'react';
+import React, {useCallback} from 'react';
 import {Image, Pressable} from 'react-native';
 import styles from './styles';
+import {useNavigation} from '@react-navigation/core';
+import {useDispatch} from 'react-redux';
+import {routes} from '@navigation/routes';
+
+import {changeScreen} from 'reduxs/reducers';
 
 const ItemCourse = ({
+  _id,
   key,
   image,
   courseName,
@@ -13,10 +19,20 @@ const ItemCourse = ({
   ratting,
   price,
   typeName,
-  onPress,
 }) => {
+  const navigation = useNavigation();
+  const dispatch = useDispatch();
+
+  const handleOpenCourseDetail = useCallback(() => {
+    dispatch(changeScreen('CourseDetail'));
+    navigation.navigate(routes.TAB_DETAILS, {id: _id});
+  }, [_id, dispatch, navigation]);
+
   return (
-    <Pressable onPress={onPress} key={key} style={styles.container}>
+    <Pressable
+      onPress={handleOpenCourseDetail}
+      key={key}
+      style={styles.container}>
       <Block
         radius={5}
         borderWidth={0.3}

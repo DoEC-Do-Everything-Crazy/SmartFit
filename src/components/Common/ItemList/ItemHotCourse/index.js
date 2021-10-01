@@ -2,32 +2,45 @@ import {Block, Text} from '@components';
 import {routes} from '@navigation/routes';
 import {useNavigation} from '@react-navigation/core';
 import {theme} from '@theme';
-import React from 'react';
+import React, {useCallback} from 'react';
 import {Image, Pressable} from 'react-native';
 import styles from './styles';
 import {useDispatch} from 'react-redux';
 import {changeScreen} from 'reduxs/reducers';
-const ItemHotCourse = ({picture, title, group_id, index}) => {
+
+const ItemHotCourse = ({
+  _id,
+  typeName,
+  key,
+  price,
+  image,
+  courseName,
+  desc,
+  ratting,
+}) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
+
+  const handleOpenCourseDetail = useCallback(() => {
+    dispatch(changeScreen('CourseDetail'));
+    navigation.navigate(routes.TAB_DETAILS, {id: _id});
+  }, [_id, dispatch, navigation]);
+
   return (
     <Pressable
-      onPress={() => {
-        navigation.navigate(routes.DETAILS_COURSE_SCREEN);
-        dispatch(changeScreen(''));
-      }}>
-      <Block key={index} paddingHorizontal={16} marginTop={16}>
-        <Image
-          style={styles.image}
-          source={{
-            uri: 'https://diadiemnghean.com/wp-content/uploads/2020/05/assortment-of-colorful-ripe-tropical-fruits-top-royalty-free-image-995518546-1564092355.jpg',
-          }}
-        />
-        <Block style={styles.title}>
-          <Text size={20} color={theme.colors.white} fontType="bold">
-            Course name
-          </Text>
-        </Block>
+      key={key}
+      onPress={handleOpenCourseDetail}
+      style={styles.container}>
+      <Image
+        style={styles.image}
+        source={{
+          uri: image,
+        }}
+      />
+      <Block style={styles.title}>
+        <Text size={20} color={theme.colors.white} fontType="bold">
+          {courseName}
+        </Text>
       </Block>
     </Pressable>
   );

@@ -5,7 +5,7 @@ import {theme} from '@theme';
 import React from 'react';
 import {Image, Pressable} from 'react-native';
 import CartList from './components/CartList';
-import PayInfo from './components/PayInfo';
+import {PayInfo} from '@components';
 import DATA from './DATA';
 import styles from './styles';
 

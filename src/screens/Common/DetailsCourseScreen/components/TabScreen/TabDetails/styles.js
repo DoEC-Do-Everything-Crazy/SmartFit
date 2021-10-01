@@ -28,13 +28,16 @@ export default StyleSheet.create({
     width: width - 48,
     height: 200,
   },
+  choose: {
+    paddingVertical: getSize.s(3),
+    backgroundColor: theme.colors.blue,
+    width: getSize.m(80),
+    borderRadius: getSize.m(5),
+  },
   choosePT: {
     justifyContent: 'center',
     textAlign: 'center',
-    borderRadius: getSize.m(5),
-    width: getSize.m(80),
     height: getSize.m(20),
-    backgroundColor: theme.colors.blue,
     color: theme.colors.white,
   },
   headerWrapper: {

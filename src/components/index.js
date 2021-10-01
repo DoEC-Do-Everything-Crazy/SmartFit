@@ -10,6 +10,7 @@ import EmptyScreen from './EmptyScreen';
 import Camera from './Camera';
 import BottomSheet from './BottomSheet';
 import Empty from './Empty';
+import PayInfo from './Common/PayInfo';
 
 export {
   Block,
@@ -24,4 +25,5 @@ export {
   Camera,
   BottomSheet,
   Empty,
+  PayInfo,
 };

@@ -1,16 +1,27 @@
 import {Block, Text} from '@components';
 import ItemHotCourse from '@components/Common/ItemList/ItemHotCourse';
+import {routes} from '@navigation/routes';
+import {useNavigation} from '@react-navigation/core';
 import {theme} from '@theme';
 import React from 'react';
-import {ScrollView, FlatList, Pressable} from 'react-native';
-import {useNavigation} from '@react-navigation/core';
-import {routes} from '@navigation/routes';
+import {FlatList, Pressable} from 'react-native';
 
-const data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-
-const ListHotCourse = () => {
+const ListHotCourse = ({data}) => {
   const navigation = useNavigation();
-  const _renderItem = (index, item) => <ItemHotCourse index={index} />;
+
+  const _renderItem = ({item}) => (
+    <ItemHotCourse
+      _id={item._id}
+      typeName={item.typeName}
+      key={item.key}
+      price={item.price}
+      image={item.image}
+      courseName={item.courseName}
+      desc={item.desc}
+      ratting={item.ratting}
+    />
+  );
+
   return (
     <Block flex marginTop={32}>
       <Block row alignCenter marginHorizontal={16} space="between">

@@ -1,75 +1,76 @@
-import {Block, Header, Text} from '@components';
-import {theme} from '@theme';
+/* eslint-disable react-hooks/exhaustive-deps */
+import {icons} from '@assets';
+import {Block, Header, PayInfo, Text} from '@components';
 import {BottomSheet} from '@components/BottomSheet';
-import React, {useCallback, useEffect, useRef} from 'react';
+import ItemPT from '@components/Common/ItemList/ItemPT';
+import {theme} from '@theme';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {
   Dimensions,
-  KeyboardAvoidingView,
-  Pressable,
-  Platform,
   FlatList,
   Image,
+  KeyboardAvoidingView,
+  Platform,
+  Pressable,
+  ScrollView,
 } from 'react-native';
-import PayInfo from 'screens/Common/CartScreen/components/PayInfo';
+import {Rating} from 'react-native-ratings';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import Carousel, {ParallaxImage} from 'react-native-snap-carousel';
-import styles from './styles';
-import {Rating} from 'react-native-ratings';
-import ItemPT from '@components/Common/ItemList/ItemPT';
-import {icons} from '@assets';
 import {useSelector} from 'react-redux';
-import {ScrollView} from 'react-native-gesture-handler';
-const data = [1, 2, 3, 4, 5, 6, 7];
-const {width: screenWidth, height: screenHeight} = Dimensions.get('window');
-const DATA = [
-  {
-    title: 'Beautiful and dramatic Antelope Canyon',
-    subtitle: 'Lorem ipsum dolor sit amet et nuncat mergitur',
-    illustration: 'https://i.imgur.com/UYiroysl.jpg',
-  },
-  {
-    title: 'Earlier this morning, NYC',
-    subtitle: 'Lorem ipsum dolor sit amet',
-    illustration: 'https://i.imgur.com/UPrs1EWl.jpg',
-  },
-  {
-    title: 'White Pocket Sunset',
-    subtitle: 'Lorem ipsum dolor sit amet et nuncat ',
-    illustration: 'https://i.imgur.com/MABUbpDl.jpg',
-  },
-  {
-    title: 'Acrocorinth, Greece',
-    subtitle: 'Lorem ipsum dolor sit amet et nuncat mergitur',
-    illustration: 'https://i.imgur.com/KZsmUi2l.jpg',
-  },
-  {
-    title: 'The lone tree, majestic landscape of New Zealand',
-    subtitle: 'Lorem ipsum dolor sit amet',
-    illustration: 'https://i.imgur.com/2nCt3Sbl.jpg',
-  },
-];
+import DATA from './DATA.json';
+import axios from 'axios';
+import styles from './styles';
 
-const TabDetails = () => {
+const {width: screenWidth, height: screenHeight} = Dimensions.get('window');
+
+const TabDetails = ({route}) => {
+  const {id} = route.params;
   const {screen} = useSelector(state => state.root.screen);
   const modalizPTList = useRef(null);
   const modalizInf = useRef(null);
   const {bottom} = useSafeAreaInsets();
   const keyboardVerticalOffset = Platform.OS === 'ios' ? 'padding' : 'height';
+
   const handleOpenInf = useCallback(() => {
     modalizPTList?.current.close();
     modalizInf?.current.open();
   }, [modalizInf, modalizPTList]);
+
   const handleCloseInf = useCallback(() => {
     modalizPTList?.current.open();
     modalizInf?.current.close();
     console.log('click');
   }, [modalizInf, modalizPTList]);
+
   const _renderItemPT = (item, index) => (
     <ItemPT index={index} onpress={handleOpenInf} />
   );
+  const [data, setData] = useState([]);
+
+  const fetchData = async data => {
+    try {
+      const resp = await axios({
+        method: 'GET',
+        url: 'http://10.0.2.2:5000/api/course/' + id,
+        data: data,
+      });
+      var obj = resp.data;
+      setData(obj);
+    } catch (err) {
+      console.log('error', err);
+    }
+  };
+  console.log('Data', data.courseName);
   useEffect(() => {
-    console.log({screen});
-  }, [screen]);
+    fetchData();
+  }, []);
+
+  const sessions = data?.session;
+
+  const minute = [25, 30, 35, 40, 45];
+  const randomMinute = minute[Math.floor(Math.random() * minute.length)];
+  console.log('aaaaaaaaa', randomMinute);
   const HeaderComponent = useCallback(
     props => {
       const {title, inf} = props;
@@ -104,7 +105,7 @@ const TabDetails = () => {
       <Block style={styles.item}>
         <ParallaxImage
           fadeDuration={1000}
-          source={{uri: item.illustration}}
+          source={{uri: data.image}}
           containerStyle={styles.imageContainer}
           style={styles.image}
           parallaxFactor={0.1}
@@ -135,7 +136,7 @@ const TabDetails = () => {
               sliderWidth={screenWidth}
               sliderHeight={300}
               itemWidth={screenWidth}
-              data={DATA}
+              data={[data.image, data.image]}
               renderItem={_renderItem}
               hasParallaxImages={true}
               containerCustomStyle={styles.slider}
@@ -147,7 +148,7 @@ const TabDetails = () => {
             marginBottom={10}
             size={32}
             fontType="bold">
-            4 Week Fat Loss Workout
+            {data.courseName}
           </Text>
           <Block
             row
@@ -166,31 +167,24 @@ const TabDetails = () => {
             </Text>
           </Block>
           <Block marginTop={10} paddingHorizontal={16}>
-            <Text fontType="bold">
-              Welcome to this effecient body cardio workout that makes for warm
-              up workout
-            </Text>
-            <Text fontType="bold">
-              Welcome to this effecient body cardio workout that makes for warm
-              up workout
-            </Text>
+            <Text fontType="bold">{data.desc}</Text>
             <Block row alignCenter marginVertical={16} marginBottom={32}>
               <Block>
                 <Text>Plan length: </Text>
                 <Text>Avg. Duration: </Text>
                 <Text>Days per Weeks: </Text>
-                <Text>Difficulty: </Text>
                 <Text>Body Focus: </Text>
                 <Text>PT: </Text>
               </Block>
               <Block marginLeft={20}>
                 <Text fontType="bold">4 weeks</Text>
-                <Text fontType="bold">35 Minutes (27-35)</Text>
+                <Text fontType="bold">{randomMinute} Minutes</Text>
                 <Text fontType="bold">5 days </Text>
-                <Text fontType="bold">3-5 </Text>
                 <Text fontType="bold">Total body </Text>
                 {screen === 'CourseDetail' ? (
-                  <Pressable onPress={() => modalizPTList?.current.open()}>
+                  <Pressable
+                    style={styles.choose}
+                    onPress={() => modalizPTList?.current.open()}>
                     <Text style={styles.choosePT} fontType="bold">
                       Choose
                     </Text>
@@ -204,7 +198,7 @@ const TabDetails = () => {
               <>
                 <PayInfo
                   title1="Course"
-                  titlePrice1={50000}
+                  titlePrice1={data.price}
                   title2="Personal Trainer"
                   titlePrice2={10000}
                   total={15000}
@@ -221,6 +215,7 @@ const TabDetails = () => {
               </>
             ) : null}
           </Block>
+          {/* BOTTOM SHEET PT */}
           <BottomSheet
             ref={modalizPTList}
             HeaderComponent={() =>
@@ -242,6 +237,7 @@ const TabDetails = () => {
               </Block>
             </KeyboardAvoidingView>
           </BottomSheet>
+          {/* BOTTOM SHEET PT DETAILS */}
           <BottomSheet
             ref={modalizInf}
             HeaderComponent={() =>
