@@ -13,9 +13,10 @@ const ItemCourse = ({
   ratting,
   price,
   typeName,
+  onPress,
 }) => {
   return (
-    <Pressable key={key} style={styles.container}>
+    <Pressable onPress={onPress} key={key} style={styles.container}>
       <Block
         radius={5}
         borderWidth={0.3}
@@ -66,7 +67,7 @@ const ItemCourse = ({
                 marginLeft={5}
                 color={theme.colors.white}
                 fontType="bold">
-                HOT!
+                HOT
               </Text>
             </Block>
           </Block>

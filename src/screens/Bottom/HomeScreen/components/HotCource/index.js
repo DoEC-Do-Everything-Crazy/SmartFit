@@ -1,8 +1,9 @@
 import {Block, Text} from '@components';
 import ItemHotCourse from '@components/Common/ItemList/ItemHotCourse';
 import {theme} from '@theme';
-import React from 'react';
-import {ScrollView, FlatList, Pressable} from 'react-native';
+import React, {useCallback} from 'react';
+import {FlatList, Pressable} from 'react-native';
+
 import {useNavigation} from '@react-navigation/core';
 import {routes} from '@navigation/routes';
 
@@ -10,6 +11,11 @@ const data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 const ListVertical = () => {
   const navigation = useNavigation();
+
+  const handleOpenCourseScreen = useCallback(() => {
+    navigation.navigate(routes.COURSE_SCREEN);
+  }, [navigation]);
+
   const _renderItem = (index, item) => <ItemHotCourse index={index} />;
   return (
     <Block flex marginTop={32}>
@@ -17,7 +23,7 @@ const ListVertical = () => {
         <Text size={20} fontType="bold" color={theme.colors.blue}>
           Hot Course
         </Text>
-        <Pressable onPress={() => navigation.navigate(routes.COURSE_SCREEN)}>
+        <Pressable onPress={handleOpenCourseScreen}>
           <Text size={20}>See all</Text>
         </Pressable>
       </Block>
