@@ -11,7 +11,7 @@ const Tab = createMaterialTopTabNavigator();
 
 const DetailsCourseScreen = () => {
   return (
-    <Block flex backgroundColor={theme.colors.white}>
+    <Block flex backgroundColor={theme.colors.background}>
       <Header canGoBack cart title="Cource" colorTheme={theme.colors.blue} />
       <Tab.Navigator
         lazy
@@ -28,7 +28,7 @@ const DetailsCourseScreen = () => {
           options={{
             tabBarLabel: 'Lessons',
           }}
-          name={routes.TAB_LESSSON}
+          name={routes.TAB_LESSON}
           component={TabLesson}
         />
       </Tab.Navigator>

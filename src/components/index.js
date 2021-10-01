@@ -6,5 +6,24 @@ import Carousel from './Carousel';
 import Shimmer from './Shimmer';
 import CheckBox from './CheckBox';
 import TextInput from './TextInput';
+import EmptyScreen from './EmptyScreen';
+import Camera from './Camera';
+import BottomSheet from './BottomSheet';
+import Empty from './Empty';
+import PayInfo from './Common/PayInfo';
 
-export {Block, Text, Button, Header, Carousel, Shimmer, CheckBox, TextInput};
+export {
+  Block,
+  Text,
+  Button,
+  Header,
+  Carousel,
+  Shimmer,
+  CheckBox,
+  TextInput,
+  EmptyScreen,
+  Camera,
+  BottomSheet,
+  Empty,
+  PayInfo,
+};

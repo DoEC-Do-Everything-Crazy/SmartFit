@@ -10,7 +10,7 @@ const CustomTabBar = ({state, descriptors, navigation}) => {
       row
       paddingHorizontal={16}
       paddingBottom={16}
-      backgroundColor={theme.colors.white}>
+      backgroundColor={theme.colors.background}>
       <Block style={styles.container}>
         {state.routes.map((route, index) => {
           const {options} = descriptors[route.key];

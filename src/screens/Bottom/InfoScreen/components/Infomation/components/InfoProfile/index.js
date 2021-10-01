@@ -8,7 +8,7 @@ import styles from './styles';
 const InfoProfile = ({image, name, phoneNumber, email, gene, birthday}) => {
   return (
     <Block height="25%" marginTop={10} paddingHorizontal={16}>
-      <Block flex row>
+      <Block flex row alignCenter>
         <Image
           style={styles.image}
           source={{
@@ -21,12 +21,11 @@ const InfoProfile = ({image, name, phoneNumber, email, gene, birthday}) => {
           height={155}
           paddingLeft={55}
           paddingRight={15}
-          borderWidth={1}
           borderRadius={20}
-          marginLeft={50}
+          marginLeft={40}
           marginRight={5}
           paddingBottom={5}
-          borderColor="grey">
+          backgroundColor={theme.colors.white}>
           <Text
             center
             size={18}
@@ -52,19 +51,13 @@ const InfoProfile = ({image, name, phoneNumber, email, gene, birthday}) => {
               </Text>
             </Block>
             <Block row marginVertical={3}>
-              <Image
-                style={styles.imageInfo}
-                source={icons.emailNotification}
-              />
+              <Image style={styles.imageInfo} source={icons.gender_info} />
               <Text size={14} marginLeft={10} color={theme.colors.darkBlue}>
                 {gene}
               </Text>
             </Block>
             <Block row marginVertical={3}>
-              <Image
-                style={styles.imageInfo}
-                source={icons.emailNotification}
-              />
+              <Image style={styles.imageInfo} source={icons.birday} />
               <Text size={14} marginLeft={10} color={theme.colors.darkBlue}>
                 {birthday}
               </Text>

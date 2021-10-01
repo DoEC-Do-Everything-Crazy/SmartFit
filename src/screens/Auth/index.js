@@ -4,12 +4,14 @@ import UpdateProfileScreen from './UpdateProfileScreen';
 import SendEmail from './SignUpScreen/navigation/SendEmail';
 import VFTPhoneNumberScreen from './VFTPhoneNumberScreen';
 import EnterPhoneNumberScreen from './SignUpScreen/navigation/EnterPhoneNumberScreen';
+import FlashScreen from './FlashScreen';
 
 export const auth = {
   LOGIN_SCREEN: LoginScreen,
   SIGNUP_SCREEN: SignUpScreen,
   SEND_EMAIL: SendEmail,
-  VFTPHONENUMBERSCREEN: VFTPhoneNumberScreen,
+  VFT_PHONE_NUMBER_SCREEN: VFTPhoneNumberScreen,
   UPDATE_PROFILE: UpdateProfileScreen,
   ENTER_PHONE_NUMBER_SCREEN: EnterPhoneNumberScreen,
+  FLASH_SCREEN: FlashScreen,
 };

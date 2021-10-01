@@ -25,17 +25,17 @@ const TabItem = ({icon, label, active, onPress, index}) => {
 
   const iconTranslate = animation.interpolate({
     inputRange: [0, 1],
-    outputRange: [4, 0],
+    outputRange: [5, 0],
   });
 
   const labelTranslate = animation.interpolate({
     inputRange: [0, 1],
-    outputRange: [20, 0],
+    outputRange: [25, 0],
   });
 
   const translateX = animation.interpolate({
     inputRange: [0, 1],
-    outputRange: [20, 0],
+    outputRange: [25, 0],
   });
 
   return (
@@ -44,7 +44,7 @@ const TabItem = ({icon, label, active, onPress, index}) => {
         <Animated.View
           style={{
             transform: [{translateX: iconTranslate}],
-            opacity: active ? 1 : 0.4,
+            opacity: active ? 1 : 0.5,
           }}>
           <Image style={styles.icon} source={icon} resizeMode="contain" />
         </Animated.View>
@@ -55,7 +55,7 @@ const TabItem = ({icon, label, active, onPress, index}) => {
           ]}>
           {active ? (
             <Animated.Text style={styles.label}>
-              {index === 2
+              {index === 3
                 ? totalNotification > 0
                   ? `${label} (${totalNotification || 0})`
                   : label
@@ -82,6 +82,8 @@ const CustomTabBar = ({state, descriptors, navigation}) => {
         const iconTab =
           route.name === routes.HOME_SCREEN
             ? icons.home
+            : route.name === routes.SEARCH_SCREEN
+            ? icons.search
             : route.name === routes.STATS_SCREEN
             ? icons.stats
             : route.name === routes.NOTIFICATION_SCREEN
@@ -121,7 +123,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: 'white',
     padding: getSize.m(12),
-    paddingBottom: getSize.m(25),
+    paddingBottom: getSize.m(15),
   },
   container: {
     flexGrow: 1,
@@ -139,7 +141,7 @@ const styles = StyleSheet.create({
     color: theme.colors.blue,
     fontSize: getSize.m(12),
     marginLeft: getSize.m(5),
-    fontFamily: 'Quicksand-Medium',
+    // fontFamily: 'Quicksand-Medium',
   },
   cover: {
     height: getSize.s(40),

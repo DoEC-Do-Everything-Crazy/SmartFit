@@ -28,15 +28,41 @@ const icons = {
   promotion: require('./icons/promotion.png'),
   setting: require('./icons/setting.png'),
   ratings: require('./icons/star.png'),
+  filter: require('./icons/Filter.png'),
   iHeart: require('./icons/iHeart.png'),
   plus: require('./icons/plus.png'),
+  x: require('./icons/x.png'),
+  fullname: require('./icons/fullname.png'),
+  addToCart: require('./icons/addTocart.png'),
+  bags: require('./icons/bags.png'),
+  cart_data: require('./icons/cart_data.png'),
+  cartDelete: require('./icons/cartDelete.png'),
+  order: require('./icons/order.png'),
+  like: require('./icons/like.png'),
+  camera: require('./icons/camera.png'),
+  right: require('./icons/right.png'),
+  lock: require('./icons/lock.png'),
+  birday: require('./icons/birday.png'),
+  gender_info: require('./icons/gender_info.png'),
 };
 
-const lotties = {};
+const lotties = {
+  emptySearch: require('./lotties/emptySearch.json'),
+  convenient: require('./lotties/convenient.json'),
+  learn: require('./lotties/learn.json'),
+  like: require('./lotties/like.json'),
+};
 
 const images = {
   lesson: require('./images/lesson.png'),
   food: require('./images/food.png'),
+  image: require('./images/image.png'),
+  favorite: require('./images/favorite.png'),
+  boxing: require('./images/boxing.png'),
+  bellyDance: require('./images/bellyDance.png'),
+  danceSport: require('./images/danceSport.png'),
+  gym: require('./images/gym.png'),
+  yoga: require('./images/yoga.png'),
 };
 
 export {icons, lotties, images};

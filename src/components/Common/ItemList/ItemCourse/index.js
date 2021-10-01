@@ -1,16 +1,40 @@
-import {images, icons} from '@assets';
-
-import {theme} from '@theme';
+import {icons} from '@assets';
 import {Block, Text} from '@components';
-import React from 'react';
-import {Image} from 'react-native';
+import {theme} from '@theme';
+import React, {useCallback} from 'react';
+import {Image, Pressable} from 'react-native';
 import styles from './styles';
+import {useNavigation} from '@react-navigation/core';
+import {useDispatch} from 'react-redux';
+import {routes} from '@navigation/routes';
 
-const ItemCourse = ({picture, title, group_id, index}) => {
+import {changeScreen} from 'reduxs/reducers';
+
+const ItemCourse = ({
+  _id,
+  key,
+  image,
+  courseName,
+  desc,
+  ratting,
+  price,
+  typeName,
+}) => {
+  const navigation = useNavigation();
+  const dispatch = useDispatch();
+
+  const handleOpenCourseDetail = useCallback(() => {
+    dispatch(changeScreen('CourseDetail'));
+    navigation.navigate(routes.TAB_DETAILS, {id: _id});
+  }, [_id, dispatch, navigation]);
+
   return (
-    <Block flex key={index} marginTop={30} marginBottom={16}>
+    <Pressable
+      onPress={handleOpenCourseDetail}
+      key={key}
+      style={styles.container}>
       <Block
-        radius={16}
+        radius={5}
         borderWidth={0.3}
         marginHorizontal={10}
         height={98}
@@ -19,39 +43,33 @@ const ItemCourse = ({picture, title, group_id, index}) => {
         alignCenter
         row>
         <Block>
-          <Image
-            source={{
-              uri: 'https://gocbinhluan.com/public/photos/shares/201911/20191130/20191130_hinh12.jpg',
-            }}
-            style={styles.image}
-          />
+          <Image source={{uri: image}} style={styles.image} />
           <Block
+            alignCenter
             absolute
             bottom={-5}
-            left={9}
+            left={5}
             width={70}
             radius={5}
-            backgroundColor={theme.colors.blue}
-            alignCenter>
+            backgroundColor={theme.colors.blue}>
             <Text
               size={12}
               marginLeft={5}
               color={theme.colors.white}
               fontType="bold">
-              $1000
+              {price}
             </Text>
           </Block>
         </Block>
-
         <Block marginLeft={10} width="73%" shadow>
-          <Text size={20} fontType="bold">
-            Course
-            1.............................................................
+          <Text size={18} fontType="bold">
+            {courseName}
           </Text>
+          <Text numberOfLines={2}>{desc}</Text>
           <Block row alignCenter marginTop={5}>
             <Image source={icons.ratings} style={styles.icon} />
             <Text size={15} marginLeft={5}>
-              5.0
+              {ratting}
             </Text>
             <Block
               height={15}
@@ -65,13 +83,13 @@ const ItemCourse = ({picture, title, group_id, index}) => {
                 marginLeft={5}
                 color={theme.colors.white}
                 fontType="bold">
-                HOT!!!
+                HOT
               </Text>
             </Block>
           </Block>
         </Block>
       </Block>
-    </Block>
+    </Pressable>
   );
 };
 

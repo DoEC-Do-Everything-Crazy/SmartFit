@@ -2,12 +2,16 @@ import {icons} from '@assets';
 import {Block} from '@components';
 import ItemFeature from '@components/Common/ItemList/ItemFeature';
 import React from 'react';
+import {useNavigation} from '@react-navigation/core';
 import {FlatList} from 'react-native';
+import {routes} from '@navigation/routes';
+
 const data = [
   {
     id: 1,
     title: 'Your favorite',
     image: icons.heartPf,
+    navigation: routes.YOUR_FAVORITE_SCREEN,
   },
   {
     id: 2,
@@ -21,25 +25,34 @@ const data = [
   },
   {
     id: 4,
+    title: 'Order',
+    image: icons.order,
+    navigation: routes.ORDER_SCREEN,
+  },
+  {
+    id: 5,
     title: 'Setting',
     image: icons.setting,
+    navigation: routes.SETTING_SCREEN,
   },
 ];
 const ListItemFeature = () => {
-  const _renderItem = ({item}) => (
-    <ItemFeature
-      height={50}
-      borderWidth={0.5}
-      icon={item.image}
-      title={item.title}
-      onPress={() => {
-        console.log(item.title);
-      }}
-    />
-  );
+  const navigation = useNavigation();
+  const _renderItem = ({item}) => {
+    const onPress = () => {
+      navigation.navigate(item.navigation);
+    };
+    return (
+      <ItemFeature
+        height={50}
+        icon={item.image}
+        title={item.title}
+        onPress={onPress}
+      />
+    );
+  };
   return (
     <Block paddingHorizontal={16} height="50%">
-      <Block row alignCenter marginHorizontal={16} space="between"></Block>
       <FlatList
         showsVerticalScrollIndicator={false}
         nestedScrollEnabled

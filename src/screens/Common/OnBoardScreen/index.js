@@ -1,0 +1,96 @@
+import {Block, Empty, Text} from '@components';
+import Carousel, {Pagination} from 'react-native-snap-carousel';
+import {Dimensions, TouchableOpacity, View} from 'react-native';
+import React, {useCallback, useRef, useState} from 'react';
+
+import {StackActions} from '@react-navigation/native';
+import {lotties} from '@assets';
+import {routes} from '@navigation/routes';
+import styles from './styles';
+import {theme} from '@theme';
+import {useNavigation} from '@react-navigation/core';
+
+const {width: SliderWidth} = Dimensions.get('screen');
+
+const OnBoardScreen = () => {
+  const navigation = useNavigation();
+  const [activeIndex, setActivateIndex] = useState(0);
+  const carouselRef = useRef(null);
+  const [carouselState] = useState([
+    {
+      lotties: lotties.learn,
+      title: 'Learn anytime and anywhere',
+      text: 'Quarantine is the perfect time to spend your day learning something new, from anywhere!',
+    },
+    {
+      lotties: lotties.convenient,
+      title: 'convenient',
+      text: 'We bring convenience to users in choosing products about sports, courses, healthy meals at home.',
+    },
+    {
+      lotties: lotties.like,
+      title: 'Prestige and quality',
+      text: 'The quality and reputation of the service are our core values, so customers will always feel secure when using the service.',
+    },
+  ]);
+
+  const _renderItem = useCallback(({item}) => {
+    return (
+      <Block style={styles.renderRoot}>
+        <Block flex />
+        <Block flex>
+          <Empty lottie={item.lotties} />
+        </Block>
+        <Block flex>
+          <Text style={styles.renderTitle}>{item.title}</Text>
+          <Text style={styles.renderText}>{item.text}</Text>
+        </Block>
+      </Block>
+    );
+  }, []);
+
+  return (
+    <View style={styles.root}>
+      <View style={styles.bodyLayout}>
+        <Carousel
+          layout={'default'}
+          ref={carouselRef}
+          hasParallaxImages={true}
+          data={carouselState}
+          sliderWidth={SliderWidth}
+          itemWidth={SliderWidth}
+          renderItem={_renderItem}
+          useScrollView
+          onSnapToItem={index => {
+            setActivateIndex(index);
+          }}
+          activeSlideAlignment="center"
+        />
+        {
+          <Pagination
+            dotsLength={carouselState.length}
+            activeDotIndex={activeIndex}
+            dotStyle={styles.pagination}
+            inactiveDotOpacity={0.4}
+            inactiveDotScale={0.6}
+          />
+        }
+      </View>
+      <View style={styles.bottomLayout}>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.reset({
+              index: 0,
+              routes: [{name: routes.LOGIN_SCREEN}],
+            });
+          }}
+          style={styles.button}>
+          <Text color={theme.colors.white} size={18}>
+            Apply
+          </Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+};
+export default OnBoardScreen;

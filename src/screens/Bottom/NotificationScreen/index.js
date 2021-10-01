@@ -8,9 +8,16 @@ import styles from './styles';
 const NotificationScreen = () => {
   return (
     <Block flex backgroundColor={theme.colors.blue}>
-      <Header cart title="Notifications" colorTheme={theme.colors.white} />
+      <Header
+        type="Bottom"
+        title="Notifications"
+        colorTheme={theme.colors.white}
+      />
       <CategorySort />
-      <Block flex style={styles.container} backgroundColor={theme.colors.white}>
+      <Block
+        flex
+        style={styles.container}
+        backgroundColor={theme.colors.background}>
         <ListNotification />
       </Block>
     </Block>

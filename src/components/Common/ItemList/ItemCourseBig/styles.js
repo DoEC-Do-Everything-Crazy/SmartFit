@@ -23,7 +23,7 @@ export default StyleSheet.create({
     overflow: 'hidden',
   },
   text: {
-    fontSize: 40,
+    fontSize: 30,
     fontWeight: 'bold',
     color: '#fff',
     position: 'absolute',

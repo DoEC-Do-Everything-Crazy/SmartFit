@@ -1,10 +1,10 @@
-import {Block, Header, Button} from '@components';
-import React, {useState, useRef, useEffect} from 'react';
-import {Text, TextInput, StyleSheet, Dimensions} from 'react-native';
-
-import {useNavigation} from '@react-navigation/core';
+import {Block, Button, Header, Text} from '@components';
 import {routes} from '@navigation/routes';
+import {useNavigation} from '@react-navigation/core';
 import {theme} from '@theme';
+import React, {useEffect, useRef, useState} from 'react';
+import {TextInput} from 'react-native';
+import styles from './style';
 
 const VFTPhoneNumberScreen = ({route}) => {
   const navigation = useNavigation();
@@ -68,149 +68,107 @@ const VFTPhoneNumberScreen = ({route}) => {
         title="Sign in with phone number"
         colorTheme={theme.colors.blue}
       />
-      <Block marginTop={100}>
-        <Text
-          style={{
-            fontFamily: 'roboto',
-            fontStyle: 'normal',
-            fontWeight: 'bold',
-            fontSize: 18,
-            textAlign: 'center',
-            marginBottom: 75,
-          }}>
-          Code is send to {phone}
-        </Text>
+      <Block flex marginTop={100}>
+        <Block>
+          <Text
+            size={18}
+            marginBottom={75}
+            fontType="bold"
+            style={{textAlign: 'center'}}>
+            Code is send to {phone}
+          </Text>
+          <Block row flex justifyContent="space-evenly">
+            <TextInput
+              ref={inputRef1}
+              maxLength={1}
+              keyboardType="number-pad"
+              value={number1}
+              onChangeText={text => {
+                setNumber1(text);
+              }}
+              style={styles.textInput}
+            />
 
-        <Block row flex justifyContent="space-evenly">
-          <TextInput
-            ref={inputRef1}
-            maxLength={1}
-            keyboardType="number-pad"
-            value={number1}
-            onChangeText={text => {
-              setNumber1(text);
-            }}
-            style={styles.textInput}
-          />
+            <TextInput
+              ref={inputRef2}
+              maxLength={1}
+              keyboardType="number-pad"
+              value={number2}
+              onChangeText={text => {
+                setNumber2(text);
+              }}
+              style={styles.textInput}
+            />
 
-          <TextInput
-            ref={inputRef2}
-            maxLength={1}
-            keyboardType="number-pad"
-            value={number2}
-            onChangeText={text => {
-              setNumber2(text);
-            }}
-            style={styles.textInput}
-          />
+            <TextInput
+              ref={inputRef3}
+              maxLength={1}
+              keyboardType="number-pad"
+              value={number3}
+              onChangeText={text => {
+                setNumber3(text);
+              }}
+              style={styles.textInput}
+            />
 
-          <TextInput
-            ref={inputRef3}
-            maxLength={1}
-            keyboardType="number-pad"
-            value={number3}
-            onChangeText={text => {
-              setNumber3(text);
-            }}
-            style={styles.textInput}
-          />
+            <TextInput
+              ref={inputRef4}
+              maxLength={1}
+              keyboardType="number-pad"
+              value={number4}
+              onChangeText={text => {
+                setNumber4(text);
+              }}
+              style={styles.textInput}
+            />
 
-          <TextInput
-            ref={inputRef4}
-            maxLength={1}
-            keyboardType="number-pad"
-            value={number4}
-            onChangeText={text => {
-              setNumber4(text);
-            }}
-            style={styles.textInput}
-          />
+            <TextInput
+              ref={inputRef5}
+              maxLength={1}
+              keyboardType="number-pad"
+              value={number5}
+              onChangeText={text => {
+                setNumber5(text);
+              }}
+              style={styles.textInput}
+            />
 
-          <TextInput
-            ref={inputRef5}
-            maxLength={1}
-            keyboardType="number-pad"
-            value={number5}
-            onChangeText={text => {
-              setNumber5(text);
-            }}
-            style={styles.textInput}
-          />
-
-          <TextInput
-            ref={inputRef6}
-            maxLength={1}
-            keyboardType="number-pad"
-            value={number6}
-            onChangeText={text => {
-              setNumber6(text);
-            }}
-            style={styles.textInput}
-          />
+            <TextInput
+              ref={inputRef6}
+              maxLength={1}
+              keyboardType="number-pad"
+              value={number6}
+              onChangeText={text => {
+                setNumber6(text);
+              }}
+              style={styles.textInput}
+            />
+          </Block>
+          <Block row alignCenter justifyCenter>
+            <Text
+              size={18}
+              marginTop={60}
+              fontType="bold"
+              style={{
+                textAlign: 'center',
+              }}>
+              Didn’t receive code?
+            </Text>
+            <Text style={styles.textRequestAgain}>Request again</Text>
+          </Block>
         </Block>
       </Block>
-      <Block flexDirection="row" justifyContent="center">
-        <Text
-          style={{
-            fontFamily: 'roboto',
-            fontStyle: 'normal',
-            fontWeight: 'bold',
-            fontSize: 18,
-            textAlign: 'center',
-            marginTop: 60,
-          }}>
-          Didn’t receive code?
-        </Text>
-        <Text style={styles.textRequestAgain}>Request again</Text>
-      </Block>
-      <Block paddingHorizontal={16}>
-        <Button
-          onPress={() => {
-            navigation.navigate(routes.UPDATE_PROFILE, {phone});
-          }}
-          title="Verify and Create Account"
-          height={45}
-          marginLeft={10}
-        />
-      </Block>
+      <Button
+        onPress={() => {
+          navigation.navigate(routes.UPDATE_PROFILE, {phone});
+        }}
+        title="Verify and Create Account"
+        height={45}
+        marginLeft={10}
+        containerStyle={{justifyContent: 'flex-end'}}
+      />
     </Block>
   );
 };
-
-const styles = StyleSheet.create({
-  textRequestAgain: {
-    fontFamily: 'roboto',
-    fontStyle: 'normal',
-    fontWeight: 'bold',
-    fontSize: 18,
-    textAlign: 'center',
-    marginTop: 60,
-    marginLeft: 5,
-    color: 'blue',
-  },
-  text: {
-    fontFamily: 'roboto',
-    fontStyle: 'normal',
-    fontWeight: 'bold',
-    fontSize: 18,
-    textAlign: 'center',
-    marginBottom: 75,
-  },
-  textInput: {
-    backgroundColor: '#F5F4F2',
-    fontWeight: '600',
-    justifyContent: 'center',
-    color: 'black',
-    textAlign: 'center',
-    alignSelf: 'center',
-    padding: 10,
-    fontSize: 20,
-    height: 55,
-    width: '12.5%',
-    borderRadius: 10,
-    borderWidth: 0.5,
-    borderColor: 'grey',
-  },
-});
 
 export default VFTPhoneNumberScreen;

@@ -38,9 +38,10 @@ const Button = ({
               />
             )}
             <Text
+              size={17}
               flex
               center
-              fontType="semibold"
+              fontType="bold"
               color={theme.colors.white}
               style={titleStyle}>
               {title}

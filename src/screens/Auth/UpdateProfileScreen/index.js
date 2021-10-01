@@ -5,12 +5,13 @@ import {Picker} from '@react-native-picker/picker';
 import {theme} from '@theme';
 import {height} from '@utils/responsive';
 import {Formik} from 'formik';
-import React, {useState} from 'react';
+import React, {useState, useMemo} from 'react';
 import {Image, Platform, Text, TouchableOpacity} from 'react-native';
 import * as yup from 'yup';
 import styles from './styles';
 
 const UpdateProfileScreen = ({route}) => {
+  const [isInput, setInput] = useState(true);
   const {phone} = route.params;
   const [date, setDate] = useState(new Date());
   const [selectedGender, setSelectedGender] = useState();
@@ -41,6 +42,13 @@ const UpdateProfileScreen = ({route}) => {
 
       .required('Phone number is required'),
   });
+  const color = useMemo(() => {
+    if (isInput) {
+      return theme.colors.white;
+    }
+    return theme.colors.blue;
+  }, [isInput]);
+
   return (
     <Formik
       validationSchema={validationSchema}
@@ -60,51 +68,57 @@ const UpdateProfileScreen = ({route}) => {
         isValid,
         dirty,
       }) => (
-        <Block flex backgroundColor={theme.colors.white}>
+        <Block flex backgroundColor={theme.colors.background}>
           <Header
             canGoBack
             title="Update Profile"
             colorTheme={theme.colors.blue}
           />
-          <Block height={height / 9} />
 
-          <Block height={height * 0.75} paddingHorizontal={16}>
-            <Block style={styles.group} height={height / 1.5}>
+          <Block flex paddingHorizontal={16}>
+            <Block style={styles.group}>
               <TextInput
                 placeholder="Fullname"
                 inputStyle={styles.input}
+                leftIcon={icons.fullname}
                 value={values.fullName}
                 containerStyle={styles.holderInput}
                 onChangeText={handleChange('fullName')}
-                onBlur={handleBlur('fullName')}
+                onEndEditing={handleBlur('fullName')}
               />
-              {errors.fullName && touched.fullName && (
-                <Text style={styles.text}>{errors.fullName}</Text>
-              )}
+              <Block marginTop={8} marginBottom={24}>
+                {errors.fullName && touched.fullName && (
+                  <Text style={styles.text}>{errors.fullName}</Text>
+                )}
+              </Block>
               <TextInput
                 placeholder="Email"
                 inputStyle={styles.input}
                 value={values.email}
                 leftIcon={icons.email}
                 onChangeText={handleChange('email')}
-                onBlur={handleBlur('email')}
+                onEndEditing={handleBlur('email')}
               />
-              {errors.email && touched.email && (
-                <Text style={styles.text}>{errors.email}</Text>
-              )}
+              <Block marginTop={8} marginBottom={24}>
+                {errors.email && touched.email && (
+                  <Text style={styles.text}>{errors.email}</Text>
+                )}
+              </Block>
               <TextInput
                 placeholder="Phone"
                 inputStyle={styles.input}
                 leftIcon={icons.phone}
                 value={values.phone}
                 onChangeText={handleChange('phone')}
-                onBlur={handleBlur('phone')}
+                onEndEditing={handleBlur('phone')}
                 disabled="true"
               />
-              {errors.phone && touched.phone && (
-                <Text style={styles.text}>{errors.phone}</Text>
-              )}
-              <Block style={styles.gender}>
+              <Block marginTop={8} marginBottom={24}>
+                {errors.phone && touched.phone && (
+                  <Text style={styles.text}>{errors.phone}</Text>
+                )}
+              </Block>
+              <Block marginTop={8} marginBottom={24} style={styles.gender}>
                 <Image source={icons.gender} style={styles.img} />
                 <Picker
                   style={styles.picker}
@@ -117,7 +131,9 @@ const UpdateProfileScreen = ({route}) => {
                   <Picker.Item label="Other" value="Other" />
                 </Picker>
               </Block>
-              <TouchableOpacity onPress={showDatepicker}>
+              <TouchableOpacity
+                style={{marginTop: 8, marginBottom: 24}}
+                onPress={showDatepicker}>
                 <TextInput
                   disabled={true}
                   placeholder={''}
@@ -136,15 +152,15 @@ const UpdateProfileScreen = ({route}) => {
                   />
                 )}
               </TouchableOpacity>
-
-              <Button
-                disabled={dirty && isValid ? false : true}
-                title="Update"
-                style={styles.button}
-                onPress={handleSubmit}
-              />
             </Block>
           </Block>
+          <Button
+            containerStyle={{justifyContent: 'flex-end'}}
+            disabled={dirty && isValid ? false : true}
+            title="Update"
+            style={styles.button}
+            onPress={handleSubmit}
+          />
         </Block>
       )}
     </Formik>

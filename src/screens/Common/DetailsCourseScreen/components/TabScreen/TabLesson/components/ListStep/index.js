@@ -9,7 +9,10 @@ const data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 const ListStep = () => {
   const _renderItem = (item, index) => <ItemLesson index={index} />;
   return (
-    <Block flex paddingHorizontal={16} backgroundColor={theme.colors.white}>
+    <Block
+      flex
+      paddingHorizontal={16}
+      backgroundColor={theme.colors.background}>
       <Text size={30} fontType="bold">
         Lessons 1
       </Text>

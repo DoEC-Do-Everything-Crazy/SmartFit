@@ -18,7 +18,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    borderWidth: 1,
+
     borderColor: theme.colors.blue,
     backgroundColor: theme.colors.white,
     borderRadius: getSize.s(5),

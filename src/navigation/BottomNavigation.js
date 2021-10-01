@@ -17,6 +17,13 @@ const BottomTabNavigation = () => {
         }}
       />
       <Tab.Screen
+        name={routes.SEARCH_SCREEN}
+        component={bottom.SEARCH_SCREEN}
+        options={{
+          tabBarLabel: 'Search',
+        }}
+      />
+      <Tab.Screen
         name={routes.STATS_SCREEN}
         component={bottom.STATS_SCREEN}
         options={{

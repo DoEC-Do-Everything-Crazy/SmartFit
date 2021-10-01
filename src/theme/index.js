@@ -1,7 +1,9 @@
 export const theme = {
   colors: {
     text: '#242424',
-    background: '#f5f5f5',
+    lightText: '#515D5F',
+    background: '#F3F1F1',
+    header: '#F9F9F9',
     lightGray: '#A5A5A5',
     gray: '#9098B1',
     smoke: '#E6E6E6',
@@ -16,7 +18,11 @@ export const theme = {
     orange: '#F59523',
     tomato: '#FF6853',
     darkBlue: '#444C5C',
+    lightBlue: '#B0EFEF',
     yellowFood: '#FFC107',
+    pink: '#FFCCB6',
+    textLight: '#808080',
+    blueLight: '#D9FFDF',
   },
 
   fonts: {

@@ -1,5 +1,6 @@
 import {getSize, width} from '@utils/responsive';
 import {StyleSheet, Platform} from 'react-native';
+import {theme} from '@theme';
 
 export default StyleSheet.create({
   item: {
@@ -9,7 +10,7 @@ export default StyleSheet.create({
   imageContainer: {
     flex: 1,
     marginBottom: Platform.select({ios: 0, android: 1}),
-    backgroundColor: 'white',
+    backgroundColor: theme.colors.background,
   },
   image: {
     borderRadius: getSize.s(10),

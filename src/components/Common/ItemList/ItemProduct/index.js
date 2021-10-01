@@ -12,7 +12,7 @@ const ItemProduct = ({picture, title, group_id, index}) => {
       row
       margin={16}
       padding={16}
-      radius={16}
+      radius={8}
       borderWidth={2}
       borderColor={theme.colors.yellowFood}
       backgroundColor={theme.colors.white}>
@@ -34,7 +34,7 @@ const ItemProduct = ({picture, title, group_id, index}) => {
         justifyCenter
         width={32}
         height={32}
-        radius={20}
+        radius={8}
         borderWidth={2}
         borderColor={theme.colors.yellowFood}
         backgroundColor={theme.colors.white}>
