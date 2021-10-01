@@ -18,7 +18,7 @@ const CourseScreen = () => {
       <Block flex alignCenter paddingHorizontal={16}>
         <FlatList
           showsVerticalScrollIndicator={false}
-          data={[1, 2, 3, 4, 5, 6, 7, 8, 9]}
+          data={[1]}
           keyExtractor={(item, index) => index.toString()}
           renderItem={_renderItem}
         />
