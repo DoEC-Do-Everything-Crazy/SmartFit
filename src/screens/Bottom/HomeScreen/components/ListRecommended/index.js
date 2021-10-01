@@ -39,22 +39,16 @@ const data = [
     image:
       'https://www.joopzy.com/wp-content/uploads/2020/06/1830-610-6mm-TPE-Yoga-Mat-with-Position-Line-Non-Slip-Carpet-Mat-For-Beginner-Environmental.jpg',
   },
+
   {
     _id: 6,
-    title: 'Adjustable Dumbbells',
-    desc: 'This is Adjustable Dumbbells ',
-    image:
-      'https://cdn.shopify.com/s/files/1/2256/4267/products/image_e1bf7543-2d03-4281-a1b8-665eafeef05b_3024x.jpg?v=1588990290',
-  },
-  {
-    _id: 7,
     title: 'Kettlebell',
     desc: 'This is Kettlebell ',
     image:
       'https://www.technogym.com/media/catalog/product/cache/1/image/602f0fa2c1f0d1ba5e241f914e856ff9/v/i/vinyl_coated_kettlebell_hero.jpg',
   },
   {
-    _id: 8,
+    _id: 7,
     title: 'Resistance Bands',
     desc: 'Resistance Bands',
     image:
