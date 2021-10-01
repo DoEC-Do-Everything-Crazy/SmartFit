@@ -58,6 +58,11 @@ const images = {
   food: require('./images/food.png'),
   image: require('./images/image.png'),
   favorite: require('./images/favorite.png'),
+  boxing: require('./images/boxing.png'),
+  bellyDance: require('./images/bellyDance.png'),
+  danceSport: require('./images/danceSport.png'),
+  gym: require('./images/gym.png'),
+  yoga: require('./images/yoga.png'),
 };
 
 export {icons, lotties, images};
