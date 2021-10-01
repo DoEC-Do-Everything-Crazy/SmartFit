@@ -5,11 +5,12 @@ import React from 'react';
 import {Image} from 'react-native';
 import styles from './styles';
 
-const ItemCourse = ({picture, title, group_id, index}) => {
+const ItemCourse = ({picture, title, description, index, ratting, price}) => {
+  console.log('aaaaaaaaaa', description);
   return (
-    <Block flex key={index} marginTop={6} marginBottom={26}>
+    <Block flex key={index} marginTop={12} marginBottom={26}>
       <Block
-        radius={16}
+        radius={5}
         borderWidth={0.3}
         marginHorizontal={10}
         height={98}
@@ -18,39 +19,33 @@ const ItemCourse = ({picture, title, group_id, index}) => {
         alignCenter
         row>
         <Block>
-          <Image
-            source={{
-              uri: 'https://gocbinhluan.com/public/photos/shares/201911/20191130/20191130_hinh12.jpg',
-            }}
-            style={styles.image}
-          />
+          <Image source={{uri: picture}} style={styles.image} />
           <Block
+            alignCenter
             absolute
             bottom={-5}
-            left={9}
+            left={5}
             width={70}
             radius={5}
-            backgroundColor={theme.colors.blue}
-            alignCenter>
+            backgroundColor={theme.colors.blue}>
             <Text
               size={12}
               marginLeft={5}
               color={theme.colors.white}
               fontType="bold">
-              $1000
+              {price}
             </Text>
           </Block>
         </Block>
-
         <Block marginLeft={10} width="73%" shadow>
-          <Text size={20} fontType="bold">
-            Course
-            1.............................................................
+          <Text size={18} fontType="bold">
+            {title}
           </Text>
+          <Text numberOfLines={2}>{description}</Text>
           <Block row alignCenter marginTop={5}>
             <Image source={icons.ratings} style={styles.icon} />
             <Text size={15} marginLeft={5}>
-              5.0
+              {ratting}
             </Text>
             <Block
               height={15}

@@ -5,8 +5,8 @@ import {theme} from '@theme';
 export default StyleSheet.create({
   image: {
     width: getSize.s(80),
-    height: getSize.s(100),
-    borderRadius: getSize.m(16),
+    height: getSize.s(110),
+    borderRadius: getSize.m(5),
   },
   icon: {
     width: getSize.s(15),
