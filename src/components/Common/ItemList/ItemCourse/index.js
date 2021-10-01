@@ -2,13 +2,20 @@ import {icons} from '@assets';
 import {Block, Text} from '@components';
 import {theme} from '@theme';
 import React from 'react';
-import {Image} from 'react-native';
+import {Image, Pressable} from 'react-native';
 import styles from './styles';
 
-const ItemCourse = ({picture, title, description, index, ratting, price}) => {
-  console.log('aaaaaaaaaa', description);
+const ItemCourse = ({
+  key,
+  image,
+  courseName,
+  desc,
+  ratting,
+  price,
+  typeName,
+}) => {
   return (
-    <Block flex key={index} marginTop={12} marginBottom={26}>
+    <Pressable key={key} style={styles.container}>
       <Block
         radius={5}
         borderWidth={0.3}
@@ -19,7 +26,7 @@ const ItemCourse = ({picture, title, description, index, ratting, price}) => {
         alignCenter
         row>
         <Block>
-          <Image source={{uri: picture}} style={styles.image} />
+          <Image source={{uri: image}} style={styles.image} />
           <Block
             alignCenter
             absolute
@@ -39,9 +46,9 @@ const ItemCourse = ({picture, title, description, index, ratting, price}) => {
         </Block>
         <Block marginLeft={10} width="73%" shadow>
           <Text size={18} fontType="bold">
-            {title}
+            {courseName}
           </Text>
-          <Text numberOfLines={2}>{description}</Text>
+          <Text numberOfLines={2}>{desc}</Text>
           <Block row alignCenter marginTop={5}>
             <Image source={icons.ratings} style={styles.icon} />
             <Text size={15} marginLeft={5}>
@@ -59,13 +66,13 @@ const ItemCourse = ({picture, title, description, index, ratting, price}) => {
                 marginLeft={5}
                 color={theme.colors.white}
                 fontType="bold">
-                HOT!!!
+                HOT!
               </Text>
             </Block>
           </Block>
         </Block>
       </Block>
-    </Block>
+    </Pressable>
   );
 };
 
