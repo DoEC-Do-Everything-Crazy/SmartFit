@@ -1,17 +1,12 @@
 import {Block, Text} from '@components';
 import React from 'react';
 
-const PayInfo = () => {
+const PayInfo = ({title1, titlePrice1, title2, titlePrice2, total}) => {
   return (
-    <Block
-      marginHorizontal={16}
-      borderRadius={8}
-      marginTop={10}
-      padding={15}
-      backgroundColor="white">
+    <Block borderRadius={8} marginTop={10} padding={15} backgroundColor="white">
       <Block row marginHorizontal={16} space="between">
-        <Text>Order</Text>
-        <Text>112$</Text>
+        <Text>{title1}:</Text>
+        <Text>{titlePrice1}$</Text>
       </Block>
       <Block
         borderWidth={0.5}
@@ -20,8 +15,8 @@ const PayInfo = () => {
         marginHorizontal={25}
       />
       <Block row marginHorizontal={16} marginTop={5} space="between">
-        <Text>Delivery:</Text>
-        <Text>15$</Text>
+        <Text>{title2}:</Text>
+        <Text>{titlePrice2}$</Text>
       </Block>
       <Block
         borderWidth={0.5}
@@ -31,7 +26,7 @@ const PayInfo = () => {
       />
       <Block row marginHorizontal={16} marginTop={5} space="between">
         <Text fontType="bold">Summary:</Text>
-        <Text fontType="bold">127$</Text>
+        <Text fontType="bold">{total}$</Text>
       </Block>
     </Block>
   );
