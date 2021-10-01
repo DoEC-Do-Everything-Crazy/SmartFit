@@ -70,7 +70,10 @@ const TabDetails = ({route}) => {
 
   const minute = [25, 30, 35, 40, 45];
   const randomMinute = minute[Math.floor(Math.random() * minute.length)];
-  console.log('aaaaaaaaa', randomMinute);
+  const day = [3, 5];
+  const randomDay = day[Math.floor(Math.random() * day.length)];
+  const weeks = sessions / randomDay;
+  const totalPrice = data?.price + 0;
   const HeaderComponent = useCallback(
     props => {
       const {title, inf} = props;
@@ -177,9 +180,9 @@ const TabDetails = ({route}) => {
                 <Text>PT: </Text>
               </Block>
               <Block marginLeft={20}>
-                <Text fontType="bold">4 weeks</Text>
+                <Text fontType="bold">{weeks} weeks</Text>
                 <Text fontType="bold">{randomMinute} Minutes</Text>
-                <Text fontType="bold">5 days </Text>
+                <Text fontType="bold">{day} days </Text>
                 <Text fontType="bold">Total body </Text>
                 {screen === 'CourseDetail' ? (
                   <Pressable
@@ -200,8 +203,8 @@ const TabDetails = ({route}) => {
                   title1="Course"
                   titlePrice1={data.price}
                   title2="Personal Trainer"
-                  titlePrice2={10000}
-                  total={15000}
+                  titlePrice2={0}
+                  total={totalPrice}
                 />
                 <Block style={styles.bottomLayout}>
                   <Pressable

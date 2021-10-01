@@ -6,7 +6,7 @@ import styles from './styles';
 import {useNavigation} from '@react-navigation/core';
 import {routes} from '@navigation/routes';
 
-const ItemRecommended = ({picture, title, group_id, index}) => {
+const ItemRecommended = ({_id, title, desc, image, index}) => {
   const navigation = useNavigation();
   return (
     <Pressable onPress={() => navigation.navigate(routes.FOOD_DETAILS_SCREEN)}>
@@ -14,17 +14,12 @@ const ItemRecommended = ({picture, title, group_id, index}) => {
         key={index}
         style={{marginLeft: index === 0 ? 16 : 0}}
         marginRight={16}>
-        <Image
-          style={styles.image}
-          source={{
-            uri: 'https://diadiemnghean.com/wp-content/uploads/2020/05/assortment-of-colorful-ripe-tropical-fruits-top-royalty-free-image-995518546-1564092355.jpg',
-          }}
-        />
+        <Image style={styles.image} source={{uri: image}} />
         <Block style={styles.title}>
           <Text color={theme.colors.white} fontType="bold">
-            Menu
+            {title}
           </Text>
-          <Text color={theme.colors.white}>Tiêu đề menu</Text>
+          <Text color={theme.colors.white}>{desc}</Text>
         </Block>
       </Block>
     </Pressable>

@@ -29,6 +29,7 @@ const CourseListScreen = () => {
   const _renderItem = ({item}) => {
     return (
       <ItemCourse
+        _id={item._id}
         typeName={item.typeName}
         key={item.key}
         price={item.price}
