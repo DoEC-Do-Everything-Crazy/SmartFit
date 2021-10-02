@@ -1,6 +1,6 @@
 import {Block, Empty, Text, Button} from '@components';
 import Carousel, {Pagination} from 'react-native-snap-carousel';
-import {Dimensions, View} from 'react-native';
+import {Dimensions} from 'react-native';
 import React, {useCallback, useRef, useState} from 'react';
 
 import {lotties} from '@assets';
@@ -60,6 +60,9 @@ const OnBoardScreen = () => {
           itemWidth={SliderWidth}
           renderItem={_renderItem}
           useScrollView
+          autoplayInterval={1000}
+          loop={true}
+          activeAnimationType={'decay'}
           onSnapToItem={index => {
             setActivateIndex(index);
           }}
