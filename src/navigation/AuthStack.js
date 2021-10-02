@@ -22,14 +22,17 @@ const AuthStack = () => {
         name={routes.ENTER_PHONE_NUMBER_SCREEN}
         component={auth.ENTER_PHONE_NUMBER_SCREEN}
       />
-      <Stack.Screen name={routes.SEND_EMAIL} component={auth.SEND_EMAIL} />
+      <Stack.Screen
+        name={routes.SEND_EMAIL_SCREEN}
+        component={auth.SEND_EMAIL_SCREEN}
+      />
       <Stack.Screen
         name={routes.VFT_PHONE_NUMBER_SCREEN}
         component={auth.VFT_PHONE_NUMBER_SCREEN}
       />
       <Stack.Screen
-        name={routes.SIGNUP_SCREEN}
-        component={auth.SIGNUP_SCREEN}
+        name={routes.UPDATE_PROFILE_SCREEN}
+        component={auth.UPDATE_PROFILE_SCREEN}
       />
     </Stack.Navigator>
   );

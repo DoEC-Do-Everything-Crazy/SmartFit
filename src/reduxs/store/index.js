@@ -47,8 +47,6 @@ const store = configureStore({
   middleware,
 });
 
-// console.log('check store', store);
-
 // sagaMiddleware.run(rootSaga);
 
 const persistor = persistStore(store);

@@ -30,7 +30,9 @@
       "@redux": ["redux"],
       "@redux/*": ["redux/*"],
       "@hooks": ["hooks"],
-      "@hooks/*": ["hooks/*"]
+      "@hooks/*": ["hooks/*"],
+      "@constants": ["constants"],
+      "@constants/*": ["constants/*"]
     },
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,

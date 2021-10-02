@@ -1,12 +1,13 @@
 import {Block, Text} from '@components';
-import ItemRecommended from '@components/Common/ItemList/ItemRecommended';
+import ItemRecommended from '@components/ItemList/ItemRecommended';
 import {theme} from '@theme';
 import React from 'react';
 import {FlatList, Pressable} from 'react-native';
 import {useNavigation} from '@react-navigation/core';
 import {routes} from '@navigation/routes';
+// import {DATA_RECOMMENDED} from '@constants';
 
-const data = [
+const DATA_RECOMMENDED = [
   {
     _id: 1,
     title: 'Dumbbell',
@@ -88,7 +89,7 @@ const ListRecommended = () => {
         showsHorizontalScrollIndicator={false}
         horizontal
         nestedScrollEnabled
-        data={data}
+        data={DATA_RECOMMENDED}
         keyExtractor={(item, index) => index}
         renderItem={_renderItem}
       />

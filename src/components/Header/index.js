@@ -1,12 +1,12 @@
+import {icons} from '@assets';
 import {Block, Text} from '@components';
+import {routes} from '@navigation/routes';
 import {useNavigation} from '@react-navigation/native';
+import {theme} from '@theme';
 import React from 'react';
 import {Image, Pressable} from 'react-native';
-import {icons} from '@assets';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {theme} from '@theme';
 import styles from './styles';
-import {routes} from '@navigation/routes';
 
 const Header = props => {
   if (props.type === 'Home') {
@@ -95,7 +95,10 @@ const HeaderCommon = ({title, canGoBack, cart, search}) => {
         )}
 
         {search && (
-          <Pressable onPress={() => {}}>
+          <Pressable
+            onPress={() => {
+              navigation.navigate(routes.SEARCH_SCREEN);
+            }}>
             <Image
               source={icons.search}
               style={styles.iconBack}

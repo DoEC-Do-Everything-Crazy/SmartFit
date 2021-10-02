@@ -2,21 +2,7 @@ import {Block, Text} from '@components';
 import React, {useState} from 'react';
 import {Pressable} from 'react-native';
 import styles from './styles';
-
-const DATA = [
-  {
-    id: 1,
-    title: 'All',
-  },
-  {
-    id: 2,
-    title: 'Coupon',
-  },
-  {
-    id: 3,
-    title: 'System',
-  },
-];
+import {DATA_TYPE_NOTIFICATION} from '@constants';
 
 const CategorySort = () => {
   const [selectedId, setSelectedId] = useState(1);
@@ -43,7 +29,7 @@ const CategorySort = () => {
   return (
     <Block row justifyContent="center">
       <Text style={[styles.text, styles.item]}>Sort by</Text>
-      {DATA.map((item, i) => (
+      {DATA_TYPE_NOTIFICATION.map((item, i) => (
         <_renderItem key={i} item={item} />
       ))}
     </Block>

@@ -1,17 +1,17 @@
 import LoginScreen from './LoginScreen';
-import SignUpScreen from './SignUpScreen';
 import UpdateProfileScreen from './UpdateProfileScreen';
-import SendEmail from './SignUpScreen/navigation/SendEmail';
+import SendEmail from './SendEmail';
 import VFTPhoneNumberScreen from './VFTPhoneNumberScreen';
-import EnterPhoneNumberScreen from './SignUpScreen/navigation/EnterPhoneNumberScreen';
+import EnterPhoneNumberScreen from './EnterPhoneNumberScreen';
 import FlashScreen from './FlashScreen';
+import OnBoardScreen from './OnBoardScreen';
 
 export const auth = {
   LOGIN_SCREEN: LoginScreen,
-  SIGNUP_SCREEN: SignUpScreen,
-  SEND_EMAIL: SendEmail,
+  SEND_EMAIL_SCREEN: SendEmail,
   VFT_PHONE_NUMBER_SCREEN: VFTPhoneNumberScreen,
-  UPDATE_PROFILE: UpdateProfileScreen,
+  UPDATE_PROFILE_SCREEN: UpdateProfileScreen,
   ENTER_PHONE_NUMBER_SCREEN: EnterPhoneNumberScreen,
   FLASH_SCREEN: FlashScreen,
+  ONBOARD_SCREEN: OnBoardScreen,
 };

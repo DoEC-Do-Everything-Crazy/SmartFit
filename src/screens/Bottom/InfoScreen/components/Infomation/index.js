@@ -1,23 +1,15 @@
 import {Block, Header, Text} from '@components';
-
+import {DATA_STATISTICAL_PROFILE} from '@constants';
 import {AuthService} from '@services';
+import {theme} from '@theme';
+import React from 'react';
+import {TouchableOpacity} from 'react-native';
+import {useSelector} from 'react-redux';
 import InfoProfile from './components/InfoProfile';
 import ListItemFeature from './components/ListItemFeature';
-import React from 'react';
 import StatisticalProfile from './components/StatisticalProfile';
-import {TouchableOpacity} from 'react-native';
-import {routes} from '@navigation/routes';
 import styles from './styles';
-import {theme} from '@theme';
-import {useNavigation} from '@react-navigation/core';
-import {useSelector} from 'react-redux';
 
-const DATA_STATISTICAL_PROFILE = [
-  {
-    balance: '$2285',
-    course: '4',
-  },
-];
 const Information = () => {
   const {user} = useSelector(state => state.root.user);
   const DATA_INFO = [
@@ -30,7 +22,6 @@ const Information = () => {
       birthday: '01-01-2001',
     },
   ];
-  const navigation = useNavigation();
   return (
     <Block flex backgroundColor={theme.colors.blue}>
       <Header
