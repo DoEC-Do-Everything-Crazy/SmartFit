@@ -2,21 +2,8 @@ import {Block, Text} from '@components';
 import React, {useState} from 'react';
 import {Pressable, ScrollView} from 'react-native';
 import styles from './styles';
+import {DATA_STATS} from '@constants';
 
-const data = [
-  {
-    id: 1,
-    title: 'Weekly',
-  },
-  {
-    id: 2,
-    title: 'Monthly',
-  },
-  {
-    id: 3,
-    title: 'Yearly',
-  },
-];
 const Item = ({item, onPress, backgroundColor, textColor}) => (
   <Pressable onPress={onPress} style={[styles.item, backgroundColor]}>
     <Text style={[styles.text, textColor]}>{item.title}</Text>
@@ -43,7 +30,7 @@ const DateCategory = () => {
         horizontal
         showsHorizontalScrollIndicator={false}
         justifyContent="center">
-        {data.map((item, i) => (
+        {DATA_STATS.map((item, i) => (
           <_renderItem key={i} item={item} />
         ))}
       </ScrollView>

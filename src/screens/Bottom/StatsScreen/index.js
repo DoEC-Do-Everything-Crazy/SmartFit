@@ -1,6 +1,6 @@
 import {icons} from '@assets';
 import {Block} from '@components';
-import ItemFeature from '@components/Common/ItemList/ItemFeature';
+import ItemFeature from '@components/ItemList/ItemFeature';
 import {theme} from '@theme';
 import {getSize, width} from '@utils/responsive';
 import React from 'react';
@@ -29,7 +29,6 @@ const StatsScreen = () => {
             title="Steps"
             circular
             valueCir={2285}
-            // onPress={() => console.log('aaa')}
           />
           <StatsBlock
             width={width / 2 - 24}

@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, {useEffect, useState} from 'react';
-
 import AuthStack from './AuthStack';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 // import navigators

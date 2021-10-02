@@ -1,25 +1,11 @@
 import {icons, lotties} from '@assets';
 import {Block, Header, Text, TextInput, Empty} from '@components';
-import ItemSearch from '@components/Common/ItemList/ItemSearch';
+import ItemSearch from '@components/ItemList/ItemSearch';
 import {theme} from '@theme';
 import React, {useState} from 'react';
 import {FlatList, Image, Pressable} from 'react-native';
 import styles from './styles';
-
-const dataSearch = [
-  {
-    title: 'Cheese Burger',
-  },
-  {
-    title: 'Indian Pasta',
-  },
-  {
-    title: 'Beef Burger',
-  },
-  {
-    title: 'Salad',
-  },
-];
+import {DATA_SEARCH} from '@constants';
 
 const SearchScreen = () => {
   const [data, setData] = useState('');
@@ -75,7 +61,7 @@ const SearchScreen = () => {
               </Text>
               <FlatList
                 showsVerticalScrollIndicator={false}
-                data={dataSearch}
+                data={DATA_SEARCH}
                 keyExtractor={item => item.id}
                 renderItem={_renderItemSearch}
               />
