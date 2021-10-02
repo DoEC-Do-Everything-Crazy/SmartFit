@@ -5,34 +5,49 @@ import {theme} from '@theme';
 import React from 'react';
 import {Image, Pressable} from 'react-native';
 import CartList from './components/CartList';
-import {PayInfo} from '@components';
+import {PayInfo, InviteLogin} from '@components';
 import DATA from './DATA';
 import styles from './styles';
+import {routes} from '@navigation/routes';
+import {useSelector} from 'react-redux';
 
 const CartScreen = () => {
-  return DATA.length > 0 ? <Cart /> : <NotData />;
+  const {user} = useSelector(state => state.root.user);
+  return JSON.stringify(user) !== '{}' ? (
+    <Cart />
+  ) : (
+    <>
+      <Header title="Cart" />
+      <InviteLogin navigate={routes.LOGIN_SCREEN} routes={routes.CART_SCREEN} />
+    </>
+  );
 };
 
-const Cart = () => (
-  <Block flex backgroundColor={theme.colors.background}>
-    <Header canGoBack colorTheme={theme.colors.blue} title="Cart" />
-    <CartList DATA={DATA} />
-    <Block paddingHorizontal={16}>
-      <PayInfo
-        title1="Order"
-        titlePrice1={112}
-        title2="Delivery"
-        titlePrice2={15}
-        total={127}
-      />
-    </Block>
-    <Pressable style={styles.press}>
-      <Text fontType="bold" color={theme.colors.white}>
-        ORDER
-      </Text>
-    </Pressable>
-  </Block>
-);
+const Cart = () =>
+  DATA.length > 0 ? (
+    <>
+      <Block flex backgroundColor={theme.colors.background}>
+        <Header canGoBack colorTheme={theme.colors.blue} title="Cart" />
+        <CartList DATA={DATA} />
+        <Block paddingHorizontal={16}>
+          <PayInfo
+            title1="Order"
+            titlePrice1={112}
+            title2="Delivery"
+            titlePrice2={15}
+            total={127}
+          />
+        </Block>
+        <Pressable style={styles.press}>
+          <Text fontType="bold" color={theme.colors.white}>
+            ORDER
+          </Text>
+        </Pressable>
+      </Block>
+    </>
+  ) : (
+    <NotData />
+  );
 
 const NotData = () => (
   <Block flex>

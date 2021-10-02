@@ -1,5 +1,5 @@
 import {icons} from '@assets';
-import {Block, Text, TextInput} from '@components';
+import {Block, Text, TextInput, Button} from '@components';
 import {BottomSheet} from '@components/BottomSheet';
 import {theme} from '@theme';
 import React, {useRef, useState} from 'react';
@@ -177,15 +177,10 @@ const ItemOrder = ({picture, title, group_id, index}) => {
                 </Block>
               </ScrollView>
             </Block>
-            <Block style={styles.bottomLayout}>
-              <Pressable
-                style={styles.button}
-                onPress={() => modalizRef?.current.close()}>
-                <Text color={theme.colors.white} fontType="bold" size={18}>
-                  SEND REVIEW
-                </Text>
-              </Pressable>
-            </Block>
+            <Button
+              title="SEND REVIEW"
+              onPress={() => modalizRef?.current.close()}
+            />
           </KeyboardAvoidingView>
         </BottomSheet>
       </Block>

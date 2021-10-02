@@ -1,14 +1,19 @@
 import CustomTabBar from '@navigation/CustomTabBar';
 import {routes} from '@navigation/routes';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+
 import {bottom} from '@screens/Bottom';
 import React from 'react';
+import {useSelector} from 'react-redux';
 
 const Tab = createBottomTabNavigator();
 
 const BottomTabNavigation = () => {
+  const {routeScreen} = useSelector(state => state.root.screen);
   return (
-    <Tab.Navigator tabBar={props => <CustomTabBar {...props} />}>
+    <Tab.Navigator
+      initialRoute={routeScreen}
+      tabBar={props => <CustomTabBar {...props} />}>
       <Tab.Screen
         name={routes.HOME_SCREEN}
         component={bottom.HOME_SCREEN}

@@ -1,7 +1,8 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
 const defaultChangeScreenState = {
-  screen: '',
+  transferCourseScreen: '',
+  routeScreen: '',
 };
 
 const changeScreenSlice = createSlice({
@@ -9,10 +10,13 @@ const changeScreenSlice = createSlice({
   initialState: defaultChangeScreenState,
   reducers: {
     changeScreen(state, action) {
-      state.screen = action.payload;
+      state.transferCourseScreen = action.payload;
+    },
+    changeRouteScreen(state, action) {
+      state.routeScreen = action.payload;
     },
   },
 });
 
-export const {changeScreen} = changeScreenSlice.actions;
+export const {changeScreen, changeRouteScreen} = changeScreenSlice.actions;
 export const ChangeScreenReducer = changeScreenSlice.reducer;
