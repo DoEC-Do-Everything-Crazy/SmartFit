@@ -1,6 +1,6 @@
 import {Block} from '@components';
 import ItemFeature from '@components/ItemList/ItemFeature';
-import {DATA_FEATURE} from '@constants';
+import {DATA_FEATURE} from '@constants/';
 import {useNavigation} from '@react-navigation/core';
 import React from 'react';
 import {FlatList} from 'react-native';

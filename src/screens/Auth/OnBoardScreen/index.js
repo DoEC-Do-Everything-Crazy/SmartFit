@@ -1,13 +1,15 @@
 import {Block, Empty, Text, Button} from '@components';
 import Carousel, {Pagination} from 'react-native-snap-carousel';
-import {Dimensions, View} from 'react-native';
+import {Dimensions} from 'react-native';
 import React, {useCallback, useRef, useState} from 'react';
 
 import {lotties} from '@assets';
 import {routes} from '@navigation/routes';
 import styles from './styles';
+import {useDispatch} from 'react-redux';
 
 import {useNavigation} from '@react-navigation/core';
+import {firstLogin} from 'reduxs/reducers';
 
 const {width: SliderWidth} = Dimensions.get('screen');
 
@@ -15,6 +17,8 @@ const OnBoardScreen = () => {
   const navigation = useNavigation();
   const [activeIndex, setActivateIndex] = useState(0);
   const carouselRef = useRef(null);
+  const dispatch = useDispatch();
+
   const [carouselState] = useState([
     {
       lotties: lotties.learn,
@@ -32,7 +36,10 @@ const OnBoardScreen = () => {
       text: 'The quality and reputation of the service are our core values, so customers will always feel secure when using the service.',
     },
   ]);
-
+  const handleNext = useCallback(() => {
+    navigation.navigate(routes.BOTTOM_TAB);
+    dispatch(firstLogin());
+  }, [dispatch, navigation]);
   const _renderItem = useCallback(({item}) => {
     return (
       <Block style={styles.renderRoot}>
@@ -76,16 +83,7 @@ const OnBoardScreen = () => {
         }
       </Block>
 
-      <Button
-        title="Apply"
-        onPress={() => {
-          navigation.reset({
-            index: 0,
-            routes: [{name: routes.BOTTOM_TAB}],
-          });
-        }}
-        style={styles.button}
-      />
+      <Button title="Apply" onPress={handleNext} style={styles.button} />
     </Block>
   );
 };

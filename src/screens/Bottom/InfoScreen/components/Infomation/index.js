@@ -1,5 +1,5 @@
 import {Block, Header, Text} from '@components';
-import {DATA_STATISTICAL_PROFILE} from '@constants';
+import {DATA_STATISTICAL_PROFILE} from '@constants/';
 import {AuthService} from '@services';
 import {theme} from '@theme';
 import React from 'react';
