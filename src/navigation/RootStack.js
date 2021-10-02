@@ -3,8 +3,8 @@ import {auth} from '@screens/Auth';
 import {bottom} from '@screens/Bottom';
 import {common} from '@screens/Common';
 import React from 'react';
-import {routes} from '../navigation/routes';
 import BottomNavigation from './BottomNavigation';
+import {routes} from './routes';
 
 const Stack = createStackNavigator();
 const RootStack = () => {
@@ -25,6 +25,7 @@ const RootStack = () => {
         name={routes.NOTIFICATION_SCREEN}
         component={bottom.NOTIFICATION_SCREEN}
       />
+      <Stack.Screen name={routes.FLASH_SCREEN} component={auth.FLASH_SCREEN} />
       <Stack.Screen
         name={routes.SEARCH_SCREEN}
         component={bottom.SEARCH_SCREEN}

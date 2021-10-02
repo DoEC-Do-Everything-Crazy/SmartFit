@@ -14,6 +14,7 @@ import EmptyScreen from './EmptyScreen';
 import Camera from './Camera';
 import BottomSheet from './BottomSheet';
 import PayInfo from './PayInfo';
+import InviteLogin from './InviteLogin';
 
 export {
   // BASE
@@ -32,4 +33,5 @@ export {
   BottomSheet,
   Header,
   PayInfo,
+  InviteLogin,
 };

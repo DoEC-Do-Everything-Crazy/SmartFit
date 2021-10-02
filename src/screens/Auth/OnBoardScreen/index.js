@@ -1,13 +1,12 @@
-import {Block, Empty, Text} from '@components';
+import {Block, Empty, Text, Button} from '@components';
 import Carousel, {Pagination} from 'react-native-snap-carousel';
-import {Dimensions, TouchableOpacity, View} from 'react-native';
+import {Dimensions, View} from 'react-native';
 import React, {useCallback, useRef, useState} from 'react';
 
-import {StackActions} from '@react-navigation/native';
 import {lotties} from '@assets';
 import {routes} from '@navigation/routes';
 import styles from './styles';
-import {theme} from '@theme';
+
 import {useNavigation} from '@react-navigation/core';
 
 const {width: SliderWidth} = Dimensions.get('screen');
@@ -50,8 +49,8 @@ const OnBoardScreen = () => {
   }, []);
 
   return (
-    <View style={styles.root}>
-      <View style={styles.bodyLayout}>
+    <Block style={styles.root}>
+      <Block style={styles.bodyLayout}>
         <Carousel
           layout={'default'}
           ref={carouselRef}
@@ -75,22 +74,19 @@ const OnBoardScreen = () => {
             inactiveDotScale={0.6}
           />
         }
-      </View>
-      <View style={styles.bottomLayout}>
-        <TouchableOpacity
-          onPress={() => {
-            navigation.reset({
-              index: 0,
-              routes: [{name: routes.LOGIN_SCREEN}],
-            });
-          }}
-          style={styles.button}>
-          <Text color={theme.colors.white} size={18}>
-            Apply
-          </Text>
-        </TouchableOpacity>
-      </View>
-    </View>
+      </Block>
+
+      <Button
+        title="Apply"
+        onPress={() => {
+          navigation.reset({
+            index: 0,
+            routes: [{name: routes.BOTTOM_TAB}],
+          });
+        }}
+        style={styles.button}
+      />
+    </Block>
   );
 };
 export default OnBoardScreen;

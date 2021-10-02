@@ -19,10 +19,7 @@ const ItemCourse = ({_id, key, image, courseName, desc, ratting, price}) => {
   }, [_id, dispatch, navigation]);
 
   return (
-    <Pressable
-      onPress={handleOpenCourseDetail}
-      key={key}
-      style={styles.container}>
+    <Block style={styles.container}>
       <Block
         radius={5}
         borderWidth={0.3}
@@ -47,15 +44,17 @@ const ItemCourse = ({_id, key, image, courseName, desc, ratting, price}) => {
               marginLeft={5}
               color={theme.colors.white}
               fontType="bold">
-              {price}
+              {price}$
             </Text>
           </Block>
         </Block>
-        <Block marginLeft={10} width="73%" shadow>
-          <Text size={18} fontType="bold">
-            {courseName}
-          </Text>
-          <Text numberOfLines={2}>{desc}</Text>
+        <Block marginLeft={10} height={98} width="73%">
+          <Block>
+            <Text size={18} fontType="bold">
+              {courseName}
+            </Text>
+          </Block>
+          <Text numberOfLines={1}>{desc}</Text>
           <Block row alignCenter marginTop={5}>
             <Image source={icons.ratings} style={styles.icon} />
             <Text size={15} marginLeft={5}>
@@ -77,9 +76,26 @@ const ItemCourse = ({_id, key, image, courseName, desc, ratting, price}) => {
               </Text>
             </Block>
           </Block>
+          <Pressable onPress={handleOpenCourseDetail} key={key}>
+            <Block alignEnd width={'103%'}>
+              <Block
+                bottom={3}
+                relative
+                backgroundColor={theme.colors.green}
+                style={styles.detail}
+                width={'30%'}
+                height={'65%'}
+                justifyCenter
+                alignCenter>
+                <Text color={theme.colors.white} fontType="bold">
+                  Detail
+                </Text>
+              </Block>
+            </Block>
+          </Pressable>
         </Block>
       </Block>
-    </Pressable>
+    </Block>
   );
 };
 
