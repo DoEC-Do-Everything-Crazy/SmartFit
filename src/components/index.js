@@ -11,6 +11,7 @@ import Camera from './Camera';
 import BottomSheet from './BottomSheet';
 import Empty from './Empty';
 import PayInfo from './Common/PayInfo';
+import InviteLogin from './InviteLogin';
 
 export {
   Block,
@@ -26,4 +27,5 @@ export {
   BottomSheet,
   Empty,
   PayInfo,
+  InviteLogin,
 };

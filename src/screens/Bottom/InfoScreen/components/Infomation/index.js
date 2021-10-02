@@ -10,18 +10,7 @@ import {routes} from '@navigation/routes';
 import styles from './styles';
 import {theme} from '@theme';
 import {useNavigation} from '@react-navigation/core';
-
-const DATA_INFO = [
-  {
-    image:
-      'https://i.pinimg.com/originals/85/a4/0a/85a40a6b89b0d51f020c80e7dd6d6ea4.jpg',
-    name: 'Hồ Công Khanh',
-    phoneNumber: '0344108493',
-    email: 'congkhanh2424@gmail.com',
-    gene: 'Male',
-    birthday: '01-01-2001',
-  },
-];
+import {useSelector} from 'react-redux';
 
 const DATA_STATISTICAL_PROFILE = [
   {
@@ -30,6 +19,17 @@ const DATA_STATISTICAL_PROFILE = [
   },
 ];
 const Information = () => {
+  const {user} = useSelector(state => state.root.user);
+  const DATA_INFO = [
+    {
+      image: user.photoURL,
+      name: user.displayName,
+      phoneNumber: user.phoneNumber,
+      email: user.email,
+      gene: 'Male',
+      birthday: '01-01-2001',
+    },
+  ];
   const navigation = useNavigation();
   return (
     <Block flex backgroundColor={theme.colors.blue}>

@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import {icons} from '@assets';
-import {Block, Header, PayInfo, Text} from '@components';
+import {Block, Header, PayInfo, Text, InviteLogin, Button} from '@components';
 import {BottomSheet} from '@components/BottomSheet';
 import ItemPT from '@components/Common/ItemList/ItemPT';
 import {theme} from '@theme';
@@ -21,12 +21,14 @@ import {useSelector} from 'react-redux';
 import DATA from './DATA.json';
 import axios from 'axios';
 import styles from './styles';
+import {routes} from '@navigation/routes';
 
 const {width: screenWidth, height: screenHeight} = Dimensions.get('window');
 
 const TabDetails = ({route}) => {
+  const {user} = useSelector(state => state.root.user);
   const {id} = route.params;
-  const {screen} = useSelector(state => state.root.screen);
+  const {transferCourseScreen} = useSelector(state => state.root.screen);
   const modalizPTList = useRef(null);
   const modalizInf = useRef(null);
   const {bottom} = useSafeAreaInsets();
@@ -120,7 +122,7 @@ const TabDetails = ({route}) => {
 
   return (
     <Block flex backgroundColor={theme.colors.background}>
-      {screen === 'CourseDetail' ? (
+      {transferCourseScreen === 'CourseDetail' ? (
         <Header
           canGoBack
           title="Course Detail"
@@ -169,9 +171,16 @@ const TabDetails = ({route}) => {
               6,3k Completed
             </Text>
           </Block>
-          <Block marginTop={10} paddingHorizontal={16}>
-            <Text fontType="bold">{data.desc}</Text>
-            <Block row alignCenter marginVertical={16} marginBottom={32}>
+          <Block marginTop={10}>
+            <Text paddingHorizontal={16} fontType="bold">
+              {data.desc}
+            </Text>
+            <Block
+              row
+              alignCenter
+              marginVertical={16}
+              paddingHorizontal={16}
+              marginBottom={32}>
               <Block>
                 <Text>Plan length: </Text>
                 <Text>Avg. Duration: </Text>
@@ -184,7 +193,7 @@ const TabDetails = ({route}) => {
                 <Text fontType="bold">{randomMinute} Minutes</Text>
                 <Text fontType="bold">{day} days </Text>
                 <Text fontType="bold">Total body </Text>
-                {screen === 'CourseDetail' ? (
+                {transferCourseScreen === 'CourseDetail' ? (
                   <Pressable
                     style={styles.choose}
                     onPress={() => modalizPTList?.current.open()}>
@@ -197,24 +206,28 @@ const TabDetails = ({route}) => {
                 )}
               </Block>
             </Block>
-            {screen === 'CourseDetail' ? (
+            {transferCourseScreen === 'CourseDetail' ? (
               <>
-                <PayInfo
-                  title1="Course"
-                  titlePrice1={data.price}
-                  title2="Personal Trainer"
-                  titlePrice2={0}
-                  total={totalPrice}
-                />
-                <Block style={styles.bottomLayout}>
-                  <Pressable
-                    style={styles.button}
-                    onPress={() => modalizInf?.current.close()}>
-                    <Text color={theme.colors.white} fontType="bold" size={18}>
-                      CHOOSE
-                    </Text>
-                  </Pressable>
+                <Block paddingHorizontal={16}>
+                  <PayInfo
+                    title1="Course"
+                    titlePrice1={data.price}
+                    title2="Personal Trainer"
+                    titlePrice2={0}
+                    total={totalPrice}
+                  />
                 </Block>
+                {JSON.stringify(user) !== '{}' ? (
+                  <Button
+                    title="ADD CART"
+                    onPress={() => modalizInf?.current.close()}
+                  />
+                ) : (
+                  <InviteLogin
+                    navigate={routes.LOGIN_SCREEN}
+                    routes={routes.TAB_DETAILS}
+                  />
+                )}
               </>
             ) : null}
           </Block>
@@ -355,16 +368,12 @@ const TabDetails = ({route}) => {
                     <Text>$10000</Text>
                   </Block>
                 </Block>
-                <Block style={styles.bottomLayout}>
-                  <Pressable
-                    style={styles.button}
-                    onPress={() => modalizInf?.current.close()}>
-                    <Text color={theme.colors.white} fontType="bold" size={18}>
-                      CHOOSE
-                    </Text>
-                  </Pressable>
-                </Block>
               </Block>
+
+              <Button
+                title="CHOOSE"
+                onPress={() => modalizInf?.current.close()}
+              />
             </KeyboardAvoidingView>
           </BottomSheet>
         </Block>

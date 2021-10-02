@@ -1,7 +1,7 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 
 import BottomNavigation from './BottomNavigation';
-import {NavigationContainer} from '@react-navigation/native';
+// import {NavigationContainer} from '@react-navigation/native';
 import {auth} from '@screens/Auth';
 import {bottom} from '@screens/Bottom';
 import {common} from '@screens/Common';
@@ -26,6 +26,7 @@ const RootStack = () => {
         name={routes.NOTIFICATION_SCREEN}
         component={bottom.NOTIFICATION_SCREEN}
       />
+      <Stack.Screen name={routes.FLASH_SCREEN} component={auth.FLASH_SCREEN} />
       <Stack.Screen
         name={routes.ENTER_PHONE_NUMBER_SCREEN}
         component={auth.ENTER_PHONE_NUMBER_SCREEN}
