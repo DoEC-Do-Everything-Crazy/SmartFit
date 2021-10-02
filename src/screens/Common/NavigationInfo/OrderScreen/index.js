@@ -4,7 +4,7 @@ import {theme} from '@theme';
 import React, {useState} from 'react';
 import {FlatList, Pressable, ScrollView} from 'react-native';
 import styles from './styles';
-import {DATA_HEADER} from '@constants';
+import {DATA_HEADER} from '@constants/';
 
 const Item = ({item, onPress, backgroundColor, textColor}) => (
   <Pressable onPress={onPress} style={[styles.itemHeader, backgroundColor]}>

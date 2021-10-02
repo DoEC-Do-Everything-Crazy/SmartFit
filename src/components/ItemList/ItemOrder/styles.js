@@ -48,7 +48,9 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: getSize.m(20),
-
     borderRadius: getSize.m(8),
+  },
+  floatComponent: {
+    backgroundColor: theme.colors.background,
   },
 });
