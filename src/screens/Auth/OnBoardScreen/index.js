@@ -67,6 +67,9 @@ const OnBoardScreen = () => {
           itemWidth={SliderWidth}
           renderItem={_renderItem}
           useScrollView
+          autoplayInterval={1000}
+          loop={true}
+          activeAnimationType={'decay'}
           onSnapToItem={index => {
             setActivateIndex(index);
           }}
