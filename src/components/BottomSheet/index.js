@@ -9,12 +9,9 @@ export const BottomSheet = forwardRef((props, ref) => {
       <RNModalize
         ref={ref}
         panGestureComponentEnabled={true}
-        disableScrollIfPossible
         overlayStyle={styles.root}
         adjustToContentHeight={true}
-        withHandle={true}
         modalStyle={styles.modal}
-        avoidKeyboardLikeIOS={true}
         closeOnOverlayTap={true}
         panGestureEnabled={false}
         {...props}>
