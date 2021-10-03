@@ -160,7 +160,7 @@ const VFTPhoneNumberScreen = ({route}) => {
       </Block>
       <Button
         onPress={() => {
-          navigation.navigate(routes.UPDATE_PROFILE, {phone});
+          navigation.navigate(routes.UPDATE_PROFILE_SCREEN, {phone});
         }}
         title="Verify and Create Account"
         height={45}

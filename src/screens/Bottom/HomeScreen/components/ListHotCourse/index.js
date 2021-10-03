@@ -1,5 +1,5 @@
 import {Block, Text} from '@components';
-import ItemHotCourse from '@components/Common/ItemList/ItemHotCourse';
+import ItemHotCourse from '@components/ItemList/ItemHotCourse';
 import {routes} from '@navigation/routes';
 import {useNavigation} from '@react-navigation/core';
 import {theme} from '@theme';
@@ -28,7 +28,8 @@ const ListHotCourse = ({data}) => {
         <Text size={20} fontType="bold" color={theme.colors.blue}>
           Hot Course
         </Text>
-        <Pressable onPress={() => navigation.navigate(routes.COURSE_SCREEN)}>
+        <Pressable
+          onPress={() => navigation.navigate(routes.COURSE_LIST_TYPE_SCREEN)}>
           <Text size={20}>See all</Text>
         </Pressable>
       </Block>

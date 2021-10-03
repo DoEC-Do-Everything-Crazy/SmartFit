@@ -13,7 +13,7 @@ import {
 
 // import createSagaMiddleware from 'redux-saga';
 // import rootSaga from '../saga';
-import {ChangeScreenReducer} from '../reducers/';
+import {ChangeScreenReducer, UserReducer} from '../reducers/';
 
 const persistConfig = {
   key: 'root',
@@ -24,6 +24,7 @@ const persistConfig = {
 };
 const persistedReducer = persistCombineReducers(persistConfig, {
   screen: ChangeScreenReducer,
+  user: UserReducer,
   // other reducers here
 });
 
@@ -45,8 +46,6 @@ const store = configureStore({
   },
   middleware,
 });
-
-// console.log('check store', store);
 
 // sagaMiddleware.run(rootSaga);
 

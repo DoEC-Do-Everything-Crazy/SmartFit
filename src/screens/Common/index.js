@@ -1,18 +1,29 @@
-import DetailsCourseScreen from './DetailsCourseScreen';
-import CourseListScreen from './CourseListScreen';
-import TabLesson from './DetailsCourseScreen/components/TabScreen/TabLesson';
-import TabDetails from './DetailsCourseScreen/components/TabScreen/TabDetails';
-import ProductListScreen from '../Common/ProductListScreen';
-import FoodDetailsScreen from '../Common/FoodDetailsScreen';
-import OnBoardScreen from './OnBoardScreen';
-import FilterScreen from './FilterScreen';
-import OrderScreen from './OrderScreen';
-import OrderDetailScreen from './OrderDetailScreen';
-import CartScreen from './CartScreen';
-import YourFavoriteScreen from './YourFavoriteScreen';
-import SettingScreen from './SettingScreen';
-import ChangePassword from './ChangePassword';
-import ChangePinCode from './ChangePinCode';
+// LIST
+import CourseListScreen from './List/CourseListScreen';
+import ProductListScreen from './List/ProductListScreen';
+import CourseListTypeScreen from './List/CourseListTypeScreen';
+import FoodListScreen from './List/FoodListScreen';
+
+// DETAILS
+import DetailsCourseScreen from './Details/DetailsCourseScreen';
+import FoodDetailsScreen from './Details/FoodDetailsScreen';
+import OrderDetailScreen from './Details/OrderDetailScreen';
+
+// TABS
+import TabLesson from './Details/DetailsCourseScreen/components/TabScreen/TabLesson';
+import TabDetails from './Details/DetailsCourseScreen/components/TabScreen/TabDetails';
+
+// FEATURE INFO
+import OrderScreen from './NavigationInfo/OrderScreen';
+import YourFavoriteScreen from './NavigationInfo/YourFavoriteScreen';
+import SettingScreen from './NavigationInfo/SettingScreen';
+
+// OTHER
+
+import FilterScreen from './Other/FilterScreen';
+import CartScreen from './Other/CartScreen';
+import ChangePassword from './Navigation/ChangePassword';
+import ChangePinCode from './Navigation/ChangePinCode';
 
 export const common = {
   DETAILS_COURSE_SCREEN: DetailsCourseScreen,
@@ -22,7 +33,9 @@ export const common = {
   PRODUCT_LIST_SCREEN: ProductListScreen,
   FOOD_DETAILS_SCREEN: FoodDetailsScreen,
   FILTER_SCREEN: FilterScreen,
-  ONBOARD_SCREEN: OnBoardScreen,
+  FOOD_LIST_SCREEN: FoodListScreen,
+  COURSE_LIST_TYPE_SCREEN: CourseListTypeScreen,
+
   ORDER_SCREEN: OrderScreen,
   ORDER_DETAIL_SCREEN: OrderDetailScreen,
   CART_SCREEN: CartScreen,

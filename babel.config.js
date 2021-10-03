@@ -17,6 +17,7 @@ module.exports = {
           '@theme': './src/theme',
           '@utils': './src/utils',
           '@hooks': './src/hooks',
+          '@constants': './src/constants',
         },
       },
     ],
