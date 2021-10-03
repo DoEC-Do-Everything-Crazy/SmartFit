@@ -2,7 +2,7 @@ import {Block, Text} from '@components';
 import React, {useState} from 'react';
 import {Pressable, ScrollView} from 'react-native';
 import styles from './styles';
-import {DATA_STATS} from '@constants';
+import {DATA_STATS} from '@constants/';
 
 const Item = ({item, onPress, backgroundColor, textColor}) => (
   <Pressable onPress={onPress} style={[styles.item, backgroundColor]}>

@@ -1,5 +1,5 @@
 import {Block, Button, Header} from '@components';
-import {DATA_FOOD, DATA_REVIEW} from '@constants';
+import {DATA_FOOD, DATA_REVIEW} from '@constants/';
 import {theme} from '@theme';
 import {getSize} from '@utils/responsive';
 import React from 'react';

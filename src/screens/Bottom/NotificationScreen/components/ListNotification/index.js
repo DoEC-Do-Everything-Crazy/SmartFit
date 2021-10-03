@@ -3,7 +3,7 @@ import ItemNotification from '@components/ItemList/ItemNotification';
 import {useNavigation} from '@react-navigation/core';
 import React from 'react';
 import {FlatList} from 'react-native';
-import {DATA_NOTIFICATION} from '@constants';
+import {DATA_NOTIFICATION} from '@constants/';
 
 const ListNotification = () => {
   const navigation = useNavigation();
