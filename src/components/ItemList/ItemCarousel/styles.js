@@ -8,10 +8,7 @@ export default StyleSheet.create({
     height: getSize.s(160),
     borderRadius: getSize.s(8),
   },
-  iconHeart: {
-    width: getSize.s(14),
-    height: getSize.s(14),
-  },
+
   heartContainer: {
     alignItems: 'center',
     justifyContent: 'center',

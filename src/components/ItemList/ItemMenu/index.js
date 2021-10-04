@@ -10,7 +10,8 @@ const ItemMenu = ({picture, title, group_id, index}) => {
         width={48}
         height={48}
         radius={30}
-        backgroundColor={theme.colors.blue}></Block>
+        backgroundColor={theme.colors.blue}
+      />
       <Text center>Food</Text>
     </Block>
   );

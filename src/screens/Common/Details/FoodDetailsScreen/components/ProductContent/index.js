@@ -1,4 +1,5 @@
-import {icons, images} from '@assets';
+import {images} from '@assets';
+import {HeartPf} from '@assets/icons';
 import {Block, Text} from '@components';
 import {theme} from '@theme';
 import React from 'react';
@@ -16,11 +17,7 @@ const ProductContent = ({data}) => {
       <Block alignCenter justifyCenter width="40%">
         {data.map(_renderItem)}
         <Block alignCenter marginTop={10} marginBottom={20}>
-          <Image
-            resizeMode="contain"
-            source={icons.iHeart}
-            style={styles.iconHeart}
-          />
+          <HeartPf color={theme.colors.red} />
           <Text size={16}>Favorite</Text>
         </Block>
       </Block>

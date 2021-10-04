@@ -1,4 +1,5 @@
 import {icons} from '@assets';
+import {Heart, HeartPf} from '@assets/icons';
 import {Block, Text} from '@components';
 import {getSize} from '@utils/responsive';
 import React from 'react';
@@ -38,13 +39,13 @@ const StatsBlock = ({
               textColor={'black'}
             />
           ) : (
-            <Text></Text>
+            <Text />
           )}
-          {heart ? <Image source={icons.heart} /> : <Text></Text>}
+          {heart ? <Heart /> : <Text />}
         </Block>
-        {clock ? <Text style={styles.clock}>08:00</Text> : <Text></Text>}
-        {clock ? <Text style={styles.clock1}>Hours</Text> : <Text></Text>}
-        {bmp ? <Text>110 bpm</Text> : <Text></Text>}
+        {clock ? <Text style={styles.clock}>08:00</Text> : <Text />}
+        {clock ? <Text style={styles.clock1}>Hours</Text> : <Text />}
+        {bmp ? <Text>110 bpm</Text> : <Text />}
       </Pressable>
     </Block>
   );

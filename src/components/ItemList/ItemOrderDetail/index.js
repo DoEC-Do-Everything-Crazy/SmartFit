@@ -1,5 +1,5 @@
 import {Block, Text} from '@components';
-import React, {useState} from 'react';
+import React from 'react';
 import {Image} from 'react-native';
 import styles from './styles';
 import {theme} from '@theme';

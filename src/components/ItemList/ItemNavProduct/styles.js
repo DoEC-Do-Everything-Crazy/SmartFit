@@ -1,21 +1,23 @@
 import {width} from '@utils/responsive';
 import {StyleSheet} from 'react-native';
+import {getSize} from 'utils/responsive';
 
 export default StyleSheet.create({
   image: {
     width: width / 2 - 80,
     height: width / 2 - 80,
-    borderRadius: 8,
+    borderRadius: getSize.m(5),
     resizeMode: 'cover',
     alignContent: 'center',
     alignSelf: 'center',
   },
 
   icon: {
-    tintColor: 'red',
     alignSelf: 'flex-end',
-    width: 15,
-    height: 15,
+  },
+  ratting: {
+    flexDirection: 'row',
+    marginTop: getSize.m(5),
   },
 
   press: {flex: 1},

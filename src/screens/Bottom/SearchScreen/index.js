@@ -1,16 +1,18 @@
-import {icons, lotties} from '@assets';
-import {Block, Header, Text, TextInput, Empty} from '@components';
+import {Block, Header, Text, TextInput} from '@components';
 import ItemSearch from '@components/ItemList/ItemSearch';
 import {theme} from '@theme';
 import React, {useState} from 'react';
-import {FlatList, Image, Pressable} from 'react-native';
+import {FlatList, Pressable} from 'react-native';
 import styles from './styles';
 import {DATA_SEARCH} from '@constants';
+import {Filter} from '@assets/icons';
+import {useNavigation} from '@react-navigation/core';
+import {routes} from '@navigation/routes';
 
 const SearchScreen = () => {
   const [data, setData] = useState('');
-  const [key, setKey] = useState('');
-
+  // const [key, setKey] = useState('');
+  const navigation = useNavigation();
   const _renderItem = ({item}) => <ItemSearch />;
 
   const _renderItemSearch = ({item}) => (
@@ -30,8 +32,13 @@ const SearchScreen = () => {
           inputStyle={styles.inputStyle}
           containerInputStyle={styles.containerInputStyle}
           rightIcon={() => (
-            <Pressable>
-              <Image style={styles.iconSeach} source={icons.filter} />
+            <Pressable
+              onPress={() => {
+                navigation.navigate(routes.FILTER_SCREEN);
+              }}>
+              <Block style={styles.iconSeach}>
+                <Filter />
+              </Block>
             </Pressable>
           )}
         />

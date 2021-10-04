@@ -1,5 +1,3 @@
-import {icons} from '@assets';
-import {routes} from './../navigation/routes';
 const DATA_INFO = [
   {
     image:
@@ -19,35 +17,4 @@ const DATA_STATISTICAL_PROFILE = [
   },
 ];
 
-const DATA_FEATURE = [
-  {
-    id: 1,
-    title: 'Your favorite',
-    image: icons.heartPf,
-    navigation: routes.YOUR_FAVORITE_SCREEN,
-  },
-  {
-    id: 2,
-    title: 'Payment',
-    image: icons.payment,
-  },
-  {
-    id: 3,
-    title: 'Promotion',
-    image: icons.promotion,
-  },
-  {
-    id: 4,
-    title: 'Order',
-    image: icons.order,
-    navigation: routes.ORDER_SCREEN,
-  },
-  {
-    id: 5,
-    title: 'Setting',
-    image: icons.setting,
-    navigation: routes.SETTING_SCREEN,
-  },
-];
-
-export {DATA_INFO, DATA_STATISTICAL_PROFILE, DATA_FEATURE};
+export {DATA_INFO, DATA_STATISTICAL_PROFILE};

@@ -1,4 +1,4 @@
-import {icons} from '@assets';
+import {HeartPf, Order} from '@assets/icons';
 import {Block, Header as HeaderLogin, InviteLogin} from '@components';
 import ItemFeature from '@components/ItemList/ItemFeature';
 import {routes} from '@navigation/routes';
@@ -64,18 +64,12 @@ const StatsScreen = () => {
           </Block>
         </Block>
         <Block height="30%" marginTop={10} paddingHorizontal={16}>
-          <ItemFeature
-            shadow
-            height={50}
-            title={'Daily Meals'}
-            icon={icons.apple}
-          />
-          <ItemFeature
-            shadow
-            height={50}
-            title={'Other Information'}
-            icon={icons.subtract}
-          />
+          <ItemFeature shadow height={50} title={'Daily Meals'}>
+            <Order />
+          </ItemFeature>
+          <ItemFeature shadow height={50} title={'Other Information'}>
+            <HeartPf color={theme.colors.blue} />
+          </ItemFeature>
         </Block>
       </Block>
     </>

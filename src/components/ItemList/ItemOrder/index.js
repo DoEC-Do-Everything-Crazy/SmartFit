@@ -1,14 +1,14 @@
-import {icons} from '@assets';
 import {Block, Text, TextInput, Button} from '@components';
 import {BottomSheet} from '@components/BottomSheet';
 import {theme} from '@theme';
 import React, {useCallback, useRef, useState} from 'react';
-import {Image, Dimensions, Platform, Pressable, ScrollView} from 'react-native';
+import {Image, Platform, Pressable, ScrollView} from 'react-native';
 import {Rating} from 'react-native-ratings';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import styles from './styles';
 import {checkPermission, PERMISSION_TYPE} from 'hook/permissions';
-const {height: MAX_HEIGHT} = Dimensions.get('screen');
+import {Camera} from '@assets/icons';
+
 const ItemOrder = ({picture, title, group_id, index}) => {
   const modalizRef = useRef(null);
   const [isReceived, setReceived] = useState(true);
@@ -43,10 +43,10 @@ const ItemOrder = ({picture, title, group_id, index}) => {
           <Rating
             type="custom"
             ratingCount={5}
-            ratingBackgroundColor="#c8c7c8"
             imageSize={36}
-            ratingColor="#FFD700"
+            ratingBackgroundColor="#c8c7c8"
             tintColor={theme.colors.background}
+            ratingColor="#FFD700"
           />
         </Block>
         <Block paddingVertical={10} alignCenter>
@@ -84,7 +84,7 @@ const ItemOrder = ({picture, title, group_id, index}) => {
               alignCenter
               style={styles.image}>
               <Pressable onPress={handleCamera}>
-                <Image source={icons.camera} />
+                <Camera />
               </Pressable>
               <Text paddingVertical={5} fontType="bold" size={12}>
                 Add your photos

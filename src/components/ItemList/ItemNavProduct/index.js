@@ -8,6 +8,7 @@ import {Rating} from 'react-native-ratings';
 import {routes} from '@navigation/routes';
 import {theme} from '@theme';
 import styles from './styles';
+import {HeartPf} from '@assets/icons';
 
 const ItemNavProduct = () => {
   const navigation = useNavigation();
@@ -25,7 +26,10 @@ const ItemNavProduct = () => {
         marginVertical={8}
         space="between"
         backgroundColor={theme.colors.white}>
-        <Image style={styles.icon} source={icons.heartPf} />
+        <Block style={styles.icon}>
+          <HeartPf color={theme.colors.red} />
+        </Block>
+
         <Image
           style={styles.image}
           source={{
@@ -40,11 +44,12 @@ const ItemNavProduct = () => {
             </Text>
           </Block>
           <Rating
-            style={{flexDirection: 'row', marginTop: 5}}
+            style={styles.ratting}
             ratingCount={5}
             imageSize={15}
             type="custom"
             ratingColor="#FF7F50"
+            ratingBackgroundColor="#c8c7c8"
             tintColor={theme.colors.white}
           />
           <Text size={12}>123 Reviewed</Text>

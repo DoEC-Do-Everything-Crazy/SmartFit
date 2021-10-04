@@ -1,7 +1,7 @@
 import {icons} from '@assets';
 import {Block, Text} from '@components';
 import {theme} from '@theme';
-import React, {useCallback} from 'react';
+import React from 'react';
 import {Image, Pressable} from 'react-native';
 import styles from './styles';
 

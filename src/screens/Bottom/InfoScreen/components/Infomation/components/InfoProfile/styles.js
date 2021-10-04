@@ -10,7 +10,6 @@ export default StyleSheet.create({
     borderRadius: getSize.m(15),
     justifyContent: 'center',
   },
-
   imageInfo: {
     tintColor: '#444C5C',
     width: 15,

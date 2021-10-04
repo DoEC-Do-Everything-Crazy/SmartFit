@@ -6,6 +6,7 @@ import {Image} from 'react-native';
 import styles from './styles';
 import {width} from '@utils/responsive';
 import {Rating} from 'react-native-ratings';
+import {HeartPf} from '@assets/icons';
 
 const ItemCarousel = ({picture, title, group_id, index}) => {
   return (
@@ -19,11 +20,7 @@ const ItemCarousel = ({picture, title, group_id, index}) => {
       backgroundColor={theme.colors.white}>
       <Image source={images.image} style={styles.image} />
       <Block shadow style={styles.heartContainer}>
-        <Image
-          resizeMode="contain"
-          source={icons.iHeart}
-          style={styles.iconHeart}
-        />
+        <HeartPf color={theme.colors.red} />
       </Block>
       <Block paddingHorizontal={16}>
         <Block row alignCenter marginTop={10}>

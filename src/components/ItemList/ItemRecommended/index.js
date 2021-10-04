@@ -9,7 +9,7 @@ import {routes} from '@navigation/routes';
 const ItemRecommended = ({_id, title, desc, image, index}) => {
   const navigation = useNavigation();
   return (
-    <Pressable onPress={() => navigation.navigate(routes.FOOD_DETAILS_SCREEN)}>
+    <Pressable onPress={() => navigation.navigate(routes.FOOD_LIST_SCREEN)}>
       <Block
         key={index}
         style={{marginLeft: index === 0 ? 16 : 0}}

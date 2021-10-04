@@ -1,12 +1,20 @@
-import {icons, images} from '@assets';
+import {images} from '@assets';
+import {HeartPf} from '@assets/icons';
 import {Block, Text} from '@components';
 import {theme} from '@theme';
 import {width} from '@utils/responsive';
-import React from 'react';
-import {Image} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {Image, Pressable} from 'react-native';
 import styles from './styles';
 
 const ItemFavorite = ({picture, title, group_id, index, marginTop}) => {
+  const [isTouch, setTouch] = useState(true);
+  const [favoriteColor, setFavoriteColor] = useState();
+  useEffect(() => {
+    isTouch
+      ? setFavoriteColor(theme.colors.red)
+      : setFavoriteColor(theme.colors.gray);
+  }, [isTouch]);
   return (
     <Block
       alignCenter
@@ -24,11 +32,13 @@ const ItemFavorite = ({picture, title, group_id, index, marginTop}) => {
           fontType="bold">
           $3.99
         </Text>
-        <Image
-          resizeMode="contain"
-          source={icons.iHeart}
+        <Pressable
           style={styles.iconHeart}
-        />
+          onPress={() => {
+            setTouch(!isTouch);
+          }}>
+          <HeartPf color={favoriteColor} />
+        </Pressable>
       </Block>
       <Image source={images.food} style={styles.image} />
     </Block>

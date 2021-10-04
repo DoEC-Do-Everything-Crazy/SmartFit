@@ -4,7 +4,7 @@ import {theme} from '@theme';
 import React, {useState} from 'react';
 import {Image, Switch, Pressable} from 'react-native';
 import {useNavigation} from '@react-navigation/core';
-import {routes} from '@navigation/routes';
+import {Right} from '@assets/icons';
 
 const Item = ({isSwitch, name, isPinCode, onPress}) => {
   const [isEnabled, setIsEnabled] = useState(false);
@@ -25,7 +25,7 @@ const Item = ({isSwitch, name, isPinCode, onPress}) => {
               thumbColor={isEnabled ? '#2AA952' : theme.colors.white}
             />
           ) : (
-            <Image source={icons.right} />
+            <Right />
           )}
         </Block>
         {isPinCode ? (

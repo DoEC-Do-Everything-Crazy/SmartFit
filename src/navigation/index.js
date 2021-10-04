@@ -1,13 +1,13 @@
-import React, {useEffect, useState} from 'react';
-import AuthStack from './AuthStack';
-import {GoogleSignin} from '@react-native-google-signin/google-signin';
+import React, {useEffect} from 'react';
+// import AuthStack from './AuthStack';
+// import {GoogleSignin} from '@react-native-google-signin/google-signin';
 // import navigators
 import {Host} from 'react-native-portalize';
 import {NavigationContainer} from '@react-navigation/native';
 import RootStack from './RootStack';
 // firebase auth
 import {StatusBar} from 'react-native';
-import auth from '@react-native-firebase/auth';
+// import auth from '@react-native-firebase/auth';
 import {useDispatch} from 'react-redux';
 import {changeRouteScreen} from 'reduxs/reducers';
 import {routes} from './routes';
