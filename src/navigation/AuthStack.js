@@ -18,6 +18,14 @@ const AuthStack = () => {
       initialRouteName={routes.SPLASH_SCREEN}
       screenOptions={{headerShown: false}}>
       <Stack.Screen name={routes.LOGIN_SCREEN} component={auth.LOGIN_SCREEN} />
+      {/* <Stack.Screen
+        name={routes.SPLASH_SCREEN}
+        component={auth.SPLASH_SCREEN}
+      />
+      <Stack.Screen
+        name={routes.PASSWORD_SCREEN}
+        component={auth.PASSWORD_SCREEN}
+      /> */}
       <Stack.Screen
         name={routes.ENTER_PHONE_NUMBER_SCREEN}
         component={auth.ENTER_PHONE_NUMBER_SCREEN}

@@ -14,6 +14,7 @@ const lotties = {
   convenient: require('./lotties/convenient.json'),
   learn: require('./lotties/learn.json'),
   like: require('./lotties/like.json'),
+  password: require('./lotties/password.json'),
 };
 
 const images = {
