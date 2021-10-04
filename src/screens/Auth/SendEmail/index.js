@@ -9,7 +9,11 @@ const SendEmail = () => {
   return (
     <Block flex paddingHorizontal={16} backgroundColor={theme.colors.white}>
       <Header canGoBack title="Vertify email" />
-      <Block alignCenter marginTop={40} backgroundColor={theme.colors.white}>
+      <Block
+        alignCenter
+        marginTop={40}
+        marginBottom={15}
+        backgroundColor={theme.colors.white}>
         <Image
           resizeMode="contain"
           style={styles.image}

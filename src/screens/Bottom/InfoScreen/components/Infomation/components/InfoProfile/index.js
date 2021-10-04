@@ -1,4 +1,4 @@
-import {icons} from '@assets';
+import {Birday, EmailNotification, GenderInf, PhoneInf} from '@assets/icons';
 import {Block, Text} from '@components';
 import {theme} from '@theme';
 import React from 'react';
@@ -36,28 +36,29 @@ const InfoProfile = ({image, name, phoneNumber, email, gene, birthday}) => {
           </Text>
           <Block>
             <Block row marginTop={6} marginBottom={3}>
-              <Image style={styles.imageInfo} source={icons.phoneIf} />
+              <PhoneInf />
               <Text size={14} color={theme.colors.darkBlue} marginLeft={10}>
                 {phoneNumber}
               </Text>
             </Block>
             <Block row marginVertical={3}>
-              <Image
-                style={styles.imageInfo}
-                source={icons.emailNotification}
-              />
-              <Text size={14} marginLeft={10} color={theme.colors.darkBlue}>
+              <EmailNotification color={'#000'} />
+              <Text
+                size={14}
+                numberOfLines={1}
+                marginHorizontal={10}
+                color={theme.colors.darkBlue}>
                 {email}
               </Text>
             </Block>
             <Block row marginVertical={3}>
-              <Image style={styles.imageInfo} source={icons.gender_info} />
+              <GenderInf />
               <Text size={14} marginLeft={10} color={theme.colors.darkBlue}>
                 {gene}
               </Text>
             </Block>
             <Block row marginVertical={3}>
-              <Image style={styles.imageInfo} source={icons.birday} />
+              <Birday />
               <Text size={14} marginLeft={10} color={theme.colors.darkBlue}>
                 {birthday}
               </Text>

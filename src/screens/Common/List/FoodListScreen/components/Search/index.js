@@ -34,7 +34,7 @@ const Search = () => {
         <TouchableOpacity
           style={styles.touch}
           onPress={() => navigation.navigate(routes.FILTER_SCREEN)}>
-          <Image style={styles.icons} source={icons.filter} />
+          {/* <Image style={styles.icons} source={icons.filter} /> */}
         </TouchableOpacity>
       </Block>
     </Block>

@@ -1,8 +1,8 @@
-import {icons} from '@assets';
+import {AddTocart, CartDelete} from '@assets/icons';
 import {Block} from '@components';
 import ItemCart from '@components/ItemList/ItemCart';
 import React, {useState} from 'react';
-import {FlatList, Image} from 'react-native';
+import {FlatList} from 'react-native';
 import Swipeout from 'react-native-swipeout';
 import styles from './styles';
 
@@ -12,7 +12,7 @@ const CartList = ({DATA}) => {
     {
       component: (
         <Block style={styles.component_icon}>
-          <Image source={icons.addToCart} />
+          <AddTocart />
         </Block>
       ),
       underlayColor: 'transparent',
@@ -20,7 +20,7 @@ const CartList = ({DATA}) => {
     {
       component: (
         <Block style={styles.component_icon}>
-          <Image source={icons.cartDelete} />
+          <CartDelete />
         </Block>
       ),
       underlayColor: 'transparent',

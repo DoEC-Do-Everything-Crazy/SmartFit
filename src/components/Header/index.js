@@ -1,4 +1,5 @@
 import {icons} from '@assets';
+import {Back, Cart} from '@assets/icons';
 import {Block, Text} from '@components';
 import {routes} from '@navigation/routes';
 import {useNavigation} from '@react-navigation/native';
@@ -39,11 +40,7 @@ const HeaderHome = () => {
         />
       </Pressable>
       <Pressable onPress={() => navigation.navigate(routes.CART_SCREEN)}>
-        <Image
-          source={icons.cart}
-          style={styles.iconHeader}
-          resizeMode="contain"
-        />
+        <Cart />
       </Pressable>
     </Block>
   );
@@ -66,12 +63,7 @@ const HeaderCommon = ({title, canGoBack, cart, search}) => {
         backgroundColor={theme.colors.header}>
         {canGoBack && (
           <Pressable onPress={() => navigation.goBack()}>
-            <Image
-              source={icons.back}
-              style={styles.iconBack}
-              resizeMode="contain"
-              tintColor={theme.colors.blue}
-            />
+            <Back />
           </Pressable>
         )}
 
@@ -85,12 +77,7 @@ const HeaderCommon = ({title, canGoBack, cart, search}) => {
             onPress={() => {
               navigation.navigate(routes.CART_SCREEN);
             }}>
-            <Image
-              source={icons.cart}
-              style={styles.iconBack}
-              resizeMode="contain"
-              tintColor={theme.colors.blue}
-            />
+            <Cart />
           </Pressable>
         )}
 

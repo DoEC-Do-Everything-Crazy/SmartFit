@@ -1,17 +1,17 @@
-import {icons} from '@assets';
+import {Email, Fullname, Gender, List, Phone} from '@assets/icons';
 import {Block, Button, Header, TextInput} from '@components';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {Picker} from '@react-native-picker/picker';
 import {theme} from '@theme';
-import {height} from '@utils/responsive';
+// import {height} from '@utils/responsive';
 import {Formik} from 'formik';
-import React, {useState, useMemo} from 'react';
-import {Image, Platform, Text, TouchableOpacity} from 'react-native';
+import React, {useState} from 'react';
+import {Platform, Text, TouchableOpacity} from 'react-native';
 import * as yup from 'yup';
 import styles from './styles';
 
 const UpdateProfileScreen = ({route}) => {
-  const [isInput, setInput] = useState(true);
+  // const [isInput, setInput] = useState(true);
   const {phone} = route.params;
   const [date, setDate] = useState(new Date());
   const [selectedGender, setSelectedGender] = useState();
@@ -42,12 +42,12 @@ const UpdateProfileScreen = ({route}) => {
 
       .required('Phone number is required'),
   });
-  const color = useMemo(() => {
-    if (isInput) {
-      return theme.colors.white;
-    }
-    return theme.colors.blue;
-  }, [isInput]);
+  // const color = useMemo(() => {
+  //   if (isInput) {
+  //     return theme.colors.white;
+  //   }
+  //   return theme.colors.blue;
+  // }, [isInput]);
 
   return (
     <Formik
@@ -80,12 +80,13 @@ const UpdateProfileScreen = ({route}) => {
               <TextInput
                 placeholder="Fullname"
                 inputStyle={styles.input}
-                leftIcon={icons.fullname}
+                leftIcon={true}
                 value={values.fullName}
                 containerStyle={styles.holderInput}
                 onChangeText={handleChange('fullName')}
-                onEndEditing={handleBlur('fullName')}
-              />
+                onEndEditing={handleBlur('fullName')}>
+                <Fullname />
+              </TextInput>
               <Block marginTop={8} marginBottom={24}>
                 {errors.fullName && touched.fullName && (
                   <Text style={styles.text}>{errors.fullName}</Text>
@@ -95,10 +96,11 @@ const UpdateProfileScreen = ({route}) => {
                 placeholder="Email"
                 inputStyle={styles.input}
                 value={values.email}
-                leftIcon={icons.email}
+                leftIcon={true}
                 onChangeText={handleChange('email')}
-                onEndEditing={handleBlur('email')}
-              />
+                onEndEditing={handleBlur('email')}>
+                <Email />
+              </TextInput>
               <Block marginTop={8} marginBottom={24}>
                 {errors.email && touched.email && (
                   <Text style={styles.text}>{errors.email}</Text>
@@ -107,19 +109,20 @@ const UpdateProfileScreen = ({route}) => {
               <TextInput
                 placeholder="Phone"
                 inputStyle={styles.input}
-                leftIcon={icons.phone}
-                value={values.phone}
+                leftIcon={true}
+                value={'values.phone'}
                 onChangeText={handleChange('phone')}
                 onEndEditing={handleBlur('phone')}
-                disabled="true"
-              />
+                disabled="true">
+                <Phone />
+              </TextInput>
               <Block marginTop={8} marginBottom={24}>
                 {errors.phone && touched.phone && (
                   <Text style={styles.text}>{errors.phone}</Text>
                 )}
               </Block>
               <Block marginTop={8} marginBottom={24} style={styles.gender}>
-                <Image source={icons.gender} style={styles.img} />
+                <Gender />
                 <Picker
                   style={styles.picker}
                   mode="dropdown"
@@ -139,8 +142,9 @@ const UpdateProfileScreen = ({route}) => {
                   placeholder={''}
                   value={dateFormat(date, 'dd/mm/yyyy')}
                   inputStyle={styles.input}
-                  leftIcon={icons.birthday}
-                />
+                  leftIcon={true}>
+                  <List />
+                </TextInput>
                 {show && (
                   <DateTimePicker
                     testID="dateTimePicker"

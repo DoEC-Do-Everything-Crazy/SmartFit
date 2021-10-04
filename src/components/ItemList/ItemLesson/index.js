@@ -1,4 +1,3 @@
-import {images} from '@assets';
 import {Block, Text} from '@components';
 import React from 'react';
 import {Image} from 'react-native';

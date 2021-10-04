@@ -29,6 +29,7 @@ export default StyleSheet.create({
     left: getSize.m(12),
     height: getSize.s(20),
     width: getSize.s(20),
+    marginRight: 100,
   },
   rightIcon: {
     position: 'absolute',

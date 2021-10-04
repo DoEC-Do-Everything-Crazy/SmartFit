@@ -18,6 +18,7 @@ const InputText = ({...props}) => {
     fontType,
     color,
     size,
+    children,
     isSecure,
     rightIcon,
     leftIcon,
@@ -135,14 +136,14 @@ const InputText = ({...props}) => {
           StyleSheet.flatten(inputStyle),
         ]}>
         {leftIcon && (
-          <Image
-            source={leftIcon}
-            resizeMode="contain"
+          <Block
+            alignCenter
+            justifyCenter
             style={{
               ...styles.leftIcon,
-              tintColor: isError ? theme.colors.red : theme.colors.placeholder,
-            }}
-          />
+            }}>
+            {children}
+          </Block>
         )}
         {_renderInput()}
         {isSecure ? _renderSecureIcon() : rightIcon && rightIcon()}

@@ -1,14 +1,14 @@
 import {Block, Text} from '@components';
 import {getSize} from '@utils/responsive';
 import React from 'react';
-import {Image, Pressable} from 'react-native';
+import {Pressable} from 'react-native';
 import styles from './styles';
 
 const ItemFeature = ({
   title,
   height,
   width,
-  icon,
+  children,
   onPress,
   borderWidth,
   shadow,
@@ -28,8 +28,8 @@ const ItemFeature = ({
       <Pressable onPress={onPress}>
         <Block row space="between">
           <Text style={styles.text}>{title}</Text>
-          <Block width={getSize.s(20)} height={getSize.v(20)} radius={20}>
-            <Image source={icon} />
+          <Block width={getSize.s(20)} justifyCenter alignCenter radius={20}>
+            {children}
           </Block>
         </Block>
       </Pressable>

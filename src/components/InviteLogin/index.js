@@ -1,7 +1,6 @@
 import {Block, Button} from '@components';
 
 import {useNavigation} from '@react-navigation/core';
-import {theme} from '@theme';
 import React, {useCallback} from 'react';
 import {useDispatch} from 'react-redux';
 import {changeRouteScreen} from 'reduxs/reducers';

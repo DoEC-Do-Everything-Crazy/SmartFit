@@ -22,6 +22,7 @@ import DATA from './DATA.json';
 import axios from 'axios';
 import styles from './styles';
 import {routes} from '@navigation/routes';
+import {Back} from '@assets/icons';
 
 const {width: screenWidth, height: screenHeight} = Dimensions.get('window');
 
@@ -82,7 +83,7 @@ const TabDetails = ({route}) => {
           {inf ? (
             <Pressable onPress={handleCloseInf}>
               <Block flex justifyCenter alignStart>
-                <Image source={icons.back} style={styles.icon} />
+                <Back />
               </Block>
             </Pressable>
           ) : null}

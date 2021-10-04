@@ -8,6 +8,7 @@ import {useNavigation} from '@react-navigation/core';
 import {useDispatch} from 'react-redux';
 import {routes} from '@navigation/routes';
 import {changeScreen} from 'reduxs/reducers';
+import {Ratting} from '@assets/icons';
 
 const ItemCourse = ({_id, key, image, courseName, desc, ratting, price}) => {
   const navigation = useNavigation();
@@ -56,7 +57,7 @@ const ItemCourse = ({_id, key, image, courseName, desc, ratting, price}) => {
           </Block>
           <Text numberOfLines={1}>{desc}</Text>
           <Block row alignCenter marginTop={5}>
-            <Image source={icons.ratings} style={styles.icon} />
+            <Ratting />
             <Text size={15} marginLeft={5}>
               {ratting}
             </Text>

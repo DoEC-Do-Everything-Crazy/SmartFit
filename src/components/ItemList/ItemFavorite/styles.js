@@ -24,6 +24,6 @@ export default StyleSheet.create({
     height: getSize.s(16),
     position: 'absolute',
     bottom: getSize.s(16),
-    right: getSize.s(8),
+    right: getSize.s(16),
   },
 });

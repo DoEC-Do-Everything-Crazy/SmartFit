@@ -1,15 +1,15 @@
-import {icons} from '@assets';
 import {Block, Text} from '@components';
 import Header from '@components/Header';
 import {theme} from '@theme';
 import React from 'react';
-import {Image, Pressable} from 'react-native';
+import {Pressable} from 'react-native';
 import CartList from './components/CartList';
 import {PayInfo, InviteLogin} from '@components';
 import DATA from './DATA';
 import styles from './styles';
 import {routes} from '@navigation/routes';
 import {useSelector} from 'react-redux';
+import {Cart_data} from '@assets/icons';
 
 const CartScreen = () => {
   const {user} = useSelector(state => state.root.user);
@@ -53,7 +53,7 @@ const NotData = () => (
   <Block flex>
     <Header canGoBack colorTheme={theme.colors.blue} title="Cart" />
     <Block flex justifyCenter alignCenter marginHorizontal={16}>
-      <Image source={icons.cart_data} />
+      <Cart_data />
       <Text size={30} marginTop={20} fontType="bold">
         No order yet
       </Text>

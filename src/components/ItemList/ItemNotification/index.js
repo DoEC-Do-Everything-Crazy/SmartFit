@@ -1,15 +1,17 @@
-import {icons} from '@assets';
 import {Block} from '@components';
 import React from 'react';
-import {Image, Text, Pressable} from 'react-native';
+import {Text, Pressable} from 'react-native';
 import styles from './styles';
 import {theme} from '@theme';
+import {EmailNotification} from '@assets/icons';
 
 const ItemNotification = ({title, content, date, onPress}) => {
   return (
     <Pressable style={styles.item} onPress={onPress}>
       <Block row>
-        <Image style={styles.image} source={icons.emailNotification} />
+        <Block style={styles.image}>
+          <EmailNotification color={'#045694'} />
+        </Block>
         <Block
           flex
           paddingLeft={30}

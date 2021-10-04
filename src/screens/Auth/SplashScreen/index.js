@@ -1,12 +1,13 @@
 import {Block} from '@components';
 import {theme} from '@theme';
 import React, {useEffect, useRef} from 'react';
-import {fonts, icons} from '@assets';
+import {icons} from '@assets';
 import styles from './styles';
-import {Image, StatusBar, Animated, Text, Dimensions} from 'react-native';
+import {StatusBar, Animated, Text, Dimensions} from 'react-native';
 import {useNavigation} from '@react-navigation/core';
 import {routes} from '@navigation/routes';
 import {useSelector} from 'react-redux';
+import {Logo} from '@assets/icons';
 
 const SplashScreen = () => {
   const {first} = useSelector(state => state.root.user);
@@ -18,7 +19,7 @@ const SplashScreen = () => {
       first === false
         ? navigation.navigate(routes.ONBOARD_SCREEN)
         : navigation.navigate(routes.BOTTOM_TAB);
-    }, 3000);
+    }, 2200);
 
     Animated.sequence([
       Animated.timing(moveAnim, {
@@ -44,10 +45,9 @@ const SplashScreen = () => {
   return (
     <Block flex justifyCenter alignCenter backgroundColor={theme.colors.blue}>
       <StatusBar barStyle="light-content" />
-      <Animated.Image
-        style={[styles.logo, {opacity: fadeAnim}]}
-        source={icons.logo}
-      />
+      <Animated.View style={[styles.logo, {opacity: fadeAnim}]}>
+        <Logo />
+      </Animated.View>
       <Animated.View style={[styles.groupText, {marginLeft: moveAnim}]}>
         <Text style={styles.text}>S</Text>
         <Animated.Text style={[styles.text, {opacity: fadeAnim}]}>

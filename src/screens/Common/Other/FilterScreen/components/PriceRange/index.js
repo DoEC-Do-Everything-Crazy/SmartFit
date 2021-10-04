@@ -12,7 +12,6 @@ const PriceRange = (label, value) => {
       <Text
         size={16}
         marginLeft={16}
-        marginTop={28}
         marginBottom={15}
         color={theme.colors.blue}
         fontType="bold">

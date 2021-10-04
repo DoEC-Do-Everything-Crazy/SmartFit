@@ -1,25 +1,26 @@
 import {Block, Text} from '@components';
-import {Image, ImageBackground, TouchableOpacity} from 'react-native';
-import React, {useCallback, useEffect} from 'react';
+import {ImageBackground, TouchableOpacity} from 'react-native';
+import React, {useEffect} from 'react';
 
 import {AuthService} from '@services';
 import auth from '@react-native-firebase/auth';
-import {icons} from '@assets';
+
 import {routes} from '@navigation/routes';
 import styles from './styles';
 import {theme} from '@theme';
 
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
+// import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {width} from 'utils/responsive';
 
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 // import {useNavigation} from '@react-navigation/core';
 import {useDispatch, useSelector} from 'react-redux';
 import {addUser} from 'reduxs/reducers';
+import {Facebook, Google} from '@assets/icons';
 
 const LoginScreen = ({navigation}) => {
   // const navigation = useNavigation();
-  const {top} = useSafeAreaInsets();
+  // const {top} = useSafeAreaInsets();
   const dispatch = useDispatch();
   const {routeScreen} = useSelector(state => state.root.screen);
 
@@ -41,7 +42,7 @@ const LoginScreen = ({navigation}) => {
 
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
     return subscriber; // unsubscribe on unmount
-  }, []);
+  });
   return (
     <Block flex>
       <ImageBackground
@@ -111,7 +112,7 @@ const LoginScreen = ({navigation}) => {
                 height={50}
                 borderRadius={50}
                 backgroundColor={theme.colors.white}>
-                <Image style={{width: 25, height: 25}} source={icons.google} />
+                <Google />
               </Block>
             </TouchableOpacity>
             <Block
@@ -121,10 +122,7 @@ const LoginScreen = ({navigation}) => {
               height={50}
               borderRadius={50}
               backgroundColor={theme.colors.white}>
-              <Image
-                style={{width: 15, height: 25, resizeMode: 'cover'}}
-                source={icons.facebook}
-              />
+              <Facebook />
             </Block>
           </Block>
         </Block>

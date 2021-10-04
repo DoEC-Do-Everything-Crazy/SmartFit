@@ -24,7 +24,7 @@ export default StyleSheet.create({
     alignItems: 'center',
     paddingLeft: '3%',
     backgroundColor: theme.colors.white,
-    borderRadius: 5,
+    borderRadius: getSize.s(5),
   },
   img: {
     height: getSize.m(20),
@@ -32,8 +32,9 @@ export default StyleSheet.create({
   },
   picker: {
     width: width - 20,
+    borderRadius: getSize.s(5),
     // backgroundColor: 'yellow',
-    height: 60,
+    height: getSize.s(60),
   },
   text: {
     color: theme.colors.red,
