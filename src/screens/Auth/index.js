@@ -5,6 +5,7 @@ import VFTPhoneNumberScreen from './VFTPhoneNumberScreen';
 import EnterPhoneNumberScreen from './EnterPhoneNumberScreen';
 import SplashScreen from './SplashScreen';
 import OnBoardScreen from './OnBoardScreen';
+import PasswordScreen from './PasswordScreen';
 
 export const auth = {
   LOGIN_SCREEN: LoginScreen,
@@ -14,4 +15,5 @@ export const auth = {
   ENTER_PHONE_NUMBER_SCREEN: EnterPhoneNumberScreen,
   SPLASH_SCREEN: SplashScreen,
   ONBOARD_SCREEN: OnBoardScreen,
+  PASSWORD_SCREEN: PasswordScreen,
 };

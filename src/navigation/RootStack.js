@@ -33,6 +33,10 @@ const RootStack = () => {
         name={routes.SEARCH_SCREEN}
         component={bottom.SEARCH_SCREEN}
       />
+      <Stack.Screen
+        name={routes.PASSWORD_SCREEN}
+        component={auth.PASSWORD_SCREEN}
+      />
 
       {/* AUTHENTICATION */}
       <Stack.Screen
