@@ -1,7 +1,6 @@
 const icons = {
   home: require('./icons/home.png'),
   sendemail: require('./icons/sendemail.png'),
-  logo: require('./icons/logo.png'),
   info: require('./icons/info.png'),
   stats: require('./icons/stats.png'),
   notification: require('./icons/notification.png'),
