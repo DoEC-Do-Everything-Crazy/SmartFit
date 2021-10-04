@@ -15,7 +15,7 @@ const AuthStack = () => {
   return (
     <Stack.Navigator
       mode="modal"
-      initialRouteName={routes.FLASH_SCREEN}
+      initialRouteName={routes.SPLASH_SCREEN}
       screenOptions={{headerShown: false}}>
       <Stack.Screen name={routes.LOGIN_SCREEN} component={auth.LOGIN_SCREEN} />
       <Stack.Screen

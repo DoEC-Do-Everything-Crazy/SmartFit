@@ -11,7 +11,7 @@ const RootStack = () => {
   return (
     <Stack.Navigator
       mode="modal"
-      initialRouteName={routes.FLASH_SCREEN}
+      initialRouteName={routes.SPLASH_SCREEN}
       screenOptions={{headerShown: false}}>
       {/* BOTTOM */}
       <Stack.Screen name={routes.BOTTOM_TAB} component={BottomNavigation} />
@@ -25,7 +25,10 @@ const RootStack = () => {
         name={routes.NOTIFICATION_SCREEN}
         component={bottom.NOTIFICATION_SCREEN}
       />
-      <Stack.Screen name={routes.FLASH_SCREEN} component={auth.FLASH_SCREEN} />
+      <Stack.Screen
+        name={routes.SPLASH_SCREEN}
+        component={auth.SPLASH_SCREEN}
+      />
       <Stack.Screen
         name={routes.SEARCH_SCREEN}
         component={bottom.SEARCH_SCREEN}
