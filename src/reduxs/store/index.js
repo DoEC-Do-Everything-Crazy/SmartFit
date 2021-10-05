@@ -13,18 +13,19 @@ import {
 
 // import createSagaMiddleware from 'redux-saga';
 // import rootSaga from '../saga';
-import {ChangeScreenReducer, UserReducer} from '../reducers/';
+import {ChangeScreenReducer, UserReducer, PasswordReducer} from '../reducers/';
 
 const persistConfig = {
   key: 'root',
   storage: EncryptedStorage,
-  // whitelist: ['screen'],
+  // whitelist: ['screen', 'password'],
   //whitelist
   //blacklist
 };
 const persistedReducer = persistCombineReducers(persistConfig, {
   screen: ChangeScreenReducer,
   user: UserReducer,
+  password: PasswordReducer,
   // other reducers here
 });
 

@@ -6,14 +6,18 @@ import {width} from '@utils/responsive';
 import {Formik} from 'formik';
 import React from 'react';
 import * as yup from 'yup';
+import {useDispatch} from 'react-redux';
 import styles from './styles';
+import {changePassword} from 'reduxs/reducers';
 
 const ChangePassword = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
   const validationSchema = yup.object().shape({
     password: yup.string().required('Password is Required'),
     confirmPassword: yup
       .string()
+      .min(6, () => 'New Password must be at least 6 characters')
       .required('Password confim is Required')
       .oneOf([yup.ref('password')], 'Confirm Password does not match'),
   });
@@ -25,11 +29,19 @@ const ChangePassword = () => {
         confirmPassword: '',
       }}
       onSubmit={props => {
-        navigation.navigate(routes.BOTTOM_TAB, {
-          phone: props.passWord,
-        });
+        navigation.navigate(routes.BOTTOM_TAB);
+        dispatch(changePassword(props.confirmPassword));
       }}>
-      {({handleChange, handleBlur, handleSubmit, touched, errors, values}) => (
+      {({
+        handleChange,
+        handleBlur,
+        handleSubmit,
+        touched,
+        errors,
+        values,
+        isValid,
+        dirty,
+      }) => (
         <Block flex>
           <Header
             canGoBack
@@ -74,6 +86,7 @@ const ChangePassword = () => {
             </Block>
           </Block>
           <Button
+            disabled={dirty && isValid ? false : true}
             containerStyle={{justifyContent: 'flex-end'}}
             onPress={handleSubmit}
             title="Change password"

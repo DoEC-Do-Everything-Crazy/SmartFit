@@ -11,6 +11,7 @@ import {Logo} from '@assets/icons';
 
 const SplashScreen = () => {
   const {first} = useSelector(state => state.root.user);
+  const {isTurn} = useSelector(state => state.root.password);
   const navigation = useNavigation();
   const moveAnim = useRef(new Animated.Value(0)).current;
   const fadeAnim = useRef(new Animated.Value(0)).current;
@@ -18,6 +19,8 @@ const SplashScreen = () => {
     setTimeout(() => {
       first === false
         ? navigation.navigate(routes.ONBOARD_SCREEN)
+        : isTurn
+        ? navigation.navigate(routes.PASSWORD_SCREEN)
         : navigation.navigate(routes.BOTTOM_TAB);
     }, 2200);
 
