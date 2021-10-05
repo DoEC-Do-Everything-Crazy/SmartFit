@@ -8,6 +8,7 @@ const ListFeatureSetting = ({data}) => {
     <ItemSetting
       title={data[index].title}
       data={data[index].data_item_switch}
+      index={index}
     />
   );
   return (

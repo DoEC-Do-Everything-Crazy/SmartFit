@@ -1,38 +1,42 @@
 import {StyleSheet} from 'react-native';
 import {getSize} from '@utils/responsive';
-
+import {theme} from '@theme';
 export default StyleSheet.create({
-  textRequestAgain: {
-    fontFamily: 'roboto',
-    fontStyle: 'normal',
-    fontWeight: 'bold',
-    fontSize: 18,
-    textAlign: 'center',
-    marginTop: 60,
-    marginLeft: 5,
-    color: 'blue',
+  root: {
+    flex: 1,
+    flexDirection: 'column',
   },
-  text: {
-    fontFamily: 'roboto',
-    fontStyle: 'normal',
+  renderRoot: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  renderTitle: {
+    marginTop: getSize.s(10),
+    fontSize: getSize.s(24),
     fontWeight: 'bold',
-    fontSize: 18,
     textAlign: 'center',
-    marginBottom: 75,
+  },
+
+  button: {
+    backgroundColor: theme.colors.blue,
+    height: getSize.s(48),
+    marginHorizontal: getSize.s(16),
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: getSize.s(20),
+    borderRadius: getSize.s(8),
   },
   textInput: {
-    backgroundColor: '#F5F4F2',
-    fontWeight: '600',
-    justifyContent: 'center',
-    color: '#0DD886',
-    textAlign: 'center',
-    alignSelf: 'center',
-    padding: 10,
-    fontSize: 35,
-    height: 55,
-    width: '12.5%',
-    borderRadius: 10,
-    borderWidth: 0.5,
-    borderColor: 'grey',
+    paddingHorizontal: getSize.m(16),
+  },
+  text: {
+    color: 'red',
+    fontSize: 12,
+    position: 'relative',
+    bottom: '2%',
+    left: '4%',
+    marginTop: 8,
   },
 });
