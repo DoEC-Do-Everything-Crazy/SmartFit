@@ -1,7 +1,6 @@
-import {StyleSheet} from 'react-native';
-import {getSize} from '@utils/responsive';
+import {makeStyles} from '@theme';
 
-export default StyleSheet.create({
+export const useStyles = makeStyles()(({}) => ({
   press: {
     borderWidth: 1,
     padding: 10,
@@ -11,4 +10,8 @@ export default StyleSheet.create({
     borderRadius: 8,
     borderColor: '#EBF0FF',
   },
-});
+  list: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
+}));

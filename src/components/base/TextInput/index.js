@@ -1,13 +1,14 @@
-import {theme} from '@theme';
 import {getSize} from '@utils/responsive';
 import {isEmpty} from 'lodash';
 import React, {useState, useMemo} from 'react';
-import {Image, StyleSheet, TextInput, TouchableOpacity} from 'react-native';
+import {StyleSheet, TextInput, TouchableOpacity} from 'react-native';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Block from '../Block';
 import Text from '../Text';
-import styles from './styles';
+import {useSelector} from 'react-redux';
+import {useStyles} from './styles';
+import {useTheme} from '@theme';
 
 const InputText = ({...props}) => {
   const {
@@ -36,6 +37,12 @@ const InputText = ({...props}) => {
   const [secureEye, setSecureEye] = useState(true);
   const [isInput, setInput] = useState(true);
 
+  const {
+    theme: {theme: themeStore},
+  } = useSelector(stateRoot => stateRoot.root);
+  const styles = useStyles(props, themeStore);
+  const theme = useTheme(themeStore);
+
   const textStyle = [
     styles.resetStyles,
     fontType && {
@@ -58,7 +65,7 @@ const InputText = ({...props}) => {
       return theme.colors.white;
     }
     return theme.colors.blue;
-  }, [isInput]);
+  }, [isInput, theme.colors.blue, theme.colors.white]);
 
   const _renderSecureIcon = () => {
     return (

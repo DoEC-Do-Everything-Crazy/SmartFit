@@ -2,7 +2,8 @@ import {Block, Text} from '@components';
 import {getSize} from '@utils/responsive';
 import React from 'react';
 import {Pressable} from 'react-native';
-import styles from './styles';
+import {useSelector} from 'react-redux';
+import {useStyles} from './styles';
 
 const ItemFeature = ({
   title,
@@ -12,7 +13,13 @@ const ItemFeature = ({
   onPress,
   borderWidth,
   shadow,
+  props,
 }) => {
+  const {
+    theme: {theme: themeStore},
+  } = useSelector(stateRoot => stateRoot.root);
+  const styles = useStyles(props, themeStore);
+
   return (
     <Block
       shadow={shadow}

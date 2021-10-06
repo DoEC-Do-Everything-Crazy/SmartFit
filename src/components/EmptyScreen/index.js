@@ -1,9 +1,14 @@
 import {Text} from '@components';
 import React from 'react';
 import {Image, View} from 'react-native';
-import styles from './styles';
+import {useSelector} from 'react-redux';
+import {useStyles} from './styles';
 
-const EmptyScreen = ({picture, title, text}) => {
+const EmptyScreen = ({picture, title, text, props}) => {
+  const {
+    theme: {theme: themeStore},
+  } = useSelector(stateRoot => stateRoot.root);
+  const styles = useStyles(props, themeStore);
   return (
     <View style={styles.renderRoot}>
       <Image

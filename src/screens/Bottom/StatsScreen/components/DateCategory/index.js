@@ -1,20 +1,25 @@
 import {Block, Text} from '@components';
 import React, {useState} from 'react';
 import {Pressable, ScrollView} from 'react-native';
-import styles from './styles';
+
 import {DATA_STATS} from '@constants/';
+import {useSelector} from 'react-redux';
+import {useStyles} from './styles';
 
-const Item = ({item, onPress, backgroundColor, textColor}) => (
-  <Pressable onPress={onPress} style={[styles.item, backgroundColor]}>
-    <Text style={[styles.text, textColor]}>{item.title}</Text>
-  </Pressable>
-);
-
-const DateCategory = () => {
+const DateCategory = props => {
+  const {
+    theme: {theme: themeStore},
+  } = useSelector(state => state.root);
+  const styles = useStyles(props, themeStore);
   const [selectedId, setSelectedId] = useState(1);
   const _renderItem = ({item}) => {
     const backgroundColor = item.id === selectedId ? '#045694' : 'white';
     const color = item.id === selectedId ? 'white' : 'black';
+    const Item = ({item, onPress, backgroundColor, textColor}) => (
+      <Pressable onPress={onPress} style={[styles.item, backgroundColor]}>
+        <Text style={[styles.text, textColor]}>{item.title}</Text>
+      </Pressable>
+    );
     return (
       <Item
         item={item}

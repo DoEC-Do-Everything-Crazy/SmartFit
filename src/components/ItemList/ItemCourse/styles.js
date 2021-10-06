@@ -1,8 +1,7 @@
-import {StyleSheet} from 'react-native';
-import {getSize, width} from '@utils/responsive';
-import {theme} from '@theme';
+import {getSize} from '@utils/responsive';
+import {makeStyles} from '@theme';
 
-export default StyleSheet.create({
+export const useStyles = makeStyles()(({}) => ({
   container: {
     marginTop: getSize.s(12),
     marginBottom: getSize.m(16),
@@ -20,4 +19,4 @@ export default StyleSheet.create({
     borderBottomRightRadius: getSize.m(5),
     borderTopLeftRadius: getSize.m(5),
   },
-});
+}));

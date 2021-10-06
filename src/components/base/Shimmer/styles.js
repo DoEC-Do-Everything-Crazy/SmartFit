@@ -1,7 +1,7 @@
 import {getSize} from '@utils/responsive';
-import {StyleSheet} from 'react-native';
+import {makeStyles} from '@theme';
 
-export default StyleSheet.create({
+export const useStyles = makeStyles()(({}) => ({
   container: (
     width,
     height,
@@ -24,4 +24,4 @@ export default StyleSheet.create({
     overflow: 'hidden',
     backgroundColor: colors ? colors[0] : '#E6E6E6',
   }),
-});
+}));

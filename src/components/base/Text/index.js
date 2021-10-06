@@ -1,4 +1,5 @@
-import {theme} from '@theme';
+import {useSelector} from 'react-redux';
+import {useTheme} from '@theme';
 import {getSize} from '@utils/responsive';
 import {isNumber} from 'lodash';
 import React from 'react';
@@ -37,6 +38,11 @@ const Typography = props => {
     textDecorationLine,
     ...textProps
   } = props;
+
+  const {
+    theme: {theme: themeStore},
+  } = useSelector(stateRoot => stateRoot.root);
+  const theme = useTheme(themeStore);
 
   const textStyle = [
     flex && {flex: 1},

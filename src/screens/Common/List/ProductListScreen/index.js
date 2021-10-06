@@ -1,6 +1,7 @@
 import {Block, Header, Text} from '@components';
 import ItemCarousel from '@components/ItemList/ItemCarousel';
-import {theme} from '@theme';
+import {useSelector} from 'react-redux';
+import {useTheme} from '@theme';
 import {width} from '@utils/responsive';
 import React, {useState} from 'react';
 import Carousel from 'react-native-snap-carousel';
@@ -8,6 +9,11 @@ import {FlatList, ScrollView} from 'react-native';
 
 const ProductListScreen = () => {
   const [index, setIndex] = useState(0);
+  const {
+    theme: {theme: themeStore},
+  } = useSelector(stateRoot => stateRoot.root);
+  const theme = useTheme(themeStore);
+
   const _renderItemCarousel = ({item, index}) => <ItemCarousel />;
 
   return (

@@ -1,9 +1,7 @@
-import {StyleSheet} from 'react-native';
-import {getSize, width} from '@utils/responsive';
-import {theme} from '@theme';
-import {Colors} from 'react-native/Libraries/NewAppScreen';
+import {getSize} from '@utils/responsive';
+import {makeStyles} from '@theme';
 
-export default StyleSheet.create({
+export const useStyles = makeStyles()(({colors}) => ({
   image: {
     borderTopLeftRadius: getSize.m(5),
     borderBottomLeftRadius: getSize.m(5),
@@ -24,7 +22,7 @@ export default StyleSheet.create({
     paddingVertical: 5,
     paddingHorizontal: 12,
     borderRadius: 8,
-    backgroundColor: theme.colors.red,
+    backgroundColor: colors.red,
   },
   itemConfirm: {
     justifyContent: 'center',
@@ -32,6 +30,6 @@ export default StyleSheet.create({
     paddingVertical: 5,
     paddingHorizontal: 12,
     borderRadius: 8,
-    backgroundColor: theme.colors.green,
+    backgroundColor: colors.green,
   },
-});
+}));

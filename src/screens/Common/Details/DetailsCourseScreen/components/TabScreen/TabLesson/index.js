@@ -1,16 +1,23 @@
 import {Block} from '@components';
-import {theme} from '@theme';
 import React, {useRef, useState} from 'react';
 import {Dimensions} from 'react-native';
 import Carousel, {Pagination} from 'react-native-snap-carousel';
 import ListStep from './components/ListStep';
-import styles from './styles';
+import {useSelector} from 'react-redux';
+import {useStyles} from './styles';
+import {useTheme} from '@theme';
 
 const {width: screenWidth} = Dimensions.get('window');
 
-const TabLesson = () => {
+const TabLesson = props => {
   const [index, setIndex] = useState(0);
   const isCarousel = useRef(null);
+  const {
+    theme: {theme: themeStore},
+  } = useSelector(stateRoot => stateRoot.root);
+  const styles = useStyles(themeStore);
+  const theme = useTheme(themeStore);
+
   const _renderItem = ({item, index}, parallaxProps) => {
     return (
       <Block style={styles.item}>
@@ -33,13 +40,7 @@ const TabLesson = () => {
         dotsLength={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].length}
         activeDotIndex={index}
         carouselRef={isCarousel}
-        dotStyle={{
-          width: 15,
-          height: 15,
-          borderRadius: 15,
-          marginHorizontal: -5,
-          backgroundColor: theme.colors.blue,
-        }}
+        dotStyle={styles.pagination}
         inactiveDotOpacity={0.4}
         inactiveDotScale={0.6}
         tappableDots={true}

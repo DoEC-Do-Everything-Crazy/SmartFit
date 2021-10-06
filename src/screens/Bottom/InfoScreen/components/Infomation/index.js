@@ -1,17 +1,24 @@
 import {Block, Header, Text} from '@components';
 import {DATA_STATISTICAL_PROFILE} from '@constants/';
 import {AuthService} from '@services';
-import {theme} from '@theme';
 import React from 'react';
 import {TouchableOpacity} from 'react-native';
 import {useSelector} from 'react-redux';
 import InfoProfile from './components/InfoProfile';
 import ListItemFeature from './components/ListItemFeature';
 import StatisticalProfile from './components/StatisticalProfile';
-import styles from './styles';
+import {useTheme} from '@theme';
+import {useStyles} from './styles';
 
-const Information = () => {
-  const {user} = useSelector(state => state.root.user);
+const Information = props => {
+  const {
+    theme: {theme: themeStore},
+    user: {user},
+  } = useSelector(state => state.root);
+
+  const theme = useTheme(themeStore);
+  const styles = useStyles(props, themeStore);
+
   const DATA_INFO = [
     {
       image: user.photoURL,

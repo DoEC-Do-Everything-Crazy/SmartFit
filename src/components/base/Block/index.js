@@ -1,4 +1,3 @@
-import {theme} from '@theme';
 import {getSize} from '@utils/responsive';
 import {isNumber} from 'lodash';
 import React from 'react';
@@ -9,7 +8,9 @@ import {
   handleRound,
   handleSquare,
 } from '../shared';
-import styles from './styles';
+import {useSelector} from 'react-redux';
+import {useStyles} from './styles';
+import {useTheme} from '@theme';
 
 const Block = ({
   flex,
@@ -70,6 +71,12 @@ const Block = ({
   zIndex,
   ...props
 }) => {
+  const {
+    theme: {theme: themeStore},
+  } = useSelector(stateRoot => stateRoot.root);
+  const styles = useStyles(props, themeStore);
+  const theme = useTheme(themeStore);
+
   const blockStyles = [
     flex && styles.block,
     flexShrink && styles.flexShrink,

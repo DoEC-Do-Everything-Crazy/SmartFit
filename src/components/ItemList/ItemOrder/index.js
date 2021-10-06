@@ -1,21 +1,28 @@
 import {Block, Text, TextInput, Button} from '@components';
 import {BottomSheet} from '@components/BottomSheet';
-import {theme} from '@theme';
 import React, {useCallback, useRef, useState} from 'react';
 import {Image, Platform, Pressable, ScrollView} from 'react-native';
 import {Rating} from 'react-native-ratings';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import styles from './styles';
+import {useSelector} from 'react-redux';
+import {useStyles} from './styles';
+import {useTheme} from '@theme';
 import {checkPermission, PERMISSION_TYPE} from 'hook/permissions';
 import {Camera} from '@assets/icons';
 
-const ItemOrder = ({picture, title, group_id, index}) => {
+const ItemOrder = ({picture, title, group_id, index, props}) => {
   const modalizRef = useRef(null);
   const [isReceived, setReceived] = useState(true);
   const [comment, setComment] = useState('');
 
   const [isCamera, setCamera] = useState(false);
   const insets = useSafeAreaInsets();
+
+  const {
+    theme: {theme: themeStore},
+  } = useSelector(stateRoot => stateRoot.root);
+  const styles = useStyles(props, themeStore);
+  const theme = useTheme(themeStore);
 
   const handleCamera = async () => {
     const resultSP = await checkPermission(PERMISSION_TYPE.camera);
@@ -29,7 +36,7 @@ const ItemOrder = ({picture, title, group_id, index}) => {
     } else {
       return <Block style={[styles.floatComponent, {height: insets.bottom}]} />;
     }
-  }, [insets.bottom]);
+  }, [insets.bottom, styles.floatComponent]);
 
   const HeaderComponent = useCallback(() => {
     return (
@@ -58,7 +65,7 @@ const ItemOrder = ({picture, title, group_id, index}) => {
         </Block>
       </>
     );
-  }, []);
+  }, [theme.colors.background]);
   const FooterComponent = useCallback(() => {
     return (
       <>
@@ -98,7 +105,7 @@ const ItemOrder = ({picture, title, group_id, index}) => {
         />
       </>
     );
-  }, []);
+  }, [styles.image, theme.colors.white]);
   return (
     <>
       <Block

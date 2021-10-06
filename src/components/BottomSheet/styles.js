@@ -1,10 +1,10 @@
-import {StyleSheet} from 'react-native';
-import {theme} from '@theme';
-export default StyleSheet.create({
+import {makeStyles} from '@theme';
+
+export const useStyles = makeStyles()(({colors}) => ({
   root: {
     backgroundColor: 'rgba(52, 52, 52, 0.5)',
   },
   modal: {
-    backgroundColor: theme.colors.background,
+    backgroundColor: colors.background,
   },
-});
+}));

@@ -1,7 +1,7 @@
 import {getSize} from '@utils/responsive';
-import {StyleSheet} from 'react-native';
+import {makeStyles} from '@theme';
 
-export default StyleSheet.create({
+export const useStyles = makeStyles()(({}) => ({
   icon: {
     height: getSize.s(300),
     width: getSize.s(300),
@@ -18,4 +18,4 @@ export default StyleSheet.create({
     paddingHorizontal: getSize.m(15),
     borderRadius: getSize.m(5),
   },
-});
+}));

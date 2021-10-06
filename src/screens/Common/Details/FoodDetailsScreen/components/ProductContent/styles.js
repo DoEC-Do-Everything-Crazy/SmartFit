@@ -1,7 +1,7 @@
-import {StyleSheet} from 'react-native';
+import {makeStyles} from '@theme';
 import {getSize} from '@utils/responsive';
 
-export default StyleSheet.create({
+export const useStyles = makeStyles()(({colors, font}) => ({
   linearGradient: {
     flex: 1,
     borderBottomLeftRadius: getSize.s(16),
@@ -15,4 +15,4 @@ export default StyleSheet.create({
     width: getSize.s(200),
     height: getSize.s(200),
   },
-});
+}));

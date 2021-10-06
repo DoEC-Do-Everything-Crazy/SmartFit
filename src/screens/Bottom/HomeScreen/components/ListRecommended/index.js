@@ -1,10 +1,11 @@
 import {Block, Text} from '@components';
 import ItemRecommended from '@components/ItemList/ItemRecommended';
-import {theme} from '@theme';
 import React from 'react';
 import {FlatList, Pressable} from 'react-native';
 import {useNavigation} from '@react-navigation/core';
 import {routes} from '@navigation/routes';
+import {useSelector} from 'react-redux';
+import {useTheme} from '@theme';
 // import {DATA_RECOMMENDED} from '@constants';
 
 const DATA_RECOMMENDED = [
@@ -58,6 +59,9 @@ const DATA_RECOMMENDED = [
 ];
 
 const ListRecommended = () => {
+  const themeStore = useSelector(state => state.root.theme.theme);
+  const theme = useTheme(themeStore);
+
   const navigation = useNavigation();
   const _renderItem = ({item, index}) => (
     <ItemRecommended

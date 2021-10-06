@@ -1,8 +1,6 @@
-import {StyleSheet} from 'react-native';
-import {getSize} from '@utils/responsive';
-import {theme} from '@theme';
+import {makeStyles} from '@theme';
 
-export default StyleSheet.create({
+export const useStyles = makeStyles()(({colors}) => ({
   swipeOut: {
     backgroundColor: 'transparent',
   },
@@ -10,6 +8,6 @@ export default StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: theme.colors.background,
+    backgroundColor: colors.background,
   },
-});
+}));

@@ -1,6 +1,6 @@
-import {StyleSheet} from 'react-native';
+import {makeStyles} from '@theme';
 
-export default StyleSheet.create({
+export const useStyles = makeStyles()(({}) => ({
   text: {
     fontWeight: 'bold',
     fontSize: 18,
@@ -12,4 +12,4 @@ export default StyleSheet.create({
   clock1: {
     fontSize: 20,
   },
-});
+}));

@@ -1,9 +1,15 @@
 import React, {forwardRef} from 'react';
 import {Modalize as RNModalize} from 'react-native-modalize';
 import {Portal} from 'react-native-portalize';
-import styles from './styles';
+import {useSelector} from 'react-redux';
+import {useStyles} from './styles';
 
 export const BottomSheet = forwardRef((props, ref) => {
+  const {
+    theme: {theme: themeStore},
+  } = useSelector(stateRoot => stateRoot.root);
+  const styles = useStyles(props, themeStore);
+
   return (
     <Portal>
       <RNModalize

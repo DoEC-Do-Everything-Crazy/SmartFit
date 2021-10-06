@@ -1,7 +1,6 @@
-import {getSize, width} from '@utils/responsive';
-import {StyleSheet, Platform} from 'react-native';
+import {makeStyles} from '@theme';
 
-export default StyleSheet.create({
+export const useStyles = makeStyles()(({}) => ({
   item: {
     width: 200,
     height: 260,
@@ -14,4 +13,4 @@ export default StyleSheet.create({
     width: 200,
     height: 260,
   },
-});
+}));

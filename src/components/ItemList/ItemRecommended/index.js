@@ -1,12 +1,19 @@
 import {Block, Text} from '@components';
-import {theme} from '@theme';
 import React from 'react';
 import {Image, Pressable} from 'react-native';
-import styles from './styles';
+import {useSelector} from 'react-redux';
+import {useStyles} from './styles';
+import {useTheme} from '@theme';
 import {useNavigation} from '@react-navigation/core';
 import {routes} from '@navigation/routes';
 
-const ItemRecommended = ({_id, title, desc, image, index}) => {
+const ItemRecommended = ({_id, title, desc, image, index, props}) => {
+  const {
+    theme: {theme: themeStore},
+  } = useSelector(stateRoot => stateRoot.root);
+  const styles = useStyles(props, themeStore);
+  const theme = useTheme(themeStore);
+
   const navigation = useNavigation();
   return (
     <Pressable onPress={() => navigation.navigate(routes.FOOD_LIST_SCREEN)}>

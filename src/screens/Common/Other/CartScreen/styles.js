@@ -1,7 +1,6 @@
-import {StyleSheet} from 'react-native';
-import {theme} from '@theme';
+import {makeStyles} from '@theme';
 
-export default StyleSheet.create({
+export const useStyles = makeStyles()(({colors}) => ({
   press: {
     height: 48,
     marginVertical: 15,
@@ -9,6 +8,6 @@ export default StyleSheet.create({
     borderRadius: 8,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: theme.colors.blue,
+    backgroundColor: colors.blue,
   },
-});
+}));

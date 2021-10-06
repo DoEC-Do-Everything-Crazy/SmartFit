@@ -1,10 +1,17 @@
 import {Block, Text} from '@components';
 import React from 'react';
 import {Pressable} from 'react-native';
-import styles from './styles';
-import {theme} from '@theme';
+import {useSelector} from 'react-redux';
+import {useStyles} from './styles';
+import {useTheme} from '@theme';
 
-const CustomTabBar = ({state, descriptors, navigation}) => {
+const CustomTabBar = ({state, descriptors, navigation, props}) => {
+  const {
+    theme: {theme: themeStore},
+  } = useSelector(stateRoot => stateRoot.root);
+  const styles = useStyles(props, themeStore);
+  const theme = useTheme(themeStore);
+
   return (
     <Block
       row

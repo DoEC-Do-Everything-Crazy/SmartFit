@@ -1,4 +1,3 @@
-import {icons} from '@assets';
 import {Block, Text} from '@components';
 import {width} from '@utils/responsive';
 import React from 'react';
@@ -6,12 +5,18 @@ import {useNavigation} from '@react-navigation/core';
 import {Image, Pressable} from 'react-native';
 import {Rating} from 'react-native-ratings';
 import {routes} from '@navigation/routes';
-import {theme} from '@theme';
-import styles from './styles';
+import {useSelector} from 'react-redux';
+import {useStyles} from './styles';
+import {useTheme} from '@theme';
 import {HeartPf} from '@assets/icons';
 
-const ItemNavProduct = () => {
+const ItemNavProduct = props => {
   const navigation = useNavigation();
+  const {
+    theme: {theme: themeStore},
+  } = useSelector(stateRoot => stateRoot.root);
+  const styles = useStyles(props, themeStore);
+  const theme = useTheme(themeStore);
   return (
     <Pressable
       style={styles.press}

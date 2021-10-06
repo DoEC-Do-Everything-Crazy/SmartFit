@@ -1,8 +1,7 @@
-import {theme} from '@theme';
 import {getSize} from '@utils/responsive';
-import {StyleSheet} from 'react-native';
+import {makeStyles} from '@theme';
 
-export default StyleSheet.create({
+export const useStyles = makeStyles()(({colors, fonts}) => ({
   resetStyles: {
     flex: 1,
     padding: 0,
@@ -11,7 +10,7 @@ export default StyleSheet.create({
     paddingVertical: 0,
   },
   defaultStyles: {
-    fontFamily: theme.fonts.fontFamily.default,
+    fontFamily: fonts.fontFamily.default,
     minHeight: getSize.m(38),
   },
   inputContainer: {
@@ -19,8 +18,8 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
 
-    borderColor: theme.colors.blue,
-    backgroundColor: theme.colors.white,
+    borderColor: colors.blue,
+    backgroundColor: colors.white,
     borderRadius: getSize.s(5),
     height: getSize.s(60),
   },
@@ -35,4 +34,4 @@ export default StyleSheet.create({
     position: 'absolute',
     right: getSize.m(12),
   },
-});
+}));

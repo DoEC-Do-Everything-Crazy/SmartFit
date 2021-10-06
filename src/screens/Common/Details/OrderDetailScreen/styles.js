@@ -1,8 +1,8 @@
 import {getSize, width} from '@utils/responsive';
-import {StyleSheet, Platform} from 'react-native';
-import {theme} from '@theme';
+import {Platform} from 'react-native';
+import {makeStyles} from '@theme';
 
-export default StyleSheet.create({
+export const useStyles = makeStyles()(({colors}) => ({
   item: {
     width: width,
     height: '100%',
@@ -25,7 +25,7 @@ export default StyleSheet.create({
     paddingHorizontal: getSize.s(12),
     borderRadius: getSize.s(8),
     marginLeft: getSize.s(5),
-    backgroundColor: theme.colors.red,
+    backgroundColor: colors.red,
   },
   itemHeader: {
     justifyContent: 'center',
@@ -38,7 +38,7 @@ export default StyleSheet.create({
   imageContainer: {
     flex: 1,
     marginBottom: Platform.select({ios: 0, android: 1}),
-    backgroundColor: theme.colors.background,
+    backgroundColor: colors.background,
   },
   image: {
     borderRadius: getSize.s(10),
@@ -50,4 +50,4 @@ export default StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
   },
-});
+}));

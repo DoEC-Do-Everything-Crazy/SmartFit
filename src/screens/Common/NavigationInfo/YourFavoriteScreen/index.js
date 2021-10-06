@@ -1,11 +1,17 @@
 import {Block, Header} from '@components';
 import ItemFavorite from '@components/ItemList/ItemFavorite';
-import {theme} from '@theme';
+import {useSelector} from 'react-redux';
+import {useTheme} from '@theme';
 import {getSize} from '@utils/responsive';
 import React from 'react';
 import {FlatList} from 'react-native';
 
 const YourFavoriteScreen = () => {
+  const {
+    theme: {theme: themeStore},
+  } = useSelector(stateRoot => stateRoot.root);
+  const theme = useTheme(themeStore);
+
   const _renderItemCarousel = ({item, index}) => {
     const marginTop = index % 2 === 0 ? 0 : 30;
     return <ItemFavorite marginTop={marginTop} />;

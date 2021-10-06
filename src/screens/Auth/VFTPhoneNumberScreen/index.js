@@ -1,12 +1,13 @@
 import {Block, Button, Header, Text} from '@components';
 import {routes} from '@navigation/routes';
 import {useNavigation} from '@react-navigation/core';
-import {theme} from '@theme';
+import {useTheme} from '@theme';
 import React, {useEffect, useRef, useState} from 'react';
 import {TextInput} from 'react-native';
-import styles from './style';
+import {useSelector} from 'react-redux';
+import {useStyles} from './styles';
 
-const VFTPhoneNumberScreen = ({route}) => {
+const VFTPhoneNumberScreen = ({route, props}) => {
   const navigation = useNavigation();
   const {phone} = route.params;
   const [number1, setNumber1] = useState('');
@@ -22,6 +23,12 @@ const VFTPhoneNumberScreen = ({route}) => {
   const inputRef4 = useRef();
   const inputRef5 = useRef();
   const inputRef6 = useRef();
+
+  const {
+    theme: {theme: themeStore},
+  } = useSelector(state => state.root);
+  const styles = useStyles(props, themeStore);
+  const theme = useTheme(themeStore);
 
   useEffect(() => {
     if (number1 === '') {

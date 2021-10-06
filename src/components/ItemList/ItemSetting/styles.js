@@ -1,8 +1,8 @@
 import {theme} from '@theme';
 import {getSize} from '@utils/responsive';
-import {StyleSheet} from 'react-native';
+import {makeStyles} from '@theme';
 
-export default StyleSheet.create({
+export const useStyles = makeStyles()(({colors}) => ({
   floatComponent: {
     backgroundColor: theme.colors.background,
   },
@@ -10,7 +10,7 @@ export default StyleSheet.create({
     paddingHorizontal: getSize.m(16),
   },
   text: {
-    color: theme.colors.red,
+    color: colors.red,
     fontSize: 14,
     position: 'relative',
     bottom: '-8%',
@@ -20,4 +20,4 @@ export default StyleSheet.create({
     borderTopLeftRadius: getSize.m(5),
     borderTopRightRadius: getSize.m(5),
   },
-});
+}));

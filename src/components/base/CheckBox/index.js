@@ -1,9 +1,10 @@
 import {icons} from '@assets';
 import {Block, Text} from '@components';
-import {theme} from '@theme';
 import React, {useRef} from 'react';
 import {Animated, Image, Pressable, View} from 'react-native';
-import styles from './styles';
+import {useSelector} from 'react-redux';
+import {useStyles} from './styles';
+import {useTheme} from '@theme';
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 const AnimatedView = Animated.createAnimatedComponent(View);
@@ -15,8 +16,15 @@ const CheckBox = ({
   width = 20,
   containerStyles,
   labelStyles,
+  props,
 }) => {
   const animatedValue = useRef(new Animated.Value(0)).current;
+
+  const {
+    theme: {theme: themeStore},
+  } = useSelector(stateRoot => stateRoot.root);
+  const styles = useStyles(props, themeStore);
+  const theme = useTheme(themeStore);
 
   const _onChange = () => {
     setValue(prev => !prev);

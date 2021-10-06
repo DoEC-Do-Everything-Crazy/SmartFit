@@ -5,19 +5,24 @@ import React, {useCallback, useRef, useState} from 'react';
 
 import {lotties} from '@assets';
 import {routes} from '@navigation/routes';
-import styles from './styles';
-import {useDispatch} from 'react-redux';
+import {useStyles} from './styles';
+import {useDispatch, useSelector} from 'react-redux';
 
 import {useNavigation} from '@react-navigation/core';
 import {firstLogin} from 'reduxs/reducers';
 
 const {width: SliderWidth} = Dimensions.get('screen');
 
-const OnBoardScreen = () => {
+const OnBoardScreen = props => {
   const navigation = useNavigation();
   const [activeIndex, setActivateIndex] = useState(0);
   const carouselRef = useRef(null);
   const dispatch = useDispatch();
+
+  const {
+    theme: {theme: themeStore},
+  } = useSelector(state => state.root);
+  const styles = useStyles(props, themeStore);
 
   const [carouselState] = useState([
     {
@@ -40,20 +45,23 @@ const OnBoardScreen = () => {
     navigation.navigate(routes.BOTTOM_TAB);
     dispatch(firstLogin());
   }, [dispatch, navigation]);
-  const _renderItem = useCallback(({item}) => {
-    return (
-      <Block style={styles.renderRoot}>
-        <Block flex />
-        <Block flex>
-          <Empty lottie={item.lotties} />
+  const _renderItem = useCallback(
+    ({item}) => {
+      return (
+        <Block style={styles.renderRoot}>
+          <Block flex />
+          <Block flex>
+            <Empty lottie={item.lotties} />
+          </Block>
+          <Block flex>
+            <Text style={styles.renderTitle}>{item.title}</Text>
+            <Text style={styles.renderText}>{item.text}</Text>
+          </Block>
         </Block>
-        <Block flex>
-          <Text style={styles.renderTitle}>{item.title}</Text>
-          <Text style={styles.renderText}>{item.text}</Text>
-        </Block>
-      </Block>
-    );
-  }, []);
+      );
+    },
+    [styles.renderRoot, styles.renderText, styles.renderTitle],
+  );
 
   return (
     <Block style={styles.root}>

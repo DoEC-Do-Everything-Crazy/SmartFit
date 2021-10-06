@@ -1,14 +1,18 @@
 import {Block, Header, Text} from '@components';
 import ItemOrderDetail from '@components/ItemList/ItemOrderDetail';
-import {theme} from '@theme';
 import React from 'react';
-import {Dimensions, FlatList, Pressable} from 'react-native';
-import styles from './styles';
+import {FlatList, Pressable} from 'react-native';
+import {useSelector} from 'react-redux';
+import {useStyles} from './styles';
+import {useTheme} from '@theme';
 
-const {width: width} = Dimensions.get('screen');
-
-const OrderDetailScreen = () => {
+const OrderDetailScreen = props => {
   const _renderItem = (item, index) => <ItemOrderDetail index={index} />;
+  const {
+    theme: {theme: themeStore},
+  } = useSelector(stateRoot => stateRoot.root);
+  const styles = useStyles(props, themeStore);
+  const theme = useTheme(themeStore);
 
   return (
     <Block flex marginBottom={16} backgroundColor={theme.colors.background}>

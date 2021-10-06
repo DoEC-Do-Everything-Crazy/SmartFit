@@ -1,6 +1,7 @@
-import {StyleSheet} from 'react-native';
+import {makeStyles} from '@theme';
 import {getSize} from '@utils/responsive';
-export default StyleSheet.create({
+
+export const useStyles = makeStyles()(({}) => ({
   item: {
     justifyContent: 'center',
     marginVertical: getSize.m(10),
@@ -14,4 +15,4 @@ export default StyleSheet.create({
     fontSize: getSize.m(18),
     color: 'white',
   },
-});
+}));

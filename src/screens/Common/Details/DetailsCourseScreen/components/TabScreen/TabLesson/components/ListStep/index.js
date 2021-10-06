@@ -1,10 +1,16 @@
 import {Block, Text} from '@components';
 import ItemLesson from '@components/ItemList/ItemLesson';
-import {theme} from '@theme';
+import {useTheme} from '@theme';
+import {useSelector} from 'react-redux';
 import React from 'react';
 import {FlatList} from 'react-native';
 
 const ListStep = () => {
+  const {
+    theme: {theme: themeStore},
+  } = useSelector(stateRoot => stateRoot.root);
+  const theme = useTheme(themeStore);
+
   const _renderItem = (item, index) => <ItemLesson index={index} />;
   return (
     <Block

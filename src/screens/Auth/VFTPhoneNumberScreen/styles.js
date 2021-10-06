@@ -1,7 +1,7 @@
-import {width, getSize} from '@utils/responsive';
-import {StyleSheet} from 'react-native';
+import {getSize} from '@utils/responsive';
+import {makeStyles} from '@theme';
 
-export default StyleSheet.create({
+export const useStyles = makeStyles()(({}) => ({
   textRequestAgain: {
     fontFamily: 'roboto',
     fontStyle: 'normal',
@@ -35,4 +35,4 @@ export default StyleSheet.create({
     borderWidth: 0.5,
     borderColor: 'grey',
   },
-});
+}));

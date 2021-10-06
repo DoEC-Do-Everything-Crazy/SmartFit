@@ -1,17 +1,17 @@
-import {getSize, width} from '@utils/responsive';
-import {StyleSheet, Platform} from 'react-native';
+import {getSize} from '@utils/responsive';
+import {makeStyles} from '@theme';
 
-export default StyleSheet.create({
+export const useStyles = makeStyles()(({}) => ({
   item: {
-    width: 200,
-    height: 260,
+    width: getSize.m(200),
+    height: getSize.m(260),
   },
   imageContainer: {
     backgroundColor: 'white',
-    borderRadius: 8,
+    borderRadius: getSize.m(8),
   },
   image: {
-    width: 200,
-    height: 260,
+    width: getSize.m(200),
+    height: getSize.m(260),
   },
-});
+}));

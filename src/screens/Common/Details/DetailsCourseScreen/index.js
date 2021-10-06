@@ -1,6 +1,7 @@
 import {Block, Header} from '@components';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-import {theme} from '@theme';
+import {useSelector} from 'react-redux';
+import {useTheme} from '@theme';
 import React from 'react';
 import CustomTabBar from './components/CustomTabBar';
 import TabDetails from './components/TabScreen/TabDetails';
@@ -10,6 +11,10 @@ import {routes} from '@navigation/routes';
 const Tab = createMaterialTopTabNavigator();
 
 const DetailsCourseScreen = () => {
+  const {
+    theme: {theme: themeStore},
+  } = useSelector(stateRoot => stateRoot.root);
+  const theme = useTheme(themeStore);
   return (
     <Block flex backgroundColor={theme.colors.background}>
       <Header canGoBack cart title="Cource" colorTheme={theme.colors.blue} />

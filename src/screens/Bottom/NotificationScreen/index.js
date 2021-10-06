@@ -1,15 +1,21 @@
 import {Block, Header} from '@components';
-import {theme} from '@theme';
+import {useTheme} from '@theme';
 import React from 'react';
 import CategorySort from './components/CategorySort';
 import ListNotification from './components/ListNotification';
-import styles from './styles';
+import {useStyles} from './styles';
 import {InviteLogin} from '@components';
 import {routes} from '@navigation/routes';
 import {useSelector} from 'react-redux';
 
-const NotificationScreen = () => {
-  const {user} = useSelector(state => state.root.user);
+const NotificationScreen = props => {
+  const {
+    theme: {theme: themeStore},
+    user: {user},
+  } = useSelector(state => state.root);
+  const styles = useStyles(props, themeStore);
+  const theme = useTheme(themeStore);
+
   return (
     <Block
       flex

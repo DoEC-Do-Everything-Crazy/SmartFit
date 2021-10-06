@@ -1,7 +1,7 @@
-import {StyleSheet} from 'react-native';
+import {makeStyles} from '@theme';
 import {getSize} from '@utils/responsive';
-import {theme} from '@theme';
-export default StyleSheet.create({
+
+export const useStyles = makeStyles()(({colors}) => ({
   root: {
     flex: 1,
     flexDirection: 'column',
@@ -12,21 +12,18 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-
   renderTitle: {
     marginTop: getSize.s(30),
     fontSize: getSize.s(24),
     fontWeight: 'bold',
     textAlign: 'center',
   },
-
   renderText: {
     marginTop: getSize.s(10),
     fontSize: getSize.s(16),
     width: getSize.s(350),
     textAlign: 'center',
   },
-
   pagination: {
     width: getSize.s(10),
     height: getSize.s(10),
@@ -42,7 +39,7 @@ export default StyleSheet.create({
     justifyContent: 'flex-end',
   },
   button: {
-    backgroundColor: theme.colors.blue,
+    backgroundColor: colors.blue,
     height: getSize.s(48),
     marginHorizontal: getSize.s(16),
     justifyContent: 'center',
@@ -55,4 +52,4 @@ export default StyleSheet.create({
     width: getSize.s(200),
     height: getSize.s(200),
   },
-});
+}));

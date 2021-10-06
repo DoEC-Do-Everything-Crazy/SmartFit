@@ -1,18 +1,25 @@
 import {Block, Button, Header, Text, TextInput} from '@components';
 import {routes} from '@navigation/routes';
 import {useNavigation} from '@react-navigation/core';
-import {theme} from '@theme';
 import {width} from '@utils/responsive';
 import {Formik} from 'formik';
 import React from 'react';
 import * as yup from 'yup';
-import {useDispatch} from 'react-redux';
-import styles from './styles';
+import {useDispatch, useSelector} from 'react-redux';
+import {useStyles} from './styles';
+import {useTheme} from '@theme';
 import {changePassword} from 'reduxs/reducers';
 
-const ChangePassword = () => {
+const ChangePassword = props => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
+
+  const {
+    theme: {theme: themeStore},
+  } = useSelector(stateRoot => stateRoot.root);
+  const styles = useStyles(props, themeStore);
+  const theme = useTheme(themeStore);
+
   const validationSchema = yup.object().shape({
     password: yup.string().required('Password is Required'),
     confirmPassword: yup

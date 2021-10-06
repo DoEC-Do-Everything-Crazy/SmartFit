@@ -1,14 +1,13 @@
-import {StyleSheet} from 'react-native';
+import {makeStyles} from '@theme';
 import {getSize} from '@utils/responsive';
-import {theme} from '@theme';
 
-export default StyleSheet.create({
+export const useStyles = makeStyles()(({colors}) => ({
   container: {
     borderTopLeftRadius: getSize.m(16),
     borderTopRightRadius: getSize.m(16),
   },
   button: {
-    backgroundColor: theme.colors.white,
+    backgroundColor: colors.white,
     height: 55,
     marginHorizontal: 16,
     justifyContent: 'center',
@@ -16,4 +15,4 @@ export default StyleSheet.create({
     marginVertical: 15,
     borderRadius: 8,
   },
-});
+}));

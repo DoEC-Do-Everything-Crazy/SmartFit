@@ -1,7 +1,6 @@
-import {StyleSheet} from 'react-native';
-import {getSize} from '@utils/responsive';
+import {makeStyles} from '@theme';
 
-export default StyleSheet.create({
+export const useStyles = makeStyles()(({colors, font}) => ({
   image: {
     width: 40,
     height: 40,
@@ -9,4 +8,4 @@ export default StyleSheet.create({
     position: 'absolute',
     zIndex: 1,
   },
-});
+}));

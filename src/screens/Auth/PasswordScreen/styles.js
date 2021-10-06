@@ -1,7 +1,7 @@
-import {StyleSheet} from 'react-native';
+import {makeStyles} from '@theme';
 import {getSize} from '@utils/responsive';
-import {theme} from '@theme';
-export default StyleSheet.create({
+
+export const useStyles = makeStyles()(({colors}) => ({
   root: {
     flex: 1,
     flexDirection: 'column',
@@ -27,7 +27,7 @@ export default StyleSheet.create({
   },
 
   button: {
-    backgroundColor: theme.colors.blue,
+    backgroundColor: colors.blue,
     height: getSize.s(48),
     marginHorizontal: getSize.s(16),
     justifyContent: 'center',
@@ -47,4 +47,4 @@ export default StyleSheet.create({
     left: '4%',
     marginTop: 8,
   },
-});
+}));

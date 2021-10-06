@@ -1,11 +1,18 @@
 import {Block} from '@components';
 import React from 'react';
 import {Text, Pressable} from 'react-native';
-import styles from './styles';
-import {theme} from '@theme';
+import {useSelector} from 'react-redux';
+import {useStyles} from './styles';
+import {useTheme} from '@theme';
 import {EmailNotification} from '@assets/icons';
 
-const ItemNotification = ({title, content, date, onPress}) => {
+const ItemNotification = ({title, content, date, onPress, props}) => {
+  const {
+    theme: {theme: themeStore},
+  } = useSelector(stateRoot => stateRoot.root);
+  const styles = useStyles(props, themeStore);
+  const theme = useTheme(themeStore);
+
   return (
     <Pressable style={styles.item} onPress={onPress}>
       <Block row>

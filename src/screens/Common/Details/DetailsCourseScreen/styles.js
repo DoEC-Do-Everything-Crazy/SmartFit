@@ -1,7 +1,7 @@
 import {getSize} from '@utils/responsive';
-import {StyleSheet} from 'react-native';
+import {makeStyles} from '@theme';
 
-export default StyleSheet.create({
+export const useStyles = makeStyles()(({}) => ({
   icon: {
     height: getSize.s(200),
     width: getSize.s(200),
@@ -9,4 +9,4 @@ export default StyleSheet.create({
   btn: config => ({
     backgroundColor: config.general_active_color,
   }),
-});
+}));

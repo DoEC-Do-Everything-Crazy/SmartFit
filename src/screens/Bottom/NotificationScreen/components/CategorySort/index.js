@@ -1,11 +1,15 @@
 import {Block, Text} from '@components';
 import React, {useState} from 'react';
 import {Pressable} from 'react-native';
-import styles from './styles';
+import {useSelector} from 'react-redux';
+import {useStyles} from './styles';
 import {DATA_TYPE_NOTIFICATION} from '@constants';
 
-const CategorySort = () => {
+const CategorySort = props => {
   const [selectedId, setSelectedId] = useState(1);
+
+  const themeStore = useSelector(state => state.root.theme.theme);
+  const styles = useStyles(props, themeStore);
 
   const Item = ({item, onPress, backgroundColor, textColor}) => (
     <Pressable onPress={onPress} style={[styles.item, backgroundColor]}>

@@ -1,8 +1,7 @@
-import {theme} from '@theme';
 import {getSize} from '@utils/responsive';
-import {StyleSheet} from 'react-native';
+import {makeStyles} from '@theme';
 
-export default StyleSheet.create({
+export const useStyles = makeStyles()(({colors}) => ({
   image: {
     borderRadius: getSize.m(8),
     width: getSize.s(100),
@@ -27,7 +26,7 @@ export default StyleSheet.create({
     paddingVertical: getSize.m(5),
     paddingHorizontal: getSize.m(12),
     borderRadius: getSize.m(8),
-    backgroundColor: theme.colors.red,
+    backgroundColor: colors.red,
   },
   itemConfirm: {
     justifyContent: 'center',
@@ -35,14 +34,14 @@ export default StyleSheet.create({
     paddingVertical: getSize.m(5),
     paddingHorizontal: getSize.m(12),
     borderRadius: getSize.m(8),
-    backgroundColor: theme.colors.green,
+    backgroundColor: colors.green,
   },
   bottomLayout: {
     flex: 1,
     justifyContent: 'flex-end',
   },
   button: {
-    backgroundColor: theme.colors.blue,
+    backgroundColor: colors.blue,
     height: getSize.m(48),
     marginHorizontal: getSize.m(16),
     justifyContent: 'center',
@@ -51,6 +50,6 @@ export default StyleSheet.create({
     borderRadius: getSize.m(8),
   },
   floatComponent: {
-    backgroundColor: theme.colors.background,
+    backgroundColor: colors.background,
   },
-});
+}));

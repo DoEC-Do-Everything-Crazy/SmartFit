@@ -1,11 +1,24 @@
 import {Birday, EmailNotification, GenderInf, PhoneInf} from '@assets/icons';
 import {Block, Text} from '@components';
-import {theme} from '@theme';
+
 import React from 'react';
 import {Image} from 'react-native';
-import styles from './styles';
+import {useSelector} from 'react-redux';
+import {useStyles} from './styles';
+import {useTheme} from '@theme';
 
-const InfoProfile = ({image, name, phoneNumber, email, gene, birthday}) => {
+const InfoProfile = ({
+  image,
+  name,
+  phoneNumber,
+  email,
+  gene,
+  birthday,
+  props,
+}) => {
+  const themeStore = useSelector(state => state.root.theme.theme);
+  const theme = useTheme(themeStore);
+  const styles = useStyles(props, themeStore);
   return (
     <Block height="25%" marginTop={10} paddingHorizontal={16}>
       <Block flex row alignCenter>

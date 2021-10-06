@@ -1,10 +1,16 @@
 import {Block, Header} from '@components';
 import ItemCourseBig from '@components/ItemList/ItemCourseBig';
-import {theme} from '@theme';
+import {useSelector} from 'react-redux';
+import {useTheme} from '@theme';
 import React from 'react';
 import {FlatList} from 'react-native';
 
 const CourseListTypeScreen = () => {
+  const {
+    theme: {theme: themeStore},
+  } = useSelector(stateRoot => stateRoot.root);
+  const theme = useTheme(themeStore);
+
   const _renderItem = item => (
     <ItemCourseBig title={item.title} url={item.url} />
   );

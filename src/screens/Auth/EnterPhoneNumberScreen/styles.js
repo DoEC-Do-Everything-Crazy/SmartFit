@@ -1,7 +1,7 @@
 import {getSize} from '@utils/responsive';
-import {StyleSheet} from 'react-native';
+import {makeStyles} from '@theme';
 
-export default StyleSheet.create({
+export const useStyles = makeStyles()(({}) => ({
   textInput: {
     paddingHorizontal: getSize.m(16),
   },
@@ -13,4 +13,4 @@ export default StyleSheet.create({
     left: '4%',
     marginTop: 8,
   },
-});
+}));
