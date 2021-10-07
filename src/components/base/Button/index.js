@@ -49,7 +49,7 @@ const Button = ({
               flex
               center
               fontType="bold"
-              color={theme.colors.text}
+              color={theme.colors.white}
               style={titleStyle}>
               {title}
             </Text>

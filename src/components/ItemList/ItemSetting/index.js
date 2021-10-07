@@ -8,73 +8,71 @@ import {Formik} from 'formik';
 import {BottomSheet} from '@components/BottomSheet';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useDispatch, useSelector} from 'react-redux';
-import {changePassword, changeTheme, turnPassword} from 'reduxs/reducers';
+import {
+  changePassword,
+  changeTheme,
+  turnDarkMode,
+  turnPassword,
+} from 'reduxs/reducers';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
 
 const ItemSetting = ({data, title, index}, props) => {
   const {
     theme: {theme: themeStore},
+    password: {password},
+    turn: {isTurnPassword, isTurnDarkMode},
   } = useSelector(stateRoot => stateRoot.root);
   const styles = useStyles(props, themeStore);
   const theme = useTheme(themeStore);
 
   const navigation = useNavigation();
   const Item = ({isSwitch, name, onPress, index}) => {
-    const {password, isTurn} = useSelector(state => state.root.password);
     const [isEnabled, setIsEnabled] = useState(false);
-    const [isEnabledPass, setIsEnabledPass] = useState(isTurn);
-    const [isDarkMode, setDarkMode] = useState();
     const [textError, setTextErrord] = useState('');
     const [passInput, setPassInput] = useState('');
     const dispatch = useDispatch();
-    const modalizRef = useRef(null);
+    const modalizeRef = useRef(null);
     const insets = useSafeAreaInsets();
 
     const handleOpenBottomSheet = useCallback(() => {
-      if (isEnabledPass === false) {
-        modalizRef?.current.open();
+      if (isTurnPassword === false) {
+        modalizeRef?.current.open();
       } else {
-        setIsEnabledPass(previousState => !previousState);
-        dispatch(turnPassword(false));
-      }
-    }, [dispatch, isEnabledPass]);
-    useEffect(() => {
-      if (themeStore === 'dark') {
-        setDarkMode(true);
-      } else {
-        setDarkMode(false);
-      }
-    }, []);
-    const handeleDarkMode = useCallback(() => {
-      if (themeStore === 'dark') {
-        dispatch(changeTheme('light'));
-      } else {
-        dispatch(changeTheme('dark'));
+        dispatch(turnPassword());
       }
     }, [dispatch]);
+
+    const handleDarkMode = useCallback(() => {
+      if (themeStore === 'dark') {
+        dispatch(changeTheme('light'));
+        dispatch(turnDarkMode());
+      } else {
+        dispatch(changeTheme('dark'));
+        dispatch(turnDarkMode());
+      }
+    }, [dispatch]);
+
     const toggleSwitchCreate = useCallback(
       newPassword => {
         dispatch(changePassword(newPassword));
-        dispatch(turnPassword(true));
-        modalizRef?.current.close();
-        setIsEnabledPass(previousState => !previousState);
+        dispatch(turnPassword());
+        modalizeRef?.current.close();
       },
       [dispatch],
     );
     const toggleSwitchConfirm = useCallback(
       passwordInput => {
         if (passwordInput === password) {
-          modalizRef?.current.close();
-          dispatch(turnPassword(true));
+          modalizeRef?.current.close();
+          dispatch(turnPassword());
           setTextErrord('');
           setPassInput('');
-          setIsEnabledPass(previousState => !previousState);
         } else {
           setTextErrord('You have entered the wrong password');
         }
       },
-      [dispatch, password],
+      [dispatch],
     );
     const FloatingComponent = useCallback(() => {
       if (insets.bottom === 0) {
@@ -167,7 +165,6 @@ const ItemSetting = ({data, title, index}, props) => {
       );
     }, [
       passInput,
-      password,
       textError,
       toggleSwitchConfirm,
       toggleSwitchCreate,
@@ -187,7 +184,11 @@ const ItemSetting = ({data, title, index}, props) => {
               <Text size={16}>{name}</Text>
               <Switch
                 value={
-                  index === 1 ? isEnabledPass : index === 2 ? isDarkMode : null
+                  index === 1
+                    ? isTurnPassword
+                    : index === 2
+                    ? isTurnDarkMode
+                    : null
                 }
                 trackColor={{
                   false: 'rgba(155, 155, 155, 0.3)',
@@ -195,22 +196,22 @@ const ItemSetting = ({data, title, index}, props) => {
                 }}
                 thumbColor={
                   index === 1
-                    ? isEnabledPass
-                      ? '#2AA952'
+                    ? isTurnPassword
+                      ? '#35C4BA'
                       : theme.colors.white
                     : index === 2
-                    ? isDarkMode
-                      ? '#2AA952'
+                    ? isTurnDarkMode
+                      ? '#35C4BA'
                       : theme.colors.white
                     : isEnabled
-                    ? '#2AA952'
+                    ? '#35C4BA'
                     : theme.colors.white
                 }
                 onChange={() => {
                   index === 1
                     ? handleOpenBottomSheet()
                     : index === 2
-                    ? handeleDarkMode()
+                    ? handleDarkMode()
                     : null;
                 }}
               />
@@ -241,7 +242,7 @@ const ItemSetting = ({data, title, index}, props) => {
         </Block>
 
         <BottomSheet
-          ref={modalizRef}
+          ref={modalizeRef}
           adjustToContentHeight={true}
           HeaderComponent={HeaderComponent}
           FloatingComponent={FloatingComponent}
