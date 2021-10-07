@@ -1,17 +1,22 @@
 import {Block} from '@components';
-import {theme} from '@theme';
+import {useTheme} from '@theme';
 import React, {useEffect, useRef} from 'react';
-import {icons} from '@assets';
-import styles from './styles';
 import {StatusBar, Animated, Text, Dimensions} from 'react-native';
 import {useNavigation} from '@react-navigation/core';
 import {routes} from '@navigation/routes';
 import {useSelector} from 'react-redux';
 import {Logo} from '@assets/icons';
+import {useStyles} from './styles';
 
-const SplashScreen = () => {
-  const {first} = useSelector(state => state.root.user);
-  const {isTurn} = useSelector(state => state.root.password);
+const SplashScreen = props => {
+  const {
+    theme: {theme: themeStore},
+    user: {first},
+    password: {isTurn},
+  } = useSelector(state => state.root);
+  const theme = useTheme(themeStore);
+
+  const styles = useStyles(props, themeStore);
   const navigation = useNavigation();
   const moveAnim = useRef(new Animated.Value(0)).current;
   const fadeAnim = useRef(new Animated.Value(0)).current;

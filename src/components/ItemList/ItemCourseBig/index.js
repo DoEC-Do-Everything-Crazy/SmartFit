@@ -1,18 +1,25 @@
 import {Block, Text} from '@components';
 import React from 'react';
 import {ImageBackground, Pressable} from 'react-native';
-import styles from './styles';
+import {useSelector} from 'react-redux';
+import {useStyles} from './styles';
 import {useNavigation} from '@react-navigation/core';
 import {routes} from '@navigation/routes';
 import {images} from '@assets';
 
 const dataTitle = ['GYM', 'YOGA', 'BELLY DANCE', 'BOXING', 'DANCE SPORT'];
 
-const ItemCourseBig = ({title, url}) => {
+const ItemCourseBig = ({title, url, props}) => {
   const navigation = useNavigation();
   const onPress = ({name}) => {
     navigation.navigate(routes.COURSE_LIST_SCREEN);
   };
+
+  const {
+    theme: {theme: themeStore},
+  } = useSelector(stateRoot => stateRoot.root);
+  const styles = useStyles(props, themeStore);
+
   return (
     <Block>
       <Pressable onPress={onPress}>

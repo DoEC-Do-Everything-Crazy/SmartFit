@@ -1,7 +1,7 @@
 import {getSize, width} from '@utils/responsive';
-import {StyleSheet} from 'react-native';
+import {makeStyles} from '@theme';
 
-export default StyleSheet.create({
+export const useStyles = makeStyles()(({}) => ({
   container: {
     paddingHorizontal: getSize.m(16),
     marginTop: getSize.m(16),
@@ -16,4 +16,4 @@ export default StyleSheet.create({
     bottom: getSize.s(10),
     marginLeft: getSize.s(32),
   },
-});
+}));

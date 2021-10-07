@@ -1,7 +1,8 @@
 import {getSize} from '@utils/responsive';
-import {StyleSheet, Dimensions} from 'react-native';
+import {Dimensions} from 'react-native';
+import {makeStyles} from '@theme';
 
-export default StyleSheet.create({
+export const useStyles = makeStyles()(({}) => ({
   camera: {
     flex: 0,
     alignItems: 'center',
@@ -11,4 +12,4 @@ export default StyleSheet.create({
     width: Dimensions.get('window').width,
     paddingBottom: getSize.s(20),
   },
-});
+}));

@@ -1,17 +1,24 @@
 import {Block, Header, Text, TextInput} from '@components';
 import ItemSearch from '@components/ItemList/ItemSearch';
-import {theme} from '@theme';
+import {useTheme} from '@theme';
 import React, {useState} from 'react';
 import {FlatList, Pressable} from 'react-native';
-import styles from './styles';
 import {DATA_SEARCH} from '@constants';
 import {Filter} from '@assets/icons';
 import {useNavigation} from '@react-navigation/core';
 import {routes} from '@navigation/routes';
+import {useSelector} from 'react-redux';
+import {useStyles} from './styles';
 
-const SearchScreen = () => {
+const SearchScreen = props => {
   const [data, setData] = useState('');
-  // const [key, setKey] = useState('');
+
+  const {
+    theme: {theme: themeStore},
+  } = useSelector(state => state.root);
+  const styles = useStyles(props, themeStore);
+  const theme = useTheme(themeStore);
+
   const navigation = useNavigation();
   const _renderItem = ({item}) => <ItemSearch />;
 

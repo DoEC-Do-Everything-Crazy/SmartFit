@@ -1,22 +1,17 @@
 import {Block, Text} from '@components';
-import {theme} from '@theme';
 import React, {useState} from 'react';
 import {FlatList, Pressable} from 'react-native';
-import styles from './styles';
+import {useSelector} from 'react-redux';
+import {useStyles} from './styles';
+import {useTheme} from '@theme';
 
-const Item = ({name, onPress, backgroundColor, color, fontType}) => {
-  return (
-    <Pressable
-      style={[{backgroundColor: backgroundColor}, styles.press]}
-      onPress={onPress}>
-      <Text color={color} fontType={fontType}>
-        {name}
-      </Text>
-    </Pressable>
-  );
-};
+const BlockBox = ({category, data, props}) => {
+  const {
+    theme: {theme: themeStore},
+  } = useSelector(stateRoot => stateRoot.root);
+  const styles = useStyles(props, themeStore);
+  const theme = useTheme(themeStore);
 
-const BlockBox = ({category, data}) => {
   const [selectedId, setSelectedId] = useState(null);
   const a = item => {
     setSelectedId(item.id);
@@ -28,6 +23,17 @@ const BlockBox = ({category, data}) => {
     }
   };
 
+  const Item = ({name, onPress, backgroundColor, color, fontType}) => {
+    return (
+      <Pressable
+        style={[{backgroundColor: backgroundColor}, styles.press]}
+        onPress={onPress}>
+        <Text color={color} fontType={fontType}>
+          {name}
+        </Text>
+      </Pressable>
+    );
+  };
   const _renderItem = ({item}) => {
     const backgroundColor = item.check ? '#40BFFF1A' : theme.colors.white;
     const color = item.check ? theme.colors.blue : theme.colors.gray;
@@ -56,10 +62,7 @@ const BlockBox = ({category, data}) => {
         {category}
       </Text>
       <FlatList
-        contentContainerStyle={{
-          flexDirection: 'row',
-          flexWrap: 'wrap',
-        }}
+        contentContainerStyle={styles.list}
         data={data}
         renderItem={_renderItem}
         keyExtractor={item => item.id}

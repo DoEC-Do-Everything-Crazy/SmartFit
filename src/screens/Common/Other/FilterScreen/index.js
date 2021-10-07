@@ -1,19 +1,25 @@
-import {icons} from '@assets';
 import {Cancel} from '@assets/icons';
 import {Block, Text} from '@components';
 import {useNavigation} from '@react-navigation/core';
-import {theme} from '@theme';
 import React from 'react';
-import {Image, Pressable, ScrollView, TouchableOpacity} from 'react-native';
+import {Pressable, ScrollView, TouchableOpacity} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import BlockBox from './components/BlockBox';
 import data from './components/BlockBox/ListData';
 import PriceRange from './components/PriceRange';
-import styles from './styles';
+import {useSelector} from 'react-redux';
+import {useStyles} from './styles';
+import {useTheme} from '@theme';
 
-const FilterScreen = () => {
+const FilterScreen = props => {
   const {top} = useSafeAreaInsets();
   const navigation = useNavigation();
+  const {
+    theme: {theme: themeStore},
+  } = useSelector(stateRoot => stateRoot.root);
+  const styles = useStyles(props, themeStore);
+  const theme = useTheme(themeStore);
+
   return (
     <Block flex backgroundColor={theme.colors.background}>
       <Block

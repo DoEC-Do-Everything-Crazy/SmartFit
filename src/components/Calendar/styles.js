@@ -1,8 +1,7 @@
-import {theme} from '@theme';
 import {getSize} from '@utils/responsive';
-import {StyleSheet} from 'react-native';
+import {makeStyles} from '@theme';
 
-export default StyleSheet.create({
+export const useStyles = makeStyles()(({colors}) => ({
   button: (borderColor, scale, width) => ({
     borderColor,
     transform: [{scale}],
@@ -19,7 +18,7 @@ export default StyleSheet.create({
   icon: width => ({
     width: getSize.s(width - 5),
     height: getSize.s(width - 5),
-    tintColor: theme.colors.white,
+    tintColor: colors.white,
     resizeMode: 'contain',
     zIndex: 20,
   }),
@@ -29,4 +28,4 @@ export default StyleSheet.create({
     backgroundColor: 'green',
     position: 'absolute',
   }),
-});
+}));

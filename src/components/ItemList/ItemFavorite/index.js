@@ -1,20 +1,27 @@
 import {images} from '@assets';
 import {HeartPf} from '@assets/icons';
 import {Block, Text} from '@components';
-import {theme} from '@theme';
 import {width} from '@utils/responsive';
 import React, {useEffect, useState} from 'react';
 import {Image, Pressable} from 'react-native';
-import styles from './styles';
+import {useSelector} from 'react-redux';
+import {useStyles} from './styles';
+import {useTheme} from '@theme';
 
-const ItemFavorite = ({picture, title, group_id, index, marginTop}) => {
+const ItemFavorite = ({picture, title, group_id, index, marginTop, props}) => {
   const [isTouch, setTouch] = useState(true);
   const [favoriteColor, setFavoriteColor] = useState();
+  const {
+    theme: {theme: themeStore},
+  } = useSelector(stateRoot => stateRoot.root);
+  const styles = useStyles(props, themeStore);
+  const theme = useTheme(themeStore);
+
   useEffect(() => {
     isTouch
       ? setFavoriteColor(theme.colors.red)
       : setFavoriteColor(theme.colors.gray);
-  }, [isTouch]);
+  }, [isTouch, theme.colors.gray, theme.colors.red]);
   return (
     <Block
       alignCenter

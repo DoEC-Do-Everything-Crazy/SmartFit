@@ -1,20 +1,27 @@
 import {Block, Header, Text} from '@components';
 import ItemOrder from '@components/ItemList/ItemOrder';
-import {theme} from '@theme';
+
 import React, {useState} from 'react';
 import {FlatList, Pressable, ScrollView} from 'react-native';
-import styles from './styles';
+import {useSelector} from 'react-redux';
+import {useStyles} from './styles';
+import {useTheme} from '@theme';
 import {DATA_HEADER} from '@constants/';
 
-const Item = ({item, onPress, backgroundColor, textColor}) => (
-  <Pressable onPress={onPress} style={[styles.itemHeader, backgroundColor]}>
-    <Text style={[styles.text, textColor]}>{item.title}</Text>
-  </Pressable>
-);
+const OrderScreen = props => {
+  const {
+    theme: {theme: themeStore},
+  } = useSelector(stateRoot => stateRoot.root);
+  const styles = useStyles(props, themeStore);
+  const theme = useTheme(themeStore);
 
-const OrderScreen = () => {
   const _renderItem = (item, index) => <ItemOrder index={index} />;
   const [selectedId, setSelectedId] = useState(1);
+  const Item = ({item, onPress, backgroundColor, textColor}) => (
+    <Pressable onPress={onPress} style={[styles.itemHeader, backgroundColor]}>
+      <Text style={[styles.text, textColor]}>{item.title}</Text>
+    </Pressable>
+  );
   const _renderItemHeader = ({item}) => {
     const backgroundColor = item.id === selectedId ? '#045694' : 'transparent';
     const color = item.id === selectedId ? 'white' : 'black';

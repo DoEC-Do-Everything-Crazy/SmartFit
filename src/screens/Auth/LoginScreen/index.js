@@ -6,10 +6,9 @@ import {AuthService} from '@services';
 import auth from '@react-native-firebase/auth';
 
 import {routes} from '@navigation/routes';
-import styles from './styles';
-import {theme} from '@theme';
+import {useStyles} from './styles';
+import {useTheme} from '@theme';
 
-// import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {width} from 'utils/responsive';
 
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
@@ -18,19 +17,19 @@ import {useDispatch, useSelector} from 'react-redux';
 import {addUser} from 'reduxs/reducers';
 import {Facebook, Google} from '@assets/icons';
 
-const LoginScreen = ({navigation}) => {
+const LoginScreen = ({navigation, props}) => {
   // const navigation = useNavigation();
-  // const {top} = useSafeAreaInsets();
-  const dispatch = useDispatch();
-  const {routeScreen} = useSelector(state => state.root.screen);
 
+  const dispatch = useDispatch();
+  const {
+    screen: {routeScreen},
+    theme: {theme: themeStore},
+  } = useSelector(state => state.root);
+  const styles = useStyles(props, themeStore);
+  const theme = useTheme(themeStore);
   // Handle user state changes
   async function onAuthStateChanged(usr) {
-    console.log('AAAAAAA');
     if (usr) {
-      const currentUser = await GoogleSignin.getCurrentUser();
-
-      console.log('user', currentUser);
       dispatch(addUser(usr));
     }
   }

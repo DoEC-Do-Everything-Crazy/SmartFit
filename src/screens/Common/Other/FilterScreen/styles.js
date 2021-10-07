@@ -1,9 +1,8 @@
-import {theme} from '@theme';
-import {StyleSheet} from 'react-native';
+import {makeStyles} from '@theme';
 
-export default StyleSheet.create({
+export const useStyles = makeStyles()(({colors}) => ({
   button: {
-    backgroundColor: theme.colors.blue,
+    backgroundColor: colors.blue,
     height: 48,
     marginHorizontal: 16,
     justifyContent: 'center',
@@ -12,4 +11,4 @@ export default StyleSheet.create({
     marginTop: 10,
     borderRadius: 8,
   },
-});
+}));

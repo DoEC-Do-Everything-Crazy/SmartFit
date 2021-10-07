@@ -1,12 +1,11 @@
-import {theme} from '@theme';
 import {getSize} from '@utils/responsive';
-import {StyleSheet} from 'react-native';
+import {makeStyles} from '@theme';
 
-export default StyleSheet.create({
+export const useStyles = makeStyles()(({colors}) => ({
   title: {
     fontSize: getSize.m(18),
     fontWeight: 'bold',
-    color: theme.colors.blue,
+    color: colors.blue,
   },
   image: {
     top: 15,
@@ -18,4 +17,4 @@ export default StyleSheet.create({
     marginVertical: getSize.m(8),
     paddingHorizontal: getSize.m(16),
   },
-});
+}));

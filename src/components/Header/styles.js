@@ -1,8 +1,7 @@
-import {StyleSheet} from 'react-native';
+import {makeStyles} from '@theme';
 import {getSize} from '@utils/responsive';
-import {theme} from './../../theme/index';
 
-export default StyleSheet.create({
+export const useStyles = makeStyles()(({colors}) => ({
   iconBack: {
     height: getSize.s(18),
     width: getSize.s(18),
@@ -23,6 +22,6 @@ export default StyleSheet.create({
     height: getSize.s(40),
     justifyContent: 'space-between',
     paddingHorizontal: getSize.m(16),
-    backgroundColor: theme.colors.white,
+    backgroundColor: colors.text,
   },
-});
+}));

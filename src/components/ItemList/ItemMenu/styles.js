@@ -1,8 +1,7 @@
-import {StyleSheet} from 'react-native';
-import {getSize, width} from '@utils/responsive';
-import {theme} from '@theme';
+import {getSize} from '@utils/responsive';
+import {makeStyles} from '@theme';
 
-export default StyleSheet.create({
+export const useStyles = makeStyles()(({colors}) => ({
   icon: {
     tintColor: '#fff',
     justifyContent: 'center',
@@ -16,6 +15,6 @@ export default StyleSheet.create({
     position: 'absolute',
     fontSize: getSize.m(17),
     fontWeight: 'bold',
-    color: theme.colors.white,
+    color: colors.white,
   },
-});
+}));

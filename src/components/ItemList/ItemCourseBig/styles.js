@@ -1,7 +1,7 @@
 import {width} from '@utils/responsive';
-import {StyleSheet} from 'react-native';
+import {makeStyles} from '@theme';
 
-export default StyleSheet.create({
+export const useStyles = makeStyles()(({}) => ({
   imageHorizontal: {
     borderRadius: 5,
     width: width / 1.095,
@@ -30,4 +30,4 @@ export default StyleSheet.create({
     bottom: 0,
     margin: 10,
   },
-});
+}));

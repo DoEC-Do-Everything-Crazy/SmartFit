@@ -1,13 +1,11 @@
-import {StyleSheet} from 'react-native';
-import {getSize} from '@utils/responsive';
-import {theme} from '@theme';
+import {makeStyles} from '@theme';
 
-export default StyleSheet.create({
+export const useStyles = makeStyles()(({colors}) => ({
   text: {
-    color: theme.colors.red,
+    color: colors.red,
     fontSize: 12,
     position: 'relative',
     bottom: '2%',
     left: '4%',
   },
-});
+}));

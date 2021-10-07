@@ -1,15 +1,21 @@
 import {Block, Header} from '@components';
-import {theme} from '@theme';
 import React, {useEffect, useState} from 'react';
 import {ScrollView} from 'react-native';
 import ListHotCourse from './components/ListHotCourse';
 import ListMenu from './components/ListMenu';
 import ListRecommended from './components/ListRecommended';
-import styles from './styles';
-import axios from 'axios';
 
-const HomeScreen = () => {
+import axios from 'axios';
+import {useSelector} from 'react-redux';
+import {useTheme} from '@theme';
+import {useStyles} from './styles';
+
+const HomeScreen = props => {
   const [data, setData] = useState([]);
+
+  const themeStore = useSelector(state => state.root.theme.theme);
+  const theme = useTheme(themeStore);
+  const styles = useStyles(props, themeStore);
 
   const fetchData = async data => {
     try {

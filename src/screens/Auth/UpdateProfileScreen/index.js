@@ -2,16 +2,22 @@ import {Email, Fullname, Gender, List, Phone} from '@assets/icons';
 import {Block, Button, Header, TextInput} from '@components';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {Picker} from '@react-native-picker/picker';
-import {theme} from '@theme';
-// import {height} from '@utils/responsive';
+import {useTheme} from '@theme';
+
 import {Formik} from 'formik';
 import React, {useState} from 'react';
 import {Platform, Text, TouchableOpacity} from 'react-native';
 import * as yup from 'yup';
-import styles from './styles';
+import {useSelector} from 'react-redux';
+import {useStyles} from './styles';
 
-const UpdateProfileScreen = ({route}) => {
-  // const [isInput, setInput] = useState(true);
+const UpdateProfileScreen = ({route, props}) => {
+  const {
+    theme: {theme: themeStore},
+  } = useSelector(state => state.root);
+  const styles = useStyles(props, themeStore);
+  const theme = useTheme(themeStore);
+
   const {phone} = route.params;
   const [date, setDate] = useState(new Date());
   const [selectedGender, setSelectedGender] = useState();

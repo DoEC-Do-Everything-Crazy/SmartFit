@@ -1,11 +1,20 @@
 import {Block, Text} from '@components';
 import {Picker} from '@react-native-picker/picker';
-import {theme} from '@theme';
+import {useSelector} from 'react-redux';
+import {useStyles} from './styles';
+import {useTheme} from '@theme';
 import React, {useEffect, useState} from 'react';
 
-const PriceRange = (label, value) => {
+const PriceRange = ({label, value, props}) => {
   const [amountFrom, setAmountFrom] = useState();
   const [amountTo, setAmountTo] = useState();
+
+  const {
+    theme: {theme: themeStore},
+  } = useSelector(stateRoot => stateRoot.root);
+  const styles = useStyles(props, themeStore);
+  const theme = useTheme(themeStore);
+
   useEffect(() => {}, [amountFrom, amountTo]);
   return (
     <Block>
@@ -25,7 +34,7 @@ const PriceRange = (label, value) => {
           borderWidth={1}
           borderColor="#EBF0FF">
           <Picker
-            style={{width: 170, color: 'gray'}}
+            style={styles.picker}
             mode="dropdown"
             dropdownIconColor="blue"
             selectedValue={amountFrom}
@@ -42,7 +51,7 @@ const PriceRange = (label, value) => {
           borderWidth={1}
           borderColor="#EBF0FF">
           <Picker
-            style={{width: 170, color: 'gray'}}
+            style={styles.picker}
             mode="dropdown"
             dropdownIconColor="blue"
             selectedValue={amountTo}

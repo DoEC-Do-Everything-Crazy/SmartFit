@@ -1,6 +1,6 @@
-import {StyleSheet} from 'react-native';
+import {makeStyles} from '@theme';
 
-export default StyleSheet.create({
+export const useStyles = makeStyles()(({}) => ({
   item: {
     justifyContent: 'center',
     marginVertical: 10,
@@ -9,9 +9,8 @@ export default StyleSheet.create({
     borderRadius: 8,
     marginHorizontal: 20,
   },
-
   text: {
     fontSize: 18,
     fontWeight: 'bold',
   },
-});
+}));

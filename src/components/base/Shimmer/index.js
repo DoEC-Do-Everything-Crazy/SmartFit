@@ -2,7 +2,9 @@ import {width as WIDTH} from '@utils/responsive';
 import React, {useEffect, useRef} from 'react';
 import {Animated, Easing, StyleSheet, View} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import styles from './styles';
+import {useStyles} from './styles';
+import {useSelector} from 'react-redux';
+import {useTheme} from '@theme';
 
 const LinearGradientAnim = Animated.createAnimatedComponent(LinearGradient);
 
@@ -18,7 +20,13 @@ const Shimmer = ({
   colors,
   style,
   children,
+  props,
 }) => {
+  const {
+    theme: {theme: themeStore},
+  } = useSelector(stateRoot => stateRoot.root);
+  const styles = useStyles(props, themeStore);
+
   const animatedValue = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {

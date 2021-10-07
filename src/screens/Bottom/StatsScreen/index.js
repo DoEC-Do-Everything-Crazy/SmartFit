@@ -2,16 +2,21 @@ import {HeartPf, Order} from '@assets/icons';
 import {Block, Header as HeaderLogin, InviteLogin} from '@components';
 import ItemFeature from '@components/ItemList/ItemFeature';
 import {routes} from '@navigation/routes';
-import {theme} from '@theme';
 import {getSize, width} from '@utils/responsive';
 import React from 'react';
 import {useSelector} from 'react-redux';
 import DateCategory from './components/DateCategory';
 import Header from './components/Header';
 import StatsBlock from './components/StatsBlock';
+import {useTheme} from '@theme';
 
 const StatsScreen = () => {
-  const {user} = useSelector(state => state.root.user);
+  const {
+    theme: {theme: themeStore},
+    user: {user},
+  } = useSelector(state => state.root);
+  const theme = useTheme(themeStore);
+
   return JSON.stringify(user) !== '{}' ? (
     <>
       <Block flex backgroundColor={theme.colors.background}>

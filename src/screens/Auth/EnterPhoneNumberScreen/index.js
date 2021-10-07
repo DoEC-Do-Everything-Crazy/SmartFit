@@ -1,15 +1,21 @@
 import {Block, Button, Header, Text, TextInput} from '@components';
-import {theme} from '@theme';
+import {useTheme} from '@theme';
 import React from 'react';
 import {Formik} from 'formik';
 import * as yup from 'yup';
-import styles from './style';
 
 import {useNavigation} from '@react-navigation/core';
 import {routes} from '@navigation/routes';
+import {useSelector} from 'react-redux';
+import {useStyles} from './styles';
 
-const EnterPhoneNumberScreen = () => {
+const EnterPhoneNumberScreen = props => {
   const navigation = useNavigation();
+  const {
+    theme: {theme: themeStore},
+  } = useSelector(state => state.root);
+  const styles = useStyles(props, themeStore);
+  const theme = useTheme(themeStore);
 
   const validationSchema = yup.object().shape({
     phoneNumber: yup
@@ -38,7 +44,7 @@ const EnterPhoneNumberScreen = () => {
             title="Sign in with phone number"
           />
           <Block flex justifyCenter paddingHorizontal={16}>
-            <Text center marginBottom={30}>
+            <Text center fontType={'bold'} marginBottom={30}>
               Enter your phone number to receive OTP
             </Text>
             <Block marginBottom={10}>

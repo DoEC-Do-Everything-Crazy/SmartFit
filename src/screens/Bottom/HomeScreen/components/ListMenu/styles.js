@@ -1,9 +1,9 @@
-import {StyleSheet} from 'react-native';
+import {makeStyles} from '@theme';
 import {getSize} from '@utils/responsive';
 
-export default StyleSheet.create({
+export const useStyles = makeStyles()(({}) => ({
   container: {
     borderTopLeftRadius: getSize.m(16),
     borderTopRightRadius: getSize.m(16),
   },
-});
+}));

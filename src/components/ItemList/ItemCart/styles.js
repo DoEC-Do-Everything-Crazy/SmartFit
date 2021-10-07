@@ -1,10 +1,10 @@
-import {StyleSheet} from 'react-native';
+import {makeStyles} from '@theme';
 
-export default StyleSheet.create({
+export const useStyles = makeStyles()(({}) => ({
   image: {
     width: 50,
     height: 50,
     resizeMode: 'cover',
     borderRadius: 50,
   },
-});
+}));

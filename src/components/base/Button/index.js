@@ -1,11 +1,12 @@
 /* eslint-disable react-native/no-inline-styles */
 import {Text, Block} from '@components';
-import {theme} from '@theme';
 import {getSize} from '@utils/responsive';
 import React from 'react';
 import {Image, Pressable} from 'react-native';
 import {UIActivityIndicator} from 'react-native-indicators';
-import styles from './styles';
+import {useSelector} from 'react-redux';
+import {useStyles} from './styles';
+import {useTheme} from '@theme';
 
 const Button = ({
   onPress,
@@ -15,7 +16,14 @@ const Button = ({
   disabled,
   leftIcon,
   rightIcon,
+  props,
 }) => {
+  const {
+    theme: {theme: themeStore},
+  } = useSelector(stateRoot => stateRoot.root);
+  const styles = useStyles(props, themeStore);
+  const theme = useTheme(themeStore);
+
   return (
     <Pressable disabled={disabled} onPress={onPress}>
       <Block
@@ -41,7 +49,7 @@ const Button = ({
               flex
               center
               fontType="bold"
-              color={theme.colors.white}
+              color={theme.colors.text}
               style={titleStyle}>
               {title}
             </Text>

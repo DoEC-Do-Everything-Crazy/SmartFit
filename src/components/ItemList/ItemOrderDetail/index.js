@@ -1,9 +1,17 @@
 import {Block, Text} from '@components';
 import React from 'react';
 import {Image} from 'react-native';
-import styles from './styles';
-import {theme} from '@theme';
-const ItemOrderDetail = ({picture, title, group_id, index}) => {
+import {useSelector} from 'react-redux';
+import {useStyles} from './styles';
+import {useTheme} from '@theme';
+
+const ItemOrderDetail = ({picture, title, group_id, index, props}) => {
+  const {
+    theme: {theme: themeStore},
+  } = useSelector(stateRoot => stateRoot.root);
+  const styles = useStyles(props, themeStore);
+  const theme = useTheme(themeStore);
+
   return (
     <Block
       flex

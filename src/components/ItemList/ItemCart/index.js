@@ -1,10 +1,17 @@
 import {Block, Text} from '@components';
-import {theme} from '@theme';
 import React from 'react';
 import {Image, Pressable} from 'react-native';
-import styles from './styles';
+import {useSelector} from 'react-redux';
+import {useStyles} from './styles';
+import {useTheme} from '@theme';
 
-const ItemCart = ({title, image, price}) => {
+const ItemCart = ({title, image, price, props}) => {
+  const {
+    theme: {theme: themeStore},
+  } = useSelector(stateRoot => stateRoot.root);
+  const styles = useStyles(props, themeStore);
+  const theme = useTheme(themeStore);
+
   return (
     <Pressable>
       <Block
@@ -13,7 +20,7 @@ const ItemCart = ({title, image, price}) => {
         borderRadius={20}
         marginHorizontal={16}
         marginVertical={5}
-        backgroundColor={theme.colors.white}>
+        backgroundColor={theme.colors.text}>
         <Block row alignCenter marginHorizontal={8}>
           <Image style={styles.image} source={{uri: image}} />
           <Block marginHorizontal={8}>

@@ -3,13 +3,16 @@ import {Block, Text} from '@components';
 import {width} from '@utils/responsive';
 import React from 'react';
 import {Image} from 'react-native';
-import {theme} from '@theme';
+import {useSelector} from 'react-redux';
+import {useTheme} from '@theme';
 
 const StatisticalProfile = ({balance, course}) => {
+  const themeStore = useSelector(state => state.root.theme.theme);
+  const theme = useTheme(themeStore);
   return (
     <Block height="10%" justifyCenter>
       <Block row paddingHorizontal={width / 4.5} space="between">
-        <Block justifyCenter alignCenter>
+        <Block justifyCenter paddingRight={50} alignCenter borderRightWidth={1}>
           <Text color={theme.colors.darkBlue} fontType="bold">
             {balance}
           </Text>

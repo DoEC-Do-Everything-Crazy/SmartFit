@@ -1,18 +1,25 @@
 import {icons} from '@assets';
 import {Block, Header, Text} from '@components';
-import {theme} from '@theme';
+import {useTheme} from '@theme';
 import React from 'react';
 import {Image, Pressable} from 'react-native';
-import styles from './style';
+import {useSelector} from 'react-redux';
+import {useStyles} from './styles';
 
-const SendEmail = () => {
+const SendEmail = props => {
+  const {
+    theme: {theme: themeStore},
+  } = useSelector(state => state.root);
+  const styles = useStyles(props, themeStore);
+  const theme = useTheme(themeStore);
+
   return (
-    <Block flex paddingHorizontal={16} backgroundColor={theme.colors.white}>
+    <Block flex backgroundColor={theme.colors.white}>
       <Header canGoBack title="Vertify email" />
       <Block
+        paddingHorizontal={16}
         alignCenter
         marginTop={40}
-        marginBottom={15}
         backgroundColor={theme.colors.white}>
         <Image
           resizeMode="contain"
@@ -36,11 +43,14 @@ const SendEmail = () => {
             <Text size={18}>Check your email and click on the</Text>
             <Text size={18}>confirmation link to continue.</Text>
           </Block>
-          <Pressable
-            marginTop={30}
-            width={200}
-            backgroundColor={theme.colors.white}>
-            <Text center size={18} fontType="bold" color={theme.colors.blue}>
+          <Pressable width={200} backgroundColor={theme.colors.white}>
+            <Text
+              marginTop={15}
+              marginBottom={15}
+              center
+              size={18}
+              fontType="bold"
+              color={theme.colors.blue}>
               Resend email
             </Text>
           </Pressable>

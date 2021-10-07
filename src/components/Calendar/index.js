@@ -3,9 +3,15 @@ import {TextInput} from '@components';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import React, {useState} from 'react';
 import {Platform, TouchableOpacity} from 'react-native';
-import styles from './styles';
+import {useSelector} from 'react-redux';
+import {useStyles} from './styles';
 
-const Calendar = ({testID, value, is24Hour, display}) => {
+const Calendar = ({testID, value, is24Hour, display, props}) => {
+  const {
+    theme: {theme: themeStore},
+  } = useSelector(stateRoot => stateRoot.root);
+  const styles = useStyles(props, themeStore);
+
   const [show, setShow] = useState(false);
   const [mode, setMode] = useState('date');
   const [date, setDate] = useState(new Date());

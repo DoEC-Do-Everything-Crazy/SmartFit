@@ -1,7 +1,7 @@
 import {getSize} from '@utils/responsive';
-import {StyleSheet} from 'react-native';
+import {makeStyles} from '@theme';
 
-export default StyleSheet.create({
+export const useStyles = makeStyles()(({}) => ({
   image: {
     width: getSize.s(40),
     height: getSize.s(40),
@@ -15,4 +15,4 @@ export default StyleSheet.create({
   date: {
     fontSize: 12,
   },
-});
+}));

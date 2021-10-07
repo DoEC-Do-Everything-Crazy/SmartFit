@@ -3,7 +3,8 @@ import {Block, Text} from '@components';
 import LottieView from 'lottie-react-native';
 import React from 'react';
 import {Image, Pressable} from 'react-native';
-import styles from './styles';
+import {useSelector} from 'react-redux';
+import {useStyles} from './styles';
 
 const Empty = ({
   icon,
@@ -14,7 +15,13 @@ const Empty = ({
   style,
   imageStyles,
   buttonStyles,
+  props,
 }) => {
+  const {
+    theme: {theme: themeStore},
+  } = useSelector(stateRoot => stateRoot.root);
+  const styles = useStyles(props, themeStore);
+
   return (
     <Block flex alignCenter justifyCenter padding={12} style={style}>
       {lottie ? (

@@ -1,8 +1,8 @@
 import {getSize, width} from '@utils/responsive';
-import {StyleSheet, Platform} from 'react-native';
-import {theme} from '@theme';
+import {Platform} from 'react-native';
+import {makeStyles} from '@theme';
 
-export default StyleSheet.create({
+export const useStyles = makeStyles()(({colors}) => ({
   item: {
     paddingBottom: 20,
     width: width - 32,
@@ -30,7 +30,7 @@ export default StyleSheet.create({
   },
   choose: {
     paddingVertical: getSize.s(3),
-    backgroundColor: theme.colors.blue,
+    backgroundColor: colors.blue,
     width: getSize.m(80),
     borderRadius: getSize.m(5),
   },
@@ -38,7 +38,7 @@ export default StyleSheet.create({
     justifyContent: 'center',
     textAlign: 'center',
     height: getSize.m(20),
-    color: theme.colors.white,
+    color: colors.white,
   },
   headerWrapper: {
     paddingHorizontal: getSize.m(16),
@@ -56,7 +56,7 @@ export default StyleSheet.create({
     justifyContent: 'flex-end',
   },
   button: {
-    backgroundColor: theme.colors.blue,
+    backgroundColor: colors.blue,
     height: getSize.m(48),
     justifyContent: 'center',
     alignItems: 'center',
@@ -67,4 +67,4 @@ export default StyleSheet.create({
     width: getSize.s(17),
     height: getSize.s(10),
   },
-});
+}));

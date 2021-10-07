@@ -1,6 +1,6 @@
-import {StyleSheet} from 'react-native';
+import {makeStyles} from '@theme';
 
-export default StyleSheet.create({
+export const useStyles = makeStyles()(({}) => ({
   block: {
     flex: 1,
   },
@@ -43,4 +43,4 @@ export default StyleSheet.create({
     shadowRadius: 2,
     elevation: 1,
   },
-});
+}));

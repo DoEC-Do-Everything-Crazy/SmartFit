@@ -1,5 +1,5 @@
 import React from 'react';
-import {Block, Text, Header} from '@components';
+import {Block, Header} from '@components';
 import ListFeatureSetting from './components/ListFeatureSetting';
 import DATA from './data';
 

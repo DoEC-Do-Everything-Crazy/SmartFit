@@ -1,6 +1,6 @@
-/* eslint-disable react-native/no-inline-styles */
 import {icons} from '@assets';
-import {theme} from '@theme';
+import {useTheme, makeStyles} from '@theme';
+import {useSelector} from 'react-redux';
 import {getSize} from '@utils/responsive';
 import React from 'react';
 import {
@@ -12,67 +12,70 @@ import {
 } from 'react-native';
 import {routes} from './routes';
 
-const TabItem = ({icon, label, active, onPress, index}) => {
-  const totalNotification = 3;
+const CustomTabBar = ({state, descriptors, navigation, props}) => {
+  const {
+    theme: {theme: themeStore},
+  } = useSelector(stateRoot => stateRoot.root);
+  const styles = useStyles(props, themeStore);
+  const TabItem = ({icon, label, active, onPress, index}) => {
+    const totalNotification = 3;
 
-  const animation = new Animated.Value(0);
+    const animation = new Animated.Value(0);
 
-  Animated.spring(animation, {
-    toValue: active ? 1 : 0,
-    stiffness: 100,
-    useNativeDriver: true,
-  }).start();
+    Animated.spring(animation, {
+      toValue: active ? 1 : 0,
+      stiffness: 100,
+      useNativeDriver: true,
+    }).start();
 
-  const iconTranslate = animation.interpolate({
-    inputRange: [0, 1],
-    outputRange: [5, 0],
-  });
+    const iconTranslate = animation.interpolate({
+      inputRange: [0, 1],
+      outputRange: [5, 0],
+    });
 
-  const labelTranslate = animation.interpolate({
-    inputRange: [0, 1],
-    outputRange: [25, 0],
-  });
+    const labelTranslate = animation.interpolate({
+      inputRange: [0, 1],
+      outputRange: [25, 0],
+    });
 
-  const translateX = animation.interpolate({
-    inputRange: [0, 1],
-    outputRange: [25, 0],
-  });
+    const translateX = animation.interpolate({
+      inputRange: [0, 1],
+      outputRange: [25, 0],
+    });
 
-  return (
-    <TouchableWithoutFeedback onPress={onPress}>
-      <Animated.View style={styles.container}>
-        <Animated.View
-          style={{
-            transform: [{translateX: iconTranslate}],
-            opacity: active ? 1 : 0.5,
-          }}>
-          <Image style={styles.icon} source={icon} resizeMode="contain" />
+    return (
+      <TouchableWithoutFeedback onPress={onPress}>
+        <Animated.View style={styles.container}>
+          <Animated.View
+            style={{
+              transform: [{translateX: iconTranslate}],
+              opacity: active ? 1 : 0.5,
+            }}>
+            <Image style={styles.icon} source={icon} resizeMode="contain" />
+          </Animated.View>
+          <Animated.View
+            style={[
+              styles.centered,
+              {transform: [{translateX: labelTranslate}]},
+            ]}>
+            {active ? (
+              <Animated.Text style={styles.label}>
+                {index === 3
+                  ? totalNotification > 0
+                    ? `${label} (${totalNotification || 0})`
+                    : label
+                  : label}
+              </Animated.Text>
+            ) : null}
+          </Animated.View>
+          <Animated.View
+            style={[StyleSheet.absoluteFill, {transform: [{translateX}]}]}>
+            <Animated.View style={[styles.cover, {opacity: animation}]} />
+          </Animated.View>
         </Animated.View>
-        <Animated.View
-          style={[
-            styles.centered,
-            {transform: [{translateX: labelTranslate}]},
-          ]}>
-          {active ? (
-            <Animated.Text style={styles.label}>
-              {index === 3
-                ? totalNotification > 0
-                  ? `${label} (${totalNotification || 0})`
-                  : label
-                : label}
-            </Animated.Text>
-          ) : null}
-        </Animated.View>
-        <Animated.View
-          style={[StyleSheet.absoluteFill, {transform: [{translateX}]}]}>
-          <Animated.View style={[styles.cover, {opacity: animation}]} />
-        </Animated.View>
-      </Animated.View>
-    </TouchableWithoutFeedback>
-  );
-};
-
-const CustomTabBar = ({state, descriptors, navigation}) => {
+      </TouchableWithoutFeedback>
+    );
+  };
   return (
     <View style={styles.bar}>
       {state.routes.map((route, index) => {
@@ -118,7 +121,7 @@ const CustomTabBar = ({state, descriptors, navigation}) => {
   );
 };
 
-const styles = StyleSheet.create({
+export const useStyles = makeStyles()(({colors}) => ({
   bar: {
     flexDirection: 'row',
     backgroundColor: 'white',
@@ -138,16 +141,15 @@ const styles = StyleSheet.create({
     tintColor: 'blue',
   },
   label: {
-    color: theme.colors.blue,
+    color: colors.blue,
     fontSize: getSize.m(12),
     marginLeft: getSize.m(5),
-    // fontFamily: 'Quicksand-Medium',
   },
   cover: {
     height: getSize.s(40),
     borderRadius: getSize.m(8),
-    backgroundColor: `${theme.colors.blue}30`,
+    backgroundColor: `${colors.blue}30`,
   },
-});
+}));
 
 export default CustomTabBar;

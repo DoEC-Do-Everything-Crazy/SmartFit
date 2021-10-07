@@ -1,7 +1,7 @@
 import {width} from '@utils/responsive';
-import {StyleSheet} from 'react-native';
+import {makeStyles} from '@theme';
 
-export default StyleSheet.create({
+export const useStyles = makeStyles()(({}) => ({
   image: {
     width: width / 3 - 20,
     height: 70,
@@ -20,4 +20,4 @@ export default StyleSheet.create({
   },
 
   press: {flex: 0},
-});
+}));

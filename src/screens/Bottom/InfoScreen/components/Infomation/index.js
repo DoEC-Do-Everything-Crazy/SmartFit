@@ -1,17 +1,24 @@
-import {Block, Header, Text} from '@components';
-import {DATA_STATISTICAL_PROFILE} from '@constants/';
-import {AuthService} from '@services';
-import {theme} from '@theme';
-import React from 'react';
-import {TouchableOpacity} from 'react-native';
-import {useSelector} from 'react-redux';
-import InfoProfile from './components/InfoProfile';
-import ListItemFeature from './components/ListItemFeature';
-import StatisticalProfile from './components/StatisticalProfile';
-import styles from './styles';
+import { Block, Header, Text } from '@components'
+import { DATA_STATISTICAL_PROFILE } from '@constants/'
+import { AuthService } from '@services'
+import React from 'react'
 
-const Information = () => {
-  const {user} = useSelector(state => state.root.user);
+import { useSelector } from 'react-redux'
+import InfoProfile from './components/InfoProfile'
+import ListItemFeature from './components/ListItemFeature'
+import StatisticalProfile from './components/StatisticalProfile'
+import { useTheme } from '@theme'
+import { useStyles } from './styles'
+
+const Information = (props) => {
+  const {
+    theme: { theme: themeStore },
+    user: { user },
+  } = useSelector((state) => state.root)
+
+  const theme = useTheme(themeStore)
+  const styles = useStyles(props, themeStore)
+
   const DATA_INFO = [
     {
       image: user.photoURL,
@@ -21,7 +28,7 @@ const Information = () => {
       gene: 'Male',
       birthday: '01-01-2001',
     },
-  ];
+  ]
   return (
     <Block flex backgroundColor={theme.colors.blue}>
       <Header
@@ -32,7 +39,8 @@ const Information = () => {
       <Block
         flex
         style={styles.container}
-        backgroundColor={theme.colors.background}>
+        backgroundColor={theme.colors.background}
+      >
         <InfoProfile
           image={DATA_INFO[0].image}
           name={DATA_INFO[0].name}
@@ -49,15 +57,16 @@ const Information = () => {
         <TouchableOpacity
           style={styles.button}
           onPress={() => {
-            AuthService.signOut();
-          }}>
-          <Text color="red" fontType="bold">
+            AuthService.signOut()
+          }}
+        >
+          <Text color={theme.colors.white} fontType="bold">
             Logout
           </Text>
         </TouchableOpacity>
       </Block>
     </Block>
-  );
-};
+  )
+}
 
-export default Information;
+export default Information

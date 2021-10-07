@@ -1,8 +1,7 @@
 import {width, getSize} from '@utils/responsive';
-import {StyleSheet} from 'react-native';
-import {theme} from '@theme';
+import {makeStyles} from '@theme';
 
-export default StyleSheet.create({
+export const useStyles = makeStyles()(({colors}) => ({
   group: {
     justifyContent: 'space-between',
   },
@@ -23,7 +22,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingLeft: '3%',
-    backgroundColor: theme.colors.white,
+    backgroundColor: colors.white,
     borderRadius: getSize.s(5),
   },
   img: {
@@ -37,10 +36,10 @@ export default StyleSheet.create({
     height: getSize.s(60),
   },
   text: {
-    color: theme.colors.red,
+    color: colors.red,
     fontSize: 12,
     position: 'relative',
     bottom: '2%',
     left: '4%',
   },
-});
+}));

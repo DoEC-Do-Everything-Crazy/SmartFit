@@ -1,9 +1,8 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import {icons} from '@assets';
 import {Block, Header, PayInfo, Text, InviteLogin, Button} from '@components';
 import {BottomSheet} from '@components/BottomSheet';
 import ItemPT from '@components/ItemList/ItemPT';
-import {theme} from '@theme';
+import {useTheme} from '@theme';
+import {useStyles} from './styles';
 import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {
   Dimensions,
@@ -18,15 +17,14 @@ import {Rating} from 'react-native-ratings';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import Carousel, {ParallaxImage} from 'react-native-snap-carousel';
 import {useSelector} from 'react-redux';
-import DATA from './DATA.json';
+// import DATA from './DATA.json';
 import axios from 'axios';
-import styles from './styles';
 import {routes} from '@navigation/routes';
 import {Back} from '@assets/icons';
 
 const {width: screenWidth, height: screenHeight} = Dimensions.get('window');
 
-const TabDetails = ({route}) => {
+const TabDetails = ({route, props}) => {
   const {user} = useSelector(state => state.root.user);
   const {id} = route.params;
   const {transferCourseScreen} = useSelector(state => state.root.screen);
@@ -69,6 +67,12 @@ const TabDetails = ({route}) => {
 
   const sessions = data?.session;
 
+  const {
+    theme: {theme: themeStore},
+  } = useSelector(stateRoot => stateRoot.root);
+  const styles = useStyles(props, themeStore);
+  const theme = useTheme(themeStore);
+
   const minute = [25, 30, 35, 40, 45];
   const randomMinute = minute[Math.floor(Math.random() * minute.length)];
   const day = [3, 5];
@@ -102,7 +106,7 @@ const TabDetails = ({route}) => {
         </Block>
       );
     },
-    [handleCloseInf],
+    [handleCloseInf, styles.headerWrapper, theme.colors.blue],
   );
   const _renderItem = ({item, index}, parallaxProps) => {
     return (

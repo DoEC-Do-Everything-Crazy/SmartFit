@@ -1,8 +1,7 @@
-import {theme} from '@theme';
 import {getSize} from '@utils/responsive';
-import {StyleSheet} from 'react-native';
+import {makeStyles} from '@theme';
 
-export default StyleSheet.create({
+export const useStyles = makeStyles()(({colors}) => ({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -11,11 +10,11 @@ export default StyleSheet.create({
     justifyContent: 'space-between',
     marginTop: getSize.m(20),
     paddingBottom: getSize.m(20),
-    borderColor: theme.colors.smoke,
+    borderColor: colors.smoke,
     borderBottomWidth: 1,
   },
   imageSearch: {
     width: getSize.s(36),
     height: getSize.s(36),
   },
-});
+}));

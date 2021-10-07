@@ -1,14 +1,20 @@
-import {icons, images} from '@assets';
+import {images} from '@assets';
 import {Block, Text} from '@components';
-import {theme} from '@theme';
 import React from 'react';
 import {Image} from 'react-native';
-import styles from './styles';
+import {useSelector} from 'react-redux';
+import {useStyles} from './styles';
+import {useTheme} from '@theme';
 import {width} from '@utils/responsive';
 import {Rating} from 'react-native-ratings';
 import {HeartPf} from '@assets/icons';
 
-const ItemCarousel = ({picture, title, group_id, index}) => {
+const ItemCarousel = ({picture, title, group_id, index, props}) => {
+  const {
+    theme: {theme: themeStore},
+  } = useSelector(stateRoot => stateRoot.root);
+  const styles = useStyles(props, themeStore);
+  const theme = useTheme(themeStore);
   return (
     <Block
       justifyCenter
@@ -17,7 +23,7 @@ const ItemCarousel = ({picture, title, group_id, index}) => {
       marginRight={16}
       paddingBottom={16}
       marginBottom={16}
-      backgroundColor={theme.colors.white}>
+      backgroundColor={theme.colors.text}>
       <Image source={images.image} style={styles.image} />
       <Block shadow style={styles.heartContainer}>
         <HeartPf color={theme.colors.red} />

@@ -4,17 +4,22 @@ import {Dimensions} from 'react-native';
 import React, {useCallback, useState} from 'react';
 import {lotties} from '@assets';
 import {routes} from '@navigation/routes';
-import styles from './styles';
+import {useStyles} from './styles';
 
 import {useNavigation} from '@react-navigation/core';
 import {useSelector} from 'react-redux';
 
 const {width: SliderWidth} = Dimensions.get('screen');
 
-const PasswordScreen = () => {
+const PasswordScreen = props => {
   const navigation = useNavigation();
 
-  const {password} = useSelector(state => state.root.password);
+  const {
+    theme: {theme: themeStore},
+    password: {password},
+  } = useSelector(state => state.root);
+  const styles = useStyles(props, themeStore);
+
   const [textError, setTextErrord] = useState('');
   const [passInput, setPassInput] = useState('');
 
@@ -46,6 +51,7 @@ const PasswordScreen = () => {
           <TextInput
             onChangeText={setPassInput}
             value={passInput}
+            isSecure
             inputStyle={styles.textInput}
             placeholder="Enter password"
           />

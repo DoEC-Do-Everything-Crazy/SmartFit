@@ -1,18 +1,32 @@
-import {icons} from '@assets';
 import {Block, Text} from '@components';
-import {theme} from '@theme';
 import React, {useCallback} from 'react';
 import {Image, Pressable} from 'react-native';
-import styles from './styles';
+import {useStyles} from './styles';
+import {useTheme} from '@theme';
 import {useNavigation} from '@react-navigation/core';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {routes} from '@navigation/routes';
 import {changeScreen} from 'reduxs/reducers';
 import {Ratting} from '@assets/icons';
 
-const ItemCourse = ({_id, key, image, courseName, desc, ratting, price}) => {
+const ItemCourse = ({
+  _id,
+  key,
+  image,
+  courseName,
+  desc,
+  ratting,
+  price,
+  props,
+}) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
+
+  const {
+    theme: {theme: themeStore},
+  } = useSelector(stateRoot => stateRoot.root);
+  const styles = useStyles(props, themeStore);
+  const theme = useTheme(themeStore);
 
   const handleOpenCourseDetail = useCallback(() => {
     dispatch(changeScreen('CourseDetail'));
@@ -43,7 +57,7 @@ const ItemCourse = ({_id, key, image, courseName, desc, ratting, price}) => {
             <Text
               size={12}
               marginLeft={5}
-              color={theme.colors.white}
+              color={theme.colors.text}
               fontType="bold">
               {price}$
             </Text>
@@ -71,7 +85,7 @@ const ItemCourse = ({_id, key, image, courseName, desc, ratting, price}) => {
               <Text
                 size={10}
                 marginLeft={5}
-                color={theme.colors.white}
+                color={theme.colors.text}
                 fontType="bold">
                 HOT
               </Text>
@@ -88,7 +102,7 @@ const ItemCourse = ({_id, key, image, courseName, desc, ratting, price}) => {
                 height={'65%'}
                 justifyCenter
                 alignCenter>
-                <Text color={theme.colors.white} fontType="bold">
+                <Text color={theme.colors.text} fontType="bold">
                   Detail
                 </Text>
               </Block>

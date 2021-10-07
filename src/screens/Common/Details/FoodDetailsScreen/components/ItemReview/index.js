@@ -1,12 +1,18 @@
 import {icons} from '@assets';
 import {Block, Text} from '@components';
-import {theme} from '@theme';
+import {useTheme} from '@theme';
 import React from 'react';
 import {Image} from 'react-native';
 import {Rating} from 'react-native-ratings';
-import styles from './styles';
+import {useStyles} from './styles';
+import {useSelector} from 'react-redux';
 
-const ItemReview = ({name, image}) => {
+const ItemReview = ({name, image, props}) => {
+  const {
+    theme: {theme: themeStore},
+  } = useSelector(stateRoot => stateRoot.root);
+  const styles = useStyles(props, themeStore);
+  const theme = useTheme(themeStore);
   return (
     <Block marginBottom={15}>
       <Image style={styles.image} source={{uri: image}} />

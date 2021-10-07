@@ -4,10 +4,16 @@ import ItemCart from '@components/ItemList/ItemCart';
 import React, {useState} from 'react';
 import {FlatList} from 'react-native';
 import Swipeout from 'react-native-swipeout';
-import styles from './styles';
+import {useSelector} from 'react-redux';
+import {useStyles} from './styles';
 
-const CartList = ({DATA}) => {
+const CartList = ({DATA, props}) => {
   const [row, setRow] = useState(null);
+  const {
+    theme: {theme: themeStore},
+  } = useSelector(stateRoot => stateRoot.root);
+  const styles = useStyles(props, themeStore);
+
   const swipeoutBtns = [
     {
       component: (

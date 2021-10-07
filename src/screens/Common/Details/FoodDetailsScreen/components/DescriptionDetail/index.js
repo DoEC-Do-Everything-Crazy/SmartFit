@@ -1,11 +1,16 @@
 import {Block, Text} from '@components';
-import {theme} from '@theme';
+import {useTheme} from '@theme';
 import React, {useState} from 'react';
 import {Pressable} from 'react-native';
+import {useSelector} from 'react-redux';
 
 const DescriptionDetail = () => {
   const [seeMore, setSeemore] = useState(true);
+  const {
+    theme: {theme: themeStore},
+  } = useSelector(stateRoot => stateRoot.root);
 
+  const theme = useTheme(themeStore);
   const numberOfLines = seeMore ? 0 : 2;
   const txtSeemore = seeMore ? 'Collapse' : 'See more';
 

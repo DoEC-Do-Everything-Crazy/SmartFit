@@ -1,24 +1,25 @@
 import {Block, Empty, Text, Button, TextInput} from '@components';
-
 import {Dimensions} from 'react-native';
 import React, {useCallback, useState} from 'react';
-import * as yup from 'yup';
 import {lotties} from '@assets';
-import {Formik} from 'formik';
 import {routes} from '@navigation/routes';
-import styles from './styles';
-
+import {useStyles} from './styles';
 import {useNavigation} from '@react-navigation/core';
 import {useSelector} from 'react-redux';
 
 const {width: SliderWidth} = Dimensions.get('screen');
 
-const ChangePinCode = () => {
+const ChangePinCode = props => {
   const navigation = useNavigation();
 
   const {password} = useSelector(state => state.root.password);
   const [textError, setTextErrord] = useState('');
   const [passInput, setPassInput] = useState('');
+
+  const {
+    theme: {theme: themeStore},
+  } = useSelector(stateRoot => stateRoot.root);
+  const styles = useStyles(props, themeStore);
 
   const handleNext = useCallback(() => {
     if (passInput === password) {
@@ -41,6 +42,7 @@ const ChangePinCode = () => {
             <TextInput
               onChangeText={setPassInput}
               value={passInput}
+              isSecure
               inputStyle={styles.textInput}
               placeholder="Enter password"
             />

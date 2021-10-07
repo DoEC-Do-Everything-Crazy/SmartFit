@@ -13,7 +13,12 @@ import {
 
 // import createSagaMiddleware from 'redux-saga';
 // import rootSaga from '../saga';
-import {ChangeScreenReducer, UserReducer, PasswordReducer} from '../reducers/';
+import {
+  ChangeScreenReducer,
+  UserReducer,
+  PasswordReducer,
+  ThemeReducer,
+} from '../reducers/';
 
 const persistConfig = {
   key: 'root',
@@ -26,6 +31,7 @@ const persistedReducer = persistCombineReducers(persistConfig, {
   screen: ChangeScreenReducer,
   user: UserReducer,
   password: PasswordReducer,
+  theme: ThemeReducer,
   // other reducers here
 });
 

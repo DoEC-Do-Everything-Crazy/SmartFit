@@ -1,11 +1,17 @@
 import {Block, Header} from '@components';
-import {theme} from '@theme';
+import {useSelector} from 'react-redux';
+import {useTheme} from '@theme';
 import React from 'react';
 import {ScrollView} from 'react-native';
 import ListItemNavProduct from './components/ListItemNavProduct';
 import ListItemPopular from './components/ListItemPopular';
 
 const FoodListScreen = () => {
+  const {
+    theme: {theme: themeStore},
+  } = useSelector(stateRoot => stateRoot.root);
+  const theme = useTheme(themeStore);
+
   return (
     <Block flex backgroundColor={theme.colors.background}>
       <Header

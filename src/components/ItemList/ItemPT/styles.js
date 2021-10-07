@@ -1,8 +1,7 @@
-import {StyleSheet} from 'react-native';
-import {getSize, width} from '@utils/responsive';
-import {theme} from '@theme';
+import {getSize} from '@utils/responsive';
+import {makeStyles} from '@theme';
 
-export default StyleSheet.create({
+export const useStyles = makeStyles()(({}) => ({
   image: {
     width: getSize.s(80),
     height: getSize.s(80),
@@ -16,4 +15,4 @@ export default StyleSheet.create({
     width: getSize.s(15),
     height: getSize.s(30),
   },
-});
+}));

@@ -1,12 +1,19 @@
 import {icons, images} from '@assets';
 import {Block, Text} from '@components';
-import {theme} from '@theme';
 import React from 'react';
 import {Image} from 'react-native';
-import styles from './styles';
+import {useSelector} from 'react-redux';
+import {useStyles} from './styles';
+import {useTheme} from '@theme';
 import {width} from '@utils/responsive';
 
-const ItemProduct = ({picture, title, group_id, index}) => {
+const ItemProduct = ({picture, title, group_id, index, props}) => {
+  const {
+    theme: {theme: themeStore},
+  } = useSelector(stateRoot => stateRoot.root);
+  const styles = useStyles(props, themeStore);
+  const theme = useTheme(themeStore);
+
   return (
     <Block
       row

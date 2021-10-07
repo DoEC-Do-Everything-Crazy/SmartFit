@@ -1,7 +1,7 @@
 import {getSize} from '@utils/responsive';
-import {StyleSheet} from 'react-native';
+import {makeStyles} from '@theme';
 
-export default StyleSheet.create({
+export const useStyles = makeStyles()(({}) => ({
   renderRoot: {
     flex: 1,
     marginTop: getSize.s(100),
@@ -23,4 +23,4 @@ export default StyleSheet.create({
     width: getSize.s(200),
     height: getSize.s(200),
   },
-});
+}));

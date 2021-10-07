@@ -1,8 +1,7 @@
 import {getSize, width} from '@utils/responsive';
-import {StyleSheet} from 'react-native';
-import {theme} from '@theme';
+import {makeStyles} from '@theme';
 
-export default StyleSheet.create({
+export const useStyles = makeStyles()(({colors}) => ({
   image: {
     position: 'absolute',
     width: (width - 96) / 2,
@@ -17,7 +16,7 @@ export default StyleSheet.create({
     paddingBottom: getSize.s(32),
     paddingHorizontal: getSize.s(16),
     width: (width - 48) / 2,
-    backgroundColor: theme.colors.white,
+    backgroundColor: colors.text,
   },
   iconHeart: {
     width: getSize.s(16),
@@ -26,4 +25,4 @@ export default StyleSheet.create({
     bottom: getSize.s(16),
     right: getSize.s(16),
   },
-});
+}));

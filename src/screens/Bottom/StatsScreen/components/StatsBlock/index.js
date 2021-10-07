@@ -1,11 +1,10 @@
-import {icons} from '@assets';
-import {Heart, HeartPf} from '@assets/icons';
+import {Heart} from '@assets/icons';
 import {Block, Text} from '@components';
-import {getSize} from '@utils/responsive';
 import React from 'react';
-import {Image, Pressable} from 'react-native';
+import {Pressable} from 'react-native';
 import CircularProgress from 'react-native-circular-progress-indicator';
-import styles from './styles';
+import {useStyles} from './styles';
+import {useSelector} from 'react-redux';
 
 const StatsBlock = ({
   title,
@@ -17,7 +16,12 @@ const StatsBlock = ({
   clock,
   bmp,
   onPress,
+  props,
 }) => {
+  const {
+    theme: {theme: themeStore},
+  } = useSelector(state => state.root);
+  const styles = useStyles(props, themeStore);
   return (
     <Block
       shadow={20}

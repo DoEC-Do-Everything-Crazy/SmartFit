@@ -1,13 +1,17 @@
 import {Block, Header} from '@components';
 import ItemCourse from '@components/ItemList/ItemCourse';
-import {theme} from '@theme';
-
-import React, {useState, useEffect, useCallback} from 'react';
+import {useSelector} from 'react-redux';
+import {useTheme} from '@theme';
+import React, {useState, useEffect} from 'react';
 import {FlatList} from 'react-native';
 import axios from 'axios';
 
 const CourseListScreen = () => {
   const [data, setData] = useState([]);
+  const {
+    theme: {theme: themeStore},
+  } = useSelector(stateRoot => stateRoot.root);
+  const theme = useTheme(themeStore);
 
   const fetchData = async data => {
     try {

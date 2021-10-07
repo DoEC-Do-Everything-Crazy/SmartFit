@@ -4,10 +4,15 @@ import {routes} from '@navigation/routes';
 import {useNavigation} from '@react-navigation/core';
 import React from 'react';
 import {Image, Pressable} from 'react-native';
-import styles from './styles';
+import {useSelector} from 'react-redux';
+import {useStyles} from './styles';
 
-const ItemSearch = ({item_id, picture, thumbnail, title}) => {
+const ItemSearch = ({item_id, picture, thumbnail, title, props}) => {
   const navigation = useNavigation();
+  const {
+    theme: {theme: themeStore},
+  } = useSelector(stateRoot => stateRoot.root);
+  const styles = useStyles(props, themeStore);
 
   return (
     <Pressable

@@ -1,8 +1,7 @@
 import {getSize} from '@utils/responsive';
-import {StyleSheet} from 'react-native';
-import {theme} from '@theme';
+import {makeStyles} from '@theme';
 
-export default StyleSheet.create({
+export const useStyles = makeStyles()(({colors}) => ({
   logo: {
     width: getSize.m(128),
     height: getSize.m(128),
@@ -15,6 +14,6 @@ export default StyleSheet.create({
     fontFamily: 'AlfaSlabOne',
     fontWeight: 'bold',
     fontSize: getSize.m(40),
-    color: theme.colors.white,
+    color: colors.white,
   },
-});
+}));

@@ -1,11 +1,18 @@
 import {Block, Text} from '@components';
-import {theme} from '@theme';
+
 import {width} from '@utils/responsive';
 import React from 'react';
 import {Image, Pressable, TouchableOpacity} from 'react-native';
-import styles from './styles';
+import {useSelector} from 'react-redux';
+import {useStyles} from './styles';
+import {useTheme} from '@theme';
 
-const ItemPopular = () => {
+const ItemPopular = props => {
+  const {
+    theme: {theme: themeStore},
+  } = useSelector(stateRoot => stateRoot.root);
+  const styles = useStyles(props, themeStore);
+  const theme = useTheme(themeStore);
   return (
     <Pressable style={styles.press}>
       <Block

@@ -1,4 +1,3 @@
-import {theme} from '@theme';
 import {getSize} from '@utils/responsive';
 import React from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -13,7 +12,8 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Octicons from 'react-native-vector-icons/Octicons';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
-
+import {useSelector} from 'react-redux';
+import {useTheme} from '@theme';
 const Icons = {
   FontAwesome,
   FontAwesome5,
@@ -37,14 +37,21 @@ export const getIconComponent = componentName => {
   return Icons[componentName];
 };
 
-const Icon = ({type, name, size = 22, color = theme.colors.text}) => {
+const Icon = ({type, name, size = 22}) => {
+  const {
+    theme: {theme: themeStore},
+  } = useSelector(stateRoot => stateRoot.root);
+  const theme = useTheme(themeStore);
+
+  const getColor = theme.colors.text;
+
   const IconComponent = getIconComponent(type);
 
   if (!IconComponent) {
     return null;
   }
 
-  return <IconComponent name={name} size={getSize.s(size)} color={color} />;
+  return <IconComponent name={name} size={getSize.s(size)} color={getColor} />;
 };
 
 export default Icon;

@@ -1,14 +1,21 @@
 import {images} from '@assets';
 import {HeartPf} from '@assets/icons';
 import {Block, Text} from '@components';
-import {theme} from '@theme';
+import {useTheme} from '@theme';
 import React from 'react';
 import {Image} from 'react-native';
 import {Rating} from 'react-native-ratings';
 import ItemStats from '../ItemStats';
-import styles from './styles';
+import {useSelector} from 'react-redux';
+import {useStyles} from './styles';
 
-const ProductContent = ({data}) => {
+const ProductContent = ({data, props}) => {
+  const {
+    theme: {theme: themeStore},
+  } = useSelector(stateRoot => stateRoot.root);
+  const styles = useStyles(props, themeStore);
+  const theme = useTheme(themeStore);
+
   const _renderItem = item => (
     <ItemStats title={item.title} stats={item.stats} />
   );
