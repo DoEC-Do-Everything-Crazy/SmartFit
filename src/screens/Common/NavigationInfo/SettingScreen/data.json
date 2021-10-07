@@ -6,8 +6,8 @@
         "data_item_switch": [
             {
                 "name": "Update profile",
-                "isSwitch": false
-               
+                "isSwitch": false,
+                "navigation": "UPDATE_PROFILE_SCREEN"
             }
         ]
     },

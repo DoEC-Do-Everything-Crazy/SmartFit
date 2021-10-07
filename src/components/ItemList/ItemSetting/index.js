@@ -24,7 +24,7 @@ const ItemSetting = ({data, title, index}, props) => {
     const {password, isTurn} = useSelector(state => state.root.password);
     const [isEnabled, setIsEnabled] = useState(false);
     const [isEnabledPass, setIsEnabledPass] = useState(isTurn);
-    const [isDarkMode, setDarkMode] = useState(isTurn);
+    const [isDarkMode, setDarkMode] = useState();
     const [textError, setTextErrord] = useState('');
     const [passInput, setPassInput] = useState('');
     const dispatch = useDispatch();
