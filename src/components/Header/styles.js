@@ -22,6 +22,6 @@ export const useStyles = makeStyles()(({colors}) => ({
     height: getSize.s(40),
     justifyContent: 'space-between',
     paddingHorizontal: getSize.m(16),
-    backgroundColor: colors.text,
+    backgroundColor: colors.white,
   },
 }));

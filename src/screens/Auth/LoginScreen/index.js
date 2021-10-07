@@ -1,21 +1,16 @@
+import {Facebook, Google} from '@assets/icons';
 import {Block, Text} from '@components';
-import {ImageBackground, TouchableOpacity} from 'react-native';
-import React, {useEffect} from 'react';
-
-import {AuthService} from '@services';
-import auth from '@react-native-firebase/auth';
-
 import {routes} from '@navigation/routes';
-import {useStyles} from './styles';
-import {useTheme} from '@theme';
-
-import {width} from 'utils/responsive';
-
+import auth from '@react-native-firebase/auth';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
-// import {useNavigation} from '@react-navigation/core';
+import {AuthService} from '@services';
+import {useTheme} from '@theme';
+import React, {useEffect} from 'react';
+import {ImageBackground, TouchableOpacity} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {addUser} from 'reduxs/reducers';
-import {Facebook, Google} from '@assets/icons';
+import {width} from 'utils/responsive';
+import {useStyles} from './styles';
 
 const LoginScreen = ({navigation, props}) => {
   // const navigation = useNavigation();
@@ -29,6 +24,7 @@ const LoginScreen = ({navigation, props}) => {
   const theme = useTheme(themeStore);
   // Handle user state changes
   async function onAuthStateChanged(usr) {
+    console.log('aaaaaaaaaaaaaaaaa', usr);
     if (usr) {
       dispatch(addUser(usr));
     }
@@ -97,7 +93,7 @@ const LoginScreen = ({navigation, props}) => {
                     routeScreen === routes.INFO_SCREEN ||
                     routeScreen === routes.NOTIFICATION_SCREEN ||
                     routeScreen === routes.STATS_SCREEN
-                      ? navigation.navigate(routes.BOTTOM_TAB)
+                      ? navigation.navigate(routes.UPDATE_PROFILE_SCREEN)
                       : navigation.navigate(routeScreen);
                   })
                   .catch(error => {

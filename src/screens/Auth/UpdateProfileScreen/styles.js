@@ -32,7 +32,6 @@ export const useStyles = makeStyles()(({colors}) => ({
   picker: {
     width: width - 20,
     borderRadius: getSize.s(5),
-    // backgroundColor: 'yellow',
     height: getSize.s(60),
   },
   text: {

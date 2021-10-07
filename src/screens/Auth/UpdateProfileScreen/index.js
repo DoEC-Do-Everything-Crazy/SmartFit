@@ -18,7 +18,7 @@ const UpdateProfileScreen = ({route, props}) => {
   const styles = useStyles(props, themeStore);
   const theme = useTheme(themeStore);
 
-  const {phone} = route.params;
+  const phone = route?.params?.phone;
   const [date, setDate] = useState(new Date());
   const [selectedGender, setSelectedGender] = useState();
   const [mode, setMode] = useState('date');

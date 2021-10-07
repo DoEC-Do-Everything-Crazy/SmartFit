@@ -11,12 +11,12 @@ import {useTheme} from '@theme';
 const ItemHotCourse = ({
   _id,
   typeName,
-  key,
   price,
   image,
   courseName,
   desc,
   ratting,
+  index,
   props,
 }) => {
   const navigation = useNavigation();
@@ -34,10 +34,7 @@ const ItemHotCourse = ({
   }, [_id, dispatch, navigation]);
 
   return (
-    <Pressable
-      key={key}
-      onPress={handleOpenCourseDetail}
-      style={styles.container}>
+    <Pressable onPress={handleOpenCourseDetail} style={styles.container}>
       <Image
         style={styles.image}
         source={{

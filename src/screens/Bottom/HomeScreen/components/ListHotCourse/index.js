@@ -13,11 +13,11 @@ const ListHotCourse = ({data}) => {
   const themeStore = useSelector(state => state.root.theme.theme);
   const theme = useTheme(themeStore);
 
-  const _renderItem = ({item}) => (
+  const _renderItem = ({item, index}) => (
     <ItemHotCourse
+      index={index}
       _id={item._id}
       typeName={item.typeName}
-      key={item.key}
       price={item.price}
       image={item.image}
       courseName={item.courseName}

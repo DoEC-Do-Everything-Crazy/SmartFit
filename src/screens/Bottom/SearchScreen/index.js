@@ -53,7 +53,7 @@ const SearchScreen = props => {
           <FlatList
             showsVerticalScrollIndicator={false}
             data={data}
-            keyExtractor={item => item.id}
+            keyExtractor={(item, index) => String(index)}
             renderItem={_renderItem}
           />
         ) : (
