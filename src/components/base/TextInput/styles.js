@@ -17,9 +17,8 @@ export const useStyles = makeStyles()(({colors, fonts}) => ({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-
     borderColor: colors.blue,
-    backgroundColor: colors.white,
+    backgroundColor: colors.text,
     borderRadius: getSize.s(5),
     height: getSize.s(60),
   },

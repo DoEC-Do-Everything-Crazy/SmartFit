@@ -20,7 +20,7 @@ const ItemCart = ({title, image, price, props}) => {
         borderRadius={20}
         marginHorizontal={16}
         marginVertical={5}
-        backgroundColor={theme.colors.white}>
+        backgroundColor={theme.colors.text}>
         <Block row alignCenter marginHorizontal={8}>
           <Image style={styles.image} source={{uri: image}} />
           <Block marginHorizontal={8}>

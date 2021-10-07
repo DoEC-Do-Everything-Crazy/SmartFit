@@ -1,10 +1,9 @@
-import {theme} from '@theme';
 import {getSize} from '@utils/responsive';
 import {makeStyles} from '@theme';
 
 export const useStyles = makeStyles()(({colors}) => ({
   floatComponent: {
-    backgroundColor: theme.colors.background,
+    backgroundColor: colors.background,
   },
   textInput: {
     paddingHorizontal: getSize.m(16),

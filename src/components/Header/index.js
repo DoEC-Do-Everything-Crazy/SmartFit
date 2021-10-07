@@ -114,12 +114,7 @@ const Header = props => {
         space="between"
         backgroundColor={theme.colors.blue}>
         {title && (
-          <Text
-            flex
-            center
-            size={17}
-            fontType="bold"
-            color={theme.colors.white}>
+          <Text flex center size={17} fontType="bold" color={theme.colors.text}>
             {title}
           </Text>
         )}

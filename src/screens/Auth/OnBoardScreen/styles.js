@@ -4,6 +4,7 @@ import {getSize} from '@utils/responsive';
 export const useStyles = makeStyles()(({colors}) => ({
   root: {
     flex: 1,
+    backgroundColor: colors.background,
     flexDirection: 'column',
   },
   renderRoot: {

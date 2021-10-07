@@ -1,5 +1,5 @@
 import {Block} from '@components';
-import {theme} from '@theme';
+import {useTheme} from '@theme';
 import React, {useEffect, useRef} from 'react';
 import {StatusBar, Animated, Text, Dimensions} from 'react-native';
 import {useNavigation} from '@react-navigation/core';
@@ -14,6 +14,7 @@ const SplashScreen = props => {
     user: {first},
     password: {isTurn},
   } = useSelector(state => state.root);
+  const theme = useTheme(themeStore);
 
   const styles = useStyles(props, themeStore);
   const navigation = useNavigation();

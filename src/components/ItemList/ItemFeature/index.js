@@ -4,6 +4,7 @@ import React from 'react';
 import {Pressable} from 'react-native';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
+import {useTheme} from '@theme';
 
 const ItemFeature = ({
   title,
@@ -19,7 +20,7 @@ const ItemFeature = ({
     theme: {theme: themeStore},
   } = useSelector(stateRoot => stateRoot.root);
   const styles = useStyles(props, themeStore);
-
+  const theme = useTheme(themeStore);
   return (
     <Block
       shadow={shadow}
@@ -28,7 +29,7 @@ const ItemFeature = ({
       width={width}
       height={height}
       borderRadius={8}
-      backgroundColor="white"
+      backgroundColor={theme.colors.border}
       paddingVertical={10}
       marginVertical={5}
       paddingHorizontal={16}>

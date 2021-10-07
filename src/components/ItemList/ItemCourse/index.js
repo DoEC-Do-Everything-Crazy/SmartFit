@@ -57,7 +57,7 @@ const ItemCourse = ({
             <Text
               size={12}
               marginLeft={5}
-              color={theme.colors.white}
+              color={theme.colors.text}
               fontType="bold">
               {price}$
             </Text>
@@ -85,7 +85,7 @@ const ItemCourse = ({
               <Text
                 size={10}
                 marginLeft={5}
-                color={theme.colors.white}
+                color={theme.colors.text}
                 fontType="bold">
                 HOT
               </Text>
@@ -102,7 +102,7 @@ const ItemCourse = ({
                 height={'65%'}
                 justifyCenter
                 alignCenter>
-                <Text color={theme.colors.white} fontType="bold">
+                <Text color={theme.colors.text} fontType="bold">
                   Detail
                 </Text>
               </Block>

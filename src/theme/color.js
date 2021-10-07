@@ -1,8 +1,10 @@
 export const colors = {
   dark: {
-    text: '#242424',
+    text: '#FFFFFF',
+    background: '#C0C0C0',
+    border: '#242424',
+    iconInf: '#FFFFFF',
     lightText: '#515D5F',
-    background: '#F3F1F1',
     header: '#F9F9F9',
     lightGray: '#A5A5A5',
     gray: '#9098B1',
@@ -11,7 +13,7 @@ export const colors = {
     white: '#ffffff',
     black: '#000000',
     placeholder: '#9DA3AF',
-    blue: '#045694',
+    blue: '#000000',
     red: '#FF2424',
     green: '#088A08',
     yellow: '#FFDF00',
@@ -26,8 +28,10 @@ export const colors = {
   },
   light: {
     text: '#242424',
-    lightText: '#515D5F',
     background: '#F3F1F1',
+    border: '#FFFFFF',
+    iconInf: '#045694',
+    lightText: '#515D5F',
     header: '#F9F9F9',
     lightGray: '#A5A5A5',
     gray: '#9098B1',

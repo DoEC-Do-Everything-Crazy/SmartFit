@@ -58,7 +58,7 @@ const Information = props => {
           onPress={() => {
             AuthService.signOut();
           }}>
-          <Text color="red" fontType="bold">
+          <Text color={theme.colors.white} fontType="bold">
             Logout
           </Text>
         </TouchableOpacity>

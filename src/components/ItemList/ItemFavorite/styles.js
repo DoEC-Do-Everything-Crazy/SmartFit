@@ -16,7 +16,7 @@ export const useStyles = makeStyles()(({colors}) => ({
     paddingBottom: getSize.s(32),
     paddingHorizontal: getSize.s(16),
     width: (width - 48) / 2,
-    backgroundColor: colors.white,
+    backgroundColor: colors.text,
   },
   iconHeart: {
     width: getSize.s(16),

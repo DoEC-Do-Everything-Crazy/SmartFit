@@ -1,5 +1,5 @@
 import {Block, Button, Text, TextInput} from '@components';
-import React, {useCallback, useRef, useState} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {Switch, Pressable, Platform} from 'react-native';
 import {useNavigation} from '@react-navigation/core';
 import {Right} from '@assets/icons';
@@ -8,7 +8,7 @@ import {Formik} from 'formik';
 import {BottomSheet} from '@components/BottomSheet';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useDispatch, useSelector} from 'react-redux';
-import {changePassword, turnPassword} from 'reduxs/reducers';
+import {changePassword, changeTheme, turnPassword} from 'reduxs/reducers';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
 
@@ -18,11 +18,13 @@ const ItemSetting = ({data, title, index}, props) => {
   } = useSelector(stateRoot => stateRoot.root);
   const styles = useStyles(props, themeStore);
   const theme = useTheme(themeStore);
+
   const navigation = useNavigation();
   const Item = ({isSwitch, name, onPress, index}) => {
     const {password, isTurn} = useSelector(state => state.root.password);
     const [isEnabled, setIsEnabled] = useState(false);
     const [isEnabledPass, setIsEnabledPass] = useState(isTurn);
+    const [isDarkMode, setDarkMode] = useState(isTurn);
     const [textError, setTextErrord] = useState('');
     const [passInput, setPassInput] = useState('');
     const dispatch = useDispatch();
@@ -37,7 +39,20 @@ const ItemSetting = ({data, title, index}, props) => {
         dispatch(turnPassword(false));
       }
     }, [dispatch, isEnabledPass]);
-
+    useEffect(() => {
+      if (themeStore === 'dark') {
+        setDarkMode(true);
+      } else {
+        setDarkMode(false);
+      }
+    }, []);
+    const handeleDarkMode = useCallback(() => {
+      if (themeStore === 'dark') {
+        dispatch(changeTheme('light'));
+      } else {
+        dispatch(changeTheme('dark'));
+      }
+    }, [dispatch]);
     const toggleSwitchCreate = useCallback(
       newPassword => {
         dispatch(changePassword(newPassword));
@@ -171,7 +186,9 @@ const ItemSetting = ({data, title, index}, props) => {
               space="between">
               <Text size={16}>{name}</Text>
               <Switch
-                value={index === 1 ? isEnabledPass : null}
+                value={
+                  index === 1 ? isEnabledPass : index === 2 ? isDarkMode : null
+                }
                 trackColor={{
                   false: 'rgba(155, 155, 155, 0.3)',
                   true: 'rgba(155, 155, 155, 0.3)',
@@ -181,12 +198,20 @@ const ItemSetting = ({data, title, index}, props) => {
                     ? isEnabledPass
                       ? '#2AA952'
                       : theme.colors.white
+                    : index === 2
+                    ? isDarkMode
+                      ? '#2AA952'
+                      : theme.colors.white
                     : isEnabled
                     ? '#2AA952'
                     : theme.colors.white
                 }
                 onChange={() => {
-                  index === 1 ? handleOpenBottomSheet() : null;
+                  index === 1
+                    ? handleOpenBottomSheet()
+                    : index === 2
+                    ? handeleDarkMode()
+                    : null;
                 }}
               />
             </Block>
@@ -245,7 +270,7 @@ const ItemSetting = ({data, title, index}, props) => {
   };
   return (
     <Block marginHorizontal={16} marginBottom={10}>
-      <Text size={18} fontType="bold">
+      <Text color={theme.colors.black} size={18} fontType="bold">
         {title}
       </Text>
       <Block
@@ -253,7 +278,7 @@ const ItemSetting = ({data, title, index}, props) => {
         marginTop={10}
         borderRadius={8}
         space="between"
-        backgroundColor={theme.colors.white}>
+        backgroundColor={theme.colors.border}>
         {data.map(renderItem)}
       </Block>
     </Block>
