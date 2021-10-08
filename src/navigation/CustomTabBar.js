@@ -83,20 +83,20 @@ const CustomTabBar = ({state, descriptors, navigation, props}) => {
         const {options} = descriptors[route.key];
         const label =
           options.tabBarLabel !== undefined ? options.tabBarLabel : route.name;
+        const isFocused = state.index === index;
+        const color = isFocused ? theme.colors.white : theme.colors.lightText;
         const iconTab =
           route.name === routes.HOME_SCREEN ? (
-            <Home color={theme.colors.white} />
+            <Home color={color} />
           ) : route.name === routes.SEARCH_SCREEN ? (
-            <Search color={theme.colors.white} />
+            <Search color={color} />
           ) : route.name === routes.STATS_SCREEN ? (
-            <Chart color={theme.colors.white} />
+            <Chart color={color} />
           ) : route.name === routes.NOTIFICATION_SCREEN ? (
-            <Notification color={theme.colors.white} />
+            <Notification color={color} />
           ) : (
-            <Info color={theme.colors.white} />
+            <Info color={color} />
           );
-
-        const isFocused = state.index === index;
 
         const onPress = () => {
           const event = navigation.emit({
@@ -145,7 +145,6 @@ export const useStyles = makeStyles()(({colors}) => ({
     fontSize: getSize.m(12),
     marginLeft: getSize.m(5),
   },
-
   cover: {
     height: getSize.s(40),
     borderRadius: getSize.m(8),

@@ -8,17 +8,7 @@ import {changeScreen} from 'reduxs/reducers';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
 
-const ItemHotCourse = ({
-  _id,
-  typeName,
-  price,
-  image,
-  courseName,
-  desc,
-  ratting,
-  index,
-  props,
-}) => {
+const ItemHotCourse = ({_id, image, courseName, props}) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
@@ -42,7 +32,12 @@ const ItemHotCourse = ({
         }}
       />
       <Block style={styles.title}>
-        <Text size={20} color={theme.colors.white} fontType="bold">
+        <Text
+          size={20}
+          marginLeft={16}
+          numberOfLines={1}
+          color={theme.colors.white}
+          fontType="bold">
           {courseName}
         </Text>
       </Block>
