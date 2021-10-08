@@ -1,6 +1,6 @@
-import {Block} from '@components';
+import {Block, Text} from '@components';
 import React from 'react';
-import {Text, Pressable} from 'react-native';
+import {Pressable} from 'react-native';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
@@ -17,7 +17,7 @@ const ItemNotification = ({title, content, date, onPress, props}) => {
     <Pressable style={styles.item} onPress={onPress}>
       <Block row>
         <Block style={styles.image}>
-          <EmailNotification color={'#045694'} />
+          <EmailNotification color={theme.colors.iconInf} />
         </Block>
         <Block
           flex
@@ -25,7 +25,7 @@ const ItemNotification = ({title, content, date, onPress, props}) => {
           paddingRight={15}
           borderRadius={8}
           marginLeft={10}
-          backgroundColor={theme.colors.white}
+          backgroundColor={theme.colors.border}
           paddingBottom={15}>
           <Block marginTop={12} row space="between">
             <Text style={styles.title}>{title}</Text>

@@ -51,7 +51,7 @@ const InputText = ({...props}) => {
     !fontType && {fontWeight: theme.fonts.fontWeight.regular},
     color && {color: theme.colors[color]},
     color && !theme.colors[color] && {color: color},
-    !color && {color: theme.colors.text},
+    !color && {color: theme.colors.black},
     styles.defaultStyles,
     (rightIcon || isSecure) && {paddingRight: getSize.m(50)},
     props.multiline && maxHeight ? {maxHeight} : {height: getSize.m(21) * 2},
@@ -75,7 +75,7 @@ const InputText = ({...props}) => {
         onPress={() => setSecureEye(!secureEye)}>
         <FontAwesomeIcon
           name={secureEye ? 'eye' : 'eye-slash'}
-          color={theme.colors.text}
+          color={theme.colors.black}
           size={getSize.m(12)}
         />
       </TouchableOpacity>

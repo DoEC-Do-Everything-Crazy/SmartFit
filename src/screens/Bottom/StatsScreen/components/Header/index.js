@@ -4,6 +4,7 @@ import {Image} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useStyles} from './styles';
 import {useSelector} from 'react-redux';
+import {useTheme} from '@theme';
 
 const Header = ({image, name, date, props}) => {
   const {top} = useSafeAreaInsets();
@@ -11,8 +12,15 @@ const Header = ({image, name, date, props}) => {
     theme: {theme: themeStore},
   } = useSelector(state => state.root);
   const styles = useStyles(props, themeStore);
+  const theme = useTheme(themeStore);
   return (
-    <Block row paddingVertical={16} marginHorizontal={16} marginTop={top}>
+    <Block
+      borderBottomWidth={1}
+      borderColor={theme.colors.border}
+      row
+      paddingVertical={16}
+      marginHorizontal={16}
+      marginTop={top}>
       <Image
         style={styles.image}
         source={{

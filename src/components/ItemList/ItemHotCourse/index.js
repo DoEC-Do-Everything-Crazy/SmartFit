@@ -42,7 +42,7 @@ const ItemHotCourse = ({
         }}
       />
       <Block style={styles.title}>
-        <Text size={20} color={theme.colors.text} fontType="bold">
+        <Text size={20} color={theme.colors.white} fontType="bold">
           {courseName}
         </Text>
       </Block>

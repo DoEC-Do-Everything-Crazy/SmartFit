@@ -19,7 +19,7 @@ const StatsScreen = () => {
 
   return JSON.stringify(user) !== '{}' ? (
     <>
-      <Block flex backgroundColor={theme.colors.background}>
+      <Block flex backgroundColor={theme.colors.backgroundSetting}>
         <Block height="20%">
           <Header
             image={
@@ -70,10 +70,10 @@ const StatsScreen = () => {
         </Block>
         <Block height="30%" marginTop={10} paddingHorizontal={16}>
           <ItemFeature shadow height={50} title={'Daily Meals'}>
-            <Order />
+            <Order color={theme.colors.iconInf} />
           </ItemFeature>
           <ItemFeature shadow height={50} title={'Other Information'}>
-            <HeartPf color={theme.colors.blue} />
+            <HeartPf color={theme.colors.iconInf} />
           </ItemFeature>
         </Block>
       </Block>

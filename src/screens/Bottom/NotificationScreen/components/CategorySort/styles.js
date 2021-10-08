@@ -14,5 +14,6 @@ export const useStyles = makeStyles()(({}) => ({
   text: {
     fontSize: getSize.m(18),
     color: 'white',
+    fontWeight: 'bold',
   },
 }));

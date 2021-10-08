@@ -109,7 +109,9 @@ const ItemSetting = ({data, title, index}, props) => {
                 isValid,
                 dirty,
               }) => (
-                <Block paddingVertical={10}>
+                <Block
+                  backgroundColor={theme.colors.backgroundSetting}
+                  paddingVertical={10}>
                   <Text center fontType="bold" size={16}>
                     Create new password
                   </Text>
@@ -230,12 +232,22 @@ const ItemSetting = ({data, title, index}, props) => {
                   index === 1
                     ? password
                       ? theme.colors.white
-                      : theme.colors.gray
+                      : theme.colors.disabled
                     : null
                 }
                 space="between">
-                <Text size={16}>{name}</Text>
-                <Right />
+                <Text
+                  color={
+                    index === 1
+                      ? password
+                        ? theme.colors.black
+                        : theme.colors.white
+                      : theme.colors.text
+                  }
+                  size={16}>
+                  {name}
+                </Text>
+                <Right color={theme.colors.text} />
               </Block>
             </Pressable>
           )}
@@ -271,7 +283,7 @@ const ItemSetting = ({data, title, index}, props) => {
   };
   return (
     <Block marginHorizontal={16} marginBottom={10}>
-      <Text color={theme.colors.black} size={18} fontType="bold">
+      <Text color={theme.colors.text} size={18} fontType="bold">
         {title}
       </Text>
       <Block

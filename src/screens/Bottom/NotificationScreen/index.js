@@ -34,7 +34,7 @@ const NotificationScreen = props => {
             <Block
               flex
               style={styles.container}
-              backgroundColor={theme.colors.background}>
+              backgroundColor={theme.colors.backgroundSetting}>
               <ListNotification />
             </Block>
           </Block>

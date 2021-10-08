@@ -1,22 +1,23 @@
-import {icons} from '@assets';
+import LinearGradient from 'react-native-linear-gradient';
 import {useTheme, makeStyles} from '@theme';
 import {useSelector} from 'react-redux';
 import {getSize} from '@utils/responsive';
 import React from 'react';
 import {
   Animated,
-  Image,
   StyleSheet,
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
 import {routes} from './routes';
+import {Chart, Home, Info, Notification, Search} from '@assets/icons';
 
 const CustomTabBar = ({state, descriptors, navigation, props}) => {
   const {
     theme: {theme: themeStore},
   } = useSelector(stateRoot => stateRoot.root);
   const styles = useStyles(props, themeStore);
+  const theme = useTheme(themeStore);
   const TabItem = ({icon, label, active, onPress, index}) => {
     const totalNotification = 3;
 
@@ -47,11 +48,15 @@ const CustomTabBar = ({state, descriptors, navigation, props}) => {
       <TouchableWithoutFeedback onPress={onPress}>
         <Animated.View style={styles.container}>
           <Animated.View
+            style={[StyleSheet.absoluteFill, {transform: [{translateX}]}]}>
+            <Animated.View style={[styles.cover, {opacity: animation}]} />
+          </Animated.View>
+          <Animated.View
             style={{
               transform: [{translateX: iconTranslate}],
               opacity: active ? 1 : 0.5,
             }}>
-            <Image style={styles.icon} source={icon} resizeMode="contain" />
+            {icon}
           </Animated.View>
           <Animated.View
             style={[
@@ -68,10 +73,6 @@ const CustomTabBar = ({state, descriptors, navigation, props}) => {
               </Animated.Text>
             ) : null}
           </Animated.View>
-          <Animated.View
-            style={[StyleSheet.absoluteFill, {transform: [{translateX}]}]}>
-            <Animated.View style={[styles.cover, {opacity: animation}]} />
-          </Animated.View>
         </Animated.View>
       </TouchableWithoutFeedback>
     );
@@ -83,15 +84,17 @@ const CustomTabBar = ({state, descriptors, navigation, props}) => {
         const label =
           options.tabBarLabel !== undefined ? options.tabBarLabel : route.name;
         const iconTab =
-          route.name === routes.HOME_SCREEN
-            ? icons.home
-            : route.name === routes.SEARCH_SCREEN
-            ? icons.search
-            : route.name === routes.STATS_SCREEN
-            ? icons.stats
-            : route.name === routes.NOTIFICATION_SCREEN
-            ? icons.notification
-            : icons.info;
+          route.name === routes.HOME_SCREEN ? (
+            <Home color={theme.colors.white} />
+          ) : route.name === routes.SEARCH_SCREEN ? (
+            <Search color={theme.colors.white} />
+          ) : route.name === routes.STATS_SCREEN ? (
+            <Chart color={theme.colors.white} />
+          ) : route.name === routes.NOTIFICATION_SCREEN ? (
+            <Notification color={theme.colors.white} />
+          ) : (
+            <Info color={theme.colors.white} />
+          );
 
         const isFocused = state.index === index;
 
@@ -124,7 +127,7 @@ const CustomTabBar = ({state, descriptors, navigation, props}) => {
 export const useStyles = makeStyles()(({colors}) => ({
   bar: {
     flexDirection: 'row',
-    backgroundColor: 'white',
+    backgroundColor: colors.bar,
     padding: getSize.m(12),
     paddingBottom: getSize.m(15),
   },
@@ -136,19 +139,17 @@ export const useStyles = makeStyles()(({colors}) => ({
     height: getSize.s(40),
     paddingHorizontal: getSize.m(4),
   },
-  icon: {
-    width: getSize.s(18),
-    tintColor: 'blue',
-  },
   label: {
-    color: colors.blue,
+    color: colors.white,
+    fontWeight: 'bold',
     fontSize: getSize.m(12),
     marginLeft: getSize.m(5),
   },
+
   cover: {
     height: getSize.s(40),
     borderRadius: getSize.m(8),
-    backgroundColor: `${colors.blue}30`,
+    backgroundColor: colors.blue,
   },
 }));
 

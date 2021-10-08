@@ -7,12 +7,9 @@ export const useStyles = makeStyles()(({colors}) => ({
     borderTopRightRadius: getSize.m(16),
   },
   button: {
-    backgroundColor: colors.blue,
-    height: 55,
     marginHorizontal: 16,
-    justifyContent: 'center',
+    justifyContent: 'flex-end',
     alignItems: 'center',
-    marginVertical: 15,
     borderRadius: 8,
   },
 }));

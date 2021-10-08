@@ -28,3 +28,7 @@ export * from './Right';
 export * from './Ratting';
 export * from './Cancel';
 export * from './Logo';
+export * from './Chart';
+export * from './Search';
+export * from './Notification';
+export * from './Info';

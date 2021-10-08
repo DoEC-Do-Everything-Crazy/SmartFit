@@ -3,7 +3,7 @@ import {makeStyles} from '@theme';
 
 export const useStyles = makeStyles()(({colors}) => ({
   floatComponent: {
-    backgroundColor: colors.background,
+    backgroundColor: colors.backgroundSetting,
   },
   textInput: {
     paddingHorizontal: getSize.m(16),
