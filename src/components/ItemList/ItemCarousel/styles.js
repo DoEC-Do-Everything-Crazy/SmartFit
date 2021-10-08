@@ -14,7 +14,7 @@ export const useStyles = makeStyles()(({colors}) => ({
     position: 'absolute',
     top: getSize.s(140),
     right: getSize.s(5),
-    backgroundColor: colors.text,
+    backgroundColor: colors.border,
     width: getSize.s(40),
     height: getSize.s(40),
     borderRadius: getSize.s(25),

@@ -59,7 +59,7 @@ const ListItemFeature = () => {
     );
   };
   return (
-    <Block paddingHorizontal={16} height="50%">
+    <Block flex paddingHorizontal={16} height="50%">
       <FlatList
         showsVerticalScrollIndicator={false}
         nestedScrollEnabled

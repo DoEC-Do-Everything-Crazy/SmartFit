@@ -128,7 +128,7 @@ const UpdateProfileScreen = ({route, props}) => {
                 )}
               </Block>
               <Block marginTop={8} marginBottom={24} style={styles.gender}>
-                <Gender />
+                <Gender color={theme.colors.text} />
                 <Picker
                   style={styles.picker}
                   mode="dropdown"
@@ -149,7 +149,7 @@ const UpdateProfileScreen = ({route, props}) => {
                   value={dateFormat(date, 'dd/mm/yyyy')}
                   inputStyle={styles.input}
                   leftIcon={true}>
-                  <List />
+                  <List color={theme.colors.text} />
                 </TextInput>
                 {show && (
                   <DateTimePicker

@@ -29,7 +29,7 @@ const ListHotCourse = ({data}) => {
   return (
     <Block flex marginTop={32}>
       <Block row alignCenter marginHorizontal={16} space="between">
-        <Text size={20} fontType="bold" color={theme.colors.blue}>
+        <Text size={20} fontType="bold" color={theme.colors.text}>
           Hot Course
         </Text>
         <Pressable

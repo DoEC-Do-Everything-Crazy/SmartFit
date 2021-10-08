@@ -8,6 +8,7 @@ import TextInput from './base/TextInput';
 import WebView from './base/WebView';
 import Icon from './base/Icon';
 import Empty from './base/Empty';
+import GradientText from './base/GradientText';
 // PROJECT
 import Header from './Header';
 import EmptyScreen from './EmptyScreen';
@@ -27,6 +28,7 @@ export {
   TextInput,
   Empty,
   WebView,
+  GradientText,
   // PROJECT
   EmptyScreen,
   Camera,

@@ -10,7 +10,7 @@ export const useStyles = makeStyles()(({colors}) => ({
   inputStyle: {
     height: getSize.m(48),
     paddingLeft: getSize.m(16),
-    backgroundColor: `${colors.gray}40`,
+
     borderWidth: 0,
   },
   iconSeach: {

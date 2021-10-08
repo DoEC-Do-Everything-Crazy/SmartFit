@@ -1,18 +1,19 @@
 import * as React from 'react';
-import Svg, {Path} from 'react-native-svg';
-export const Right = props => {
+import Svg, {Path, Circle} from 'react-native-svg';
+export const Search = props => {
   const {color} = props;
   return (
     <Svg
-      width={14}
-      height={12}
+      width={24}
+      height={24}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       {...props}>
+      <Circle cx={10} cy={10} r={7.5} stroke={color} strokeWidth={2.5} />
       <Path
-        d="M5 10l4-4-4-4"
+        d="M21 21l-5.5-5.5"
         stroke={color}
-        strokeWidth={1.5}
+        strokeWidth={2.5}
         strokeLinecap="round"
         strokeLinejoin="round"
       />

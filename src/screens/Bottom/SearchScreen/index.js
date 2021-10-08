@@ -31,9 +31,9 @@ const SearchScreen = props => {
   );
 
   return (
-    <Block flex backgroundColor={theme.colors.background}>
+    <Block flex backgroundColor={theme.colors.backgroundSetting}>
       <Header title="Search" colorTheme={theme.colors.black} />
-      <Block paddingHorizontal={16}>
+      <Block paddingTop={20} paddingHorizontal={16}>
         <TextInput
           placeholder="Search"
           inputStyle={styles.inputStyle}
@@ -59,7 +59,7 @@ const SearchScreen = props => {
         ) : (
           <Block>
             <Block>
-              <Text fontType="bold" color={theme.colors.blue}>
+              <Text size={17} fontType="bold" color={'#045694'}>
                 History
               </Text>
               <FlatList
@@ -70,7 +70,7 @@ const SearchScreen = props => {
               />
             </Block>
             <Block marginTop={20}>
-              <Text fontType="bold" color={theme.colors.blue}>
+              <Text size={17} fontType="bold" color={'#045694'}>
                 Recent search | Clear all
               </Text>
               <FlatList

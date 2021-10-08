@@ -42,7 +42,7 @@ const HomeScreen = props => {
         flex
         alignCenter
         marginTop={16}
-        backgroundColor={theme.colors.background}
+        backgroundColor={theme.colors.backgroundSetting}
         style={styles.container}>
         <ScrollView showsVerticalScrollIndicator={false}>
           <ListMenu />

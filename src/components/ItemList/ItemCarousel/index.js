@@ -23,7 +23,7 @@ const ItemCarousel = ({picture, title, group_id, index, props}) => {
       marginRight={16}
       paddingBottom={16}
       marginBottom={16}
-      backgroundColor={theme.colors.text}>
+      backgroundColor={theme.colors.border}>
       <Image source={images.image} style={styles.image} />
       <Block shadow style={styles.heartContainer}>
         <HeartPf color={theme.colors.red} />

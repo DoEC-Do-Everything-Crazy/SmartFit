@@ -24,4 +24,9 @@ export const useStyles = makeStyles()(({colors}) => ({
     paddingHorizontal: getSize.m(16),
     backgroundColor: colors.white,
   },
+  text: {
+    alignItems: 'center',
+    fontSize: getSize.m(20),
+    fontWeight: 'bold',
+  },
 }));

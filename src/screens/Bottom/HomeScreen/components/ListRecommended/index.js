@@ -81,7 +81,7 @@ const ListRecommended = () => {
         marginHorizontal={16}
         marginBottom={20}
         space="between">
-        <Text size={20} fontType="bold" color={theme.colors.blue}>
+        <Text size={20} fontType="bold" color={theme.colors.text}>
           Recommended
         </Text>
         <Pressable

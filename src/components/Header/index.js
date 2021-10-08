@@ -1,10 +1,9 @@
-import {icons} from '@assets';
-import {Back, Cart} from '@assets/icons';
-import {Block, Text} from '@components';
+import {Back, Cart, Search} from '@assets/icons';
+import {Block, GradientText, Text} from '@components';
 import {routes} from '@navigation/routes';
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
-import {Image, Pressable} from 'react-native';
+import {Pressable} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
@@ -30,12 +29,8 @@ const Header = props => {
         <Pressable
           style={styles.search}
           onPress={() => navigation.navigate(routes.SEARCH_SCREEN)}>
-          <Text>Search</Text>
-          <Image
-            source={icons.search}
-            style={styles.iconHeader}
-            resizeMode="contain"
-          />
+          <Text color={theme.colors.placeholder}>Search</Text>
+          <Search color={theme.colors.placeholder} />
         </Pressable>
         <Pressable onPress={() => navigation.navigate(routes.CART_SCREEN)}>
           <Cart />
@@ -56,25 +51,31 @@ const Header = props => {
           paddingHorizontal={16}
           paddingTop={top + 10}
           paddingVertical={16}
-          marginBottom={16}
           space="between"
+          borderColor={theme.colors.border}
+          borderBottomWidth={themeStore === 'dark' ? 1 : null}
           backgroundColor={theme.colors.header}>
           {canGoBack && (
             <Pressable onPress={() => navigation.goBack()}>
-              <Back />
+              <Back color={theme.colors.text} />
             </Pressable>
           )}
 
-          {title && (
-            <Text
-              flex
-              center
-              size={17}
-              fontType="bold"
-              color={theme.colors.blue}>
-              {title}
-            </Text>
-          )}
+          {title &&
+            (themeStore === 'light' ? (
+              <Text
+                flex
+                center
+                size={20}
+                fontType="bold"
+                color={theme.colors.text}>
+                {title}
+              </Text>
+            ) : (
+              <GradientText fontSize={20} fontWeight={'bold'}>
+                {title}
+              </GradientText>
+            ))}
           {cart && (
             <Pressable
               onPress={() => {
@@ -89,12 +90,7 @@ const Header = props => {
               onPress={() => {
                 navigation.navigate(routes.SEARCH_SCREEN);
               }}>
-              <Image
-                source={icons.search}
-                style={styles.iconBack}
-                resizeMode="contain"
-                tintColor={theme.colors.blue}
-              />
+              <Search color={theme.colors.text} />
             </Pressable>
           )}
         </Block>
@@ -113,11 +109,21 @@ const Header = props => {
         paddingVertical={16}
         space="between"
         backgroundColor={theme.colors.blue}>
-        {title && (
-          <Text flex center size={17} fontType="bold" color={theme.colors.text}>
-            {title}
-          </Text>
-        )}
+        {title &&
+          (themeStore === 'light' ? (
+            <Text
+              flex
+              center
+              size={20}
+              fontType="bold"
+              color={theme.colors.white}>
+              {title}
+            </Text>
+          ) : (
+            <GradientText fontSize={20} fontWeight={'bold'}>
+              {title}
+            </GradientText>
+          ))}
       </Block>
     );
   };

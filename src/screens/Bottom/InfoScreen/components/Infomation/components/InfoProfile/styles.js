@@ -15,4 +15,7 @@ export const useStyles = makeStyles()(({}) => ({
     width: 15,
     height: 15,
   },
+  container: {
+    flex: 0.6,
+  },
 }));

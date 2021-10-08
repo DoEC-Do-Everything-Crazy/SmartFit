@@ -12,7 +12,7 @@ const SplashScreen = props => {
   const {
     theme: {theme: themeStore},
     user: {first},
-    password: {isTurn},
+    turn: {isTurnPassword},
   } = useSelector(state => state.root);
   const theme = useTheme(themeStore);
 
@@ -24,7 +24,7 @@ const SplashScreen = props => {
     setTimeout(() => {
       first === false
         ? navigation.navigate(routes.ONBOARD_SCREEN)
-        : isTurn
+        : isTurnPassword
         ? navigation.navigate(routes.PASSWORD_SCREEN)
         : navigation.navigate(routes.BOTTOM_TAB);
     }, 2200);
@@ -49,7 +49,7 @@ const SplashScreen = props => {
       delay: 1000,
       useNativeDriver: false,
     }).start();
-  }, [fadeAnim, first, moveAnim, navigation]);
+  }, [fadeAnim, first, isTurnPassword, moveAnim, navigation]);
   return (
     <Block flex justifyCenter alignCenter backgroundColor={theme.colors.blue}>
       <StatusBar barStyle="light-content" />

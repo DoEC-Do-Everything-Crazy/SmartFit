@@ -5,7 +5,7 @@ export const useStyles = makeStyles()(({colors}) => ({
   title: {
     fontSize: getSize.m(18),
     fontWeight: 'bold',
-    color: colors.blue,
+    color: colors.iconInf,
   },
   image: {
     top: 15,
