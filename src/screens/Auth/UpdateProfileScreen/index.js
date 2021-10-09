@@ -1,5 +1,5 @@
 import {Email, Fullname, Gender, List, Phone} from '@assets/icons';
-import {Block, Button, Header, TextInput} from '@components';
+import {Block, Button, DropDown, Header, TextInput} from '@components';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {Picker} from '@react-native-picker/picker';
 import {useTheme} from '@theme';
@@ -23,6 +23,14 @@ const UpdateProfileScreen = ({route, props}) => {
   const [selectedGender, setSelectedGender] = useState();
   const [mode, setMode] = useState('date');
   const [show, setShow] = useState(false);
+
+  const [valueGender, setValueGender] = useState(null);
+  const [gender, setGender] = useState([
+    {label: 'Male', value: 'Male'},
+    {label: 'Female', value: 'Female'},
+  ]);
+  const [openGender, setOpenGender] = useState(false);
+
   var dateFormat = require('dateformat');
   const onChange = (event, selectedDate) => {
     setShow(Platform.OS === 'ios');
@@ -81,7 +89,7 @@ const UpdateProfileScreen = ({route, props}) => {
             colorTheme={theme.colors.blue}
           />
 
-          <Block flex paddingHorizontal={16} paddingTop={20}>
+          <Block flex justifyCenter paddingHorizontal={16} paddingTop={20}>
             <Block style={styles.group}>
               <TextInput
                 placeholder="Fullname"
@@ -126,19 +134,18 @@ const UpdateProfileScreen = ({route, props}) => {
                   <Text style={styles.text}>{errors.phone}</Text>
                 )}
               </Block>
-              <Block marginTop={8} marginBottom={24} style={styles.gender}>
-                <Gender color={theme.colors.black} />
-                <Picker
-                  style={styles.picker}
-                  mode="dropdown"
-                  dropdownIconColor="red"
-                  selectedValue={selectedGender}
-                  onValueChange={setSelectedGender}>
-                  <Picker.Item label="Male" value="Male" />
-                  <Picker.Item label="Female" value="Female" />
-                  <Picker.Item label="Other" value="Other" />
-                </Picker>
-              </Block>
+              <DropDown
+                open={openGender}
+                value={valueGender}
+                items={gender}
+                setOpen={setOpenGender}
+                setValue={setValueGender}
+                setItems={setGender}
+                containerStyle={styles.gender}
+                onChangeValue={setValueGender}
+                placeholder="Select a gender"
+              />
+
               <TouchableOpacity
                 style={{marginTop: 8, marginBottom: 24}}
                 onPress={showDatepicker}>

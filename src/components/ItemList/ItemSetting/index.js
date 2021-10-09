@@ -1,6 +1,6 @@
-import {Block, Button, Text, TextInput} from '@components';
-import React, {useCallback, useEffect, useRef, useState} from 'react';
-import {Switch, Pressable, Platform} from 'react-native';
+import {Block, Button, Switcher, Text, TextInput} from '@components';
+import React, {useCallback, useRef, useState} from 'react';
+import {Pressable, Platform} from 'react-native';
 import {useNavigation} from '@react-navigation/core';
 import {Right} from '@assets/icons';
 import * as yup from 'yup';
@@ -185,7 +185,7 @@ const ItemSetting = ({data, title, index}, props) => {
               height={48}
               space="between">
               <Text size={16}>{name}</Text>
-              <Switch
+              <Switcher
                 value={
                   index === 1
                     ? isTurnPassword
@@ -193,24 +193,7 @@ const ItemSetting = ({data, title, index}, props) => {
                     ? isTurnDarkMode
                     : null
                 }
-                trackColor={{
-                  false: 'rgba(155, 155, 155, 0.3)',
-                  true: 'rgba(155, 155, 155, 0.3)',
-                }}
-                thumbColor={
-                  index === 1
-                    ? isTurnPassword
-                      ? '#35C4BA'
-                      : theme.colors.white
-                    : index === 2
-                    ? isTurnDarkMode
-                      ? '#35C4BA'
-                      : theme.colors.white
-                    : isEnabled
-                    ? '#35C4BA'
-                    : theme.colors.white
-                }
-                onChange={() => {
+                onValueChange={() => {
                   index === 1
                     ? handleOpenBottomSheet()
                     : index === 2
