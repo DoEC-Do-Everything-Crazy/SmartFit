@@ -18,7 +18,7 @@ const YourFavoriteScreen = () => {
   };
 
   return (
-    <Block flex backgroundColor={theme.colors.background}>
+    <Block flex backgroundColor={theme.colors.backgroundSetting}>
       <Header canGoBack title="Favorite" colorTheme={theme.colors.black} />
       <Block flex paddingHorizontal={16}>
         <FlatList

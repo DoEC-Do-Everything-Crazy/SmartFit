@@ -74,21 +74,20 @@ const UpdateProfileScreen = ({route, props}) => {
         isValid,
         dirty,
       }) => (
-        <Block flex backgroundColor={theme.colors.background}>
+        <Block flex backgroundColor={theme.colors.backgroundSetting}>
           <Header
             canGoBack
             title="Update Profile"
             colorTheme={theme.colors.blue}
           />
 
-          <Block flex paddingHorizontal={16}>
+          <Block flex paddingHorizontal={16} paddingTop={20}>
             <Block style={styles.group}>
               <TextInput
                 placeholder="Fullname"
                 inputStyle={styles.input}
                 leftIcon={true}
                 value={values.fullName}
-                containerStyle={styles.holderInput}
                 onChangeText={handleChange('fullName')}
                 onEndEditing={handleBlur('fullName')}>
                 <Fullname />
@@ -128,7 +127,7 @@ const UpdateProfileScreen = ({route, props}) => {
                 )}
               </Block>
               <Block marginTop={8} marginBottom={24} style={styles.gender}>
-                <Gender color={theme.colors.text} />
+                <Gender color={theme.colors.black} />
                 <Picker
                   style={styles.picker}
                   mode="dropdown"
@@ -149,7 +148,7 @@ const UpdateProfileScreen = ({route, props}) => {
                   value={dateFormat(date, 'dd/mm/yyyy')}
                   inputStyle={styles.input}
                   leftIcon={true}>
-                  <List color={theme.colors.text} />
+                  <List color={theme.colors.black} />
                 </TextInput>
                 {show && (
                   <DateTimePicker

@@ -6,11 +6,7 @@ export const useStyles = makeStyles()(({colors}) => ({
     justifyContent: 'space-between',
   },
   input: {
-    height: 60,
-  },
-  holderInput: {
-    marginTop: getSize.m(20),
-    fontSize: 100,
+    width: '100%',
   },
   button: {
     height: 600,

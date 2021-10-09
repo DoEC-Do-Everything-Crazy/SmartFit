@@ -4,6 +4,7 @@ import {FlatList, Pressable} from 'react-native';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
+import LinearGradient from 'react-native-linear-gradient';
 
 const BlockBox = ({category, data, props}) => {
   const {
@@ -25,17 +26,34 @@ const BlockBox = ({category, data, props}) => {
 
   const Item = ({name, onPress, backgroundColor, color, fontType}) => {
     return (
-      <Pressable
-        style={[{backgroundColor: backgroundColor}, styles.press]}
-        onPress={onPress}>
-        <Text color={color} fontType={fontType}>
-          {name}
-        </Text>
+      <Pressable onPress={onPress}>
+        {themeStore === 'dark' ? (
+          <LinearGradient
+            start={{x: 0, y: 0}}
+            end={{x: 1, y: 0}}
+            colors={backgroundColor}
+            style={styles.press}>
+            <Text style={[styles.text, color, fontType]}>{name}</Text>
+          </LinearGradient>
+        ) : (
+          <Block style={[styles.press, backgroundColor]}>
+            <Text color={color} fontType={fontType}>
+              {name}
+            </Text>
+          </Block>
+        )}
       </Pressable>
     );
   };
   const _renderItem = ({item}) => {
-    const backgroundColor = item.check ? '#40BFFF1A' : theme.colors.white;
+    const backgroundColor =
+      themeStore === 'light'
+        ? item.check
+          ? '#40BFFF1A'
+          : theme.colors.white
+        : item.check
+        ? ['#70A2FF', '#54F0D1']
+        : ['#181E25', '#181E25'];
     const color = item.check ? theme.colors.blue : theme.colors.gray;
     const fontType = item.check ? 'bold' : 'normal';
 
@@ -44,7 +62,9 @@ const BlockBox = ({category, data, props}) => {
         onPress={() => {
           a(item);
         }}
-        backgroundColor={backgroundColor}
+        backgroundColor={
+          themeStore === 'dark' ? backgroundColor : {backgroundColor}
+        }
         name={item.name}
         color={color}
         fontType={fontType}
@@ -57,7 +77,7 @@ const BlockBox = ({category, data, props}) => {
         size={16}
         marginLeft={8}
         marginBottom={8}
-        color={theme.colors.blue}
+        color={theme.colors.iconInf}
         fontType="bold">
         {category}
       </Text>

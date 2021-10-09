@@ -23,7 +23,7 @@ const SearchScreen = props => {
   const _renderItem = ({item}) => <ItemSearch />;
 
   const _renderItemSearch = ({item}) => (
-    <Block>
+    <Block paddingHorizontal={16}>
       <Text fontType="bold" marginTop={12}>
         {item.title}
       </Text>
@@ -33,22 +33,24 @@ const SearchScreen = props => {
   return (
     <Block flex backgroundColor={theme.colors.backgroundSetting}>
       <Header title="Search" colorTheme={theme.colors.black} />
-      <Block paddingTop={20} paddingHorizontal={16}>
-        <TextInput
-          placeholder="Search"
-          inputStyle={styles.inputStyle}
-          containerInputStyle={styles.containerInputStyle}
-          rightIcon={() => (
-            <Pressable
-              onPress={() => {
-                navigation.navigate(routes.FILTER_SCREEN);
-              }}>
-              <Block style={styles.iconSeach}>
-                <Filter />
-              </Block>
-            </Pressable>
-          )}
-        />
+      <Block paddingTop={20}>
+        <Block paddingHorizontal={16}>
+          <TextInput
+            placeholder="Search"
+            inputStyle={styles.inputStyle}
+            containerInputStyle={styles.containerInputStyle}
+            rightIcon={() => (
+              <Pressable
+                onPress={() => {
+                  navigation.navigate(routes.FILTER_SCREEN);
+                }}>
+                <Block style={styles.iconSeach}>
+                  <Filter />
+                </Block>
+              </Pressable>
+            )}
+          />
+        </Block>
         {data.length > 0 ? (
           <FlatList
             showsVerticalScrollIndicator={false}
@@ -59,9 +61,19 @@ const SearchScreen = props => {
         ) : (
           <Block>
             <Block>
-              <Text size={17} fontType="bold" color={'#045694'}>
-                History
-              </Text>
+              <Block
+                marginTop={20}
+                justifyCenter
+                height={30}
+                backgroundColor={theme.colors.border}>
+                <Text
+                  paddingHorizontal={16}
+                  size={17}
+                  fontType="bold"
+                  color={'#045694'}>
+                  History
+                </Text>
+              </Block>
               <FlatList
                 showsVerticalScrollIndicator={false}
                 data={[1, 2]}
@@ -70,9 +82,18 @@ const SearchScreen = props => {
               />
             </Block>
             <Block marginTop={20}>
-              <Text size={17} fontType="bold" color={'#045694'}>
-                Recent search | Clear all
-              </Text>
+              <Block
+                justifyCenter
+                height={30}
+                backgroundColor={theme.colors.border}>
+                <Text
+                  paddingHorizontal={16}
+                  size={17}
+                  fontType="bold"
+                  color={'#045694'}>
+                  Recent search | Clear all
+                </Text>
+              </Block>
               <FlatList
                 showsVerticalScrollIndicator={false}
                 data={DATA_SEARCH}

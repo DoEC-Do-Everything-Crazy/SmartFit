@@ -20,7 +20,7 @@ const ProductContent = ({data, props}) => {
     <ItemStats title={item.title} stats={item.stats} />
   );
   return (
-    <Block row alignCenter space="between">
+    <Block row alignCenter space="between" paddingTop={20}>
       <Block alignCenter justifyCenter width="40%">
         {data.map(_renderItem)}
         <Block alignCenter marginTop={10} marginBottom={20}>

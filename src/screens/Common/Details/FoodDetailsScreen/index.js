@@ -18,7 +18,7 @@ const FoodDetailsScreen = props => {
   const theme = useTheme(themeStore);
 
   return (
-    <Block flex backgroundColor={theme.colors.background}>
+    <Block flex backgroundColor={theme.colors.backgroundSetting}>
       <Header canGoBack title="Food Details" colorTheme={theme.colors.black} />
       <ScrollView showsVerticalScrollIndicator={false}>
         <ProductContent data={DATA_FOOD} />

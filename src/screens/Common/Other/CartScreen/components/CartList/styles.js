@@ -8,6 +8,6 @@ export const useStyles = makeStyles()(({colors}) => ({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: colors.background,
+    backgroundColor: colors.backgroundSetting,
   },
 }));

@@ -140,7 +140,9 @@ const ItemSetting = ({data, title, index}, props) => {
               )}
             </Formik>
           ) : (
-            <Block paddingVertical={10}>
+            <Block
+              paddingVertical={10}
+              backgroundColor={theme.colors.backgroundSetting}>
               <Text center fontType="bold" size={16}>
                 Enter password
               </Text>
@@ -159,7 +161,6 @@ const ItemSetting = ({data, title, index}, props) => {
                 onPress={() => {
                   toggleSwitchConfirm(passInput);
                 }}
-                style={styles.button}
               />
             </Block>
           )}
@@ -231,7 +232,7 @@ const ItemSetting = ({data, title, index}, props) => {
                 backgroundColor={
                   index === 1
                     ? password
-                      ? theme.colors.white
+                      ? theme.colors.border
                       : theme.colors.disabled
                     : null
                 }
@@ -240,7 +241,7 @@ const ItemSetting = ({data, title, index}, props) => {
                   color={
                     index === 1
                       ? password
-                        ? theme.colors.black
+                        ? theme.colors.text
                         : theme.colors.white
                       : theme.colors.text
                   }

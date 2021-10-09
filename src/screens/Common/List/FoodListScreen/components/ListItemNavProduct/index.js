@@ -7,7 +7,7 @@ import {DATA_FOOD_LIST} from '@constants/';
 const ListItemNavProduct = () => {
   const _renderItem = ({item}) => <ItemNavProduct />;
   return (
-    <Block marginHorizontal={8} marginBottom={15}>
+    <Block marginHorizontal={8} paddingBottom={15} paddingTop={20}>
       <FlatList
         showsHorizontalScrollIndicator={false}
         horizontal
