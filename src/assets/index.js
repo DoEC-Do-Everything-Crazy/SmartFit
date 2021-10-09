@@ -10,6 +10,7 @@ const lotties = {
   learn: require('./lotties/learn.json'),
   like: require('./lotties/like.json'),
   password: require('./lotties/password.json'),
+  login: require('./lotties/login.json'),
 };
 
 const images = {
