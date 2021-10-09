@@ -39,9 +39,9 @@ const ItemSetting = ({data, title, index}, props) => {
       if (isTurnPassword === false) {
         modalizeRef?.current.open();
       } else {
-        dispatch(turnPassword());
+        modalizeRef?.current.open();
       }
-    }, [dispatch]);
+    }, []);
 
     const handleDarkMode = useCallback(() => {
       if (themeStore === 'dark') {
