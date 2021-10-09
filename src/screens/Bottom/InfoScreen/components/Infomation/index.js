@@ -1,15 +1,12 @@
-import {Block, Button, Header, Text} from '@components';
-import {DATA_STATISTICAL_PROFILE} from '@constants/';
+import {Block, Button, Header} from '@components';
 import {AuthService} from '@services';
 import React from 'react';
 
 import {useSelector} from 'react-redux';
 import InfoProfile from './components/InfoProfile';
 import ListItemFeature from './components/ListItemFeature';
-import StatisticalProfile from './components/StatisticalProfile';
 import {useTheme} from '@theme';
 import {useStyles} from './styles';
-import {TouchableOpacity} from 'react-native';
 
 const Information = props => {
   const {
@@ -50,7 +47,6 @@ const Information = props => {
             gene={DATA_INFO[0].gene}
             birthday={DATA_INFO[0].birthday}
           />
-
           <ListItemFeature />
         </Block>
         <Button

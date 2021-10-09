@@ -15,7 +15,6 @@ const Header = props => {
   } = useSelector(stateRoot => stateRoot.root);
   const styles = useStyles(props, themeStore);
   const theme = useTheme(themeStore);
-
   const HeaderHome = () => {
     const {top} = useSafeAreaInsets();
     const navigation = useNavigation();
@@ -40,42 +39,29 @@ const Header = props => {
   };
 
   const HeaderCommon = ({title, canGoBack, cart, search}) => {
-    const {top} = useSafeAreaInsets();
     const navigation = useNavigation();
     return (
-      <Block>
-        <Block
-          row
-          shadow
-          alignCenter
-          paddingHorizontal={16}
-          paddingTop={top + 10}
-          paddingVertical={16}
-          space="between"
-          borderColor={theme.colors.border}
-          borderBottomWidth={themeStore === 'dark' ? 1 : null}
-          backgroundColor={theme.colors.header}>
+      <Block style={styles.root} shadow>
+        <Block style={styles.arrowLeftBack}>
           {canGoBack && (
             <Pressable onPress={() => navigation.goBack()}>
               <Back color={theme.colors.text} />
             </Pressable>
           )}
-
-          {title &&
-            (themeStore === 'light' ? (
-              <Text
-                flex
-                center
-                size={20}
-                fontType="bold"
-                color={theme.colors.text}>
-                {title}
-              </Text>
-            ) : (
+        </Block>
+        {title &&
+          (themeStore === 'light' ? (
+            <Text center size={20} fontType="bold" color={theme.colors.text}>
+              {title}
+            </Text>
+          ) : (
+            <Block justifyCenter alignCenter>
               <GradientText fontSize={20} fontWeight={'bold'}>
                 {title}
               </GradientText>
-            ))}
+            </Block>
+          ))}
+        <Block style={styles.arrowRight}>
           {cart && (
             <Pressable
               onPress={() => {
@@ -84,46 +70,64 @@ const Header = props => {
               <Cart />
             </Pressable>
           )}
-
+        </Block>
+        <Block style={styles.arrowRight}>
           {search && (
-            <Pressable
-              onPress={() => {
-                navigation.navigate(routes.SEARCH_SCREEN);
-              }}>
-              <Search color={theme.colors.text} />
-            </Pressable>
+            <Block>
+              <Pressable
+                onPress={() => {
+                  navigation.navigate(routes.SEARCH_SCREEN);
+                }}>
+                <Search color={theme.colors.text} />
+              </Pressable>
+            </Block>
           )}
         </Block>
       </Block>
     );
   };
 
-  const HeaderBottom = ({title}) => {
+  const HeaderBottom = ({title, cart}) => {
     const {top} = useSafeAreaInsets();
+    const navigation = useNavigation();
     return (
-      <Block
-        row
-        alignCenter
-        paddingHorizontal={16}
-        paddingTop={top + 10}
-        paddingVertical={16}
-        space="between"
-        backgroundColor={theme.colors.blue}>
-        {title &&
-          (themeStore === 'light' ? (
-            <Text
-              flex
-              center
-              size={20}
-              fontType="bold"
-              color={theme.colors.white}>
-              {title}
-            </Text>
-          ) : (
-            <GradientText fontSize={20} fontWeight={'bold'}>
-              {title}
-            </GradientText>
-          ))}
+      <Block alignCenter paddingBottom={10} paddingHorizontal={40} row>
+        <Block
+          alignCenter
+          row
+          paddingHorizontal={16}
+          paddingTop={top + 10}
+          backgroundColor={theme.colors.blue}>
+          <Block flex>
+            {title &&
+              (themeStore === 'light' ? (
+                <Text
+                  center
+                  size={20}
+                  fontType="bold"
+                  color={theme.colors.white}>
+                  {title}
+                </Text>
+              ) : (
+                <Block justifyCenter alignCenter>
+                  <GradientText fontSize={20} fontWeight={'bold'}>
+                    {title}
+                  </GradientText>
+                </Block>
+              ))}
+          </Block>
+        </Block>
+
+        {cart && (
+          <Block paddingTop={top + 10}>
+            <Pressable
+              onPress={() => {
+                navigation.navigate(routes.CART_SCREEN);
+              }}>
+              <Cart color={theme.colors.text} />
+            </Pressable>
+          </Block>
+        )}
       </Block>
     );
   };

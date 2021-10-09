@@ -6,6 +6,7 @@ import {routes} from '@navigation/routes';
 import {useStyles} from './styles';
 import {useNavigation} from '@react-navigation/core';
 import {useSelector} from 'react-redux';
+import {useTheme} from '@theme';
 
 const {width: SliderWidth} = Dimensions.get('screen');
 
@@ -20,7 +21,7 @@ const ChangePinCode = props => {
     theme: {theme: themeStore},
   } = useSelector(stateRoot => stateRoot.root);
   const styles = useStyles(props, themeStore);
-
+  const theme = useTheme(themeStore);
   const handleNext = useCallback(() => {
     if (passInput === password) {
       navigation.navigate(routes.CHANGE_PASSWORD);
@@ -50,8 +51,9 @@ const ChangePinCode = props => {
           </Block>
         </Block>
       </Block>
-
-      <Button title="Access" onPress={handleNext} style={styles.button} />
+      <Block backgroundColor={theme.colors.backgroundSetting}>
+        <Button title="Access" onPress={handleNext} style={styles.button} />
+      </Block>
     </Block>
   );
 };

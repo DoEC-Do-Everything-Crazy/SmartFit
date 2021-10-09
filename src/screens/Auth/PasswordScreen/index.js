@@ -1,13 +1,15 @@
 import {Block, Empty, Text, Button, TextInput} from '@components';
 
 import {Dimensions} from 'react-native';
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {lotties} from '@assets';
 import {routes} from '@navigation/routes';
 import {useStyles} from './styles';
+import {useTheme} from '@theme';
 
 import {useNavigation} from '@react-navigation/core';
 import {useSelector} from 'react-redux';
+import {exitApp} from 'hook';
 
 const {width: SliderWidth} = Dimensions.get('screen');
 
@@ -19,9 +21,14 @@ const PasswordScreen = props => {
     password: {password},
   } = useSelector(state => state.root);
   const styles = useStyles(props, themeStore);
+  const theme = useTheme(themeStore);
 
   const [textError, setTextErrord] = useState('');
   const [passInput, setPassInput] = useState('');
+
+  useEffect(() => {
+    exitApp();
+  }, []);
 
   const handleNext = useCallback(() => {
     if (passInput === password) {
@@ -58,8 +65,9 @@ const PasswordScreen = props => {
           <Text style={styles.text}>{textError}</Text>
         </Block>
       </Block>
-
-      <Button title="Access" onPress={handleNext} style={styles.button} />
+      <Block backgroundColor={theme.colors.backgroundSetting}>
+        <Button title="Access" onPress={handleNext} style={styles.button} />
+      </Block>
     </Block>
   );
 };

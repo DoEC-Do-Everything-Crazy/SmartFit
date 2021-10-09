@@ -1,7 +1,7 @@
 import {Block, Header, Text, TextInput} from '@components';
 import ItemSearch from '@components/ItemList/ItemSearch';
 import {useTheme} from '@theme';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {FlatList, Pressable} from 'react-native';
 import {DATA_SEARCH} from '@constants';
 import {Filter} from '@assets/icons';
@@ -9,6 +9,7 @@ import {useNavigation} from '@react-navigation/core';
 import {routes} from '@navigation/routes';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
+import {exitApp} from 'hook';
 
 const SearchScreen = props => {
   const [data, setData] = useState('');
@@ -18,6 +19,10 @@ const SearchScreen = props => {
   } = useSelector(state => state.root);
   const styles = useStyles(props, themeStore);
   const theme = useTheme(themeStore);
+
+  useEffect(() => {
+    exitApp();
+  }, []);
 
   const navigation = useNavigation();
   const _renderItem = ({item}) => <ItemSearch />;

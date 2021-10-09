@@ -37,11 +37,10 @@ const HomeScreen = props => {
 
   return (
     <Block flex backgroundColor={theme.colors.blue}>
-      <Header type="Home" />
+      <Header type="Bottom" title="Home" colorTheme={theme.colors.white} cart />
       <Block
         flex
         alignCenter
-        marginTop={16}
         backgroundColor={theme.colors.backgroundSetting}
         style={styles.container}>
         <ScrollView showsVerticalScrollIndicator={false}>

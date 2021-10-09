@@ -31,7 +31,7 @@ const ProductContent = ({data, props}) => {
       <Block
         width="60%"
         style={styles.linearGradient}
-        backgroundColor={theme.colors.white}>
+        backgroundColor={theme.colors.border}>
         <Text
           center
           size={22}
@@ -48,7 +48,7 @@ const ProductContent = ({data, props}) => {
             ratingCount={5}
             imageSize={24}
             readonly={true}
-            tintColor={theme.colors.white}
+            tintColor={theme.colors.border}
           />
           <Text size={32} marginTop={5} fontType="bold">
             $ 3,99
