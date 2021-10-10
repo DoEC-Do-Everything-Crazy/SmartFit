@@ -1,12 +1,11 @@
 import {Block, Button, Header, Text, TextInput} from '@components';
-import {useTheme} from '@theme';
-import React from 'react';
-import {Formik} from 'formik';
-import * as yup from 'yup';
-
-import {useNavigation} from '@react-navigation/core';
 import {routes} from '@navigation/routes';
+import {useNavigation} from '@react-navigation/core';
+import {useTheme} from '@theme';
+import {Formik} from 'formik';
+import React from 'react';
 import {useSelector} from 'react-redux';
+import * as yup from 'yup';
 import {useStyles} from './styles';
 
 const EnterPhoneNumberScreen = props => {
