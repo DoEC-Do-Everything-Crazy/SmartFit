@@ -17,12 +17,11 @@ const HomeScreen = props => {
   const theme = useTheme(themeStore);
   const styles = useStyles(props, themeStore);
 
-  const fetchData = async data => {
+  const fetchData = async () => {
     try {
       const resp = await axios({
         method: 'GET',
         url: 'http://10.0.2.2:5000/api/course',
-        data: data,
       });
       var obj = resp.data;
       setData(obj);

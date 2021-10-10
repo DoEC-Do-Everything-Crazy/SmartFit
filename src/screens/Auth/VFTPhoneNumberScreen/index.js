@@ -233,7 +233,7 @@ const VFTPhoneNumberScreen = ({route, props}) => {
       <Button
         disabled={!(code.length === 6) || !confirm}
         onPress={confirmCode}
-        title="Verify and Create Account"
+        title="Verify"
         height={45}
         marginLeft={10}
         containerStyle={{justifyContent: 'flex-end'}}

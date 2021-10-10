@@ -1,11 +1,10 @@
-import {Block, Button, Header, TextInput} from '@components';
-import {Email, Fullname, Gender, List, Phone} from '@assets/icons';
+import {Block, Button, DropDown, Header, TextInput} from '@components';
+import {Email, Fullname, List, Phone} from '@assets/icons';
 import {Platform, TouchableOpacity} from 'react-native';
 import React, {useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
 import DateTimePicker from '@react-native-community/datetimepicker';
-import {Picker} from '@react-native-picker/picker';
 import {addUser} from 'reduxs/reducers';
 import axios from 'axios';
 import {useNavigation} from '@react-navigation/core';
@@ -23,26 +22,25 @@ const UpdateProfileScreen = ({route, props}) => {
 
   const styles = useStyles(props, themeStore);
   const theme = useTheme(themeStore);
+  const dateFormat = require('dateformat');
 
   const [userProfile, setUserProfile] = useState({
     birthday: user.birthday,
     phoneNumber: user.phoneNumber,
     displayName: user.displayName,
     email: user.email,
-    gender: user.gender,
-  });
-
-  const [errors, setErrors] = useState({
-    birthday: '',
-    phoneNumber: '',
-    displayName: '',
-    email: '',
-    gender: '',
   });
 
   const [mode, setMode] = useState('date');
   const [show, setShow] = useState(false);
-  var dateFormat = require('dateformat');
+
+  const [valueGender, setValueGender] = useState(user.gender);
+  const [gender, setGender] = useState([
+    {label: 'Male', value: 'male'},
+    {label: 'Female', value: 'female'},
+    {label: 'Other', value: 'other'},
+  ]);
+  const [openGender, setOpenGender] = useState(false);
 
   const showMode = currentMode => {
     setShow(true);
@@ -56,7 +54,7 @@ const UpdateProfileScreen = ({route, props}) => {
   const updateProfile = async () => {
     await axios
       .post('http://10.0.2.2:5000/api/user/update', {
-        userProfile: {...userProfile, uid: user.uid},
+        userProfile: {...userProfile, uid: user.uid, gender: valueGender},
         changePrimary:
           userProfile.email !== user.email ||
           userProfile.phoneNumber !== user.phoneNumber,
@@ -68,7 +66,7 @@ const UpdateProfileScreen = ({route, props}) => {
             birthday: userProfile.birthday,
             displayName: userProfile.displayName,
             email: userProfile.email,
-            gender: userProfile.gender,
+            gender: valueGender,
             phoneNumber: userProfile.phoneNumber,
           };
 
@@ -88,32 +86,9 @@ const UpdateProfileScreen = ({route, props}) => {
   };
 
   return (
-    <Formik
-      validationSchema={validationSchema}
-      initialValues={{
-        fullName: '',
-        email: '',
-        phone: phone,
-      }}
-      onSubmit={console.log('Success')}>
-      {({
-        handleChange,
-        handleBlur,
-        handleSubmit,
-        values,
-        touched,
-        errors,
-        isValid,
-        dirty,
-      }) => (
-        <Block flex backgroundColor={theme.colors.background}>
-          <Header
-            canGoBack
-            title="Update Profile"
-            colorTheme={theme.colors.blue}
-          />
-
-      <Block flex paddingHorizontal={16}>
+    <Block flex backgroundColor={theme.colors.backgroundSetting}>
+      <Header canGoBack title="Update Profile" colorTheme={theme.colors.blue} />
+      <Block flex justifyCenter paddingHorizontal={16} paddingTop={20}>
         <Block style={styles.group}>
           <TextInput
             placeholder="Enter full name"
@@ -172,31 +147,24 @@ const UpdateProfileScreen = ({route, props}) => {
               <Text style={styles.text}>{error.phoneNumber}</Text>
             )} */}
           </Block>
-          <Block marginTop={8} marginBottom={24} style={styles.gender}>
-            <Gender />
-            <Picker
-              style={styles.picker}
-              mode="dropdown"
-              dropdownIconColor="red"
-              selectedValue={userProfile.gender}
-              onValueChange={text => {
-                setUserProfile({
-                  ...userProfile,
-                  gender: text,
-                });
-              }}>
-              <Picker.Item label="Male" value="male" />
-              <Picker.Item label="Female" value="female" />
-              <Picker.Item label="Other" value="other" />
-            </Picker>
-          </Block>
+          <DropDown
+            open={openGender}
+            value={valueGender}
+            items={gender}
+            setOpen={setOpenGender}
+            setValue={setValueGender}
+            setItems={setGender}
+            containerStyle={styles.gender}
+            onChangeValue={setValueGender}
+            placeholder="Select a gender"
+          />
           <TouchableOpacity
             style={{marginTop: 8, marginBottom: 24}}
             onPress={showDatepicker}>
             <TextInput
               disabled={true}
-              placeholder="Select gender"
-              value={dateFormat(new Date(user.birthday), 'dd/mm/yyyy')}
+              placeholder="Select date"
+              value={dateFormat(userProfile.birthday, 'dd/mm/yyyy')}
               inputStyle={styles.input}
               leftIcon={true}>
               <List />
@@ -204,16 +172,18 @@ const UpdateProfileScreen = ({route, props}) => {
             {show && (
               <DateTimePicker
                 testID="dateTimePicker"
-                value={new Date(user.birthday)}
+                value={new Date(userProfile.birthday)}
                 mode={mode}
                 is24Hour={true}
                 display="spinner"
-                onChange={selectedDay => {
+                onChange={(event, selectedDay) => {
                   setShow(Platform.OS === 'ios');
-                  setUserProfile({
-                    ...userProfile,
-                    birthday: selectedDay.getTime(),
-                  });
+                  if (event.type === 'set') {
+                    setUserProfile({
+                      ...userProfile,
+                      birthday: new Date(selectedDay),
+                    });
+                  }
                 }}
               />
             )}

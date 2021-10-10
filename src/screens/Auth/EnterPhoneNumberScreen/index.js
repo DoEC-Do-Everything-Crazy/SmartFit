@@ -7,7 +7,6 @@ import React from 'react';
 import {routes} from '@navigation/routes';
 import {useNavigation} from '@react-navigation/core';
 import {useSelector} from 'react-redux';
-import * as yup from 'yup';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
 
@@ -58,7 +57,7 @@ const EnterPhoneNumberScreen = props => {
                 value={values.phoneNumber}
                 inputStyle={styles.textInput}
                 keyboardType="numeric"
-                placeholder="Enter phong number"
+                placeholder="Enter phone number"
                 onBlur={handleBlur('phoneNumber')}
               />
               {errors.phoneNumber && touched.phoneNumber && (
