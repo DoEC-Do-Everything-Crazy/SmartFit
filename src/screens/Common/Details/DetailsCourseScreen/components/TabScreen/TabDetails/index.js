@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {Block, Header, PayInfo, Text, InviteLogin, Button} from '@components';
 import {BottomSheet} from '@components/BottomSheet';
 import ItemPT from '@components/ItemList/ItemPT';
@@ -17,7 +18,6 @@ import {Rating} from 'react-native-ratings';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import Carousel, {ParallaxImage} from 'react-native-snap-carousel';
 import {useSelector} from 'react-redux';
-// import DATA from './DATA.json';
 import axios from 'axios';
 import {routes} from '@navigation/routes';
 import {Back} from '@assets/icons';
@@ -134,7 +134,7 @@ const TabDetails = ({route, props}) => {
       ) : null}
       <ScrollView>
         <Block>
-          <Block paddingHorizontal={16}>
+          <Block marginTop={10} paddingHorizontal={16}>
             <Carousel
               loop
               layout={'tinder'}

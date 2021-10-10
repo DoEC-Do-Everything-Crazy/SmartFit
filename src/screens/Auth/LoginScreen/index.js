@@ -93,7 +93,7 @@ const LoginScreen = ({navigation, props}) => {
                     routeScreen === routes.INFO_SCREEN ||
                     routeScreen === routes.NOTIFICATION_SCREEN ||
                     routeScreen === routes.STATS_SCREEN
-                      ? navigation.navigate(routes.UPDATE_PROFILE_SCREEN)
+                      ? navigation.navigate(routes.BOTTOM_TAB)
                       : navigation.navigate(routeScreen);
                   })
                   .catch(error => {

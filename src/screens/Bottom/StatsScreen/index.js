@@ -34,6 +34,7 @@ const StatsScreen = () => {
           row
           height="50%"
           alignCenter
+          paddingTop={20}
           paddingHorizontal={16}
           marginTop={32}>
           <Block>

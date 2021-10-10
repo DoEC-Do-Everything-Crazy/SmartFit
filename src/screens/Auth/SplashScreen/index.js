@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {Block} from '@components';
 import {useTheme} from '@theme';
 import React, {useEffect, useRef} from 'react';
@@ -49,7 +50,7 @@ const SplashScreen = props => {
       delay: 1000,
       useNativeDriver: false,
     }).start();
-  }, [fadeAnim, first, isTurnPassword, moveAnim, navigation]);
+  }, [fadeAnim, first, moveAnim, navigation]);
   return (
     <Block flex justifyCenter alignCenter backgroundColor={theme.colors.blue}>
       <StatusBar barStyle="light-content" />

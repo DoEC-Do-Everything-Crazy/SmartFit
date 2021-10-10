@@ -15,7 +15,7 @@ const Header = ({image, name, date, props}) => {
   const theme = useTheme(themeStore);
   return (
     <Block
-      borderBottomWidth={1}
+      // borderBottomWidth={1}
       borderColor={theme.colors.border}
       row
       paddingVertical={16}
