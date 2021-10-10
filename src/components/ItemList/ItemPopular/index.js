@@ -6,6 +6,7 @@ import {Image, Pressable, TouchableOpacity} from 'react-native';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
+import LinearGradient from 'react-native-linear-gradient';
 
 const ItemPopular = props => {
   const {
@@ -23,7 +24,7 @@ const ItemPopular = props => {
         borderRadius={8}
         marginVertical={8}
         space="between"
-        backgroundColor={theme.colors.white}>
+        backgroundColor={theme.colors.border}>
         <Image
           style={styles.image}
           source={{
@@ -37,11 +38,26 @@ const ItemPopular = props => {
         </Block>
         <Block row marginHorizontal={4} marginVertical={3} space="between">
           <Text>$3.39</Text>
-          <TouchableOpacity style={styles.button}>
-            <Text color="white" fontType="bold">
-              +
-            </Text>
-          </TouchableOpacity>
+
+          {themeStore === 'dark' ? (
+            <TouchableOpacity>
+              <LinearGradient
+                start={{x: 0, y: 0}}
+                end={{x: 1, y: 0}}
+                colors={['#70A2FF', '#54F0D1']}
+                style={styles.button}>
+                <Text color="white" fontType="bold">
+                  +
+                </Text>
+              </LinearGradient>
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity style={styles.button}>
+              <Text color="white" fontType="bold">
+                +
+              </Text>
+            </TouchableOpacity>
+          )}
         </Block>
       </Block>
     </Pressable>

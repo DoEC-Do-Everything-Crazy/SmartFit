@@ -21,7 +21,7 @@ import {useSelector} from 'react-redux';
 import axios from 'axios';
 import {routes} from '@navigation/routes';
 import {Back} from '@assets/icons';
-
+import LinearGradient from 'react-native-linear-gradient';
 const {width: screenWidth, height: screenHeight} = Dimensions.get('window');
 
 const TabDetails = ({route, props}) => {
@@ -63,6 +63,7 @@ const TabDetails = ({route, props}) => {
   };
   useEffect(() => {
     fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const sessions = data?.session;
@@ -124,7 +125,7 @@ const TabDetails = ({route, props}) => {
   };
 
   return (
-    <Block flex backgroundColor={theme.colors.background}>
+    <Block flex backgroundColor={theme.colors.backgroundSetting}>
       {transferCourseScreen === 'CourseDetail' ? (
         <Header
           canGoBack
@@ -133,8 +134,8 @@ const TabDetails = ({route, props}) => {
         />
       ) : null}
       <ScrollView>
-        <Block>
-          <Block marginTop={10} paddingHorizontal={16}>
+        <Block paddingTop={20}>
+          <Block paddingHorizontal={16}>
             <Carousel
               loop
               layout={'tinder'}
@@ -170,7 +171,7 @@ const TabDetails = ({route, props}) => {
               imageSize={18}
               tintColor={theme.colors.lightBlue}
             />
-            <Text marginLeft={100} color={theme.colors.blue}>
+            <Text marginLeft={100} color={theme.colors.iconInf}>
               6,3k Completed
             </Text>
           </Block>
@@ -197,12 +198,26 @@ const TabDetails = ({route, props}) => {
                 <Text fontType="bold">{day} days </Text>
                 <Text fontType="bold">Total body </Text>
                 {transferCourseScreen === 'CourseDetail' ? (
-                  <Pressable
-                    style={styles.choose}
-                    onPress={() => modalizPTList?.current.open()}>
-                    <Text style={styles.choosePT} fontType="bold">
-                      Choose
-                    </Text>
+                  <Pressable onPress={() => modalizPTList?.current.open()}>
+                    {themeStore === 'dark' ? (
+                      <LinearGradient
+                        start={{x: 0, y: 0}}
+                        end={{x: 1, y: 0}}
+                        colors={['#70A2FF', '#54F0D1']}
+                        style={styles.choose}>
+                        <Text style={styles.choosePT} fontType="bold">
+                          Choose
+                        </Text>
+                      </LinearGradient>
+                    ) : (
+                      <Block
+                        style={styles.choose}
+                        backgroundColor={theme.colors.blue}>
+                        <Text style={styles.choosePT} fontType="bold">
+                          Choose
+                        </Text>
+                      </Block>
+                    )}
                   </Pressable>
                 ) : (
                   <Text fontType="bold">?????</Text>

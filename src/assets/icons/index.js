@@ -32,3 +32,6 @@ export * from './Chart';
 export * from './Search';
 export * from './Notification';
 export * from './Info';
+export * from './ArrowDown';
+export * from './ArrowUp';
+export * from './Tick';

@@ -6,11 +6,7 @@ export const useStyles = makeStyles()(({colors}) => ({
     justifyContent: 'space-between',
   },
   input: {
-    height: 60,
-  },
-  holderInput: {
-    marginTop: getSize.m(20),
-    fontSize: 100,
+    width: '100%',
   },
   button: {
     height: 600,
@@ -23,17 +19,16 @@ export const useStyles = makeStyles()(({colors}) => ({
     alignItems: 'center',
     paddingLeft: '3%',
     backgroundColor: colors.white,
-    borderRadius: getSize.s(5),
+    borderRadius: getSize.s(8),
+    width: width - 30,
+    height: getSize.s(60),
+    marginBottom: getSize.s(30),
   },
   img: {
     height: getSize.m(20),
     width: getSize.m(20),
   },
-  picker: {
-    width: width - 20,
-    borderRadius: getSize.s(5),
-    height: getSize.s(60),
-  },
+
   text: {
     color: colors.red,
     fontSize: 12,

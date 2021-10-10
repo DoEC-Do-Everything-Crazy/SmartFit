@@ -2,17 +2,30 @@ import {makeStyles} from '@theme';
 import {getSize} from '@utils/responsive';
 
 export const useStyles = makeStyles()(({colors}) => ({
-  iconBack: {
-    height: getSize.s(18),
-    width: getSize.s(18),
+  root: {
+    paddingTop: getSize.s(30),
+    width: '100%',
+    height: getSize.s(70),
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderColor: colors.border,
+    backgroundColor: colors.header,
+    zIndex: 100,
   },
-  iconHeader: {
-    height: getSize.s(20),
-    width: getSize.s(20),
+  arrowLeftBack: {
+    position: 'absolute',
+    left: getSize.s(20),
+    top: getSize.s(35),
+    width: 18.05,
+    height: 14.34,
   },
-  iconCart: {
-    height: getSize.s(25),
-    width: getSize.s(25),
+  arrowRight: {
+    position: 'absolute',
+    right: getSize.s(25),
+    top: getSize.s(35),
+    width: 18.05,
+    height: 14.34,
   },
   search: {
     width: '90%',

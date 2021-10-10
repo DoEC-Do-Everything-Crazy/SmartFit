@@ -16,7 +16,7 @@ const DetailsCourseScreen = () => {
   } = useSelector(stateRoot => stateRoot.root);
   const theme = useTheme(themeStore);
   return (
-    <Block flex backgroundColor={theme.colors.background}>
+    <Block flex backgroundColor={theme.colors.backgroundSetting}>
       <Header canGoBack cart title="Cource" colorTheme={theme.colors.blue} />
       <Tab.Navigator
         lazy

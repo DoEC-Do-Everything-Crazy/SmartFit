@@ -20,7 +20,7 @@ const RatingValue = () => {
       ratingCount={count}
       startingValue={count}
       imageSize={15}
-      tintColor={theme.colors.background}
+      tintColor={theme.colors.backgroundSetting}
       ratingBackgroundColor="transparent"
       style={{alignSelf: 'flex-end'}}
     />
@@ -31,9 +31,9 @@ const RatingValue = () => {
       height={6}
       width={count}
       borderRadius={8}
-      backgroundColor="red"
+      backgroundColor={themeStore === 'dark' ? 'white' : 'red'}
       borderWidth={2}
-      borderColor="red"
+      borderColor={themeStore === 'dark' ? 'white' : 'red'}
       marginLeft={8}
     />
   );

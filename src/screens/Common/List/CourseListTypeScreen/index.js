@@ -15,7 +15,7 @@ const CourseListTypeScreen = () => {
     <ItemCourseBig title={item.title} url={item.url} />
   );
   return (
-    <Block flex marginBottom={16}>
+    <Block flex backgroundColor={theme.colors.backgroundSetting}>
       <Header
         canGoBack
         title="Course Category"

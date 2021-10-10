@@ -29,13 +29,13 @@ const ItemFavorite = ({picture, title, group_id, index, marginTop, props}) => {
       width={(width - 48) / 2}
       marginRight={16}>
       <Block style={styles.content}>
-        <Text size={22} marginTop={16} fontType="bold">
+        <Text size={22} marginTop={16} center fontType="bold">
           Veggie tomato mix
         </Text>
         <Text
           size={17}
           marginTop={20}
-          color={theme.colors.blue}
+          color={theme.colors.inconInf}
           fontType="bold">
           $3.99
         </Text>

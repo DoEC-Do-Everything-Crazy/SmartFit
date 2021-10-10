@@ -46,7 +46,7 @@ const CourseListScreen = () => {
   };
 
   return (
-    <Block flex>
+    <Block flex backgroundColor={theme.colors.backgroundSetting}>
       <Header
         canGoBack
         title="GYM"
@@ -54,7 +54,7 @@ const CourseListScreen = () => {
         filter
         search
       />
-      <Block flex alignCenter>
+      <Block flex alignCenter paddingTop={20}>
         <FlatList
           showsVerticalScrollIndicator={false}
           data={data}

@@ -37,10 +37,10 @@ const ItemCourse = ({
     <Block style={styles.container}>
       <Block
         radius={5}
-        borderWidth={0.3}
         marginHorizontal={10}
         height={98}
         width="95%"
+        backgroundColor={theme.colors.border}
         shadowColor={theme.colors.blue}
         alignCenter
         row>
@@ -53,11 +53,11 @@ const ItemCourse = ({
             left={5}
             width={70}
             radius={5}
-            backgroundColor={theme.colors.blue}>
+            backgroundColor={'#045694'}>
             <Text
               size={12}
               marginLeft={5}
-              color={theme.colors.text}
+              color={theme.colors.white}
               fontType="bold">
               {price}$
             </Text>
@@ -85,7 +85,7 @@ const ItemCourse = ({
               <Text
                 size={10}
                 marginLeft={5}
-                color={theme.colors.text}
+                color={theme.colors.white}
                 fontType="bold">
                 HOT
               </Text>
@@ -102,7 +102,7 @@ const ItemCourse = ({
                 height={'65%'}
                 justifyCenter
                 alignCenter>
-                <Text color={theme.colors.text} fontType="bold">
+                <Text color={theme.colors.white} fontType="bold">
                   Detail
                 </Text>
               </Block>

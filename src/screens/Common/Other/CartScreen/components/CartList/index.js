@@ -61,7 +61,7 @@ const CartList = ({DATA, props}) => {
     </Swipeout>
   );
   return (
-    <Block flex justifyCenter>
+    <Block flex justifyCenter paddingTop={20}>
       <FlatList
         data={DATA}
         renderItem={renderItem}

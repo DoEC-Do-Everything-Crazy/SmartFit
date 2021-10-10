@@ -103,22 +103,45 @@ const InputText = ({...props}) => {
 
   const _renderInput = () => {
     return (
-      <TextInput
-        onFocus={() => setInput(false)}
-        onBlur={() => setInput(true)}
-        ref={ref}
-        autoCorrect={false}
-        textAlignVertical={props.multiline ? 'top' : 'center'}
-        placeholder={!isEmpty(label) && leftIcon ? props.placeholder : ''}
-        placeholderTextColor={theme.colors.placeholder}
-        underlineColorAndroid="transparent"
-        autoCapitalize="none"
-        secureTextEntry={secureEye && isSecure}
-        maxLength={maxLength}
-        style={textStyle}
-        editable={!disabled}
-        {...inputProps}
-      />
+      <>
+        {leftIcon ? (
+          <Block paddingLeft={10} width={'100%'}>
+            <TextInput
+              onFocus={() => setInput(false)}
+              onBlur={() => setInput(true)}
+              ref={ref}
+              autoCorrect={false}
+              textAlignVertical={props.multiline ? 'top' : 'center'}
+              placeholder={!isEmpty(label) && leftIcon ? props.placeholder : ''}
+              placeholderTextColor={theme.colors.placeholder}
+              underlineColorAndroid="transparent"
+              autoCapitalize="none"
+              secureTextEntry={secureEye && isSecure}
+              maxLength={maxLength}
+              style={textStyle}
+              editable={!disabled}
+              {...inputProps}
+            />
+          </Block>
+        ) : (
+          <TextInput
+            onFocus={() => setInput(false)}
+            onBlur={() => setInput(true)}
+            ref={ref}
+            autoCorrect={false}
+            textAlignVertical={props.multiline ? 'top' : 'center'}
+            placeholder={!isEmpty(label) && leftIcon ? props.placeholder : ''}
+            placeholderTextColor={theme.colors.placeholder}
+            underlineColorAndroid="transparent"
+            autoCapitalize="none"
+            secureTextEntry={secureEye && isSecure}
+            maxLength={maxLength}
+            style={textStyle}
+            editable={!disabled}
+            {...inputProps}
+          />
+        )}
+      </>
     );
   };
 

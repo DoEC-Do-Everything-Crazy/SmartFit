@@ -30,7 +30,7 @@ const ItemNavProduct = props => {
         marginHorizontal={8}
         marginVertical={8}
         space="between"
-        backgroundColor={theme.colors.white}>
+        backgroundColor={theme.colors.border}>
         <Block style={styles.icon}>
           <HeartPf color={theme.colors.red} />
         </Block>
@@ -55,7 +55,7 @@ const ItemNavProduct = props => {
             type="custom"
             ratingColor="#FF7F50"
             ratingBackgroundColor="#c8c7c8"
-            tintColor={theme.colors.white}
+            tintColor={theme.colors.border}
           />
           <Text size={12}>123 Reviewed</Text>
         </Block>

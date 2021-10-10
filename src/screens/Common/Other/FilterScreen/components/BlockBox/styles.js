@@ -1,14 +1,21 @@
 import {makeStyles} from '@theme';
+import {getSize} from '@utils/responsive';
 
 export const useStyles = makeStyles()(({}) => ({
   press: {
     borderWidth: 1,
-    padding: 10,
-    marginHorizontal: 8,
-    height: 48,
-    marginVertical: 8,
-    borderRadius: 8,
+    justifyContent: 'center',
+    marginVertical: getSize.m(10),
+    paddingVertical: getSize.m(5),
+    paddingHorizontal: getSize.m(10),
+    borderRadius: getSize.m(8),
+    marginHorizontal: getSize.m(10),
     borderColor: '#EBF0FF',
+  },
+  text: {
+    fontSize: getSize.m(18),
+    color: 'white',
+    fontWeight: 'bold',
   },
   list: {
     flexDirection: 'row',

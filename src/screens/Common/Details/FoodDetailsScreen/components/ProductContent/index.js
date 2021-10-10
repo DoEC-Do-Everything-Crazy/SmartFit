@@ -20,7 +20,7 @@ const ProductContent = ({data, props}) => {
     <ItemStats title={item.title} stats={item.stats} />
   );
   return (
-    <Block row alignCenter space="between">
+    <Block row alignCenter space="between" paddingTop={20}>
       <Block alignCenter justifyCenter width="40%">
         {data.map(_renderItem)}
         <Block alignCenter marginTop={10} marginBottom={20}>
@@ -31,7 +31,7 @@ const ProductContent = ({data, props}) => {
       <Block
         width="60%"
         style={styles.linearGradient}
-        backgroundColor={theme.colors.white}>
+        backgroundColor={theme.colors.border}>
         <Text
           center
           size={22}
@@ -48,7 +48,7 @@ const ProductContent = ({data, props}) => {
             ratingCount={5}
             imageSize={24}
             readonly={true}
-            tintColor={theme.colors.white}
+            tintColor={theme.colors.border}
           />
           <Text size={32} marginTop={5} fontType="bold">
             $ 3,99

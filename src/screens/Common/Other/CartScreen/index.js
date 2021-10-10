@@ -1,4 +1,4 @@
-import {Block, Text} from '@components';
+import {Block, Button, Text} from '@components';
 import Header from '@components/Header';
 import React from 'react';
 import {Pressable} from 'react-native';
@@ -22,7 +22,7 @@ const CartScreen = props => {
   const Cart = () =>
     DATA.length > 0 ? (
       <>
-        <Block flex backgroundColor={theme.colors.background}>
+        <Block flex backgroundColor={theme.colors.backgroundSetting}>
           <Header canGoBack colorTheme={theme.colors.blue} title="Cart" />
           <CartList DATA={DATA} />
           <Block paddingHorizontal={16}>
@@ -34,11 +34,12 @@ const CartScreen = props => {
               total={127}
             />
           </Block>
-          <Pressable style={styles.press}>
-            <Text fontType="bold" color={theme.colors.white}>
-              ORDER
-            </Text>
-          </Pressable>
+          <Button
+            title="Order"
+            // onPress={() => {
+            //   something
+            // }}
+          />
         </Block>
       </>
     ) : (

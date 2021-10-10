@@ -1,5 +1,5 @@
 import {Facebook, Google} from '@assets/icons';
-import {Block, Text} from '@components';
+import {Block, Button, Text} from '@components';
 import {routes} from '@navigation/routes';
 import auth from '@react-native-firebase/auth';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
@@ -56,15 +56,13 @@ const LoginScreen = ({navigation, props}) => {
           “GO HARD {'\n'} or {'\n'} GO HOME”
         </Text>
         <Block width={width} marginBottom={50}>
-          <TouchableOpacity
+          <Button
+            title=" Sign In Phone Number"
             onPress={() =>
               navigation.navigate(routes.ENTER_PHONE_NUMBER_SCREEN)
             }
-            style={styles.button}>
-            <Text size={18} color={theme.colors.white} fontType="bold">
-              Sign In Phone Number
-            </Text>
-          </TouchableOpacity>
+          />
+
           <Block row alignCenter justifyCenter margin={16}>
             <Block
               width={150}
