@@ -1,14 +1,14 @@
 import {Block, Header} from '@components';
 import React, {useEffect, useState} from 'react';
-import {ScrollView} from 'react-native';
+
 import ListHotCourse from './components/ListHotCourse';
 import ListMenu from './components/ListMenu';
 import ListRecommended from './components/ListRecommended';
-
+import {ScrollView} from 'react-native';
 import axios from 'axios';
 import {useSelector} from 'react-redux';
-import {useTheme} from '@theme';
 import {useStyles} from './styles';
+import {useTheme} from '@theme';
 
 const HomeScreen = props => {
   const [data, setData] = useState([]);
@@ -30,7 +30,7 @@ const HomeScreen = props => {
       console.log('error', err);
     }
   };
-  console.log('Data', data);
+
   useEffect(() => {
     fetchData();
   }, []);

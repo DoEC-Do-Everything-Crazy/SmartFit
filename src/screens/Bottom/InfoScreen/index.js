@@ -1,15 +1,16 @@
+import {Header, InviteLogin} from '@components';
+
+import Information from './components/Infomation';
+import React from 'react';
 import {routes} from '@navigation/routes';
 import {useSelector} from 'react-redux';
-import React from 'react';
-import Information from './components/Infomation';
-import {InviteLogin, Header} from '@components';
 
 const InfoScreen = () => {
   const {user} = useSelector(state => state.root.user);
 
   return (
     <>
-      {JSON.stringify(user) !== '{}' ? (
+      {user ? (
         <>
           <Information />
         </>

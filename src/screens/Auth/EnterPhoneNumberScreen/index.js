@@ -1,12 +1,15 @@
+import * as yup from 'yup';
+
 import {Block, Button, Header, Text, TextInput} from '@components';
-import {routes} from '@navigation/routes';
-import {useNavigation} from '@react-navigation/core';
-import {useTheme} from '@theme';
+
 import {Formik} from 'formik';
 import React from 'react';
+import {routes} from '@navigation/routes';
+import {useNavigation} from '@react-navigation/core';
 import {useSelector} from 'react-redux';
 import * as yup from 'yup';
 import {useStyles} from './styles';
+import {useTheme} from '@theme';
 
 const EnterPhoneNumberScreen = props => {
   const navigation = useNavigation();
@@ -19,7 +22,10 @@ const EnterPhoneNumberScreen = props => {
   const validationSchema = yup.object().shape({
     phoneNumber: yup
       .string()
-      .matches(/(84|0[3|5|7|8|9])+([0-9]{8})\b/g, 'Enter a valid phone number')
+      .matches(
+        /([+84|0])+([3|5|7|8|9])+([0-9]{8})\b/g,
+        'Enter a valid phone number',
+      )
       .required('Phone number is Required'),
   });
 
@@ -27,7 +33,7 @@ const EnterPhoneNumberScreen = props => {
     <Formik
       validationSchema={validationSchema}
       initialValues={{
-        phoneNumber: '',
+        phoneNumber: '+84',
       }}
       onSubmit={props => {
         console.log(props.phoneNumber);
@@ -52,7 +58,7 @@ const EnterPhoneNumberScreen = props => {
                 value={values.phoneNumber}
                 inputStyle={styles.textInput}
                 keyboardType="numeric"
-                placeholder="0344 108 493"
+                placeholder="Enter phong number"
                 onBlur={handleBlur('phoneNumber')}
               />
               {errors.phoneNumber && touched.phoneNumber && (
