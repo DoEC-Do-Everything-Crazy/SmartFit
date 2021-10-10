@@ -30,7 +30,6 @@ export const useStyles = makeStyles()(({colors}) => ({
   },
   choose: {
     paddingVertical: getSize.s(3),
-    backgroundColor: colors.blue,
     width: getSize.m(80),
     borderRadius: getSize.m(5),
   },

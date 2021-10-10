@@ -1,5 +1,5 @@
 import {Cancel} from '@assets/icons';
-import {Block, Text} from '@components';
+import {Block, Button, Text} from '@components';
 import {useNavigation} from '@react-navigation/core';
 import React from 'react';
 import {Pressable, ScrollView, TouchableOpacity} from 'react-native';
@@ -21,7 +21,7 @@ const FilterScreen = props => {
   const theme = useTheme(themeStore);
 
   return (
-    <Block flex backgroundColor={theme.colors.background}>
+    <Block flex backgroundColor={theme.colors.backgroundSetting}>
       <Block
         row
         shadow
@@ -30,30 +30,35 @@ const FilterScreen = props => {
         paddingTop={top + 10}
         paddingVertical={16}
         marginBottom={16}
-        backgroundColor={theme.colors.header}>
+        backgroundColor={theme.colors.backgroundSetting}>
         <Pressable onPress={() => navigation.goBack()}>
           <Cancel />
         </Pressable>
         <Text
           size={18}
           marginLeft={10}
-          color={theme.colors.blue}
+          color={theme.colors.iconInf}
           fontType="bold">
           Filter Search
         </Text>
       </Block>
       <ScrollView>
-        <Block borderBottomWidth={1} borderBottomColor="#EBF0FF" />
+        <Block
+          borderBottomWidth={1}
+          borderBottomColor={
+            themeStore === 'dark'
+              ? theme.colors.border
+              : theme.colors.backgroundSetting
+          }
+        />
         <PriceRange />
         <BlockBox data={data.Condition} category="Condition" />
         <BlockBox data={data.BuyingFormat} category="Buying Format " />
         <BlockBox data={data.ItemLocation} category="Item Location" />
         <BlockBox data={data.ShowOnly} category="Show Only" />
-        <TouchableOpacity style={styles.button}>
-          <Text color={theme.colors.white} size={18}>
-            Apply
-          </Text>
-        </TouchableOpacity>
+        <Block marginBottom={15}>
+          <Button title={'Apple'} />
+        </Block>
       </ScrollView>
     </Block>
   );

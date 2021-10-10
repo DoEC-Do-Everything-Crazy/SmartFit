@@ -6,6 +6,7 @@ import {useStyles} from './styles';
 import {useNavigation} from '@react-navigation/core';
 import {routes} from '@navigation/routes';
 import {images} from '@assets';
+import {useTheme} from '@theme';
 
 const dataTitle = ['GYM', 'YOGA', 'BELLY DANCE', 'BOXING', 'DANCE SPORT'];
 
@@ -21,7 +22,7 @@ const ItemCourseBig = ({title, url, props}) => {
   const styles = useStyles(props, themeStore);
 
   return (
-    <Block>
+    <Block marginBottom={16}>
       <Pressable onPress={onPress}>
         <ImageBackground source={images.gym} style={styles.imageHorizontal}>
           <Text style={styles.text}>{dataTitle[0]}</Text>

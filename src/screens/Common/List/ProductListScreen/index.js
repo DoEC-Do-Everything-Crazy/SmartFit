@@ -17,7 +17,7 @@ const ProductListScreen = () => {
   const _renderItemCarousel = ({item, index}) => <ItemCarousel />;
 
   return (
-    <Block flex marginBottom={16} backgroundColor={theme.colors.background}>
+    <Block flex backgroundColor={theme.colors.backgroundSetting}>
       <Header canGoBack title="Product" colorTheme={theme.colors.black} />
       <ScrollView>
         <Block alignCenter marginTop={16}>

@@ -35,9 +35,9 @@ const ChangePassword = props => {
         password: '',
         confirmPassword: '',
       }}
-      onSubmit={props => {
+      onSubmit={subProps => {
         navigation.navigate(routes.BOTTOM_TAB);
-        dispatch(changePassword(props.confirmPassword));
+        dispatch(changePassword(subProps.confirmPassword));
       }}>
       {({
         handleChange,
@@ -55,12 +55,12 @@ const ChangePassword = props => {
             title="Change Password"
             colorTheme={theme.colors.blue}
           />
-          <Block flex justifyCenter paddingHorizontal={16}>
-            <Text
-              size={18}
-              center
-              fontType="bold"
-              color={theme.colors.lightText}>
+          <Block
+            flex
+            justifyCenter
+            paddingHorizontal={16}
+            backgroundColor={theme.colors.backgroundSetting}>
+            <Text size={18} center fontType="bold" color={theme.colors.text}>
               Enter new password
             </Text>
             <TextInput
@@ -92,12 +92,14 @@ const ChangePassword = props => {
               )}
             </Block>
           </Block>
-          <Button
-            disabled={dirty && isValid ? false : true}
-            containerStyle={{justifyContent: 'flex-end'}}
-            onPress={handleSubmit}
-            title="Change password"
-          />
+          <Block backgroundColor={theme.colors.backgroundSetting}>
+            <Button
+              disabled={dirty && isValid ? false : true}
+              containerStyle={{justifyContent: 'flex-end'}}
+              onPress={handleSubmit}
+              title="Change password"
+            />
+          </Block>
         </Block>
       )}
     </Formik>

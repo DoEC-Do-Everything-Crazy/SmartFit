@@ -10,6 +10,7 @@ export const useStyles = makeStyles()(({colors}) => ({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: colors.backgroundSetting,
   },
 
   renderTitle: {

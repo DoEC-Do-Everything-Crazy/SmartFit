@@ -17,12 +17,12 @@ const PriceRange = ({label, value, props}) => {
 
   useEffect(() => {}, [amountFrom, amountTo]);
   return (
-    <Block>
+    <Block paddingTop={20}>
       <Text
         size={16}
         marginLeft={16}
         marginBottom={15}
-        color={theme.colors.blue}
+        color={theme.colors.iconInf}
         fontType="bold">
         Price Range
       </Text>
@@ -32,11 +32,11 @@ const PriceRange = ({label, value, props}) => {
           width={170}
           borderRadius={8}
           borderWidth={1}
-          borderColor="#EBF0FF">
+          borderColor={themeStore === 'dark' ? 'white' : '#EBF0FF'}>
           <Picker
             style={styles.picker}
             mode="dropdown"
-            dropdownIconColor="blue"
+            dropdownIconColor={themeStore === 'dark' ? 'white' : 'blue'}
             selectedValue={amountFrom}
             onValueChange={setAmountFrom}>
             <Picker.Item label="100k" value="100" />
@@ -49,11 +49,11 @@ const PriceRange = ({label, value, props}) => {
           borderRadius={8}
           width={170}
           borderWidth={1}
-          borderColor="#EBF0FF">
+          borderColor={themeStore === 'dark' ? 'white' : '#EBF0FF'}>
           <Picker
             style={styles.picker}
             mode="dropdown"
-            dropdownIconColor="blue"
+            dropdownIconColor={themeStore === 'dark' ? 'white' : 'blue'}
             selectedValue={amountTo}
             onValueChange={setAmountTo}>
             <Picker.Item label="100k" value="100" />

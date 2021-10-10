@@ -9,6 +9,8 @@ import WebView from './base/WebView';
 import Icon from './base/Icon';
 import Empty from './base/Empty';
 import GradientText from './base/GradientText';
+import Switcher from './base/Switcher';
+import DropDown from './base/DropDown';
 // PROJECT
 import Header from './Header';
 import EmptyScreen from './EmptyScreen';
@@ -29,6 +31,8 @@ export {
   Empty,
   WebView,
   GradientText,
+  Switcher,
+  DropDown,
   // PROJECT
   EmptyScreen,
   Camera,

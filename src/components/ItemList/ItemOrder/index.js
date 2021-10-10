@@ -9,6 +9,8 @@ import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {checkPermission, PERMISSION_TYPE} from 'hook/permissions';
 import {Camera} from '@assets/icons';
+import {useNavigation} from '@react-navigation/core';
+import {routes} from '@navigation/routes';
 
 const ItemOrder = ({picture, title, group_id, index, props}) => {
   const modalizRef = useRef(null);
@@ -23,7 +25,11 @@ const ItemOrder = ({picture, title, group_id, index, props}) => {
   } = useSelector(stateRoot => stateRoot.root);
   const styles = useStyles(props, themeStore);
   const theme = useTheme(themeStore);
+  const navigation = useNavigation();
 
+  const handleToOrderDetail = useCallback(() => {
+    navigation.navigate(routes.ORDER_DETAIL_SCREEN);
+  }, [navigation]);
   const handleCamera = async () => {
     const resultSP = await checkPermission(PERMISSION_TYPE.camera);
     if (resultSP === true) {
@@ -41,22 +47,27 @@ const ItemOrder = ({picture, title, group_id, index, props}) => {
   const HeaderComponent = useCallback(() => {
     return (
       <>
-        <Block paddingVertical={10}>
+        <Block
+          paddingVertical={10}
+          backgroundColor={theme.colors.backgroundSetting}>
           <Text center fontType="bold" size={16}>
             What is you rate?
           </Text>
         </Block>
-        <Block>
+        <Block backgroundColor={theme.colors.backgroundSetting}>
           <Rating
             type="custom"
             ratingCount={5}
             imageSize={36}
             ratingBackgroundColor="#c8c7c8"
-            tintColor={theme.colors.background}
+            tintColor={theme.colors.backgroundSetting}
             ratingColor="#FFD700"
           />
         </Block>
-        <Block paddingVertical={10} alignCenter>
+        <Block
+          paddingVertical={10}
+          alignCenter
+          backgroundColor={theme.colors.backgroundSetting}>
           <Block width="50%">
             <Text center fontType="bold" size={16}>
               Please share your opinion about the product
@@ -65,11 +76,11 @@ const ItemOrder = ({picture, title, group_id, index, props}) => {
         </Block>
       </>
     );
-  }, [theme.colors.background]);
+  }, [theme.colors.backgroundSetting]);
   const FooterComponent = useCallback(() => {
     return (
       <>
-        <Block marginVertical={20} padding={16}>
+        <Block padding={16} backgroundColor={theme.colors.backgroundSetting}>
           <ScrollView horizontal>
             <Image
               source={{
@@ -86,7 +97,7 @@ const ItemOrder = ({picture, title, group_id, index, props}) => {
               style={styles.image}
             />
             <Block
-              backgroundColor={theme.colors.white}
+              backgroundColor={theme.colors.border}
               justifyCenter
               alignCenter
               style={styles.image}>
@@ -99,13 +110,15 @@ const ItemOrder = ({picture, title, group_id, index, props}) => {
             </Block>
           </ScrollView>
         </Block>
-        <Button
-          title="SEND REVIEW"
-          onPress={() => modalizRef?.current.close()}
-        />
+        <Block backgroundColor={theme.colors.backgroundSetting}>
+          <Button
+            title="SEND REVIEW"
+            onPress={() => modalizRef?.current.close()}
+          />
+        </Block>
       </>
     );
-  }, [styles.image, theme.colors.white]);
+  }, [styles.image, theme.colors.backgroundSetting, theme.colors.border]);
   return (
     <>
       <Block
@@ -114,7 +127,7 @@ const ItemOrder = ({picture, title, group_id, index, props}) => {
         marginTop={16}
         padding={16}
         radius={8}
-        backgroundColor={theme.colors.white}>
+        backgroundColor={theme.colors.border}>
         <Block width="100%">
           <Block row flex={1}>
             <Block row flex={1}>
@@ -149,7 +162,10 @@ const ItemOrder = ({picture, title, group_id, index, props}) => {
 
           <Block row flex={1} paddingTop={5}>
             <Block row flex={1} justifyStart>
-              <Pressable style={styles.item}>
+              <Pressable
+                style={styles.item}
+                borderColor={theme.colors.text}
+                onPress={handleToOrderDetail}>
                 <Text>Details</Text>
               </Pressable>
             </Block>
@@ -193,7 +209,9 @@ const ItemOrder = ({picture, title, group_id, index, props}) => {
             Platform.OS === 'ios' ? 'padding' : 'height'
           }>
           <ScrollView>
-            <Block paddingHorizontal={16}>
+            <Block
+              paddingHorizontal={16}
+              backgroundColor={theme.colors.backgroundSetting}>
               <TextInput
                 onChangeText={() => setComment(comment)}
                 value={comment}

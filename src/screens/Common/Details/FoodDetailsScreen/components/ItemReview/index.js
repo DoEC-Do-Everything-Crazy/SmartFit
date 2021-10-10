@@ -22,7 +22,7 @@ const ItemReview = ({name, image, props}) => {
         paddingTop={30}
         paddingHorizontal={20}
         borderRadius={8}
-        backgroundColor={theme.colors.white}>
+        backgroundColor={theme.colors.border}>
         <Text size={18} fontType="bold">
           {name}
         </Text>
@@ -31,7 +31,7 @@ const ItemReview = ({name, image, props}) => {
             type="custom"
             ratingCount={5}
             imageSize={18}
-            tintColor={theme.colors.white}
+            tintColor={theme.colors.border}
             ratingBackgroundColor={theme.colors.lightGray}
           />
           <Text size={14} color={theme.colors.gray}>

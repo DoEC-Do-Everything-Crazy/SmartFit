@@ -9,6 +9,7 @@ export const colors = {
     iconInf: '#FFFFFF',
     bar: '#181E25',
     barCover: '#ffffff',
+    lightBlue: '#A5A5A5',
 
     lightText: '#515D5F',
     header: '#000000',
@@ -26,7 +27,7 @@ export const colors = {
     orange: '#F59523',
     tomato: '#FF6853',
     darkBlue: '#444C5C',
-    lightBlue: '#B0EFEF',
+
     yellowFood: '#FFC107',
     pink: '#FFCCB6',
     textLight: '#808080',
@@ -42,6 +43,7 @@ export const colors = {
     iconInf: '#045694',
     bar: '#ffffff',
     barCover: '#181E25',
+    lightBlue: '#B0EFEF',
 
     lightText: '#515D5F',
     header: '#F9F9F9',
@@ -59,7 +61,6 @@ export const colors = {
     orange: '#F59523',
     tomato: '#FF6853',
     darkBlue: '#444C5C',
-    lightBlue: '#B0EFEF',
     yellowFood: '#FFC107',
     pink: '#FFCCB6',
     textLight: '#808080',

@@ -37,7 +37,7 @@ const EnterPhoneNumberScreen = props => {
         });
       }}>
       {({handleChange, handleBlur, handleSubmit, touched, errors, values}) => (
-        <Block flex backgroundColor={theme.colors.background}>
+        <Block flex backgroundColor={theme.colors.backgroundSetting}>
           <Header
             canGoBack
             colorTheme={theme.colors.blue}

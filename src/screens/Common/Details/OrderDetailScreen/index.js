@@ -15,12 +15,16 @@ const OrderDetailScreen = props => {
   const theme = useTheme(themeStore);
 
   return (
-    <Block flex marginBottom={16} backgroundColor={theme.colors.background}>
+    <Block
+      flex
+      paddingBottom={16}
+      backgroundColor={theme.colors.backgroundSetting}>
       <Header canGoBack title="Order Detail" colorTheme={theme.colors.black} />
       <Block
         flex
         paddingHorizontal={16}
-        backgroundColor={theme.colors.background}>
+        paddingTop={20}
+        backgroundColor={theme.colors.backgroundSetting}>
         <Block width="100%" height="11%">
           <Block row flex={1}>
             <Block row flex={1}>
@@ -87,7 +91,7 @@ const OrderDetailScreen = props => {
           </Block>
         </Block>
         <Block row alignCenter justifyCenter>
-          <Pressable style={styles.itemReorder}>
+          <Pressable style={styles.itemReorder} borderColor={theme.colors.text}>
             <Text>Reorder</Text>
           </Pressable>
           <Pressable style={styles.itemLeave}>

@@ -69,13 +69,13 @@ const VFTPhoneNumberScreen = ({route, props}) => {
   });
 
   return (
-    <Block flex backgroundColor="#FFF">
+    <Block flex backgroundColor={theme.colors.backgroundSetting}>
       <Header
         canGoBack
         title="Sign in with phone number"
         colorTheme={theme.colors.blue}
       />
-      <Block flex marginTop={100}>
+      <Block flex justifyCenter>
         <Block>
           <Text
             size={18}
@@ -153,15 +153,16 @@ const VFTPhoneNumberScreen = ({route, props}) => {
           </Block>
           <Block row alignCenter justifyCenter>
             <Text
+              color={theme.colors.text}
               size={18}
               marginTop={60}
               fontType="bold"
-              style={{
-                textAlign: 'center',
-              }}>
+              center>
               Didn’t receive code?
             </Text>
-            <Text style={styles.textRequestAgain}>Request again</Text>
+            <Text center style={styles.textRequestAgain}>
+              Request again
+            </Text>
           </Block>
         </Block>
       </Block>

@@ -4,15 +4,12 @@ import {makeStyles} from '@theme';
 
 export const useStyles = makeStyles()(({colors}) => ({
   item: {
-    width: width,
-    height: '100%',
-  },
-  itemHeader: {
-    paddingVertical: getSize.s(5),
-    paddingHorizontal: getSize.s(20),
-    borderRadius: getSize.s(8),
-    marginHorizontal: getSize.s(5),
-    alignItems: 'center',
+    justifyContent: 'center',
+    marginVertical: 10,
+    paddingVertical: 5,
+    paddingHorizontal: 12,
+    borderRadius: 8,
+    marginHorizontal: 20,
   },
   imageContainer: {
     flex: 1,
@@ -27,6 +24,5 @@ export const useStyles = makeStyles()(({colors}) => ({
   text: {
     fontSize: getSize.s(18),
     fontWeight: 'bold',
-    textAlign: 'center',
   },
 }));

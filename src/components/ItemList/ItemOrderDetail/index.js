@@ -19,7 +19,7 @@ const ItemOrderDetail = ({picture, title, group_id, index, props}) => {
       key={index}
       radius={8}
       marginTop={16}
-      backgroundColor={theme.colors.white}>
+      backgroundColor={theme.colors.border}>
       <Block height="100%">
         <Image
           source={{

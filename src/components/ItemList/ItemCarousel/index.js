@@ -34,7 +34,7 @@ const ItemCarousel = ({picture, title, group_id, index, props}) => {
             type="custom"
             ratingCount={5}
             imageSize={18}
-            tintColor={theme.colors.white}
+            tintColor={theme.colors.border}
             ratingBackgroundColor={theme.colors.lightGray}
           />
           <Text size={14} color={theme.colors.gray}>

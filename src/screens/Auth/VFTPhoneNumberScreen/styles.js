@@ -10,7 +10,7 @@ export const useStyles = makeStyles()(({}) => ({
     textAlign: 'center',
     marginTop: getSize.m(60),
     marginLeft: 5,
-    color: 'blue',
+    color: '#5F97FF',
   },
   text: {
     fontFamily: 'roboto',

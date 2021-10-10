@@ -13,7 +13,7 @@ const FoodListScreen = () => {
   const theme = useTheme(themeStore);
 
   return (
-    <Block flex backgroundColor={theme.colors.background}>
+    <Block flex backgroundColor={theme.colors.backgroundSetting}>
       <Header
         canGoBack
         cart
