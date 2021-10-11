@@ -2,17 +2,30 @@ import {icons} from '@assets';
 import {Block, Text} from '@components';
 import React from 'react';
 import {Image, Pressable} from 'react-native';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
+import {Ratting} from '@assets/icons';
 
-const ItemPT = ({onpress, picture, title, group_id, index, props}) => {
+const ItemPT = ({
+  onPress,
+  _id,
+  courseId,
+  email,
+  mobile,
+  name,
+  gender,
+  birthday,
+  price,
+  image,
+  index,
+  props,
+}) => {
   const {
     theme: {theme: themeStore},
   } = useSelector(stateRoot => stateRoot.root);
   const styles = useStyles(props, themeStore);
   const theme = useTheme(themeStore);
-
   return (
     <Block flex key={index} borderBottomWidth={0.3}>
       <Block
@@ -26,31 +39,29 @@ const ItemPT = ({onpress, picture, title, group_id, index, props}) => {
         row>
         <Image
           source={{
-            uri: 'https://gocbinhluan.com/public/photos/shares/201911/20191130/20191130_hinh12.jpg',
+            uri: image,
           }}
           style={styles.image}
         />
-
         <Block marginLeft={15} width="70%">
           <Block row>
             <Text size={20} fontType="bold">
-              PT NAME
+              {name}
             </Text>
             <Block marginLeft={15} alignCenter row>
-              <Image source={icons.ratings} style={styles.icon} />
+              <Ratting />
               <Text size={15} marginLeft={5}>
-                5.0
+                0.0
               </Text>
             </Block>
           </Block>
-
           <Block row alignCenter>
             <Text size={15} fontType="bold">
               Gender:
             </Text>
             <Block marginLeft={5} alignCenter>
               <Text size={15} marginLeft={5}>
-                Male
+                {gender}
               </Text>
             </Block>
           </Block>
@@ -60,13 +71,13 @@ const ItemPT = ({onpress, picture, title, group_id, index, props}) => {
             </Text>
             <Block marginLeft={5} alignCenter>
               <Text size={15} marginLeft={5}>
-                $1000
+                ${price}
               </Text>
             </Block>
           </Block>
 
           <Block row alignCenter>
-            <Pressable onPress={onpress}>
+            <Pressable onPress={onPress}>
               <Block
                 width={80}
                 height={20}

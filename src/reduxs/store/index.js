@@ -19,6 +19,7 @@ import {
   PasswordReducer,
   ThemeReducer,
   TurnSwitchReducer,
+  IdReducer,
 } from '../reducers/';
 
 const persistConfig = {
@@ -34,6 +35,7 @@ const persistedReducer = persistCombineReducers(persistConfig, {
   password: PasswordReducer,
   theme: ThemeReducer,
   turn: TurnSwitchReducer,
+  id: IdReducer,
   // other reducers here
 });
 

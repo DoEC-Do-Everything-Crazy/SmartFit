@@ -96,7 +96,7 @@ const Header = props => {
           alignCenter
           row
           paddingHorizontal={16}
-          paddingTop={top + 10}
+          paddingTop={top}
           backgroundColor={theme.colors.blue}>
           <Block flex>
             {title &&

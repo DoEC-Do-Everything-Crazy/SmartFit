@@ -30,7 +30,6 @@ const HomeScreen = props => {
       console.log('error', err);
     }
   };
-  console.log('Data', data);
   useEffect(() => {
     fetchData();
   }, []);

@@ -30,56 +30,109 @@ const TabDetails = ({route, props}) => {
   const {transferCourseScreen} = useSelector(state => state.root.screen);
   const modalizPTList = useRef(null);
   const modalizInf = useRef(null);
+  const [dataDetail, setDataDetail] = useState([]);
+  const [dataPT, setDataPT] = useState([]);
+  const [dataPTDetail, setDataPTDetail] = useState([]);
+  const [infoPT, setInfoPT] = useState([]);
   const {bottom} = useSafeAreaInsets();
   const keyboardVerticalOffset = Platform.OS === 'ios' ? 'padding' : 'height';
 
-  const handleOpenInf = useCallback(() => {
-    modalizPTList?.current.close();
-    modalizInf?.current.open();
-  }, [modalizInf, modalizPTList]);
+  const getPtDetails = async _id => {
+    try {
+      const resp = await axios({
+        method: 'GET',
+        url: 'http://10.0.2.2:5000/api/course/pt/' + _id,
+      });
+      var obj = resp.data;
+      setDataPTDetail(obj);
+    } catch (err) {
+      console.log('error', err);
+    }
+  };
 
   const handleCloseInf = useCallback(() => {
     modalizPTList?.current.open();
     modalizInf?.current.close();
   }, [modalizInf, modalizPTList]);
 
-  const _renderItemPT = (item, index) => (
-    <ItemPT index={index} onpress={handleOpenInf} />
-  );
-  const [data, setData] = useState([]);
+  const handleChoosePT = () => {
+    modalizInf?.current.close();
+    setInfoPT(dataPTDetail);
+  };
 
-  const fetchData = async data => {
+  const handleOpenInf = useCallback(
+    item => {
+      modalizPTList?.current.close();
+      modalizInf?.current.open();
+      getPtDetails(item._id);
+    },
+    [modalizInf, modalizPTList],
+  );
+
+  const _renderItemPT = ({item, index}) => {
+    return (
+      <ItemPT
+        index={index}
+        onPress={() => handleOpenInf(item)}
+        _id={item._id}
+        courseId={item.courseId}
+        email={item.email}
+        mobile={item.mobile}
+        name={item.name}
+        gender={item.gender}
+        birthday={item.birthday}
+        price={item.price}
+        image={item.image}
+      />
+    );
+  };
+
+  const getCourseDetails = async fetchData => {
     try {
       const resp = await axios({
         method: 'GET',
         url: 'http://10.0.2.2:5000/api/course/' + id,
-        data: data,
+        data: fetchData,
       });
       var obj = resp.data;
-      setData(obj);
+      setDataDetail(obj);
     } catch (err) {
       console.log('error', err);
     }
   };
+
+  const getPt = async fetchData => {
+    try {
+      const resp = await axios({
+        method: 'GET',
+        url: 'http://10.0.2.2:5000/api/course/pt',
+        data: fetchData,
+      });
+      var obj = resp.data;
+      setDataPT(obj);
+    } catch (err) {
+      console.log('error', err);
+    }
+  };
+
   useEffect(() => {
-    fetchData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    getCourseDetails();
+    getPt();
   }, []);
 
-  const sessions = data?.session;
+  const sessions = dataDetail?.session;
 
   const {
     theme: {theme: themeStore},
   } = useSelector(stateRoot => stateRoot.root);
   const styles = useStyles(props, themeStore);
   const theme = useTheme(themeStore);
-
   const minute = [25, 30, 35, 40, 45];
   const randomMinute = minute[Math.floor(Math.random() * minute.length)];
   const day = [3, 5];
   const randomDay = day[Math.floor(Math.random() * day.length)];
   const weeks = sessions / randomDay;
-  const totalPrice = data?.price + 0;
+  const totalPrice = dataDetail?.price + dataPTDetail.price;
   const HeaderComponent = useCallback(
     props => {
       const {title, inf} = props;
@@ -92,7 +145,6 @@ const TabDetails = ({route, props}) => {
               </Block>
             </Pressable>
           ) : null}
-
           <Block
             width={inf ? screenWidth * 0.8 : screenWidth * 0.9}
             alignCenter>
@@ -114,7 +166,7 @@ const TabDetails = ({route, props}) => {
       <Block style={styles.item}>
         <ParallaxImage
           fadeDuration={1000}
-          source={{uri: data.image}}
+          source={{uri: dataDetail.image}}
           containerStyle={styles.imageContainer}
           style={styles.image}
           parallaxFactor={0.1}
@@ -145,7 +197,7 @@ const TabDetails = ({route, props}) => {
               sliderWidth={screenWidth}
               sliderHeight={300}
               itemWidth={screenWidth}
-              data={[data.image, data.image]}
+              data={[dataDetail.image, dataDetail.image]}
               renderItem={_renderItem}
               hasParallaxImages={true}
               containerCustomStyle={styles.slider}
@@ -157,7 +209,7 @@ const TabDetails = ({route, props}) => {
             marginBottom={10}
             size={32}
             fontType="bold">
-            {data.courseName}
+            {dataDetail.courseName}
           </Text>
           <Block
             row
@@ -177,7 +229,7 @@ const TabDetails = ({route, props}) => {
           </Block>
           <Block marginTop={10}>
             <Text paddingHorizontal={16} fontType="bold">
-              {data.desc}
+              {dataDetail.desc}
             </Text>
             <Block
               row
@@ -197,31 +249,38 @@ const TabDetails = ({route, props}) => {
                 <Text fontType="bold">{randomMinute} Minutes</Text>
                 <Text fontType="bold">{day} days </Text>
                 <Text fontType="bold">Total body </Text>
-                {transferCourseScreen === 'CourseDetail' ? (
-                  <Pressable onPress={() => modalizPTList?.current.open()}>
-                    {themeStore === 'dark' ? (
-                      <LinearGradient
-                        start={{x: 0, y: 0}}
-                        end={{x: 1, y: 0}}
-                        colors={['#70A2FF', '#54F0D1']}
-                        style={styles.choose}>
-                        <Text style={styles.choosePT} fontType="bold">
-                          Choose
-                        </Text>
-                      </LinearGradient>
-                    ) : (
-                      <Block
-                        style={styles.choose}
-                        backgroundColor={theme.colors.blue}>
-                        <Text style={styles.choosePT} fontType="bold">
-                          Choose
-                        </Text>
-                      </Block>
-                    )}
-                  </Pressable>
-                ) : (
-                  <Text fontType="bold">?????</Text>
-                )}
+                <Block row alignCenter>
+                  {infoPT?.name && (
+                    <Text marginRight={10} fontType="bold">
+                      {infoPT?.name}
+                    </Text>
+                  )}
+                  {transferCourseScreen === 'CourseDetail' ? (
+                    <Pressable onPress={() => modalizPTList?.current.open()}>
+                      {themeStore === 'dark' ? (
+                        <LinearGradient
+                          start={{x: 0, y: 0}}
+                          end={{x: 1, y: 0}}
+                          colors={['#70A2FF', '#54F0D1']}
+                          style={styles.choose}>
+                          <Text style={styles.choosePT} fontType="bold">
+                            Choose
+                          </Text>
+                        </LinearGradient>
+                      ) : (
+                        <Block
+                          style={styles.choose}
+                          backgroundColor={theme.colors.blue}>
+                          <Text style={styles.choosePT} fontType="bold">
+                            Choose
+                          </Text>
+                        </Block>
+                      )}
+                    </Pressable>
+                  ) : (
+                    <Text fontType="bold">{infoPT?.name}</Text>
+                  )}
+                </Block>
               </Block>
             </Block>
             {transferCourseScreen === 'CourseDetail' ? (
@@ -229,9 +288,9 @@ const TabDetails = ({route, props}) => {
                 <Block paddingHorizontal={16}>
                   <PayInfo
                     title1="Course"
-                    titlePrice1={data.price}
+                    titlePrice1={dataDetail.price}
                     title2="Personal Trainer"
-                    titlePrice2={0}
+                    titlePrice2={infoPT?.price || 0}
                     total={totalPrice}
                   />
                 </Block>
@@ -264,7 +323,7 @@ const TabDetails = ({route, props}) => {
               <Block flex alignCenter>
                 <FlatList
                   showsVerticalScrollIndicator={false}
-                  data={data}
+                  data={dataPT}
                   keyExtractor={(item, index) => index.toString()}
                   renderItem={_renderItemPT}
                 />
@@ -285,21 +344,18 @@ const TabDetails = ({route, props}) => {
                 <Block alignCenter>
                   <Image
                     source={{
-                      uri: 'https://gocbinhluan.com/public/photos/shares/201911/20191130/20191130_hinh12.jpg',
+                      uri: dataPTDetail.image,
                     }}
                     style={styles.imageInf}
                   />
                   <Text marginTop={10} size={18} fontType="bold">
-                    CHUONG HOANG
+                    {dataPTDetail.name}
                   </Text>
                 </Block>
                 <Text marginTop={10} size={16} fontType="bold">
                   Description
                 </Text>
-                <Text>
-                  'Something..... Something.....Something.....
-                  Something.....Something..... Something.....'
-                </Text>
+                <Text>No something</Text>
                 <Block
                   marginTop={10}
                   paddingVertical={5}
@@ -331,7 +387,7 @@ const TabDetails = ({route, props}) => {
                     <Text fontType="bold">Gender</Text>
                   </Block>
                   <Block width={screenWidth / 1.55}>
-                    <Text>Male</Text>
+                    <Text>{dataPTDetail.gender}</Text>
                   </Block>
                 </Block>
                 <Block
@@ -344,7 +400,7 @@ const TabDetails = ({route, props}) => {
                     <Text fontType="bold">Email</Text>
                   </Block>
                   <Block width={screenWidth / 1.55}>
-                    <Text>Hoangthienchuong2302@gmail.com</Text>
+                    <Text>{dataPTDetail.email}</Text>
                   </Block>
                 </Block>
                 <Block
@@ -357,7 +413,7 @@ const TabDetails = ({route, props}) => {
                     <Text fontType="bold">Mobile</Text>
                   </Block>
                   <Block width={screenWidth / 1.55}>
-                    <Text>0933961814</Text>
+                    <Text>{dataPTDetail.mobile}</Text>
                   </Block>
                 </Block>
                 <Block
@@ -370,7 +426,7 @@ const TabDetails = ({route, props}) => {
                     <Text fontType="bold">Birthday</Text>
                   </Block>
                   <Block width={screenWidth / 1.55}>
-                    <Text>20/08/1996</Text>
+                    <Text>{dataPTDetail.birthday}</Text>
                   </Block>
                 </Block>
                 <Block
@@ -383,15 +439,11 @@ const TabDetails = ({route, props}) => {
                     <Text fontType="bold">Price</Text>
                   </Block>
                   <Block width={screenWidth / 1.55}>
-                    <Text>$10000</Text>
+                    <Text>${dataPTDetail.price}</Text>
                   </Block>
                 </Block>
               </Block>
-
-              <Button
-                title="CHOOSE"
-                onPress={() => modalizInf?.current.close()}
-              />
+              <Button title="CHOOSE" onPress={handleChoosePT} />
             </KeyboardAvoidingView>
           </BottomSheet>
         </Block>
