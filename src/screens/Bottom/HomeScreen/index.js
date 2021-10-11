@@ -1,14 +1,13 @@
 import {Block, Header} from '@components';
 import React, {useEffect, useState} from 'react';
-import {ScrollView} from 'react-native';
 import ListHotCourse from './components/ListHotCourse';
 import ListMenu from './components/ListMenu';
 import ListRecommended from './components/ListRecommended';
-
+import {ScrollView} from 'react-native';
 import axios from 'axios';
 import {useSelector} from 'react-redux';
-import {useTheme} from '@theme';
 import {useStyles} from './styles';
+import {useTheme} from '@theme';
 
 const HomeScreen = props => {
   const [data, setData] = useState([]);
@@ -17,12 +16,11 @@ const HomeScreen = props => {
   const theme = useTheme(themeStore);
   const styles = useStyles(props, themeStore);
 
-  const fetchData = async data => {
+  const fetchData = async () => {
     try {
       const resp = await axios({
         method: 'GET',
         url: 'http://10.0.2.2:5000/api/course',
-        data: data,
       });
       var obj = resp.data;
       setData(obj);

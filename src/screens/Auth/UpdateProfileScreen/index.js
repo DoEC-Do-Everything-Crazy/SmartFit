@@ -1,41 +1,46 @@
-import {Email, Fullname, Gender, List, Phone} from '@assets/icons';
 import {Block, Button, DropDown, Header, TextInput} from '@components';
+import {Email, Fullname, List, Phone} from '@assets/icons';
+import {Platform, TouchableOpacity} from 'react-native';
+import React, {useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+
 import DateTimePicker from '@react-native-community/datetimepicker';
-import {Picker} from '@react-native-picker/picker';
+import {addUser} from 'reduxs/reducers';
+import axios from 'axios';
+import {useNavigation} from '@react-navigation/core';
+import {useStyles} from './styles';
 import {useTheme} from '@theme';
 
-import {Formik} from 'formik';
-import React, {useState} from 'react';
-import {Platform, Text, TouchableOpacity} from 'react-native';
-import * as yup from 'yup';
-import {useSelector} from 'react-redux';
-import {useStyles} from './styles';
-
 const UpdateProfileScreen = ({route, props}) => {
+  const navigation = useNavigation();
+  const dispatch = useDispatch();
+
   const {
     theme: {theme: themeStore},
+    user: {user},
   } = useSelector(state => state.root);
+
   const styles = useStyles(props, themeStore);
   const theme = useTheme(themeStore);
+  const dateFormat = require('dateformat');
 
-  const phone = route?.params?.phone;
-  const [date, setDate] = useState(new Date());
-  const [selectedGender, setSelectedGender] = useState();
+  const [userProfile, setUserProfile] = useState({
+    birthday: user.birthday,
+    phoneNumber: user.phoneNumber,
+    displayName: user.displayName,
+    email: user.email,
+  });
+
   const [mode, setMode] = useState('date');
   const [show, setShow] = useState(false);
 
-  const [valueGender, setValueGender] = useState(null);
+  const [valueGender, setValueGender] = useState(user.gender);
   const [gender, setGender] = useState([
-    {label: 'Male', value: 'Male'},
-    {label: 'Female', value: 'Female'},
+    {label: 'Male', value: 'male'},
+    {label: 'Female', value: 'female'},
+    {label: 'Other', value: 'other'},
   ]);
   const [openGender, setOpenGender] = useState(false);
-
-  var dateFormat = require('dateformat');
-  const onChange = (event, selectedDate) => {
-    setShow(Platform.OS === 'ios');
-    setDate(selectedDate);
-  };
 
   const showMode = currentMode => {
     setShow(true);
@@ -45,141 +50,153 @@ const UpdateProfileScreen = ({route, props}) => {
   const showDatepicker = () => {
     showMode('date');
   };
-  const validationSchema = yup.object().shape({
-    fullName: yup.string().required('Fullname is Required'),
-    email: yup
-      .string()
-      .email('Please enter valid email')
-      .required('Email is required'),
-    phone: yup
-      .string()
 
-      .required('Phone number is required'),
-  });
-  // const color = useMemo(() => {
-  //   if (isInput) {
-  //     return theme.colors.white;
-  //   }
-  //   return theme.colors.blue;
-  // }, [isInput]);
+  const updateProfile = async () => {
+    await axios
+      .post('http://10.0.2.2:5000/api/user/update', {
+        userProfile: {...userProfile, uid: user.uid, gender: valueGender},
+        changePrimary:
+          userProfile.email !== user.email ||
+          userProfile.phoneNumber !== user.phoneNumber,
+      })
+      .then(response => {
+        if (response.status === 200) {
+          const newUser = {
+            ...user,
+            birthday: userProfile.birthday,
+            displayName: userProfile.displayName,
+            email: userProfile.email,
+            gender: valueGender,
+            phoneNumber: userProfile.phoneNumber,
+          };
+
+          dispatch(addUser(newUser));
+          navigation.goBack();
+          return;
+        }
+        console.log('!= 200', response);
+      })
+      .catch(error => {
+        console.error('load error', error.message);
+      });
+  };
+
+  const handleOnSubmit = () => {
+    updateProfile();
+  };
 
   return (
-    <Formik
-      validationSchema={validationSchema}
-      initialValues={{
-        fullName: '',
-        email: '',
-        phone: phone,
-      }}
-      onSubmit={console.log('Success')}>
-      {({
-        handleChange,
-        handleBlur,
-        handleSubmit,
-        values,
-        touched,
-        errors,
-        isValid,
-        dirty,
-      }) => (
-        <Block flex backgroundColor={theme.colors.backgroundSetting}>
-          <Header
-            canGoBack
-            title="Update Profile"
-            colorTheme={theme.colors.blue}
-          />
-
-          <Block flex justifyCenter paddingHorizontal={16} paddingTop={20}>
-            <Block style={styles.group}>
-              <TextInput
-                placeholder="Fullname"
-                inputStyle={styles.input}
-                leftIcon={true}
-                value={values.fullName}
-                onChangeText={handleChange('fullName')}
-                onEndEditing={handleBlur('fullName')}>
-                <Fullname />
-              </TextInput>
-              <Block marginTop={8} marginBottom={24}>
-                {errors.fullName && touched.fullName && (
-                  <Text style={styles.text}>{errors.fullName}</Text>
-                )}
-              </Block>
-              <TextInput
-                placeholder="Email"
-                inputStyle={styles.input}
-                value={values.email}
-                leftIcon={true}
-                onChangeText={handleChange('email')}
-                onEndEditing={handleBlur('email')}>
-                <Email />
-              </TextInput>
-              <Block marginTop={8} marginBottom={24}>
-                {errors.email && touched.email && (
-                  <Text style={styles.text}>{errors.email}</Text>
-                )}
-              </Block>
-              <TextInput
-                placeholder="Phone"
-                inputStyle={styles.input}
-                leftIcon={true}
-                value={'values.phone'}
-                onChangeText={handleChange('phone')}
-                onEndEditing={handleBlur('phone')}
-                disabled="true">
-                <Phone />
-              </TextInput>
-              <Block marginTop={8} marginBottom={24}>
-                {errors.phone && touched.phone && (
-                  <Text style={styles.text}>{errors.phone}</Text>
-                )}
-              </Block>
-              <DropDown
-                open={openGender}
-                value={valueGender}
-                items={gender}
-                setOpen={setOpenGender}
-                setValue={setValueGender}
-                setItems={setGender}
-                containerStyle={styles.gender}
-                onChangeValue={setValueGender}
-                placeholder="Select a gender"
-              />
-
-              <TouchableOpacity
-                style={{marginTop: 8, marginBottom: 24}}
-                onPress={showDatepicker}>
-                <TextInput
-                  disabled={true}
-                  placeholder={''}
-                  value={dateFormat(date, 'dd/mm/yyyy')}
-                  inputStyle={styles.input}
-                  leftIcon={true}>
-                  <List color={theme.colors.black} />
-                </TextInput>
-                {show && (
-                  <DateTimePicker
-                    testID="dateTimePicker"
-                    value={date}
-                    mode={mode}
-                    is24Hour={true}
-                    display="spinner"
-                    onChange={onChange}
-                  />
-                )}
-              </TouchableOpacity>
-            </Block>
+    <Block flex backgroundColor={theme.colors.backgroundSetting}>
+      <Header canGoBack title="Update Profile" colorTheme={theme.colors.blue} />
+      <Block flex justifyCenter paddingHorizontal={16} paddingTop={20}>
+        <Block style={styles.group}>
+          <TextInput
+            placeholder="Enter full name"
+            inputStyle={styles.input}
+            leftIcon={true}
+            value={userProfile.displayName}
+            containerStyle={styles.holderInput}
+            onChangeText={text => {
+              setUserProfile({
+                ...userProfile,
+                displayName: text,
+              });
+            }}>
+            <Fullname />
+          </TextInput>
+          <Block marginTop={8} marginBottom={24}>
+            {/* {error.displayName && (
+              <Text style={styles.text}>{error.displayName}</Text>
+            )} */}
           </Block>
-          <Button
-            containerStyle={{justifyContent: 'flex-end'}}
-            disabled={dirty && isValid ? false : true}
-            title="Update"
-            style={styles.button}
-            onPress={handleSubmit}
+          <TextInput
+            placeholder="Enter email"
+            inputStyle={styles.input}
+            value={userProfile.email}
+            leftIcon={true}
+            onChangeText={text => {
+              setUserProfile({
+                ...userProfile,
+                email: text,
+              });
+            }}
+            disabled={userProfile.email && true}>
+            <Email />
+          </TextInput>
+          <Block marginTop={8} marginBottom={24}>
+            {/* {error.phoneNumber && (
+              <Text style={styles.text}>{error.phoneNumber}</Text>
+            )} */}
+          </Block>
+          <TextInput
+            placeholder="Enter phone number"
+            inputStyle={styles.input}
+            leftIcon={true}
+            value={user.phoneNumber}
+            onChangeText={text => {
+              setUserProfile({
+                ...userProfile,
+                phoneNumber: text,
+              });
+            }}
+            disabled={userProfile.phoneNumber && true}>
+            <Phone />
+          </TextInput>
+          <Block marginTop={8} marginBottom={24}>
+            {/* {error.phoneNumber && (
+              <Text style={styles.text}>{error.phoneNumber}</Text>
+            )} */}
+          </Block>
+          <DropDown
+            open={openGender}
+            value={valueGender}
+            items={gender}
+            setOpen={setOpenGender}
+            setValue={setValueGender}
+            setItems={setGender}
+            containerStyle={styles.gender}
+            onChangeValue={setValueGender}
+            placeholder="Select a gender"
           />
+          <TouchableOpacity
+            style={{marginTop: 8, marginBottom: 24}}
+            onPress={showDatepicker}>
+            <TextInput
+              disabled={true}
+              placeholder="Select date"
+              value={dateFormat(userProfile.birthday, 'dd/mm/yyyy')}
+              inputStyle={styles.input}
+              leftIcon={true}>
+              <List />
+            </TextInput>
+            {show && (
+              <DateTimePicker
+                testID="dateTimePicker"
+                value={new Date(userProfile.birthday)}
+                mode={mode}
+                is24Hour={true}
+                display="spinner"
+                onChange={(event, selectedDay) => {
+                  setShow(Platform.OS === 'ios');
+                  if (event.type === 'set') {
+                    setUserProfile({
+                      ...userProfile,
+                      birthday: new Date(selectedDay),
+                    });
+                  }
+                }}
+              />
+            )}
+          </TouchableOpacity>
         </Block>
-      )}
-    </Formik>
+      </Block>
+      <Button
+        containerStyle={{justifyContent: 'flex-end'}}
+        title="Update"
+        style={styles.button}
+        onPress={handleOnSubmit}
+      />
+    </Block>
   );
 };
 

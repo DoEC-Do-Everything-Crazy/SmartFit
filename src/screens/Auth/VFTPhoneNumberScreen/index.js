@@ -1,15 +1,26 @@
 import {Block, Button, Header, Text} from '@components';
-import {routes} from '@navigation/routes';
-import {useNavigation} from '@react-navigation/core';
-import {useTheme} from '@theme';
 import React, {useEffect, useRef, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+
 import {TextInput} from 'react-native';
-import {useSelector} from 'react-redux';
+import {addUser} from 'reduxs/reducers';
+import axios from 'axios';
+import firebase from '@config/firebase';
+import {routes} from '@navigation/routes';
+import setAuthToken from 'utils/setAuthToken';
+import {useNavigation} from '@react-navigation/core';
 import {useStyles} from './styles';
+import {useTheme} from '@theme';
 
 const VFTPhoneNumberScreen = ({route, props}) => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+
   const {phone} = route.params;
+  const {auth} = firebase();
+  const [confirm, setConfirm] = useState(null);
+  const [code, setCode] = useState('');
+
   const [number1, setNumber1] = useState('');
   const [number2, setNumber2] = useState('');
   const [number3, setNumber3] = useState('');
@@ -61,12 +72,65 @@ const VFTPhoneNumberScreen = ({route, props}) => {
     ) {
       inputRef6.current.focus();
     }
-    if (
-      (number1 && number2 && number3 && number4 && number5 && number6) !== ''
-    ) {
-      alert('OK');
+    setCode(`${number1}${number2}${number3}${number4}${number5}${number6}`);
+  }, [number1, number2, number3, number4, number5, number6, code]);
+
+  const phoneSignIn = async () => {
+    const confirmation = await auth().signInWithPhoneNumber(phone);
+    setConfirm(confirmation);
+  };
+
+  useEffect(() => {
+    phoneSignIn();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const loadUser = async () => {
+    await axios
+      .post('http://10.0.2.2:5000/api/user')
+      .then(response => {
+        if (response.status === 200) {
+          const user = response.data.user;
+          console.log('response data', response.data.user);
+          dispatch(addUser(user));
+          if (user.displayname !== '') {
+            console.log('exist');
+            navigation.navigate(routes.BOTTOM_TAB);
+          } else {
+            console.log('not exist');
+            navigation.navigate(routes.UPDATE_PROFILE_SCREEN);
+          }
+          return;
+        }
+
+        console.log(response);
+      })
+      .catch(error => {
+        console.error('load error', error.message);
+      });
+  };
+
+  const getUser = async () => {
+    await auth()
+      .currentUser.getIdToken()
+      .then(token => {
+        setAuthToken(token);
+        loadUser(token);
+      })
+      .catch(error => {
+        console.error('auth error', error.message);
+      });
+  };
+
+  const confirmCode = async () => {
+    try {
+      await confirm.confirm(code);
+
+      getUser();
+    } catch (error) {
+      console.error('confirm error', error.message);
     }
-  });
+  };
 
   return (
     <Block flex backgroundColor={theme.colors.backgroundSetting}>
@@ -167,10 +231,9 @@ const VFTPhoneNumberScreen = ({route, props}) => {
         </Block>
       </Block>
       <Button
-        onPress={() => {
-          navigation.navigate(routes.UPDATE_PROFILE_SCREEN, {phone});
-        }}
-        title="Verify and Create Account"
+        disabled={!(code.length === 6) || !confirm}
+        onPress={confirmCode}
+        title="Verify"
         height={45}
         marginLeft={10}
         containerStyle={{justifyContent: 'flex-end'}}

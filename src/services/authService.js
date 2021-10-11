@@ -122,12 +122,12 @@ const inviteUser = email => {
     .catch(err => Alert.alert(err.code, err.message));
 };
 
-const sendOtp = number => {
+const sendOtp = async number => {
   if (!number) {
     Alert.alert('Error', 'Please Enter number');
   }
 
-  return auth().signInWithPhoneNumber(number);
+  return await auth().signInWithPhoneNumber(number);
 };
 
 const confirmCode = (state, code) => {

@@ -1,43 +1,23 @@
-import {Facebook, Google} from '@assets/icons';
-import {Block, Button, Text} from '@components';
-import {routes} from '@navigation/routes';
-import auth from '@react-native-firebase/auth';
-import {GoogleSignin} from '@react-native-google-signin/google-signin';
-import {AuthService} from '@services';
-import {useTheme} from '@theme';
-import React, {useEffect} from 'react';
+import {Block, Text} from '@components';
 import {ImageBackground, TouchableOpacity} from 'react-native';
-import {useDispatch, useSelector} from 'react-redux';
-import {addUser} from 'reduxs/reducers';
-import {width} from 'utils/responsive';
+
+import {Facebook} from '@assets/icons';
+import React from 'react';
+import {routes} from '@navigation/routes';
+import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
+import {useTheme} from '@theme';
+import {width} from 'utils/responsive';
 
 const LoginScreen = ({navigation, props}) => {
-  // const navigation = useNavigation();
-
-  const dispatch = useDispatch();
   const {
     screen: {routeScreen},
     theme: {theme: themeStore},
   } = useSelector(state => state.root);
+
   const styles = useStyles(props, themeStore);
   const theme = useTheme(themeStore);
-  // Handle user state changes
-  async function onAuthStateChanged(usr) {
-    console.log('aaaaaaaaaaaaaaaaa', usr);
-    if (usr) {
-      dispatch(addUser(usr));
-    }
-  }
-  useEffect(() => {
-    GoogleSignin.configure({
-      webClientId:
-        '879619453458-gd5qkvo0e2spndn433bvjcslpvreoc4l.apps.googleusercontent.com',
-    });
 
-    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-    return subscriber; // unsubscribe on unmount
-  });
   return (
     <Block flex>
       <ImageBackground
@@ -56,13 +36,15 @@ const LoginScreen = ({navigation, props}) => {
           “GO HARD {'\n'} or {'\n'} GO HOME”
         </Text>
         <Block width={width} marginBottom={50}>
-          <Button
-            title=" Sign In Phone Number"
+          <TouchableOpacity
             onPress={() =>
               navigation.navigate(routes.ENTER_PHONE_NUMBER_SCREEN)
             }
-          />
-
+            style={styles.button}>
+            <Text size={18} color={theme.colors.white} fontType="bold">
+              Sign In Phone Number
+            </Text>
+          </TouchableOpacity>
           <Block row alignCenter justifyCenter margin={16}>
             <Block
               width={150}
@@ -83,7 +65,7 @@ const LoginScreen = ({navigation, props}) => {
             />
           </Block>
           <Block row marginHorizontal={120} space="between">
-            <TouchableOpacity
+            {/* <TouchableOpacity
               onPress={() => {
                 AuthService.googleLogin()
                   .then(() => {
@@ -91,7 +73,7 @@ const LoginScreen = ({navigation, props}) => {
                     routeScreen === routes.INFO_SCREEN ||
                     routeScreen === routes.NOTIFICATION_SCREEN ||
                     routeScreen === routes.STATS_SCREEN
-                      ? navigation.navigate(routes.BOTTOM_TAB)
+                      ? navigation.navigate(routes.UPDATE_PROFILE_SCREEN)
                       : navigation.navigate(routeScreen);
                   })
                   .catch(error => {
@@ -107,7 +89,7 @@ const LoginScreen = ({navigation, props}) => {
                 backgroundColor={theme.colors.white}>
                 <Google />
               </Block>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
             <Block
               justifyCenter
               alignCenter
