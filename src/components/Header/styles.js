@@ -3,9 +3,9 @@ import {getSize} from '@utils/responsive';
 
 export const useStyles = makeStyles()(({colors}) => ({
   root: {
-    paddingTop: getSize.s(30),
+    paddingTop: getSize.s(50),
     width: '100%',
-    height: getSize.s(70),
+    height: getSize.s(90),
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
@@ -16,14 +16,14 @@ export const useStyles = makeStyles()(({colors}) => ({
   arrowLeftBack: {
     position: 'absolute',
     left: getSize.s(20),
-    top: getSize.s(35),
+    top: getSize.s(55),
     width: 18.05,
     height: 14.34,
   },
   arrowRight: {
     position: 'absolute',
     right: getSize.s(25),
-    top: getSize.s(35),
+    top: getSize.s(55),
     width: 18.05,
     height: 14.34,
   },

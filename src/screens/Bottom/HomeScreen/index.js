@@ -1,6 +1,5 @@
 import {Block, Header} from '@components';
 import React, {useEffect, useState} from 'react';
-
 import ListHotCourse from './components/ListHotCourse';
 import ListMenu from './components/ListMenu';
 import ListRecommended from './components/ListRecommended';
@@ -29,7 +28,6 @@ const HomeScreen = props => {
       console.log('error', err);
     }
   };
-
   useEffect(() => {
     fetchData();
   }, []);
