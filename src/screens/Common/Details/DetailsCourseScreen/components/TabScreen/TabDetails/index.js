@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import {Block, Header, PayInfo, Text, InviteLogin, Button} from '@components';
 import {BottomSheet} from '@components/BottomSheet';
 import ItemPT from '@components/ItemList/ItemPT';
@@ -14,14 +13,20 @@ import {
   Pressable,
   ScrollView,
 } from 'react-native';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
+
+import {Back} from '@assets/icons';
+import {BottomSheet} from '@components/BottomSheet';
+import ItemPT from '@components/ItemList/ItemPT';
 import {Rating} from 'react-native-ratings';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import Carousel, {ParallaxImage} from 'react-native-snap-carousel';
 import {useSelector} from 'react-redux';
+// import DATA from './DATA.json';
 import axios from 'axios';
 import {routes} from '@navigation/routes';
 import {Back} from '@assets/icons';
-import LinearGradient from 'react-native-linear-gradient';
+
 const {width: screenWidth, height: screenHeight} = Dimensions.get('window');
 
 const TabDetails = ({route, props}) => {
@@ -48,12 +53,12 @@ const TabDetails = ({route, props}) => {
   );
   const [data, setData] = useState([]);
 
-  const fetchData = async data => {
+  const getCourse = async fetchData => {
     try {
       const resp = await axios({
         method: 'GET',
         url: 'http://10.0.2.2:5000/api/course/' + id,
-        data: data,
+        data: fetchData,
       });
       var obj = resp.data;
       setData(obj);
@@ -61,9 +66,9 @@ const TabDetails = ({route, props}) => {
       console.log('error', err);
     }
   };
+
   useEffect(() => {
     fetchData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const sessions = data?.session;

@@ -1,4 +1,5 @@
-import {width, getSize} from '@utils/responsive';
+import {getSize, width} from '@utils/responsive';
+
 import {makeStyles} from '@theme';
 
 export const useStyles = makeStyles()(({colors}) => ({
@@ -23,6 +24,7 @@ export const useStyles = makeStyles()(({colors}) => ({
     width: width - 30,
     height: getSize.s(60),
     marginBottom: getSize.s(30),
+    borderWidth: 0,
   },
   img: {
     height: getSize.m(20),

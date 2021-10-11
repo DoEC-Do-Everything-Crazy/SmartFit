@@ -1,9 +1,10 @@
-import React from 'react';
-import {getSize, width} from '@utils/responsive';
 import {ArrowDown, ArrowUp, Tick} from '@assets/icons';
-import {useSelector} from 'react-redux';
-import {makeStyles} from '@theme';
+import {getSize, width} from '@utils/responsive';
+
 import DropDownPicker from 'react-native-dropdown-picker';
+import React from 'react';
+import {makeStyles} from '@theme';
+import {useSelector} from 'react-redux';
 
 const DropDown = ({
   onChangeValue,
@@ -59,12 +60,12 @@ const useStyles = makeStyles()(({colors}) => ({
   picker: {
     height: getSize.m(45),
     backgroundColor: colors.white,
-    borderWidth: 1,
+    // borderWidth: 1
     borderRadius: 8,
   },
   pickerBox: {
     backgroundColor: colors.white,
-    borderWidth: 1,
+    borderWidth: 0,
     borderRadius: 8,
     width: width - 30,
   },
