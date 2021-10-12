@@ -6,7 +6,7 @@ import {FlatList} from 'react-native';
 const ListMenu = () => {
   const _renderItem = (item, index) => <ItemMenu key={index} />;
   return (
-    <Block flex marginTop={32}>
+    <Block flex marginTop={10}>
       <FlatList
         showsHorizontalScrollIndicator={false}
         horizontal

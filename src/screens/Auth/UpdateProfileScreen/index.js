@@ -88,7 +88,7 @@ const UpdateProfileScreen = ({route, props}) => {
   return (
     <Block flex backgroundColor={theme.colors.backgroundSetting}>
       <Header canGoBack title="Update Profile" colorTheme={theme.colors.blue} />
-      <Block flex justifyCenter paddingHorizontal={16} paddingTop={20}>
+      <Block flex paddingTop={20}>
         <Block style={styles.group}>
           <TextInput
             placeholder="Enter full name"
@@ -167,7 +167,7 @@ const UpdateProfileScreen = ({route, props}) => {
               value={dateFormat(userProfile.birthday, 'dd/mm/yyyy')}
               inputStyle={styles.input}
               leftIcon={true}>
-              <List />
+              <List color={theme.colors.black} />
             </TextInput>
             {show && (
               <DateTimePicker
@@ -189,13 +189,15 @@ const UpdateProfileScreen = ({route, props}) => {
             )}
           </TouchableOpacity>
         </Block>
+        <Block justifyEnd>
+          <Button
+            // containerStyle={{justifyContent: 'flex-end'}}
+            title="Update"
+            style={styles.button}
+            onPress={handleOnSubmit}
+          />
+        </Block>
       </Block>
-      <Button
-        containerStyle={{justifyContent: 'flex-end'}}
-        title="Update"
-        style={styles.button}
-        onPress={handleOnSubmit}
-      />
     </Block>
   );
 };

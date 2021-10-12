@@ -1,4 +1,4 @@
-import {Block, Header, Text} from '@components';
+import {Block, Button, Header, Text} from '@components';
 import {useDispatch, useSelector} from 'react-redux';
 
 import {AuthService} from '@services';
@@ -32,22 +32,15 @@ const Information = props => {
       <Block
         flex
         style={styles.container}
-        backgroundColor={theme.colors.background}>
+        backgroundColor={theme.colors.backgroundSetting}>
         <InfoProfile user={user} />
-        <StatisticalProfile
-          balance={DATA_STATISTICAL_PROFILE[0].balance}
-          course={DATA_STATISTICAL_PROFILE[0].course}
-        />
         <ListItemFeature />
-        <TouchableOpacity
-          style={styles.button}
+        <Button
+          title="Logout"
           onPress={() => {
             dispatch(removeUser());
-          }}>
-          <Text color={theme.colors.white} fontType="bold">
-            Logout
-          </Text>
-        </TouchableOpacity>
+          }}
+        />
       </Block>
     </Block>
   );
