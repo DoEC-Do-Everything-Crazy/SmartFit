@@ -64,10 +64,7 @@ const OrderScreen = props => {
     );
   };
   return (
-    <Block
-      flex
-      marginBottom={16}
-      backgroundColor={theme.colors.backgroundSetting}>
+    <Block flex backgroundColor={theme.colors.backgroundSetting}>
       <Header canGoBack title="Order" colorTheme={theme.colors.black} />
       <Block
         flex

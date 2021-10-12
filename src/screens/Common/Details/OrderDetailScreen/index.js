@@ -15,10 +15,7 @@ const OrderDetailScreen = props => {
   const theme = useTheme(themeStore);
 
   return (
-    <Block
-      flex
-      paddingBottom={16}
-      backgroundColor={theme.colors.backgroundSetting}>
+    <Block flex backgroundColor={theme.colors.backgroundSetting}>
       <Header canGoBack title="Order Detail" colorTheme={theme.colors.black} />
       <Block
         flex

@@ -16,7 +16,7 @@ const ListStep = () => {
     <Block
       flex
       paddingHorizontal={16}
-      backgroundColor={theme.colors.background}>
+      backgroundColor={theme.colors.backgroundSetting}>
       <Text size={30} fontType="bold">
         Lessons 1
       </Text>

@@ -1,4 +1,11 @@
-import {Birday, EmailNotification, GenderInf, PhoneInf} from '@assets/icons';
+import {
+  Birday,
+  EmailNotification,
+  Gender,
+  GenderInf,
+  List,
+  PhoneInf,
+} from '@assets/icons';
 import {Block, Text} from '@components';
 
 import {Image} from 'react-native';
@@ -47,33 +54,49 @@ const InfoProfile = ({user, props}) => {
           </Text>
           <Block>
             <Block row marginTop={6} marginBottom={3}>
-              <PhoneInf color={theme.colors.text} />
-              <Text size={14} color={theme.colors.text} marginLeft={10}>
-                {user.phoneNumber || 'not update yet'}
-              </Text>
+              <Block alignCenter width={30}>
+                <PhoneInf color={theme.colors.text} />
+              </Block>
+              <Block justifyCenter>
+                <Text size={14} color={theme.colors.text} marginLeft={10}>
+                  {user.phoneNumber || 'not update yet'}
+                </Text>
+              </Block>
             </Block>
             <Block row marginVertical={3}>
-              <EmailNotification color={theme.colors.text} />
-              <Text
-                size={14}
-                numberOfLines={1}
-                marginHorizontal={10}
-                color={theme.colors.text}>
-                {user.email || 'not update yet'}
-              </Text>
+              <Block alignCenter width={30}>
+                <EmailNotification color={theme.colors.text} />
+              </Block>
+              <Block justifyCenter>
+                <Text
+                  size={14}
+                  numberOfLines={1}
+                  marginHorizontal={10}
+                  color={theme.colors.text}>
+                  {user.email || 'not update yet'}
+                </Text>
+              </Block>
             </Block>
             <Block row marginVertical={3}>
-              <GenderInf color={theme.colors.text} />
-              <Text size={14} marginLeft={10} color={theme.colors.text}>
-                {user.gender}
-              </Text>
+              <Block alignCenter width={30}>
+                <Gender color={theme.colors.text} />
+              </Block>
+              <Block justifyCenter>
+                <Text size={14} marginLeft={10} color={theme.colors.text}>
+                  {user.gender}
+                </Text>
+              </Block>
             </Block>
             <Block row marginVertical={3}>
-              <Birday color={theme.colors.text} />
-              <Text size={14} marginLeft={10} color={theme.colors.text}>
-                {dateFormat(new Date(user.birthday), 'dd/mm/yyyy') ||
-                  'not update yet'}
-              </Text>
+              <Block alignCenter width={30}>
+                <List color={theme.colors.text} />
+              </Block>
+              <Block justifyCenter>
+                <Text size={14} marginLeft={10} color={theme.colors.text}>
+                  {dateFormat(new Date(user.birthday), 'dd/mm/yyyy') ||
+                    'not update yet'}
+                </Text>
+              </Block>
             </Block>
           </Block>
         </Block>

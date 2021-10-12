@@ -4,14 +4,13 @@ import {makeStyles} from '@theme';
 
 export const useStyles = makeStyles()(({colors}) => ({
   group: {
+    paddingHorizontal: getSize.s(16),
     justifyContent: 'space-between',
   },
   input: {
     width: '100%',
   },
-  button: {
-    height: 600,
-  },
+
   calendar: {
     flex: 1,
   },
@@ -30,12 +29,24 @@ export const useStyles = makeStyles()(({colors}) => ({
     height: getSize.m(20),
     width: getSize.m(20),
   },
-
+  sendControlContainerOuter: {
+    flex: 1,
+  },
   text: {
     color: colors.red,
     fontSize: 12,
     position: 'relative',
     bottom: '2%',
     left: '4%',
+  },
+  button: {
+    backgroundColor: colors.blue,
+    height: getSize.s(48),
+    marginHorizontal: getSize.s(16),
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: getSize.s(20),
+    marginTop: getSize.s(10),
+    borderRadius: getSize.s(8),
   },
 }));

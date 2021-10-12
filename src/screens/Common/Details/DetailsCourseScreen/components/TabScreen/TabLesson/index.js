@@ -26,7 +26,7 @@ const TabLesson = props => {
     );
   };
   return (
-    <Block flex backgroundColor={theme.colors.background}>
+    <Block flex backgroundColor={theme.colors.backgroundSetting}>
       <Carousel
         sliderWidth={screenWidth}
         sliderHeight={screenWidth}
