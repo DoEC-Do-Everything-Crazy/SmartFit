@@ -62,10 +62,10 @@ const InputText = ({...props}) => {
 
   const borderColor = useMemo(() => {
     if (isInput) {
-      return theme.colors.white;
+      return theme.colors.inputText;
     }
-    return theme.colors.blue;
-  }, [isInput, theme.colors.blue, theme.colors.white]);
+    return theme.colors.iconInf;
+  }, [isInput, theme.colors.iconInf, theme.colors.inputText]);
 
   const _renderSecureIcon = () => {
     return (
@@ -136,7 +136,7 @@ const InputText = ({...props}) => {
             autoCapitalize="none"
             secureTextEntry={secureEye && isSecure}
             maxLength={maxLength}
-            style={textStyle}
+            style={(textStyle, {color: theme.colors.text})}
             editable={!disabled}
             {...inputProps}
           />

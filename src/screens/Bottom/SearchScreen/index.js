@@ -50,7 +50,7 @@ const SearchScreen = props => {
                   navigation.navigate(routes.FILTER_SCREEN);
                 }}>
                 <Block style={styles.iconSeach}>
-                  <Filter />
+                  <Filter color={theme.colors.iconInf} />
                 </Block>
               </Pressable>
             )}
