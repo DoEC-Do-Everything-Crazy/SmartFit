@@ -33,7 +33,7 @@ const ItemRecommended = ({_id, title, desc, image, index, props}) => {
             <Block
               row
               alignCenter
-              backgroundColor={theme.colors.lightGray}
+              backgroundColor={theme.colors.recommended}
               paddingHorizontal={10}
               radius={5}>
               <Ratting />
@@ -65,7 +65,7 @@ const ItemRecommended = ({_id, title, desc, image, index, props}) => {
           <Block style={styles.space} />
           <Block
             flex
-            backgroundColor={theme.colors.lightGray}
+            backgroundColor={theme.colors.recommended}
             alignCenter
             radius={5}>
             <Text

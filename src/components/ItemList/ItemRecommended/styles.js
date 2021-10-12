@@ -8,7 +8,7 @@ export const useStyles = makeStyles()(({colors}) => ({
   },
   container: {
     borderWidth: 1,
-    borderColor: colors.lightGray,
+    borderColor: colors.recommended,
   },
   space: {
     flex: 1,
