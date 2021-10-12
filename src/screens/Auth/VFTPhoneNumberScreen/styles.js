@@ -1,7 +1,7 @@
 import {getSize} from '@utils/responsive';
 import {makeStyles} from '@theme';
 
-export const useStyles = makeStyles()(({}) => ({
+export const useStyles = makeStyles()(({colors}) => ({
   textRequestAgain: {
     fontFamily: 'roboto',
     fontStyle: 'normal',
@@ -10,7 +10,8 @@ export const useStyles = makeStyles()(({}) => ({
     textAlign: 'center',
     marginTop: getSize.m(60),
     marginLeft: 5,
-    color: '#5F97FF',
+    color: colors.link,
+    textDecorationLine: 'underline',
   },
   text: {
     fontFamily: 'roboto',

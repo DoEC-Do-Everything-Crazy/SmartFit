@@ -6,6 +6,7 @@ import {useNavigation} from '@react-navigation/core';
 import {routes} from '@navigation/routes';
 import {useSelector} from 'react-redux';
 import {useTheme} from '@theme';
+import {useStyles} from './styles';
 // import {DATA_RECOMMENDED} from '@constants';
 
 const DATA_RECOMMENDED = [
@@ -58,9 +59,10 @@ const DATA_RECOMMENDED = [
   },
 ];
 
-const ListRecommended = () => {
+const ListRecommended = props => {
   const themeStore = useSelector(state => state.root.theme.theme);
   const theme = useTheme(themeStore);
+  const styles = useStyles(props, themeStore);
 
   const navigation = useNavigation();
   const _renderItem = ({item, index}) => (
@@ -74,19 +76,21 @@ const ListRecommended = () => {
   );
 
   return (
-    <Block flex marginTop={32}>
+    <Block flex marginTop={20}>
       <Block
         row
         alignCenter
         marginHorizontal={16}
         marginBottom={20}
         space="between">
-        <Text size={20} fontType="bold" color={theme.colors.text}>
+        <Text size={20} fontType="bold" color={theme.colors.iconInf}>
           Recommended
         </Text>
         <Pressable
           onPress={() => navigation.navigate(routes.PRODUCT_LIST_SCREEN)}>
-          <Text size={20}>See all</Text>
+          <Text size={17} style={styles.link}>
+            See all
+          </Text>
         </Pressable>
       </Block>
       <FlatList

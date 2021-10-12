@@ -17,5 +17,6 @@ export const useStyles = makeStyles()(({colors}) => ({
     height: getSize.s(10),
     borderRadius: getSize.s(5),
     marginHorizontal: getSize.s(8),
+    marginTop: getSize.s(-8),
   },
 }));

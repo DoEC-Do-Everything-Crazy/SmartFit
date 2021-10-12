@@ -6,12 +6,14 @@ import {useTheme} from '@theme';
 import React from 'react';
 import {FlatList, Pressable} from 'react-native';
 import {useSelector} from 'react-redux';
+import {useStyles} from './styles';
 
-const ListHotCourse = ({data}) => {
+const ListHotCourse = ({data, props}) => {
   const navigation = useNavigation();
 
   const themeStore = useSelector(state => state.root.theme.theme);
   const theme = useTheme(themeStore);
+  const styles = useStyles(props, themeStore);
 
   const _renderItem = ({item, index}) => (
     <ItemHotCourse
@@ -29,12 +31,14 @@ const ListHotCourse = ({data}) => {
   return (
     <Block flex marginTop={32}>
       <Block row alignCenter marginHorizontal={16} space="between">
-        <Text size={20} fontType="bold" color={theme.colors.text}>
+        <Text size={20} fontType="bold" color={theme.colors.iconInf}>
           Hot Course
         </Text>
         <Pressable
           onPress={() => navigation.navigate(routes.COURSE_LIST_TYPE_SCREEN)}>
-          <Text size={20}>See all</Text>
+          <Text size={17} style={styles.link}>
+            See all
+          </Text>
         </Pressable>
       </Block>
       <Block flex>

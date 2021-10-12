@@ -62,7 +62,7 @@ const HomeScreen = props => {
         backgroundColor={theme.colors.backgroundSetting}
         style={styles.container}>
         <ScrollView showsVerticalScrollIndicator={false}>
-          <Block alignCenter marginTop={16}>
+          <Block alignCenter marginTop={20}>
             <Carousel
               loop
               ref={carouselRef}
