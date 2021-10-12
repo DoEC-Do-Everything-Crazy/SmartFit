@@ -17,4 +17,9 @@ export const useStyles = makeStyles()(({colors}) => ({
     fontWeight: 'bold',
     color: colors.white,
   },
+  item: {
+    justifyContent: 'center',
+    borderRadius: getSize.m(8),
+    marginHorizontal: getSize.m(10),
+  },
 }));
