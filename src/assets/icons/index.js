@@ -41,3 +41,4 @@ export * from './Food';
 export * from './Discount20';
 export * from './Discount50';
 export * from './Social';
+export * from './HeartLine';

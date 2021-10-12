@@ -18,7 +18,7 @@ export const useStyles = makeStyles()(({colors, fonts}) => ({
     alignItems: 'center',
     justifyContent: 'space-between',
     borderColor: colors.blue,
-    backgroundColor: colors.white,
+    backgroundColor: colors.inputText,
     borderRadius: getSize.s(5),
     height: getSize.s(60),
   },
