@@ -6,7 +6,6 @@ import {useNavigation} from '@react-navigation/core';
 import {routes} from '@navigation/routes';
 import {useSelector} from 'react-redux';
 import {useTheme} from '@theme';
-// import {DATA_RECOMMENDED} from '@constants';
 import {useStyles} from './styles';
 
 const DATA_PRODUCT = [

@@ -1,11 +1,10 @@
 import {Block, Text} from '@components';
 import React from 'react';
-import {Image, Pressable} from 'react-native';
+import {Image, Pressable, Alert} from 'react-native';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {useNavigation} from '@react-navigation/core';
-import {routes} from '@navigation/routes';
 
 const ItemHotProoduct = ({_id, title, desc, image, index, props}) => {
   const {
@@ -13,10 +12,9 @@ const ItemHotProoduct = ({_id, title, desc, image, index, props}) => {
   } = useSelector(stateRoot => stateRoot.root);
   const styles = useStyles(props, themeStore);
   const theme = useTheme(themeStore);
-
   const navigation = useNavigation();
   return (
-    <Pressable onPress={() => navigation.navigate(routes.FOOD_LIST_SCREEN)}>
+    <Pressable onPress={() => Alert.alert('Chưa có')}>
       <Block
         key={index}
         style={{marginLeft: index === 0 ? 16 : 0}}
