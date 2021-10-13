@@ -4,14 +4,8 @@ import {makeStyles} from '@theme';
 export const useStyles = makeStyles()(({colors}) => ({
   image: {
     height: getSize.s(200),
-    width: width / 2,
-  },
-  container: {
-    borderWidth: 1,
-    borderColor: colors.recommended,
-  },
-  space: {
-    flex: 1,
+    width: width / 2.5,
+    borderRadius: getSize.s(10),
   },
   title: {
     width: '100%',

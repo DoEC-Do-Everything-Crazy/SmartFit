@@ -11,6 +11,8 @@ export const colors = {
     barCover: '#ffffff',
     lightBlue: '#A5A5A5',
     link: '#5F97FF',
+    inputText: '#1C1C1C',
+    recommended: '#A5A5A5',
 
     lightText: '#515D5F',
     header: '#000000',
@@ -46,6 +48,8 @@ export const colors = {
     barCover: '#181E25',
     lightBlue: '#B0EFEF',
     link: '#5F97FF',
+    inputText: '#FFFFFF',
+    recommended: '#045694',
 
     lightText: '#515D5F',
     header: '#F9F9F9',

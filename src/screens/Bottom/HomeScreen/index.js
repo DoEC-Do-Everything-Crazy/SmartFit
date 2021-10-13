@@ -2,7 +2,7 @@ import {Block, Header} from '@components';
 import React, {useEffect, useRef, useState} from 'react';
 import ListHotCourse from './components/ListHotCourse';
 import ListMenu from './components/ListMenu';
-import ListRecommended from './components/ListRecommended';
+import ListProduct from './components/ListProduct';
 import {Image, ScrollView} from 'react-native';
 import axios from 'axios';
 import {useSelector} from 'react-redux';
@@ -11,6 +11,7 @@ import {useTheme} from '@theme';
 import Carousel, {Pagination} from 'react-native-snap-carousel';
 import {width} from '@utils/responsive';
 import {images} from '@assets';
+import ListRecommended from './components/ListRecommended';
 
 const HomeScreen = props => {
   const [data, setData] = useState([]);
@@ -94,6 +95,7 @@ const HomeScreen = props => {
           <ListMenu />
           <ListRecommended />
           <ListHotCourse data={data} />
+          <ListProduct />
         </ScrollView>
       </Block>
     </Block>

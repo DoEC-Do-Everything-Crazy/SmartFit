@@ -1,11 +1,4 @@
-import {
-  Birday,
-  EmailNotification,
-  Gender,
-  GenderInf,
-  List,
-  PhoneInf,
-} from '@assets/icons';
+import {EmailNotification, Gender, List, PhoneInf} from '@assets/icons';
 import {Block, Text} from '@components';
 
 import {Image} from 'react-native';
