@@ -16,7 +16,6 @@ const ListRecommended = props => {
   const themeStore = useSelector(state => state.root.theme.theme);
   const theme = useTheme(themeStore);
   const carouselRef = useRef(null);
-  const [activeIndex, setActivateIndex] = useState(0);
   const navigation = useNavigation();
   const styles = useStyles(props, themeStore);
   const _renderItem = ({item, index}) => (

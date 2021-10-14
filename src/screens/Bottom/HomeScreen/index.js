@@ -12,6 +12,7 @@ import Carousel, {Pagination} from 'react-native-snap-carousel';
 import {width} from '@utils/responsive';
 import {images} from '@assets';
 import ListRecommended from './components/ListRecommended';
+import ListHotFood from './components/ListHotFood';
 
 const HomeScreen = props => {
   const [data, setData] = useState([]);
@@ -94,6 +95,7 @@ const HomeScreen = props => {
           </Block>
           <ListMenu />
           <ListRecommended />
+          <ListHotFood />
           <ListHotCourse data={data} />
           <ListProduct />
         </ScrollView>
