@@ -7,10 +7,11 @@ import Svg, {Path} from 'react-native-svg';
 export const ArrowUp = props => {
   const themeStore = useSelector(state => state.root.theme.theme);
   const theme = useTheme(themeStore);
+  const {width, height} = props;
   return (
     <Svg
-      width={17.774}
-      height={9.637}
+      width={width}
+      height={height}
       viewBox="0 0 17.774 9.637"
       {...props}
       style={{marginRight: getSize.m(3)}}>

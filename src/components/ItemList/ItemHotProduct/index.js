@@ -5,6 +5,7 @@ import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {useNavigation} from '@react-navigation/core';
+import {routes} from '@navigation/routes';
 
 const ItemHotProoduct = ({_id, title, desc, image, index, props}) => {
   const {
@@ -14,7 +15,8 @@ const ItemHotProoduct = ({_id, title, desc, image, index, props}) => {
   const theme = useTheme(themeStore);
   const navigation = useNavigation();
   return (
-    <Pressable onPress={() => Alert.alert('Chưa có')}>
+    <Pressable
+      onPress={() => navigation.navigate(routes.PRODUCT_DETAIL_SCREEN)}>
       <Block
         key={index}
         style={{marginLeft: index === 0 ? 16 : 0}}

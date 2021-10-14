@@ -47,9 +47,7 @@ const ItemOrder = ({picture, title, group_id, index, props}) => {
   const HeaderComponent = useCallback(() => {
     return (
       <>
-        <Block
-          paddingVertical={10}
-          backgroundColor={theme.colors.backgroundSetting}>
+        <Block paddingVertical={10}>
           <Text center fontType="bold" size={16}>
             What is you rate?
           </Text>

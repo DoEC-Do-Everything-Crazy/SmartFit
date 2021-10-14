@@ -8,7 +8,7 @@ import FoodListScreen from './List/FoodListScreen';
 import DetailsCourseScreen from './Details/DetailsCourseScreen';
 import FoodDetailsScreen from './Details/FoodDetailsScreen';
 import OrderDetailScreen from './Details/OrderDetailScreen';
-
+import ProductDetailScreen from './Details/ProductDetailScreen';
 // TABS
 import TabLesson from './Details/DetailsCourseScreen/components/TabScreen/TabLesson';
 import TabDetails from './Details/DetailsCourseScreen/components/TabScreen/TabDetails';
@@ -27,6 +27,7 @@ import ChangePinCode from './Navigation/ChangePinCode';
 
 export const common = {
   DETAILS_COURSE_SCREEN: DetailsCourseScreen,
+  PRODUCT_DETAIL_SCREEN: ProductDetailScreen,
   COURSE_LIST_SCREEN: CourseListScreen,
   TAB_DETAILS: TabDetails,
   TAB_LESSON: TabLesson,

@@ -50,7 +50,9 @@ const DropDown = ({
       textStyle={styles.pickerText}
       dropDownContainerStyle={styles.pickerBox}
       ArrowDownIconComponent={({style}) => <ArrowDown style={style} />}
-      ArrowUpIconComponent={({style}) => <ArrowUp style={style} />}
+      ArrowUpIconComponent={({style}) => (
+        <ArrowUp width={17.774} height={9.637} style={style} />
+      )}
       TickIconComponent={({style}) => <Tick style={style} />}
     />
   );

@@ -109,9 +109,7 @@ const ItemSetting = ({data, title, index}, props) => {
                 isValid,
                 dirty,
               }) => (
-                <Block
-                  backgroundColor={theme.colors.backgroundSetting}
-                  paddingVertical={10}>
+                <Block paddingVertical={10}>
                   <Text center fontType="bold" size={16}>
                     Create new password
                   </Text>

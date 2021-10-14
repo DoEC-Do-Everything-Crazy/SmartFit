@@ -34,6 +34,7 @@ export * from './Notification';
 export * from './Info';
 export * from './ArrowDown';
 export * from './ArrowUp';
+export * from './ArrowUpDetail';
 export * from './Tick';
 export * from './Equipment';
 export * from './Course';
