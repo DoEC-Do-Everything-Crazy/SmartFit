@@ -79,7 +79,7 @@ const ProductDetailScreen = props => {
                       </Text>
                     </LinearGradient>
                   ) : (
-                    <Block style={[styles.item, '#045694']}>
+                    <Block style={[styles.item, {backgroundColor: '#045694'}]}>
                       <Text center style={styles.text}>
                         -
                       </Text>
@@ -103,7 +103,7 @@ const ProductDetailScreen = props => {
                       </Text>
                     </LinearGradient>
                   ) : (
-                    <Block style={[styles.item, '#045694']}>
+                    <Block style={[styles.item, {backgroundColor: '#045694'}]}>
                       <Text center style={styles.text}>
                         +
                       </Text>
@@ -117,7 +117,7 @@ const ProductDetailScreen = props => {
                 </Block>
               </Block>
             </Block>
-            <Block flex paddingTop={10}>
+            <Block flex paddingTop={10} paddingBottom={20}>
               <Button
                 title="Add Cart"
                 onPress={() => modalizRef?.current.close()}
