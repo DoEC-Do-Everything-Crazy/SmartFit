@@ -1,13 +1,14 @@
+import {Alert, Image, Pressable} from 'react-native';
 import {Block, Text} from '@components';
+
 import React from 'react';
-import {Image, Pressable, Alert} from 'react-native';
+import {routes} from '@navigation/routes';
+import {useNavigation} from '@react-navigation/core';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
-import {useNavigation} from '@react-navigation/core';
-import {routes} from '@navigation/routes';
 
-const ItemHotProoduct = ({_id, title, desc, image, index, props}) => {
+const ItemHotProduct = ({item, index, props}) => {
   const {
     theme: {theme: themeStore},
   } = useSelector(stateRoot => stateRoot.root);
@@ -16,21 +17,19 @@ const ItemHotProoduct = ({_id, title, desc, image, index, props}) => {
   const navigation = useNavigation();
   return (
     <Pressable
+      key={index}
       onPress={() => navigation.navigate(routes.PRODUCT_DETAIL_SCREEN)}>
-      <Block
-        key={index}
-        style={{marginLeft: index === 0 ? 16 : 0}}
-        marginRight={16}>
-        <Image style={styles.image} source={{uri: image}} />
+      <Block style={{marginLeft: index === 0 ? 16 : 0}} marginRight={16}>
+        <Image style={styles.image} source={{uri: item.image}} />
         <Block style={styles.title}>
           <Text color={theme.colors.white} fontType="bold">
-            {title}
+            {item.title}
           </Text>
-          <Text color={theme.colors.white}>{desc}</Text>
+          <Text color={theme.colors.white}>{item.desc}</Text>
         </Block>
       </Block>
     </Pressable>
   );
 };
 
-export default ItemHotProoduct;
+export default ItemHotProduct;

@@ -1,18 +1,19 @@
 import {Block, Header} from '@components';
+import Carousel, {Pagination} from 'react-native-snap-carousel';
+import {Image, ScrollView} from 'react-native';
 import React, {useEffect, useRef, useState} from 'react';
+
 import ListHotCourse from './components/ListHotCourse';
+import ListHotFood from './components/ListHotFood';
 import ListMenu from './components/ListMenu';
 import ListProduct from './components/ListProduct';
-import {Image, ScrollView} from 'react-native';
+import ListRecommended from './components/ListRecommended';
 import axios from 'axios';
+import {images} from '@assets';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
-import Carousel, {Pagination} from 'react-native-snap-carousel';
 import {width} from '@utils/responsive';
-import {images} from '@assets';
-import ListRecommended from './components/ListRecommended';
-import ListHotFood from './components/ListHotFood';
 
 const HomeScreen = props => {
   const [data, setData] = useState([]);

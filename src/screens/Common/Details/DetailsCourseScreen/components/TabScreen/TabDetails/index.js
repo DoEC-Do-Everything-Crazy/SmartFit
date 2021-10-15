@@ -1,10 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import {Block, Header, PayInfo, Text, InviteLogin, Button} from '@components';
-import {BottomSheet} from '@components/BottomSheet';
-import ItemPT from '@components/ItemList/ItemPT';
-import {useTheme} from '@theme';
-import {useStyles} from './styles';
-import React, {useCallback, useEffect, useRef, useState} from 'react';
+import {Block, Button, Header, InviteLogin, PayInfo, Text} from '@components';
+import Carousel, {ParallaxImage} from 'react-native-snap-carousel';
 import {
   Dimensions,
   FlatList,
@@ -14,14 +10,20 @@ import {
   Pressable,
   ScrollView,
 } from 'react-native';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
+
+import {Back} from '@assets/icons';
+import {BottomSheet} from '@components/BottomSheet';
+import ItemPT from '@components/ItemList/ItemPT';
+import LinearGradient from 'react-native-linear-gradient';
 import {Rating} from 'react-native-ratings';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import Carousel, {ParallaxImage} from 'react-native-snap-carousel';
-import {useSelector} from 'react-redux';
 import axios from 'axios';
 import {routes} from '@navigation/routes';
-import {Back} from '@assets/icons';
-import LinearGradient from 'react-native-linear-gradient';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {useSelector} from 'react-redux';
+import {useStyles} from './styles';
+import {useTheme} from '@theme';
+
 const {width: screenWidth, height: screenHeight} = Dimensions.get('window');
 
 const TabDetails = ({route, props}) => {
@@ -166,7 +168,7 @@ const TabDetails = ({route, props}) => {
       <Block style={styles.item}>
         <ParallaxImage
           fadeDuration={1000}
-          source={{uri: dataDetail.image}}
+          source={{uri: dataDetail.image[index]}}
           containerStyle={styles.imageContainer}
           style={styles.image}
           parallaxFactor={0.1}
@@ -197,7 +199,7 @@ const TabDetails = ({route, props}) => {
               sliderWidth={screenWidth}
               sliderHeight={300}
               itemWidth={screenWidth}
-              data={[dataDetail.image, dataDetail.image]}
+              data={dataDetail.image || []}
               renderItem={_renderItem}
               hasParallaxImages={true}
               containerCustomStyle={styles.slider}

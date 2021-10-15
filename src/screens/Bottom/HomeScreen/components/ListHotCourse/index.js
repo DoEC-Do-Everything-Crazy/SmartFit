@@ -1,12 +1,13 @@
 import {Block, Text} from '@components';
+import {FlatList, Pressable} from 'react-native';
+
 import ItemHotCourse from '@components/ItemList/ItemHotCourse';
+import React from 'react';
 import {routes} from '@navigation/routes';
 import {useNavigation} from '@react-navigation/core';
-import {useTheme} from '@theme';
-import React from 'react';
-import {FlatList, Pressable} from 'react-native';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
+import {useTheme} from '@theme';
 
 const ListHotCourse = ({data, props}) => {
   const navigation = useNavigation();
@@ -16,16 +17,7 @@ const ListHotCourse = ({data, props}) => {
   const styles = useStyles(props, themeStore);
 
   const _renderItem = ({item, index}) => (
-    <ItemHotCourse
-      index={index}
-      _id={item._id}
-      typeName={item.typeName}
-      price={item.price}
-      image={item.image}
-      courseName={item.courseName}
-      desc={item.desc}
-      ratting={item.ratting}
-    />
+    <ItemHotCourse item={item} key={index} />
   );
 
   return (

@@ -1,12 +1,13 @@
 import {Block, Text} from '@components';
+import {FlatList, Pressable} from 'react-native';
+
 import ItemHotProduct from '@components/ItemList/ItemHotProduct';
 import React from 'react';
-import {FlatList, Pressable} from 'react-native';
-import {useNavigation} from '@react-navigation/core';
 import {routes} from '@navigation/routes';
+import {useNavigation} from '@react-navigation/core';
 import {useSelector} from 'react-redux';
-import {useTheme} from '@theme';
 import {useStyles} from './styles';
+import {useTheme} from '@theme';
 
 const DATA_PRODUCT = [
   {
@@ -65,13 +66,7 @@ const ListProduct = props => {
 
   const navigation = useNavigation();
   const _renderItem = ({item, index}) => (
-    <ItemHotProduct
-      index={index}
-      _id={item._id}
-      title={item.title}
-      desc={item.desc}
-      image={item.image}
-    />
+    <ItemHotProduct item={item} index={index} />
   );
 
   return (
