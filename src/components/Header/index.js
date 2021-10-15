@@ -15,28 +15,6 @@ const Header = props => {
   } = useSelector(stateRoot => stateRoot.root);
   const styles = useStyles(props, themeStore);
   const theme = useTheme(themeStore);
-  const HeaderHome = () => {
-    const {top} = useSafeAreaInsets();
-    const navigation = useNavigation();
-    return (
-      <Block
-        row
-        alignCenter
-        paddingTop={top + 10}
-        paddingHorizontal={16}
-        space="between">
-        <Pressable
-          style={styles.search}
-          onPress={() => navigation.navigate(routes.SEARCH_SCREEN)}>
-          <Text color={theme.colors.placeholder}>Search</Text>
-          <Search color={theme.colors.placeholder} />
-        </Pressable>
-        <Pressable onPress={() => navigation.navigate(routes.CART_SCREEN)}>
-          <Cart />
-        </Pressable>
-      </Block>
-    );
-  };
 
   const HeaderCommon = ({title, canGoBack, cart, search}) => {
     const navigation = useNavigation();
@@ -67,7 +45,7 @@ const Header = props => {
               onPress={() => {
                 navigation.navigate(routes.CART_SCREEN);
               }}>
-              <Cart />
+              <Cart color={theme.colors.white} />
             </Pressable>
           )}
         </Block>
@@ -124,7 +102,7 @@ const Header = props => {
               onPress={() => {
                 navigation.navigate(routes.CART_SCREEN);
               }}>
-              <Cart color={theme.colors.text} />
+              <Cart color={theme.colors.white} />
             </Pressable>
           </Block>
         )}
@@ -132,9 +110,7 @@ const Header = props => {
     );
   };
 
-  if (props.type === 'Home') {
-    return <HeaderHome {...props} />;
-  } else if (props.type === 'Bottom') {
+  if (props.type === 'Bottom') {
     return <HeaderBottom {...props} />;
   } else {
     return <HeaderCommon {...props} />;

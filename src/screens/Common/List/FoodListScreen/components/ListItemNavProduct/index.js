@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from 'react';
 
 import {Block} from '@components';
-import {FlatList} from 'react-native';
+import {width} from '@utils/responsive';
 import ItemNavProduct from '@components/ItemList/ItemNavProduct';
 import {apiUrl} from '@config/api';
 import axios from 'axios';
+import Carousel from 'react-native-snap-carousel';
 
 const ListItemNavProduct = () => {
   const [foods, setFoods] = useState([]);
@@ -38,13 +39,17 @@ const ListItemNavProduct = () => {
 
   return (
     <Block marginHorizontal={8} paddingBottom={15} paddingTop={20}>
-      <FlatList
-        showsHorizontalScrollIndicator={false}
-        horizontal
-        data={foods}
-        keyExtractor={item => item.id}
-        renderItem={_renderItem}
-      />
+      <Block alignCenter marginTop={16}>
+        <Carousel
+          loop
+          sliderWidth={width}
+          sliderHeight={width}
+          itemWidth={width / 2}
+          data={foods}
+          hasParallaxImages={true}
+          renderItem={_renderItem}
+        />
+      </Block>
     </Block>
   );
 };
