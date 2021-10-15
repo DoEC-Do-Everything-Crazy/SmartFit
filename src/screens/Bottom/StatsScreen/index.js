@@ -1,43 +1,37 @@
 import {HeartPf, Order} from '@assets/icons';
-import {Block, Header as HeaderLogin, InviteLogin} from '@components';
+import {Block, Header, InviteLogin} from '@components';
 import ItemFeature from '@components/ItemList/ItemFeature';
 import {routes} from '@navigation/routes';
 import {getSize, width} from '@utils/responsive';
 import React from 'react';
 import {useSelector} from 'react-redux';
 import DateCategory from './components/DateCategory';
-import Header from './components/Header';
 import StatsBlock from './components/StatsBlock';
 import {useTheme} from '@theme';
+import {useStyles} from './styles';
 
-const StatsScreen = () => {
+const StatsScreen = props => {
   const {
     theme: {theme: themeStore},
     user: {user},
   } = useSelector(state => state.root);
   const theme = useTheme(themeStore);
+  const styles = useStyles(props, themeStore);
 
   return JSON.stringify(user) !== '{}' ? (
     <>
-      <Block flex backgroundColor={theme.colors.backgroundSetting}>
-        <Block height="20%">
-          <Header
-            image={
-              'https://images.unsplash.com/photo-1588943211346-0908a1fb0b01?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80'
-            }
-            name={'Ho Cong Khanh'}
-            date={'Sunday, July 18, 2021'}
-          />
-          <DateCategory />
-        </Block>
+      <Block flex backgroundColor={theme.colors.blue}>
+        <Header type={'Bottom'} title="Stats" colorTheme={theme.colors.white} />
+        <DateCategory />
         <Block
           row
-          height="50%"
+          style={styles.container}
+          flex
           alignCenter
           paddingTop={20}
           paddingHorizontal={16}
-          marginTop={32}>
-          <Block>
+          backgroundColor={theme.colors.backgroundSetting}>
+          <Block backgroundColor={theme.colors.backgroundSetting}>
             <StatsBlock
               width={width / 2 - 24}
               height="50%"
@@ -53,7 +47,9 @@ const StatsScreen = () => {
               bmp
             />
           </Block>
-          <Block marginLeft={getSize.m(16)}>
+          <Block
+            marginLeft={getSize.m(16)}
+            backgroundColor={theme.colors.backgroundSetting}>
             <StatsBlock
               width={width / 2 - 24}
               height="40%"
@@ -69,7 +65,11 @@ const StatsScreen = () => {
             />
           </Block>
         </Block>
-        <Block height="30%" marginTop={10} paddingHorizontal={16}>
+        <Block
+          height="30%"
+          paddingTop={10}
+          paddingHorizontal={16}
+          backgroundColor={theme.colors.backgroundSetting}>
           <ItemFeature shadow height={50} title={'Daily Meals'}>
             <Order color={theme.colors.iconInf} />
           </ItemFeature>
@@ -81,7 +81,7 @@ const StatsScreen = () => {
     </>
   ) : (
     <>
-      <HeaderLogin
+      <Header
         title="Stats"
         colorTheme={theme.colors.blue}
         backgroundColor={theme.colors.white}

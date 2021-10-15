@@ -58,7 +58,7 @@ const ListHotFood = props => {
         marginBottom={20}
         space="between">
         <Text size={20} fontType="bold" color={theme.colors.iconInf}>
-          Food
+          Hot Food
         </Text>
         <Pressable onPress={() => navigation.navigate(routes.FOOD_LIST_SCREEN)}>
           <Text size={17} style={styles.link}>

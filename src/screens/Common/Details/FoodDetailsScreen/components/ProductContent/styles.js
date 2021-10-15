@@ -14,5 +14,7 @@ export const useStyles = makeStyles()(({colors, font}) => ({
   image: {
     width: getSize.s(200),
     height: getSize.s(200),
+    borderBottomLeftRadius: getSize.s(16),
+    borderTopLeftRadius: getSize.s(16),
   },
 }));

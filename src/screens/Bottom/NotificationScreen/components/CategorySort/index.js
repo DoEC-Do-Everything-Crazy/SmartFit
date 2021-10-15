@@ -60,7 +60,7 @@ const CategorySort = props => {
 
   return (
     <Block row justifyContent="center">
-      <Text style={[styles.text, styles.item]}>Sort by</Text>
+      <Text style={[styles.text, styles.item]}>Sort by:</Text>
       {DATA_TYPE_NOTIFICATION.map((item, i) => (
         <_renderItem key={i} item={item} />
       ))}

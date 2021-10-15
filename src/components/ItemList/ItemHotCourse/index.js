@@ -8,11 +8,13 @@ import {routes} from '@navigation/routes';
 import {useNavigation} from '@react-navigation/core';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
+// import {HeartPf} from '@assets/icons';
 
 const ItemHotCourse = ({item, props}) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
-
+  // const [isTouch, setTouch] = useState(true);
+  // const [color, setColor] = useState();
   const {
     theme: {theme: themeStore},
   } = useSelector(stateRoot => stateRoot.root);
@@ -24,6 +26,9 @@ const ItemHotCourse = ({item, props}) => {
     navigation.navigate(routes.TAB_DETAILS, {id: item._id});
   }, [item._id, dispatch, navigation]);
 
+  // useEffect(() => {
+  //   isTouch ? setColor(theme.colors.red) : setColor(theme.colors.gray);
+  // }, [isTouch, theme.colors.gray, theme.colors.red]);
   return (
     <Pressable onPress={handleOpenCourseDetail} style={styles.container}>
       <Image
@@ -32,6 +37,13 @@ const ItemHotCourse = ({item, props}) => {
           uri: item.image[0],
         }}
       />
+      {/* <Pressable
+        style={styles.iconHeart}
+        onPress={() => {
+          setTouch(!isTouch);
+        }}>
+        <HeartPf color={color} />
+      </Pressable> */}
       <Block style={styles.title}>
         <Text
           size={20}

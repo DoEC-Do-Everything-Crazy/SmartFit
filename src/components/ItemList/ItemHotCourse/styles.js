@@ -21,4 +21,11 @@ export const useStyles = makeStyles()(({colors}) => ({
     borderBottomRightRadius: getSize.s(10),
     borderBottomLeftRadius: getSize.s(10),
   },
+  // iconHeart: {
+  //   width: getSize.s(16),
+  //   height: getSize.s(16),
+  //   position: 'absolute',
+  //   top: getSize.s(8),
+  //   right: getSize.s(32),
+  // },
 }));

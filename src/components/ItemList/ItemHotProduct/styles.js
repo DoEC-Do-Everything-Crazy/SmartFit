@@ -9,12 +9,19 @@ export const useStyles = makeStyles()(({colors}) => ({
   },
   title: {
     width: '100%',
-    backgroundColor: `${colors.black}40`,
+    backgroundColor: `${colors.black}90`,
     position: 'absolute',
     bottom: 0,
     paddingVertical: getSize.m(8),
     paddingHorizontal: getSize.m(16),
     borderBottomLeftRadius: getSize.m(10),
     borderBottomRightRadius: getSize.m(10),
+  },
+  iconHeart: {
+    width: getSize.s(16),
+    height: getSize.s(16),
+    position: 'absolute',
+    top: getSize.s(8),
+    right: getSize.s(16),
   },
 }));
