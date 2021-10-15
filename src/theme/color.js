@@ -13,6 +13,7 @@ export const colors = {
     link: '#5F97FF',
     inputText: '#1C1C1C',
     recommended: '#A5A5A5',
+    headerDetail: '#000000',
 
     lightText: '#515D5F',
     header: '#000000',
@@ -30,7 +31,6 @@ export const colors = {
     orange: '#F59523',
     tomato: '#FF6853',
     darkBlue: '#444C5C',
-
     yellowFood: '#FFC107',
     pink: '#FFCCB6',
     textLight: '#808080',
@@ -50,6 +50,7 @@ export const colors = {
     link: '#5F97FF',
     inputText: '#FFFFFF',
     recommended: '#045694',
+    headerDetail: '#FFFFFF',
 
     lightText: '#515D5F',
     header: '#F9F9F9',

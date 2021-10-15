@@ -1,10 +1,11 @@
 import {Block, Header} from '@components';
+import React, {useEffect, useState} from 'react';
+
+import {FlatList} from 'react-native';
 import ItemCourse from '@components/ItemList/ItemCourse';
+import axios from 'axios';
 import {useSelector} from 'react-redux';
 import {useTheme} from '@theme';
-import React, {useState, useEffect} from 'react';
-import {FlatList} from 'react-native';
-import axios from 'axios';
 
 const CourseListScreen = () => {
   const [data, setData] = useState([]);
@@ -30,19 +31,8 @@ const CourseListScreen = () => {
     fetchData();
   }, []);
 
-  const _renderItem = ({item}) => {
-    return (
-      <ItemCourse
-        _id={item._id}
-        typeName={item.typeName}
-        key={item.key}
-        price={item.price}
-        image={item.image}
-        courseName={item.courseName}
-        desc={item.desc}
-        ratting={item.ratting}
-      />
-    );
+  const _renderItem = ({item, index}) => {
+    return <ItemCourse course={item} key={index} />;
   };
 
   return (

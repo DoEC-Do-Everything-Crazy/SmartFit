@@ -104,6 +104,10 @@ const RootStack = () => {
         name={routes.FOOD_DETAILS_SCREEN}
         component={common.FOOD_DETAILS_SCREEN}
       />
+      <Stack.Screen
+        name={routes.PRODUCT_DETAIL_SCREEN}
+        component={common.PRODUCT_DETAIL_SCREEN}
+      />
 
       {/* FEATURE SETTING */}
       <Stack.Screen

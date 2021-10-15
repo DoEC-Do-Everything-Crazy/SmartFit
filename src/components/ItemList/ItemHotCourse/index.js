@@ -1,14 +1,15 @@
 import {Block, Text} from '@components';
+import {Image, Pressable} from 'react-native';
+import React, {useCallback} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+
+import {changeScreen} from 'reduxs/reducers';
 import {routes} from '@navigation/routes';
 import {useNavigation} from '@react-navigation/core';
-import React, {useCallback} from 'react';
-import {Image, Pressable} from 'react-native';
-import {useDispatch, useSelector} from 'react-redux';
-import {changeScreen} from 'reduxs/reducers';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
 
-const ItemHotCourse = ({_id, image, courseName, props}) => {
+const ItemHotCourse = ({item, props}) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
@@ -20,15 +21,15 @@ const ItemHotCourse = ({_id, image, courseName, props}) => {
 
   const handleOpenCourseDetail = useCallback(() => {
     dispatch(changeScreen('CourseDetail'));
-    navigation.navigate(routes.TAB_DETAILS, {id: _id});
-  }, [_id, dispatch, navigation]);
+    navigation.navigate(routes.TAB_DETAILS, {id: item._id});
+  }, [item._id, dispatch, navigation]);
 
   return (
     <Pressable onPress={handleOpenCourseDetail} style={styles.container}>
       <Image
         style={styles.image}
         source={{
-          uri: image,
+          uri: item.image[0],
         }}
       />
       <Block style={styles.title}>
@@ -38,7 +39,7 @@ const ItemHotCourse = ({_id, image, courseName, props}) => {
           numberOfLines={1}
           color={theme.colors.white}
           fontType="bold">
-          {courseName}
+          {item.courseName}
         </Text>
       </Block>
     </Pressable>

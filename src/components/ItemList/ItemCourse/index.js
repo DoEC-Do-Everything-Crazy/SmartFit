@@ -1,24 +1,16 @@
 import {Block, Text} from '@components';
-import React, {useCallback} from 'react';
 import {Image, Pressable} from 'react-native';
+import React, {useCallback} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+
+import {Ratting} from '@assets/icons';
+import {changeScreen} from 'reduxs/reducers';
+import {routes} from '@navigation/routes';
+import {useNavigation} from '@react-navigation/core';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
-import {useNavigation} from '@react-navigation/core';
-import {useDispatch, useSelector} from 'react-redux';
-import {routes} from '@navigation/routes';
-import {changeScreen} from 'reduxs/reducers';
-import {Ratting} from '@assets/icons';
 
-const ItemCourse = ({
-  _id,
-  key,
-  image,
-  courseName,
-  desc,
-  ratting,
-  price,
-  props,
-}) => {
+const ItemCourse = ({course, props}) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
@@ -30,8 +22,8 @@ const ItemCourse = ({
 
   const handleOpenCourseDetail = useCallback(() => {
     dispatch(changeScreen('CourseDetail'));
-    navigation.navigate(routes.TAB_DETAILS, {id: _id});
-  }, [_id, dispatch, navigation]);
+    navigation.navigate(routes.TAB_DETAILS, {id: course._id});
+  }, [course._id, dispatch, navigation]);
 
   return (
     <Block style={styles.container}>
@@ -45,7 +37,7 @@ const ItemCourse = ({
         alignCenter
         row>
         <Block>
-          <Image source={{uri: image}} style={styles.image} />
+          <Image source={{uri: course.image[0]}} style={styles.image} />
           <Block
             alignCenter
             absolute
@@ -59,21 +51,21 @@ const ItemCourse = ({
               marginLeft={5}
               color={theme.colors.white}
               fontType="bold">
-              {price}$
+              {course.price}$
             </Text>
           </Block>
         </Block>
         <Block marginLeft={10} height={98} width="73%">
           <Block>
             <Text size={18} fontType="bold">
-              {courseName}
+              {course.courseName}
             </Text>
           </Block>
-          <Text numberOfLines={1}>{desc}</Text>
+          <Text numberOfLines={1}>{course.desc}</Text>
           <Block row alignCenter marginTop={5}>
             <Ratting />
             <Text size={15} marginLeft={5}>
-              {ratting}
+              {course.ratting}
             </Text>
             <Block
               height={15}
@@ -91,7 +83,7 @@ const ItemCourse = ({
               </Text>
             </Block>
           </Block>
-          <Pressable onPress={handleOpenCourseDetail} key={key}>
+          <Pressable onPress={handleOpenCourseDetail} key={course.key}>
             <Block alignEnd width={'103%'}>
               <Block
                 bottom={3}

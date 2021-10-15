@@ -28,6 +28,7 @@ const images = {
   banner3: require('./images/banner3.jpg'),
   banner4: require('./images/banner4.jpg'),
   equipment1: require('./images/equipment1.png'),
+  product1: require('./images/product1.jpg'),
 };
 
 export {icons, lotties, images};

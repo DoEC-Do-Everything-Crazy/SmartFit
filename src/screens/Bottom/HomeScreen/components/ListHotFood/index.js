@@ -1,15 +1,15 @@
 import {Block, Text} from '@components';
-import {FlatList, Pressable} from 'react-native';
-
-import ItemHotProduct from '@components/ItemList/ItemHotProduct';
+import ItemHotFood from '@components/ItemList/ItemHotFood';
 import React from 'react';
-import {routes} from '@navigation/routes';
+import {FlatList, Pressable} from 'react-native';
 import {useNavigation} from '@react-navigation/core';
+import {routes} from '@navigation/routes';
 import {useSelector} from 'react-redux';
-import {useStyles} from './styles';
 import {useTheme} from '@theme';
+// import {DATA_RECOMMENDED} from '@constants';
+import {useStyles} from './styles';
 
-const DATA_PRODUCT = [
+const DATA_FOOD = [
   {
     _id: 1,
     title: 'Dumbbell',
@@ -59,14 +59,20 @@ const DATA_PRODUCT = [
   },
 ];
 
-const ListProduct = props => {
+const ListHotFood = props => {
   const themeStore = useSelector(state => state.root.theme.theme);
   const theme = useTheme(themeStore);
   const styles = useStyles(props, themeStore);
 
   const navigation = useNavigation();
   const _renderItem = ({item, index}) => (
-    <ItemHotProduct item={item} index={index} />
+    <ItemHotFood
+      index={index}
+      _id={item._id}
+      title={item.title}
+      desc={item.desc}
+      image={item.image}
+    />
   );
 
   return (
@@ -78,7 +84,7 @@ const ListProduct = props => {
         marginBottom={20}
         space="between">
         <Text size={20} fontType="bold" color={theme.colors.iconInf}>
-          Prooduct
+          Food
         </Text>
         <Pressable
           onPress={() => navigation.navigate(routes.PRODUCT_LIST_SCREEN)}>
@@ -91,7 +97,7 @@ const ListProduct = props => {
         showsHorizontalScrollIndicator={false}
         horizontal
         nestedScrollEnabled
-        data={DATA_PRODUCT}
+        data={DATA_FOOD}
         keyExtractor={(item, index) => index}
         renderItem={_renderItem}
       />
@@ -99,4 +105,4 @@ const ListProduct = props => {
   );
 };
 
-export default ListProduct;
+export default ListHotFood;
