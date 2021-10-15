@@ -103,7 +103,7 @@ const UpdateProfileScreen = ({route, props}) => {
                 displayName: text,
               });
             }}>
-            <Fullname />
+            <Fullname color={theme.colors.text} />
           </TextInput>
           <Block marginTop={8} marginBottom={24}>
             {/* {error.displayName && (
@@ -122,7 +122,7 @@ const UpdateProfileScreen = ({route, props}) => {
               });
             }}
             disabled={userProfile.email && true}>
-            <Email />
+            <Email color={theme.colors.text} />
           </TextInput>
           <Block marginTop={8} marginBottom={24}>
             {/* {error.phoneNumber && (
@@ -141,7 +141,7 @@ const UpdateProfileScreen = ({route, props}) => {
               });
             }}
             disabled={userProfile.phoneNumber && true}>
-            <Phone />
+            <Phone color={theme.colors.text} />
           </TextInput>
           <Block marginTop={8} marginBottom={24}>
             {/* {error.phoneNumber && (
@@ -165,10 +165,11 @@ const UpdateProfileScreen = ({route, props}) => {
             <TextInput
               disabled={true}
               placeholder="Select date"
+              colorPlaceholder={theme.colors.text}
               value={dateFormat(userProfile.birthday, 'dd/mm/yyyy')}
               inputStyle={styles.input}
               leftIcon={true}>
-              <List color={theme.colors.black} />
+              <List color={theme.colors.text} />
             </TextInput>
             {show && (
               <DateTimePicker

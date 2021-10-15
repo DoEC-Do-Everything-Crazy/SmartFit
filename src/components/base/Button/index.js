@@ -49,7 +49,7 @@ const Button = ({
             />
           )}
           <Text
-            size={20}
+            size={17}
             flex
             center
             fontType="bold"

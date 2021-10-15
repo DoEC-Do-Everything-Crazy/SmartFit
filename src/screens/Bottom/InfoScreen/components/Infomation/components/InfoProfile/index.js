@@ -1,4 +1,4 @@
-import {EmailNotification, Gender, List, PhoneInf} from '@assets/icons';
+import {Email, Gender, List, Phone} from '@assets/icons';
 import {Block, Text} from '@components';
 
 import {Image} from 'react-native';
@@ -48,7 +48,7 @@ const InfoProfile = ({user, props}) => {
           <Block>
             <Block row marginTop={6} marginBottom={3}>
               <Block alignCenter width={30}>
-                <PhoneInf color={theme.colors.text} />
+                <Phone color={theme.colors.text} />
               </Block>
               <Block justifyCenter>
                 <Text size={14} color={theme.colors.text} marginLeft={10}>
@@ -58,7 +58,7 @@ const InfoProfile = ({user, props}) => {
             </Block>
             <Block row marginVertical={3}>
               <Block alignCenter width={30}>
-                <EmailNotification color={theme.colors.text} />
+                <Email color={theme.colors.text} />
               </Block>
               <Block justifyCenter>
                 <Text

@@ -44,3 +44,5 @@ export * from './Discount50';
 export * from './Social';
 export * from './HeartLine';
 export * from './Layout';
+export * from './Height';
+export * from './Weight';
