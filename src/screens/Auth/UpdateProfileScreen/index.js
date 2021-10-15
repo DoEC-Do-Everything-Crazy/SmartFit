@@ -10,6 +10,7 @@ import axios from 'axios';
 import {useNavigation} from '@react-navigation/core';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
+import {apiUrl} from '@config/api';
 
 const UpdateProfileScreen = ({route, props}) => {
   const navigation = useNavigation();
@@ -53,7 +54,7 @@ const UpdateProfileScreen = ({route, props}) => {
 
   const updateProfile = async () => {
     await axios
-      .post('http://10.0.2.2:5000/api/user/update', {
+      .post(`${apiUrl}/user/update`, {
         userProfile: {...userProfile, uid: user.uid, gender: valueGender},
         changePrimary:
           userProfile.email !== user.email ||

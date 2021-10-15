@@ -5,6 +5,7 @@
   "scripts": {
     "android": "react-native run-android",
     "ios": "react-native run-ios",
+    "both": "react-native run-android && react-native run-ios",
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint ."
@@ -14,7 +15,7 @@
     "@react-native-community/checkbox": "0.5.8",
     "@react-native-community/datetimepicker": "3.5.2",
     "@react-native-community/masked-view": "0.1.11",
-    "@react-native-firebase/app": "12.8.0",
+    "@react-native-firebase/app": "^12.9.1",
     "@react-native-firebase/auth": "12.8.0",
     "@react-native-firebase/firestore": "12.8.0",
     "@react-native-google-signin/google-signin": "7.0.0-alpha.3",

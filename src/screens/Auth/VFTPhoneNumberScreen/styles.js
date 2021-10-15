@@ -3,7 +3,7 @@ import {makeStyles} from '@theme';
 
 export const useStyles = makeStyles()(({colors}) => ({
   textRequestAgain: {
-    fontFamily: 'roboto',
+    fontFamily: 'Roboto',
     fontStyle: 'normal',
     fontWeight: 'bold',
     fontSize: 18,
@@ -14,7 +14,7 @@ export const useStyles = makeStyles()(({colors}) => ({
     textDecorationLine: 'underline',
   },
   text: {
-    fontFamily: 'roboto',
+    fontFamily: 'Roboto',
     fontStyle: 'normal',
     fontWeight: 'bold',
     fontSize: 18,

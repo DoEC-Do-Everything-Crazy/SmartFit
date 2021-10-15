@@ -1,7 +1,7 @@
 require_relative '../node_modules/react-native/scripts/react_native_pods'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
-platform :ios, '10.0'
+platform :ios, '11.0'
 
 target 'SmartFit' do
   config = use_native_modules!
@@ -14,7 +14,6 @@ target 'SmartFit' do
 
   pod 'react-native-camera', :path => '../node_modules/react-native-camera'
 
-  pod 'RNGoogleSignin', :path => '../node_modules/@react-native-google-signin/google-signin'
 
   target 'SmartFitTests' do
     inherit! :complete

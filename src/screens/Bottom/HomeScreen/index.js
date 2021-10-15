@@ -14,6 +14,7 @@ import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {width} from '@utils/responsive';
+import {apiUrl} from '@config/api';
 
 const HomeScreen = props => {
   const [data, setData] = useState([]);
@@ -44,7 +45,7 @@ const HomeScreen = props => {
     try {
       const resp = await axios({
         method: 'GET',
-        url: 'http://10.0.2.2:5000/api/course',
+        url: `${apiUrl}/course`,
       });
       var obj = resp.data;
       setData(obj);

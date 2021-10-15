@@ -56,7 +56,7 @@ const EnterPhoneNumberScreen = props => {
                 onChangeText={handleChange('phoneNumber')}
                 value={values.phoneNumber}
                 inputStyle={styles.textInput}
-                keyboardType="numeric"
+                keyboardType="number-pad"
                 placeholder="Enter phone number"
                 onBlur={handleBlur('phoneNumber')}
               />

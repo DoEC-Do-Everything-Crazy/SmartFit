@@ -11,7 +11,8 @@ export const useStyles = makeStyles()(({colors}) => ({
     paddingTop: getSize.m(30),
   },
   text: {
-    fontFamily: 'AlfaSlabOne',
+    // fontFamily: 'AlfaSlabOne',
+    fontFamily: 'Roboto',
     fontWeight: 'bold',
     fontSize: getSize.m(40),
     color: colors.white,

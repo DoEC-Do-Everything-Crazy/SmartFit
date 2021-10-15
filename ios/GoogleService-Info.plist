@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>879619453458-ac2l8rlljba93td2v0qgjb8fk6p2v3jn.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.879619453458-ac2l8rlljba93td2v0qgjb8fk6p2v3jn</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>879619453458-91ao60oq7gj8e0levbkhhh1pb24j8fr3.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAKyIKu8RKZd3L1gtMx-xnLIfgeKqYFLWA</string>
+	<key>GCM_SENDER_ID</key>
+	<string>879619453458</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.smartfit</string>
+	<key>PROJECT_ID</key>
+	<string>doec-8dbce</string>
+	<key>STORAGE_BUCKET</key>
+	<string>doec-8dbce.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:879619453458:ios:60b503894e2c1b6034decb</string>
+</dict>
+</plist>

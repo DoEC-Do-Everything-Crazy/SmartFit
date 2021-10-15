@@ -16,7 +16,7 @@ const ItemReview = ({name, image, props}) => {
   const theme = useTheme(themeStore);
   return (
     <Block marginBottom={15}>
-      <Image style={styles.image} source={{uri: image[0]}} />
+      <Image style={styles.image} source={{uri: image}} />
       <Block
         marginLeft={25}
         marginTop={15}

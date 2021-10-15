@@ -36,7 +36,7 @@ const ListHotCourse = ({data, props}) => {
       <Block flex>
         <FlatList
           showsVerticalScrollIndicator={false}
-          data={data}
+          data={data.slice(0, 3)}
           keyExtractor={(item, index) => index}
           renderItem={_renderItem}
         />

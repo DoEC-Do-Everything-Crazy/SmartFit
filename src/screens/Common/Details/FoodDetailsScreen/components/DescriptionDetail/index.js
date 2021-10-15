@@ -1,10 +1,11 @@
 import {Block, Text} from '@components';
-import {useTheme} from '@theme';
 import React, {useState} from 'react';
+
 import {Pressable} from 'react-native';
 import {useSelector} from 'react-redux';
+import {useTheme} from '@theme';
 
-const DescriptionDetail = () => {
+const DescriptionDetail = ({desc}) => {
   const [seeMore, setSeemore] = useState(true);
   const {
     theme: {theme: themeStore},
@@ -22,8 +23,7 @@ const DescriptionDetail = () => {
         numberOfLines={numberOfLines}
         color={theme.colors.textLight}
         fontType="bold">
-        Fake food no healthy Fake food no healthy Fake food no healthy Fake food
-        no healthy Fake food no healthy Fake food no healthy
+        {desc}
       </Text>
       <Pressable onPress={() => isSeemore()}>
         <Text size={16} fontType="bold" color={theme.colors.orange}>
