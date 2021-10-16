@@ -12,9 +12,25 @@ export const useStyles = makeStyles()(({colors, font}) => ({
     height: getSize.s(24),
   },
   image: {
-    width: getSize.s(200),
-    height: getSize.s(200),
-    borderBottomLeftRadius: getSize.s(16),
+    width: '100%',
+    height: '100%',
     borderTopLeftRadius: getSize.s(16),
+    borderBottomLeftRadius: getSize.s(16),
+  },
+  header: {
+    borderTopLeftRadius: getSize.s(16),
+    backgroundColor: `${colors.headerDetail}99`,
+    width: '100%',
+    zIndex: 100,
+    position: 'absolute',
+    top: 0,
+  },
+  bottom: {
+    borderBottomLeftRadius: getSize.s(16),
+    backgroundColor: `${colors.headerDetail}99`,
+    width: '100%',
+    zIndex: 100,
+    position: 'absolute',
+    bottom: 0,
   },
 }));

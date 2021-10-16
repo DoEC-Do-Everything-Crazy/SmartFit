@@ -35,31 +35,28 @@ const ProductContent = ({food, props}) => {
           <Text size={16}>Favorite</Text>
         </Block>
       </Block>
-      <Block
-        width="60%"
-        style={styles.linearGradient}
-        backgroundColor={theme.colors.border}>
-        <Text
-          center
-          size={22}
-          marginTop={20}
-          fontType="bold"
-          marginHorizontal={16}>
-          {food.foodName}
-        </Text>
-        <Block flex alignCenter justifyCenter>
-          <Image source={{uri: food.image[0]}} style={styles.image} />
-          <Rating
-            type="custom"
-            ratingBackgroundColor="#c8c7c8"
-            ratingCount={5}
-            imageSize={24}
-            readonly={true}
-            tintColor={theme.colors.border}
-          />
-          <Text size={32} marginTop={5} fontType="bold">
-            {`$${food.lastPrice}`}
-          </Text>
+      <Block width="60%">
+        <Block
+          style={styles.linearGradient}
+          backgroundColor={theme.colors.border}>
+          <Block flex alignCenter justifyCenter>
+            <Block style={styles.header}>
+              <Text
+                center
+                size={22}
+                marginTop={20}
+                fontType="bold"
+                marginHorizontal={16}>
+                {food.foodName}
+              </Text>
+            </Block>
+            <Image source={{uri: food.image[0]}} style={styles.image} />
+            <Block style={styles.bottom}>
+              <Text size={24} color={'#FF7F50'} center fontType="bold">
+                {`$${food.lastPrice}`}
+              </Text>
+            </Block>
+          </Block>
         </Block>
       </Block>
     </Block>
