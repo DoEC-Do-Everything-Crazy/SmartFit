@@ -27,7 +27,7 @@ const ItemNavProduct = ({item, props}) => {
       }>
       <Block
         shadow
-        width={width / 2 - 24}
+        width={width / 2 - 20}
         height={260}
         padding={5}
         borderRadius={8}
@@ -45,10 +45,12 @@ const ItemNavProduct = ({item, props}) => {
             uri: item.image[0],
           }}
         />
-        <Block>
+        <Block paddingHorizontal={8}>
           <Block>
-            <Text fontType="bold">{item.foodName}</Text>
-            <Text size={10} numberOfLines={2}>
+            <Text size={17} fontType="bold">
+              {item.foodName}
+            </Text>
+            <Text size={12} numberOfLines={2}>
               {item.desc}
             </Text>
           </Block>
@@ -67,7 +69,7 @@ const ItemNavProduct = ({item, props}) => {
           right
           size={18}
           paddingBottom={10}
-          paddingRight={8}
+          paddingHorizontal={8}
           fontType="bold">
           {`$${item.lastPrice}`}
         </Text>
