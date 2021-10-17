@@ -11,6 +11,7 @@ import setAuthToken from 'utils/setAuthToken';
 import {useNavigation} from '@react-navigation/core';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
+import {apiUrl} from '@config/api';
 
 const VFTPhoneNumberScreen = ({route, props}) => {
   const navigation = useNavigation();
@@ -87,7 +88,7 @@ const VFTPhoneNumberScreen = ({route, props}) => {
 
   const loadUser = async () => {
     await axios
-      .post('http://10.0.2.2:5000/api/user')
+      .post(`${apiUrl}/user`)
       .then(response => {
         if (response.status === 200) {
           const user = response.data.user;

@@ -1,20 +1,48 @@
 import {Block, Header, Text} from '@components';
+import {FlatList, ScrollView} from 'react-native';
+import React, {useEffect, useState} from 'react';
+
+import Carousel from 'react-native-snap-carousel';
 import ItemCarousel from '@components/ItemList/ItemCarousel';
+import {apiUrl} from '@config/api';
+import axios from 'axios';
 import {useSelector} from 'react-redux';
 import {useTheme} from '@theme';
 import {width} from '@utils/responsive';
-import React, {useState} from 'react';
-import Carousel from 'react-native-snap-carousel';
-import {FlatList, ScrollView} from 'react-native';
 
 const ProductListScreen = () => {
-  const [index, setIndex] = useState(0);
+  const [products, setProducts] = useState([]);
+
   const {
     theme: {theme: themeStore},
   } = useSelector(stateRoot => stateRoot.root);
   const theme = useTheme(themeStore);
 
-  const _renderItemCarousel = ({item, index}) => <ItemCarousel />;
+  const fetchData = async () => {
+    await axios
+      .get(`${apiUrl}/product`, {validateStatus: false})
+      .then(response => {
+        if (response.status === 200) {
+          setProducts(response.data);
+          return;
+        }
+
+        if (response.status === 404 || response.status === 500) {
+          console.error(response.data.message);
+        }
+      })
+      .catch(error => {
+        console.error('Internal server error');
+      });
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const _renderItemCarousel = ({item, index}) => (
+    <ItemCarousel item={item} key={index} />
+  );
 
   return (
     <Block flex backgroundColor={theme.colors.backgroundSetting}>
@@ -26,7 +54,7 @@ const ProductListScreen = () => {
             sliderWidth={width}
             sliderHeight={width}
             itemWidth={width / 2}
-            data={[1, 2, 3, 4, 5, 6]}
+            data={products}
             hasParallaxImages={true}
             renderItem={_renderItemCarousel}
           />
@@ -38,7 +66,7 @@ const ProductListScreen = () => {
           <FlatList
             style={{marginTop: 16}}
             numColumns={2}
-            data={[1, 2, 3, 4, 5, 6, 7, 8]}
+            data={products}
             renderItem={_renderItemCarousel}
             keyExtractor={(item, index) => index}
           />

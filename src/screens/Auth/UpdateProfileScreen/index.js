@@ -10,6 +10,7 @@ import axios from 'axios';
 import {useNavigation} from '@react-navigation/core';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
+import {apiUrl} from '@config/api';
 
 const UpdateProfileScreen = ({route, props}) => {
   const navigation = useNavigation();
@@ -53,7 +54,7 @@ const UpdateProfileScreen = ({route, props}) => {
 
   const updateProfile = async () => {
     await axios
-      .post('http://10.0.2.2:5000/api/user/update', {
+      .post(`${apiUrl}/user/update`, {
         userProfile: {...userProfile, uid: user.uid, gender: valueGender},
         changePrimary:
           userProfile.email !== user.email ||
@@ -102,7 +103,7 @@ const UpdateProfileScreen = ({route, props}) => {
                 displayName: text,
               });
             }}>
-            <Fullname />
+            <Fullname color={theme.colors.text} />
           </TextInput>
           <Block marginTop={8} marginBottom={24}>
             {/* {error.displayName && (
@@ -121,7 +122,7 @@ const UpdateProfileScreen = ({route, props}) => {
               });
             }}
             disabled={userProfile.email && true}>
-            <Email />
+            <Email color={theme.colors.text} />
           </TextInput>
           <Block marginTop={8} marginBottom={24}>
             {/* {error.phoneNumber && (
@@ -140,7 +141,7 @@ const UpdateProfileScreen = ({route, props}) => {
               });
             }}
             disabled={userProfile.phoneNumber && true}>
-            <Phone />
+            <Phone color={theme.colors.text} />
           </TextInput>
           <Block marginTop={8} marginBottom={24}>
             {/* {error.phoneNumber && (
@@ -164,10 +165,11 @@ const UpdateProfileScreen = ({route, props}) => {
             <TextInput
               disabled={true}
               placeholder="Select date"
+              colorPlaceholder={theme.colors.text}
               value={dateFormat(userProfile.birthday, 'dd/mm/yyyy')}
               inputStyle={styles.input}
               leftIcon={true}>
-              <List color={theme.colors.black} />
+              <List color={theme.colors.text} />
             </TextInput>
             {show && (
               <DateTimePicker

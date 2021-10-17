@@ -38,7 +38,7 @@ const Header = props => {
           onPress={() => {
             navigation.navigate(routes.CART_SCREEN);
           }}>
-          <Cart />
+          <Cart color={theme.colors.text} />
         </Pressable>
       </Block>
     </Block>

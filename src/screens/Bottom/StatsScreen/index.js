@@ -1,43 +1,67 @@
-import {HeartPf, Order} from '@assets/icons';
-import {Block, Header as HeaderLogin, InviteLogin} from '@components';
+import {Height, Order, Weight} from '@assets/icons';
+import {Block, Button, Header, InviteLogin, Text, TextInput} from '@components';
+import {BottomSheet} from '@components/BottomSheet';
 import ItemFeature from '@components/ItemList/ItemFeature';
 import {routes} from '@navigation/routes';
 import {getSize, width} from '@utils/responsive';
-import React from 'react';
+import React, {useRef, useCallback, useState} from 'react';
 import {useSelector} from 'react-redux';
 import DateCategory from './components/DateCategory';
-import Header from './components/Header';
 import StatsBlock from './components/StatsBlock';
 import {useTheme} from '@theme';
+import {useStyles} from './styles';
+import {Platform, ScrollView} from 'react-native';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
-const StatsScreen = () => {
+const StatsScreen = props => {
+  const [weighttUser, setWeight] = useState(0);
+  const [heightUser, setHeight] = useState(0);
+  const modalizRef = useRef(null);
   const {
     theme: {theme: themeStore},
     user: {user},
   } = useSelector(state => state.root);
   const theme = useTheme(themeStore);
+  const styles = useStyles(props, themeStore);
+  const insets = useSafeAreaInsets();
+  const HeaderComponent = useCallback(() => {
+    return (
+      <Block style={styles.headerWrapper}>
+        <Text fontType="bold" style={styles.title}>
+          Your Stats
+        </Text>
+      </Block>
+    );
+  }, [styles.headerWrapper, styles.title]);
+  const FloatingComponent = useCallback(() => {
+    if (insets.bottom === 0) {
+      return null;
+    } else {
+      return <Block style={[styles.floatComponent, {height: insets.bottom}]} />;
+    }
+  }, [insets.bottom, styles.floatComponent]);
+  const FooterComponent = useCallback(() => {
+    return (
+      <Block>
+        <Button title="Create New Stats" />
+      </Block>
+    );
+  }, []);
 
   return JSON.stringify(user) !== '{}' ? (
     <>
-      <Block flex backgroundColor={theme.colors.backgroundSetting}>
-        <Block height="20%">
-          <Header
-            image={
-              'https://images.unsplash.com/photo-1588943211346-0908a1fb0b01?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80'
-            }
-            name={'Ho Cong Khanh'}
-            date={'Sunday, July 18, 2021'}
-          />
-          <DateCategory />
-        </Block>
+      <Block flex backgroundColor={theme.colors.blue}>
+        <Header type={'Bottom'} title="Stats" colorTheme={theme.colors.white} />
+        <DateCategory />
         <Block
           row
-          height="50%"
+          style={styles.container}
+          flex
           alignCenter
           paddingTop={20}
           paddingHorizontal={16}
-          marginTop={32}>
-          <Block>
+          backgroundColor={theme.colors.backgroundSetting}>
+          <Block backgroundColor={theme.colors.backgroundSetting}>
             <StatsBlock
               width={width / 2 - 24}
               height="50%"
@@ -53,7 +77,9 @@ const StatsScreen = () => {
               bmp
             />
           </Block>
-          <Block marginLeft={getSize.m(16)}>
+          <Block
+            marginLeft={getSize.m(16)}
+            backgroundColor={theme.colors.backgroundSetting}>
             <StatsBlock
               width={width / 2 - 24}
               height="40%"
@@ -69,19 +95,65 @@ const StatsScreen = () => {
             />
           </Block>
         </Block>
-        <Block height="30%" marginTop={10} paddingHorizontal={16}>
-          <ItemFeature shadow height={50} title={'Daily Meals'}>
-            <Order color={theme.colors.iconInf} />
-          </ItemFeature>
-          <ItemFeature shadow height={50} title={'Other Information'}>
-            <HeartPf color={theme.colors.iconInf} />
-          </ItemFeature>
+        <Block
+          height="30%"
+          paddingTop={10}
+          backgroundColor={theme.colors.backgroundSetting}>
+          <Block paddingHorizontal={16}>
+            <ItemFeature shadow height={50} title={'Daily Meals'}>
+              <Order color={theme.colors.iconInf} />
+            </ItemFeature>
+          </Block>
+          <Block flex style={styles.button}>
+            <Button
+              onPress={() => modalizRef.current?.open()}
+              title="Create Stats"
+            />
+          </Block>
+          <BottomSheet
+            ref={modalizRef}
+            overlayStyle={styles.root}
+            adjustToContentHeight={true}
+            HeaderComponent={HeaderComponent}
+            FooterComponent={FooterComponent}
+            FloatingComponent={FloatingComponent}
+            scrollViewProps={{keyboardShouldPersistTaps: 'handle'}}
+            keyboardAvoidingBehavior={
+              Platform.OS === 'ios' ? 'padding' : 'height'
+            }>
+            <ScrollView>
+              <Block flex>
+                <Block row flex paddingTop={20} paddingHorizontal={16}>
+                  <Block flex paddingTop={20} paddingHorizontal={16}>
+                    <Block flex>
+                      <TextInput
+                        placeholder="Enter your height"
+                        leftIcon={true}
+                        value={heightUser}
+                        onChangeText={setHeight}>
+                        <Height color={theme.colors.text} />
+                      </TextInput>
+                    </Block>
+                    <Block flex paddingTop={20}>
+                      <TextInput
+                        placeholder="Enter your weight"
+                        leftIcon={true}
+                        value={weighttUser}
+                        onChangeText={setWeight}>
+                        <Weight color={theme.colors.text} />
+                      </TextInput>
+                    </Block>
+                  </Block>
+                </Block>
+              </Block>
+            </ScrollView>
+          </BottomSheet>
         </Block>
       </Block>
     </>
   ) : (
     <>
-      <HeaderLogin
+      <Header
         title="Stats"
         colorTheme={theme.colors.blue}
         backgroundColor={theme.colors.white}

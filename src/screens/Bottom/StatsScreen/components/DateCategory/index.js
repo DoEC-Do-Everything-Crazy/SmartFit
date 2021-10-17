@@ -58,7 +58,7 @@ const DateCategory = props => {
     );
   };
   return (
-    <Block paddingTop={10}>
+    <Block>
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}

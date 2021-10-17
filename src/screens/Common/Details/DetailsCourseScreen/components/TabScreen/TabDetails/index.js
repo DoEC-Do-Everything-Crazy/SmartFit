@@ -17,6 +17,7 @@ import {BottomSheet} from '@components/BottomSheet';
 import ItemPT from '@components/ItemList/ItemPT';
 import LinearGradient from 'react-native-linear-gradient';
 import {Rating} from 'react-native-ratings';
+import {apiUrl} from '@config/api';
 import axios from 'axios';
 import {routes} from '@navigation/routes';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
@@ -43,7 +44,7 @@ const TabDetails = ({route, props}) => {
     try {
       const resp = await axios({
         method: 'GET',
-        url: 'http://10.0.2.2:5000/api/course/pt/' + _id,
+        url: `${apiUrl}/course/pt/` + _id,
       });
       var obj = resp.data;
       setDataPTDetail(obj);
@@ -93,7 +94,7 @@ const TabDetails = ({route, props}) => {
     try {
       const resp = await axios({
         method: 'GET',
-        url: 'http://10.0.2.2:5000/api/course/' + id,
+        url: `${apiUrl}/course/` + id,
         data: fetchData,
       });
       var obj = resp.data;
@@ -107,7 +108,7 @@ const TabDetails = ({route, props}) => {
     try {
       const resp = await axios({
         method: 'GET',
-        url: 'http://10.0.2.2:5000/api/course/pt',
+        url: `${apiUrl}/course/pt`,
         data: fetchData,
       });
       var obj = resp.data;
@@ -168,7 +169,7 @@ const TabDetails = ({route, props}) => {
       <Block style={styles.item}>
         <ParallaxImage
           fadeDuration={1000}
-          source={{uri: dataDetail.image[index]}}
+          source={{uri: item}}
           containerStyle={styles.imageContainer}
           style={styles.image}
           parallaxFactor={0.1}

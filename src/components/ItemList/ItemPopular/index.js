@@ -1,14 +1,14 @@
 import {Block, Text} from '@components';
-
-import {width} from '@utils/responsive';
-import React from 'react';
 import {Image, Pressable, TouchableOpacity} from 'react-native';
+
+import LinearGradient from 'react-native-linear-gradient';
+import React from 'react';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
-import LinearGradient from 'react-native-linear-gradient';
+import {width} from '@utils/responsive';
 
-const ItemPopular = props => {
+const ItemPopular = ({item, props}) => {
   const {
     theme: {theme: themeStore},
   } = useSelector(stateRoot => stateRoot.root);
@@ -28,16 +28,16 @@ const ItemPopular = props => {
         <Image
           style={styles.image}
           source={{
-            uri: 'https://images.unsplash.com/photo-1514995669114-6081e934b693?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80',
+            uri: item.image[0],
           }}
         />
         <Block>
           <Text center fontType="bold">
-            Mixed Vegetables
+            {item.foodName}
           </Text>
         </Block>
         <Block row marginHorizontal={4} marginVertical={3} space="between">
-          <Text>$3.39</Text>
+          <Text>{`$${item.lastPrice}`}</Text>
 
           {themeStore === 'dark' ? (
             <TouchableOpacity>

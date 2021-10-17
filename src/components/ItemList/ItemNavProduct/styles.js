@@ -4,7 +4,7 @@ import {makeStyles} from '@theme';
 
 export const useStyles = makeStyles()(({}) => ({
   image: {
-    width: width / 2 - 80,
+    width: width / 2 - 50,
     height: width / 2 - 80,
     borderRadius: getSize.m(5),
     resizeMode: 'cover',

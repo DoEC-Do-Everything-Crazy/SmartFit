@@ -1,13 +1,15 @@
 import {Block, Text} from '@components';
-import React from 'react';
+import {HeartPf, Layout} from '@assets/icons';
 import {Image, Pressable} from 'react-native';
+
+import React from 'react';
+import {routes} from '@navigation/routes';
+import {useNavigation} from '@react-navigation/core';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
-import {useNavigation} from '@react-navigation/core';
-import {routes} from '@navigation/routes';
-import {HeartPf, Layout} from '@assets/icons';
-const ItemHotFood = ({_id, title, desc, image, index, props}) => {
+
+const ItemHotFood = ({item, index, props}) => {
   const {
     theme: {theme: themeStore},
   } = useSelector(stateRoot => stateRoot.root);
@@ -16,12 +18,15 @@ const ItemHotFood = ({_id, title, desc, image, index, props}) => {
 
   const navigation = useNavigation();
   return (
-    <Pressable onPress={() => navigation.navigate(routes.FOOD_LIST_SCREEN)}>
+    <Pressable
+      onPress={() =>
+        navigation.navigate(routes.FOOD_DETAILS_SCREEN, {id: item._id})
+      }>
       <Block
         key={index}
         style={{marginLeft: index === 0 ? 16 : 0}}
         marginRight={16}>
-        <Image style={styles.image} source={{uri: image}} />
+        <Image style={styles.image} source={{uri: item.image[0]}} />
         <Block flex style={styles.shadow}>
           <Layout color={`${theme.colors.black}20`} />
         </Block>
@@ -34,10 +39,10 @@ const ItemHotFood = ({_id, title, desc, image, index, props}) => {
           </Block>
           <Block column style={styles.title}>
             <Text numberOfLines={1} color={theme.colors.black} fontType="bold">
-              {title}
+              {item.foodName}
             </Text>
             <Text numberOfLines={1} color={theme.colors.black}>
-              {desc}
+              {item.desc}
             </Text>
           </Block>
         </Block>

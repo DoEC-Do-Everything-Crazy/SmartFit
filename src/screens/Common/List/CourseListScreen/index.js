@@ -6,6 +6,7 @@ import ItemCourse from '@components/ItemList/ItemCourse';
 import axios from 'axios';
 import {useSelector} from 'react-redux';
 import {useTheme} from '@theme';
+import {apiUrl} from '@config/api';
 
 const CourseListScreen = () => {
   const [data, setData] = useState([]);
@@ -18,7 +19,7 @@ const CourseListScreen = () => {
     try {
       const resp = await axios({
         method: 'GET',
-        url: 'http://10.0.2.2:5000/api/course',
+        url: `${apiUrl}/course`,
         data: data,
       });
       var obj = resp.data;

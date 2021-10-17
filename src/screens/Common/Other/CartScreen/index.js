@@ -67,7 +67,7 @@ const CartScreen = props => {
   );
 
   return JSON.stringify(user) !== '{}' ? (
-    <Cart />
+    <Cart color={theme.colors.white} />
   ) : (
     <>
       <Header title="Cart" />
