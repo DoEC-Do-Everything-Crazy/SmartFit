@@ -1,20 +1,32 @@
-import {createStackNavigator} from '@react-navigation/stack';
+import {
+  createStackNavigator,
+  CardStyleInterpolators,
+} from '@react-navigation/stack';
 import {auth} from '@screens/Auth';
 import {bottom} from '@screens/Bottom';
 import {common} from '@screens/Common';
 import React from 'react';
 import BottomNavigation from './BottomNavigation';
+import BottomTab from './BottomTab/BottomTab';
 import {routes} from './routes';
 
 const Stack = createStackNavigator();
+const options = {
+  gestureEnabled: true,
+  gestureDirection: 'horizontal',
+  cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+  headerShown: false,
+};
+
 const RootStack = () => {
   return (
     <Stack.Navigator
       mode="modal"
       initialRouteName={routes.SPLASH_SCREEN}
-      screenOptions={{headerShown: false}}>
+      screenOptions={options}>
       {/* BOTTOM */}
       <Stack.Screen name={routes.BOTTOM_TAB} component={BottomNavigation} />
+      <Stack.Screen name={routes.BOTTOM_TAB_PRODUCT} component={BottomTab} />
       <Stack.Screen name={routes.HOME_SCREEN} component={bottom.HOME_SCREEN} />
       <Stack.Screen name={routes.INFO_SCREEN} component={bottom.INFO_SCREEN} />
       <Stack.Screen

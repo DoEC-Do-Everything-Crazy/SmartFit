@@ -57,7 +57,7 @@ const ListProduct = props => {
           Hot Product
         </Text>
         <Pressable
-          onPress={() => navigation.navigate(routes.PRODUCT_LIST_SCREEN)}>
+          onPress={() => navigation.navigate(routes.BOTTOM_TAB_PRODUCT)}>
           <Text size={17} style={styles.link}>
             See all
           </Text>
