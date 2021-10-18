@@ -30,7 +30,7 @@ const ListMenu = () => {
     {
       title: 'Product',
       icon: <Equipment color={theme.colors.white} />,
-      navigation: routes.PRODUCT_LIST_SCREEN,
+      navigation: routes.BOTTOM_TAB_PRODUCT,
     },
     {
       title: 'Food',

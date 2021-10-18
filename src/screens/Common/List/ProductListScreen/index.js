@@ -1,23 +1,23 @@
-import {Block, Header, Text} from '@components';
+import {Block} from '@components';
 import {FlatList, ScrollView} from 'react-native';
 import React, {useEffect, useState} from 'react';
 
-import Carousel from 'react-native-snap-carousel';
+import {useStyles} from './styles';
 import ItemCarousel from '@components/ItemList/ItemCarousel';
 import {apiUrl} from '@config/api';
 import axios from 'axios';
 import {useSelector} from 'react-redux';
 import {useTheme} from '@theme';
-import {width} from '@utils/responsive';
+import * as Animatable from 'react-native-animatable';
 
-const ProductListScreen = () => {
+const ProductListScreen = ({props, navigation}) => {
   const [products, setProducts] = useState([]);
-
+  const viewRef = React.useRef(null);
   const {
     theme: {theme: themeStore},
   } = useSelector(stateRoot => stateRoot.root);
   const theme = useTheme(themeStore);
-
+  const styles = useStyles(props, themeStore);
   const fetchData = async () => {
     await axios
       .get(`${apiUrl}/product`, {validateStatus: false})
@@ -39,38 +39,33 @@ const ProductListScreen = () => {
   useEffect(() => {
     fetchData();
   }, []);
-
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      viewRef.current.animate({0: {opacity: 0}, 1: {opacity: 1}});
+    });
+    return () => unsubscribe;
+  }, [navigation]);
   const _renderItemCarousel = ({item, index}) => (
     <ItemCarousel item={item} key={index} />
   );
 
   return (
-    <Block flex backgroundColor={theme.colors.backgroundSetting}>
-      <Header canGoBack title="Product" colorTheme={theme.colors.black} />
+    <Block backgroundColor={theme.colors.backgroundSetting}>
       <ScrollView>
-        <Block alignCenter marginTop={16}>
-          <Carousel
-            loop
-            sliderWidth={width}
-            sliderHeight={width}
-            itemWidth={width / 2}
-            data={products}
-            hasParallaxImages={true}
-            renderItem={_renderItemCarousel}
-          />
-        </Block>
-        <Block flex marginTop={32} paddingHorizontal={16}>
-          <Text size={20} fontType="bold">
-            Product
-          </Text>
-          <FlatList
-            style={{marginTop: 16}}
-            numColumns={2}
-            data={products}
-            renderItem={_renderItemCarousel}
-            keyExtractor={(item, index) => index}
-          />
-        </Block>
+        <Animatable.View
+          ref={viewRef}
+          easing={'ease-in-out'}
+          style={styles.container}>
+          <Block marginTop={32} justifyCenter alignCenter>
+            <FlatList
+              style={{marginTop: 16, marginLeft: 70}}
+              numColumns={1}
+              data={products}
+              renderItem={_renderItemCarousel}
+              keyExtractor={(item, index) => index}
+            />
+          </Block>
+        </Animatable.View>
       </ScrollView>
     </Block>
   );
