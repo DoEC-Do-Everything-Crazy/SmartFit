@@ -43,14 +43,13 @@ const ListItemPopular = () => {
         <Text fontType="bold" size={18}>
           Popular Items
         </Text>
-        <Text size={16}>Show all {'>'} </Text>
       </Block>
       <FlatList
         contentContainerStyle={{alignSelf: 'center'}}
         showsVerticalScrollIndicator={false}
         nestedScrollEnabled
         data={foods}
-        numColumns={3}
+        numColumns={2}
         keyExtractor={item => item.id}
         renderItem={_renderItem}
       />

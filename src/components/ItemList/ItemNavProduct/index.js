@@ -29,7 +29,6 @@ const ItemNavProduct = ({item, props}) => {
         shadow
         width={width / 2 - 20}
         height={260}
-        padding={5}
         borderRadius={8}
         marginHorizontal={8}
         marginVertical={8}
@@ -70,7 +69,8 @@ const ItemNavProduct = ({item, props}) => {
           size={18}
           paddingBottom={10}
           paddingHorizontal={8}
-          fontType="bold">
+          fontType="bold"
+          color="#FF7F50">
           {`$${item.lastPrice}`}
         </Text>
       </Block>

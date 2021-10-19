@@ -4,18 +4,9 @@ import {getSize} from '@utils/responsive';
 import React, {useEffect, useRef} from 'react';
 import {Animated, Pressable, View} from 'react-native';
 import * as Animatable from 'react-native-animatable';
-import {
-  Chart,
-  Equipment,
-  Food,
-  Home,
-  Info,
-  Notification,
-  Search,
-} from '@assets/icons';
+import {Chart, Food, Home, Info, Notification, Search} from '@assets/icons';
 import {routes} from '@navigation/routes';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import {Block} from '@components';
 
 const CustomTabBar = ({state, descriptors, navigation, props}) => {
   const {
@@ -92,7 +83,7 @@ const CustomTabBar = ({state, descriptors, navigation, props}) => {
         const {options} = descriptors[route.key];
         const label =
           options.tabBarLabel !== undefined ? options.tabBarLabel : route.name;
-        const color = isFocused ? theme.colors.blue : theme.colors.gray;
+        const color = isFocused ? theme.colors.iconInf : theme.colors.gray;
         const iconTab =
           route.name === routes.HOME_SCREEN ? (
             <Food color={color} />
@@ -132,12 +123,12 @@ const CustomTabBar = ({state, descriptors, navigation, props}) => {
       })}
       <View style={styles.top}>
         <Pressable onPress={() => navigation.navigate(routes.SEARCH_SCREEN)}>
-          <Search color={theme.colors.blue} />
+          <Search color={theme.colors.iconInf} />
         </Pressable>
       </View>
       <View style={styles.bottom}>
         <Pressable onPress={() => navigation.navigate(routes.BOTTOM_TAB)}>
-          <Home color={theme.colors.blue} />
+          <Home color={theme.colors.iconInf} />
         </Pressable>
       </View>
     </View>
@@ -148,7 +139,6 @@ export const useStyles = makeStyles()(({colors}) => ({
   bar: {
     flexDirection: 'column',
     backgroundColor: colors.bar,
-    padding: getSize.m(12),
     width: getSize.m(80),
     height: '100%',
     position: 'absolute',
@@ -165,7 +155,7 @@ export const useStyles = makeStyles()(({colors}) => ({
     marginBottom: getSize.s(20),
   },
   label: {
-    color: colors.blue,
+    color: colors.iconInf,
     fontWeight: 'bold',
     fontSize: getSize.m(12),
     position: 'absolute',
