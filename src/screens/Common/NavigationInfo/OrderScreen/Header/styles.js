@@ -19,6 +19,7 @@ export const useStyles = makeStyles()(({colors}) => ({
     top: getSize.s(55),
     width: 18.05,
     height: 14.34,
+    zIndex: 100,
   },
   arrowRight: {
     position: 'absolute',

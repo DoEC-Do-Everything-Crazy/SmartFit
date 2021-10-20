@@ -4,9 +4,8 @@ import {Pressable} from 'react-native';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
-import {useNavigation} from '@react-navigation/core';
-import {Back, Cart} from '@assets/icons';
-import {routes} from '@navigation/routes';
+
+import {Back} from '@assets/icons';
 
 const Header = ({props, onPress}) => {
   const {
@@ -14,7 +13,7 @@ const Header = ({props, onPress}) => {
   } = useSelector(stateRoot => stateRoot.root);
   const styles = useStyles(props, themeStore);
   const theme = useTheme(themeStore);
-  const navigation = useNavigation();
+
   return (
     <Block style={styles.root}>
       <Block style={styles.arrowLeftBack}>

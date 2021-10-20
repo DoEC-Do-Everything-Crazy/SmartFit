@@ -19,15 +19,21 @@ const OrderScreen = props => {
   const [isCamera, setCamera] = useState(false);
 
   const handleCamera = async () => {
-    const resultSP = await checkPermission(PERMISSION_TYPE.camera);
-
-    if (resultSP === true) {
-      setCamera(true);
-    }
+    // const resultSP = await checkPermission(PERMISSION_TYPE.camera);
+    // console.log('click');
+    // if (resultSP === true) {
+    console.log('click');
+    setCamera(true);
+    // }
   };
   const handleCloseCamera = async () => {
     setCamera(false);
+    console.log('click');
   };
+  const onSuccess = e => {
+    console.log('click');
+  };
+
   const _renderItem = (item, index) => (
     <ItemOrder onPress={handleCamera} index={index} />
   );

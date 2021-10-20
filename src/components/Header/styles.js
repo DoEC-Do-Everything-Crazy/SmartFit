@@ -19,6 +19,7 @@ export const useStyles = makeStyles()(({colors}) => ({
     top: getSize.s(55),
     width: 18.05,
     height: 14.34,
+    zIndex: 100,
   },
   arrowRight: {
     position: 'absolute',
@@ -26,6 +27,7 @@ export const useStyles = makeStyles()(({colors}) => ({
     top: getSize.s(55),
     width: 18.05,
     height: 14.34,
+    zIndex: 100,
   },
   search: {
     width: '90%',
@@ -36,6 +38,7 @@ export const useStyles = makeStyles()(({colors}) => ({
     justifyContent: 'space-between',
     paddingHorizontal: getSize.m(16),
     backgroundColor: colors.white,
+    zIndex: 100,
   },
   text: {
     alignItems: 'center',
