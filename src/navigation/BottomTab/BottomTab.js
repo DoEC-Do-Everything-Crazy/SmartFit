@@ -7,23 +7,18 @@ import {common} from '@screens/Common';
 
 const TabArr = [
   {
-    route: routes.HOME_SCREEN,
-    label: 'Food',
+    route: routes.EQUIPMENT_SCREEN,
+    label: routes.EQUIPMENT_SCREEN,
     component: common.PRODUCT_LIST_SCREEN,
   },
   {
-    route: 'Like',
-    label: 'Like',
+    route: routes.SUPPLEMENTS_SCREEN,
+    label: routes.SUPPLEMENTS_SCREEN,
     component: common.PRODUCT_LIST_SCREEN,
   },
   {
-    route: 'Search',
-    label: 'Search',
-    component: common.PRODUCT_LIST_SCREEN,
-  },
-  {
-    route: 'Account',
-    label: 'Account',
+    route: routes.CLOTHING_SCREEN,
+    label: routes.CLOTHING_SCREEN,
     component: common.PRODUCT_LIST_SCREEN,
   },
 ];

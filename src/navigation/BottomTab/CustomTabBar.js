@@ -4,7 +4,13 @@ import {getSize} from '@utils/responsive';
 import React, {useEffect, useRef} from 'react';
 import {Animated, Pressable, View} from 'react-native';
 import * as Animatable from 'react-native-animatable';
-import {Chart, Food, Home, Info, Notification, Search} from '@assets/icons';
+import {
+  Clothing,
+  EquipmentType,
+  Home,
+  Search,
+  Supplements,
+} from '@assets/icons';
 import {routes} from '@navigation/routes';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 
@@ -85,16 +91,12 @@ const CustomTabBar = ({state, descriptors, navigation, props}) => {
           options.tabBarLabel !== undefined ? options.tabBarLabel : route.name;
         const color = isFocused ? theme.colors.iconInf : theme.colors.gray;
         const iconTab =
-          route.name === routes.HOME_SCREEN ? (
-            <Food color={color} />
-          ) : route.name === routes.SEARCH_SCREEN ? (
-            <Search color={color} />
-          ) : route.name === routes.STATS_SCREEN ? (
-            <Chart color={color} />
-          ) : route.name === routes.NOTIFICATION_SCREEN ? (
-            <Notification color={color} />
+          route.name === routes.EQUIPMENT_SCREEN ? (
+            <EquipmentType color={color} />
+          ) : route.name === routes.SUPPLEMENTS_SCREEN ? (
+            <Supplements color={color} />
           ) : (
-            <Info color={color} />
+            <Clothing color={color} />
           );
 
         const onPress = () => {
@@ -151,24 +153,21 @@ export const useStyles = makeStyles()(({colors}) => ({
     flexDirection: 'column',
     justifyContent: 'center',
     height: getSize.s(60),
-
-    marginBottom: getSize.s(20),
+    marginBottom: getSize.s(50),
   },
+
   label: {
+    width: getSize.m(80),
     color: colors.iconInf,
     fontWeight: 'bold',
     fontSize: getSize.m(12),
     position: 'absolute',
-    top: -7,
-  },
-  cover: {
-    height: getSize.s(40),
-    borderRadius: getSize.m(8),
-    backgroundColor: colors.blue,
+    bottom: 15,
+    textAlign: 'center',
   },
   centered: {
-    height: getSize.s(20),
-    width: getSize.s(50),
+    height: getSize.s(60),
+    width: getSize.s(90),
     justifyContent: 'center',
     alignItems: 'center',
   },
