@@ -5,7 +5,7 @@ import {makeStyles} from '@theme';
 export const useStyles = makeStyles()(({colors}) => ({
   image: {
     width: '100%',
-    height: '100%',
+    height: '90%',
   },
   header: {
     width: '100%',

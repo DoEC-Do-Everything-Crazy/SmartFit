@@ -15,4 +15,10 @@ export const useStyles = makeStyles()(({}) => ({
     width: getSize.s(15),
     height: getSize.s(30),
   },
+  item: {
+    justifyContent: 'center',
+    width: getSize.m(80),
+    height: getSize.m(20),
+    borderRadius: getSize.m(5),
+  },
 }));

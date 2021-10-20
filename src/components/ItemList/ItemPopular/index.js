@@ -7,6 +7,7 @@ import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {width} from '@utils/responsive';
+import {HeartPf} from '@assets/icons';
 
 const ItemPopular = ({item, props}) => {
   const {
@@ -19,7 +20,7 @@ const ItemPopular = ({item, props}) => {
       <Block
         shadow
         height={150}
-        width={width / 3 - 20}
+        width={width / 2 - 20}
         marginHorizontal={8}
         borderRadius={8}
         marginVertical={8}
@@ -31,13 +32,16 @@ const ItemPopular = ({item, props}) => {
             uri: item.image[0],
           }}
         />
-        <Block>
+        <Block style={styles.icon}>
+          <HeartPf color={theme.colors.red} />
+        </Block>
+        <Block style={styles.text}>
           <Text center fontType="bold">
             {item.foodName}
           </Text>
         </Block>
         <Block row marginHorizontal={4} marginVertical={3} space="between">
-          <Text>{`$${item.lastPrice}`}</Text>
+          <Text fontType="bold" color="#FF7F50">{`$${item.lastPrice}`}</Text>
 
           {themeStore === 'dark' ? (
             <TouchableOpacity>
