@@ -1,7 +1,7 @@
 import {Block, Text} from '@components';
 import React from 'react';
 import {FlatList} from 'react-native';
-import ItemReview from '../ItemReview';
+import ItemReview from '@components/ItemList/ItemReview';
 
 const Review = ({data}) => {
   const _renderItem = ({item}) => (
