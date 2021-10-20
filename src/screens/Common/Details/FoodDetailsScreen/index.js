@@ -5,8 +5,8 @@ import React, {useEffect, useState} from 'react';
 
 import DescriptionDetail from './components/DescriptionDetail';
 import ProductContent from './components/ProductContent';
-import RatingValue from './components/RatingValue';
-import Review from './components/Review';
+import RatingValue from '@components/RatingValue';
+import Review from '@components/Review';
 import {ScrollView} from 'react-native';
 import {apiUrl} from '@config/api';
 import axios from 'axios';
