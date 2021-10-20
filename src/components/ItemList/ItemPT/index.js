@@ -1,8 +1,8 @@
-import {icons} from '@assets';
+import LinearGradient from 'react-native-linear-gradient';
 import {Block, Text} from '@components';
 import React from 'react';
 import {Image, Pressable} from 'react-native';
-import {useSelector, useDispatch} from 'react-redux';
+import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {Ratting} from '@assets/icons';
@@ -76,19 +76,35 @@ const ItemPT = ({
             </Block>
           </Block>
 
-          <Block row alignCenter>
+          <Block row alignCenter marginTop={5}>
             <Pressable onPress={onPress}>
-              <Block
-                width={80}
-                height={20}
-                radius={5}
-                justifyCenter
-                backgroundColor={theme.colors.blue}
-                alignCenter>
-                <Text size={12} color={theme.colors.white} fontType="bold">
-                  Read more
-                </Text>
-              </Block>
+              {themeStore === 'dark' ? (
+                <LinearGradient
+                  start={{x: 0, y: 0}}
+                  end={{x: 1, y: 0}}
+                  colors={['#70A2FF', '#54F0D1']}
+                  style={styles.item}>
+                  <Text
+                    center
+                    size={12}
+                    color={theme.colors.white}
+                    fontType="bold">
+                    Read more
+                  </Text>
+                </LinearGradient>
+              ) : (
+                <Block
+                  width={80}
+                  height={20}
+                  radius={5}
+                  justifyCenter
+                  backgroundColor={theme.colors.blue}
+                  alignCenter>
+                  <Text size={12} color={theme.colors.white} fontType="bold">
+                    Read more
+                  </Text>
+                </Block>
+              )}
             </Pressable>
           </Block>
         </Block>

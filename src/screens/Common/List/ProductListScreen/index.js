@@ -51,13 +51,17 @@ const ProductListScreen = ({props, navigation}) => {
 
   return (
     <Block backgroundColor={theme.colors.backgroundSetting}>
-      <ScrollView>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        showsHorizontalScrollIndicator={false}>
         <Animatable.View
           ref={viewRef}
           easing={'ease-in-out'}
           style={styles.container}>
           <Block marginTop={32} justifyCenter alignCenter>
             <FlatList
+              showsVerticalScrollIndicator={false}
+              showsHorizontalScrollIndicator={false}
               style={{marginTop: 16, marginLeft: 70}}
               numColumns={1}
               data={products}

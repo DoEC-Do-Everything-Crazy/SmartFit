@@ -135,7 +135,7 @@ const TabDetails = ({route, props}) => {
   const day = [3, 5];
   const randomDay = day[Math.floor(Math.random() * day.length)];
   const weeks = sessions / randomDay;
-  const totalPrice = dataDetail?.price + dataPTDetail.price;
+  const totalPrice = dataDetail?.price || 0 + dataPTDetail.price;
   const HeaderComponent = useCallback(
     props => {
       const {title, inf} = props;
@@ -155,7 +155,7 @@ const TabDetails = ({route, props}) => {
               paddingVertical={10}
               size={20}
               fontType="bold"
-              color={theme.colors.blue}>
+              color={theme.colors.iconInf}>
               {title}
             </Text>
           </Block>
@@ -297,17 +297,6 @@ const TabDetails = ({route, props}) => {
                     total={totalPrice}
                   />
                 </Block>
-                {JSON.stringify(user) !== '{}' ? (
-                  <Button
-                    title="ADD CART"
-                    onPress={() => modalizInf?.current.close()}
-                  />
-                ) : (
-                  <InviteLogin
-                    navigate={routes.LOGIN_SCREEN}
-                    routes={routes.TAB_DETAILS}
-                  />
-                )}
               </>
             ) : null}
           </Block>
@@ -376,7 +365,7 @@ const TabDetails = ({route, props}) => {
                       ratingBackgroundColor="#c8c7c8"
                       imageSize={20}
                       ratingColor="#FFD700"
-                      tintColor={theme.colors.background}
+                      tintColor={theme.colors.backgroundSetting}
                     />
                   </Block>
                 </Block>
@@ -451,6 +440,14 @@ const TabDetails = ({route, props}) => {
           </BottomSheet>
         </Block>
       </ScrollView>
+      {JSON.stringify(user) !== '{}' ? (
+        <Button title="ADD CART" onPress={() => modalizInf?.current.close()} />
+      ) : (
+        <InviteLogin
+          navigate={routes.LOGIN_SCREEN}
+          routes={routes.TAB_DETAILS}
+        />
+      )}
     </Block>
   );
 };

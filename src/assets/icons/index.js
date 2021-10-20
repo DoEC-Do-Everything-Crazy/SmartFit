@@ -46,3 +46,6 @@ export * from './HeartLine';
 export * from './Layout';
 export * from './Height';
 export * from './Weight';
+export * from './Supplements';
+export * from './EquipmentType';
+export * from './Clothing';

@@ -5,17 +5,14 @@ import React, {useEffect, useRef} from 'react';
 import {Animated, Pressable, View} from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import {
-  Chart,
-  Equipment,
-  Food,
+  Clothing,
+  EquipmentType,
   Home,
-  Info,
-  Notification,
   Search,
+  Supplements,
 } from '@assets/icons';
 import {routes} from '@navigation/routes';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import {Block} from '@components';
 
 const CustomTabBar = ({state, descriptors, navigation, props}) => {
   const {
@@ -92,18 +89,14 @@ const CustomTabBar = ({state, descriptors, navigation, props}) => {
         const {options} = descriptors[route.key];
         const label =
           options.tabBarLabel !== undefined ? options.tabBarLabel : route.name;
-        const color = isFocused ? theme.colors.blue : theme.colors.gray;
+        const color = isFocused ? theme.colors.iconInf : theme.colors.gray;
         const iconTab =
-          route.name === routes.HOME_SCREEN ? (
-            <Food color={color} />
-          ) : route.name === routes.SEARCH_SCREEN ? (
-            <Search color={color} />
-          ) : route.name === routes.STATS_SCREEN ? (
-            <Chart color={color} />
-          ) : route.name === routes.NOTIFICATION_SCREEN ? (
-            <Notification color={color} />
+          route.name === routes.EQUIPMENT_SCREEN ? (
+            <EquipmentType color={color} />
+          ) : route.name === routes.SUPPLEMENTS_SCREEN ? (
+            <Supplements color={color} />
           ) : (
-            <Info color={color} />
+            <Clothing color={color} />
           );
 
         const onPress = () => {
@@ -132,12 +125,12 @@ const CustomTabBar = ({state, descriptors, navigation, props}) => {
       })}
       <View style={styles.top}>
         <Pressable onPress={() => navigation.navigate(routes.SEARCH_SCREEN)}>
-          <Search color={theme.colors.blue} />
+          <Search color={theme.colors.iconInf} />
         </Pressable>
       </View>
       <View style={styles.bottom}>
         <Pressable onPress={() => navigation.navigate(routes.BOTTOM_TAB)}>
-          <Home color={theme.colors.blue} />
+          <Home color={theme.colors.iconInf} />
         </Pressable>
       </View>
     </View>
@@ -148,7 +141,6 @@ export const useStyles = makeStyles()(({colors}) => ({
   bar: {
     flexDirection: 'column',
     backgroundColor: colors.bar,
-    padding: getSize.m(12),
     width: getSize.m(80),
     height: '100%',
     position: 'absolute',
@@ -161,24 +153,21 @@ export const useStyles = makeStyles()(({colors}) => ({
     flexDirection: 'column',
     justifyContent: 'center',
     height: getSize.s(60),
-
-    marginBottom: getSize.s(20),
+    marginBottom: getSize.s(50),
   },
+
   label: {
-    color: colors.blue,
+    width: getSize.m(80),
+    color: colors.iconInf,
     fontWeight: 'bold',
     fontSize: getSize.m(12),
     position: 'absolute',
-    top: -7,
-  },
-  cover: {
-    height: getSize.s(40),
-    borderRadius: getSize.m(8),
-    backgroundColor: colors.blue,
+    bottom: 15,
+    textAlign: 'center',
   },
   centered: {
-    height: getSize.s(20),
-    width: getSize.s(50),
+    height: getSize.s(60),
+    width: getSize.s(90),
     justifyContent: 'center',
     alignItems: 'center',
   },
