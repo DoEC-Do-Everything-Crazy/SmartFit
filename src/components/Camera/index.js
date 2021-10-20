@@ -13,8 +13,8 @@ const Camera = ({onPress, props}) => {
   return (
     <RNCamera
       style={styles.camera}
-      type={'back'}
-      flashMode={'auto'}
+      type={RNCamera.Constants.Type.back}
+      flashMode={RNCamera.Constants.FlashMode.on}
       captureAudio={false}>
       <Pressable onPress={onPress}>
         <Image source={icons.camera} />
