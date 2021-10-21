@@ -1,5 +1,12 @@
-import {Block, Text, TextInput, Button} from '@components';
+import {Camera} from '@assets/icons';
+import {Block, Button, Text, TextInput} from '@components';
 import {BottomSheet} from '@components/BottomSheet';
+import {apiUrl} from '@config/api';
+import {routes} from '@navigation/routes';
+import {useNavigation} from '@react-navigation/core';
+import {useTheme} from '@theme';
+import axios from 'axios';
+import {checkPermission, PERMISSION_TYPE} from 'hook/permissions';
 import React, {useCallback, useRef, useState} from 'react';
 import {Image, Platform, Pressable, ScrollView} from 'react-native';
 import {Rating} from 'react-native-ratings';
@@ -20,10 +27,24 @@ const ItemOrder = ({picture, title, group_id, onPress, index, props}) => {
 
   const {
     theme: {theme: themeStore},
+    user: {user},
   } = useSelector(stateRoot => stateRoot.root);
   const styles = useStyles(props, themeStore);
   const theme = useTheme(themeStore);
   const navigation = useNavigation();
+  const userId = user.uid;
+  const courseId = '615fd5bbc3ee7b269cea854e';
+  const productId = '';
+
+  const modalizRef = useRef(null);
+  const [isReceived, setReceived] = useState(true);
+  const [rate, setRate] = useState(null);
+  const [content, setContent] = useState('');
+  const [used, setUsed] = useState(false);
+  const [image, setImage] = useState([]);
+
+  const [isCamera, setCamera] = useState(false);
+  const insets = useSafeAreaInsets();
 
   const handleToOrderDetail = useCallback(() => {
     navigation.navigate(routes.ORDER_DETAIL_SCREEN);
@@ -37,6 +58,41 @@ const ItemOrder = ({picture, title, group_id, onPress, index, props}) => {
     }
   }, [insets.bottom, styles.floatComponent]);
 
+  const fetchData = async rateReview => {
+    await axios({
+      method: 'post',
+      url: `${apiUrl}/rates/add`,
+      data: rateReview,
+      validateStatus: false,
+    })
+      .then(response => {
+        if (response.status === 200) {
+          console.log('success');
+          return;
+        }
+        if (response.status === 404 || response.status === 500) {
+          console.log('error ' + response.message);
+        }
+      })
+      .catch(error => {
+        console.log('error ---> ' + error.message);
+      });
+  };
+  const handleFormSubmit = () => {
+    fetchData({
+      userId: userId,
+      productId: productId,
+      courseId: courseId,
+      rate: rate,
+      content: content,
+      used: used,
+      image: image,
+    });
+    modalizRef?.current.close();
+  };
+  const ratingCompleted = rating => {
+    setRate(rating);
+  };
   const HeaderComponent = useCallback(() => {
     return (
       <>
@@ -50,6 +106,7 @@ const ItemOrder = ({picture, title, group_id, onPress, index, props}) => {
             type="custom"
             ratingCount={5}
             imageSize={36}
+            onFinishRating={ratingCompleted}
             ratingBackgroundColor="#c8c7c8"
             tintColor={theme.colors.backgroundSetting}
             ratingColor="#FFD700"
@@ -67,7 +124,7 @@ const ItemOrder = ({picture, title, group_id, onPress, index, props}) => {
         </Block>
       </>
     );
-  }, [theme.colors.backgroundSetting]);
+  }, [theme.colors.backgroundSetting, rate, content]);
   const FooterComponent = useCallback(() => {
     return (
       <>
@@ -102,10 +159,7 @@ const ItemOrder = ({picture, title, group_id, onPress, index, props}) => {
           </ScrollView>
         </Block>
         <Block backgroundColor={theme.colors.backgroundSetting}>
-          <Button
-            title="SEND REVIEW"
-            onPress={() => modalizRef?.current.close()}
-          />
+          <Button title="SEND REVIEW" onPress={handleFormSubmit} />
         </Block>
       </>
     );
@@ -209,10 +263,12 @@ const ItemOrder = ({picture, title, group_id, onPress, index, props}) => {
               paddingHorizontal={16}
               backgroundColor={theme.colors.backgroundSetting}>
               <TextInput
-                onChangeText={() => setComment(comment)}
-                value={comment}
+                onChangeText={text => {
+                  setContent(text);
+                }}
+                value={content}
                 inputStyle={styles.textInput}
-                // placeholder="Enter comment"
+                placeholder="Enter comment"
                 multiline={true}
               />
             </Block>
