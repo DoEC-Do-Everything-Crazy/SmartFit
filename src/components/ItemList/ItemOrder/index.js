@@ -13,16 +13,10 @@ import {Rating} from 'react-native-ratings';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
-import {useTheme} from '@theme';
-import {Camera} from '@assets/icons';
-import {useNavigation} from '@react-navigation/core';
-import {routes} from '@navigation/routes';
 
 const ItemOrder = ({picture, title, group_id, onPress, index, props}) => {
   const modalizRef = useRef(null);
   const [isReceived, setReceived] = useState(true);
-  const [comment, setComment] = useState('');
-
   const insets = useSafeAreaInsets();
 
   const {
@@ -36,15 +30,10 @@ const ItemOrder = ({picture, title, group_id, onPress, index, props}) => {
   const courseId = '615fd5bbc3ee7b269cea854e';
   const productId = '';
 
-  const modalizRef = useRef(null);
-  const [isReceived, setReceived] = useState(true);
   const [rate, setRate] = useState(null);
   const [content, setContent] = useState('');
   const [used, setUsed] = useState(false);
   const [image, setImage] = useState([]);
-
-  const [isCamera, setCamera] = useState(false);
-  const insets = useSafeAreaInsets();
 
   const handleToOrderDetail = useCallback(() => {
     navigation.navigate(routes.ORDER_DETAIL_SCREEN);
@@ -168,6 +157,8 @@ const ItemOrder = ({picture, title, group_id, onPress, index, props}) => {
     styles.image,
     theme.colors.backgroundSetting,
     theme.colors.border,
+    content,
+    rate,
   ]);
   return (
     <>
