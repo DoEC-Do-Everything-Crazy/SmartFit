@@ -33,7 +33,7 @@ const Information = props => {
         flex
         style={styles.container}
         backgroundColor={theme.colors.backgroundSetting}>
-        <InfoProfile user={user} />
+        {/* <InfoProfile user={user} /> */}
         <ListItemFeature />
         <Button
           title="Logout"

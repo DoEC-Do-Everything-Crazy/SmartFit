@@ -9,21 +9,23 @@ const InfoScreen = () => {
   const {user} = useSelector(state => state.root.user);
 
   return (
+    // <>
+    //   {user ? (
+    //     <>
     <>
-      {user ? (
-        <>
-          <Information />
-        </>
-      ) : (
-        <>
-          <Header title="Infomation" />
-          <InviteLogin
-            navigate={routes.LOGIN_SCREEN}
-            routes={routes.INFO_SCREEN}
-          />
-        </>
-      )}
+      <Information />
     </>
+    //   </>
+    // ) : (
+    //     <>
+    //       <Header title="Infomation" />
+    //       <InviteLogin
+    //         navigate={routes.LOGIN_SCREEN}
+    //         routes={routes.INFO_SCREEN}
+    //       />
+    //     </>
+    //   )}
+    // </>
   );
 };
 

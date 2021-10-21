@@ -49,3 +49,4 @@ export * from './Weight';
 export * from './Supplements';
 export * from './EquipmentType';
 export * from './Clothing';
+export * from './CameraTouch';

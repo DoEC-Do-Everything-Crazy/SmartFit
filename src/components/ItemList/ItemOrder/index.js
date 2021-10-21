@@ -7,17 +7,15 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
-import {checkPermission, PERMISSION_TYPE} from 'hook/permissions';
 import {Camera} from '@assets/icons';
 import {useNavigation} from '@react-navigation/core';
 import {routes} from '@navigation/routes';
 
-const ItemOrder = ({picture, title, group_id, index, props}) => {
+const ItemOrder = ({picture, title, group_id, onPress, index, props}) => {
   const modalizRef = useRef(null);
   const [isReceived, setReceived] = useState(true);
   const [comment, setComment] = useState('');
 
-  const [isCamera, setCamera] = useState(false);
   const insets = useSafeAreaInsets();
 
   const {
@@ -30,12 +28,7 @@ const ItemOrder = ({picture, title, group_id, index, props}) => {
   const handleToOrderDetail = useCallback(() => {
     navigation.navigate(routes.ORDER_DETAIL_SCREEN);
   }, [navigation]);
-  const handleCamera = async () => {
-    const resultSP = await checkPermission(PERMISSION_TYPE.camera);
-    if (resultSP === true) {
-      setCamera(true);
-    }
-  };
+
   const FloatingComponent = useCallback(() => {
     if (insets.bottom === 0) {
       return null;
@@ -99,7 +92,7 @@ const ItemOrder = ({picture, title, group_id, index, props}) => {
               justifyCenter
               alignCenter
               style={styles.image}>
-              <Pressable onPress={handleCamera}>
+              <Pressable onPress={onPress}>
                 <Camera />
               </Pressable>
               <Text paddingVertical={5} fontType="bold" size={12}>
@@ -116,7 +109,12 @@ const ItemOrder = ({picture, title, group_id, index, props}) => {
         </Block>
       </>
     );
-  }, [styles.image, theme.colors.backgroundSetting, theme.colors.border]);
+  }, [
+    onPress,
+    styles.image,
+    theme.colors.backgroundSetting,
+    theme.colors.border,
+  ]);
   return (
     <>
       <Block
