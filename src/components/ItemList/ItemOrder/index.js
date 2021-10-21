@@ -6,7 +6,6 @@ import {routes} from '@navigation/routes';
 import {useNavigation} from '@react-navigation/core';
 import {useTheme} from '@theme';
 import axios from 'axios';
-import {checkPermission, PERMISSION_TYPE} from 'hook/permissions';
 import React, {useCallback, useRef, useState} from 'react';
 import {Image, Platform, Pressable, ScrollView} from 'react-native';
 import {Rating} from 'react-native-ratings';
