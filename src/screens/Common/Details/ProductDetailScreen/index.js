@@ -83,7 +83,7 @@ const ProductDetailScreen = ({props, route}) => {
               <Block paddingBottom={50} flex>
                 <Block row flex paddingTop={20} paddingHorizontal={16}>
                   <Text fontType="bold" size={20}>
-                    Myprotein Bottle
+                    {product.name}
                   </Text>
                   <Block justifyCenter flex alignEnd>
                     <Rating
@@ -148,7 +148,7 @@ const ProductDetailScreen = ({props, route}) => {
                     </Pressable>
                     <Block justifyCenter flex alignEnd>
                       <Text center fontType="bold" size={20} color={'#FF7F50'}>
-                        $20
+                        {product.price}$
                       </Text>
                     </Block>
                   </Block>
@@ -163,7 +163,7 @@ const ProductDetailScreen = ({props, route}) => {
                       {t('brand')}:
                     </Text>
                     <Text marginLeft={15} size={17}>
-                      Shark
+                      {product.brand}
                     </Text>
                   </Block>
                   <Text
@@ -173,13 +173,7 @@ const ProductDetailScreen = ({props, route}) => {
                     paddingHorizontal={16}>
                     {t('description')}:
                   </Text>
-                  <Text paddingHorizontal={16}>
-                    {`- Premium sports and gym shaker bottle: Boldfit gym shaker bottle is exclusively for work out regimens. 
-- No leaks, No drips 100% Guarantee : Anti-leak tested and Proven, lockable flip top, easy to read measuring 
-- Extra compartment: Extra compartment for powder, mixes, etc. 
-- BPA free: 100% BPA free, no toxins, very easy to clean 
-- Better body Absorption: the tornado mixer works like a blending blade, Shake to create a fresh blend.`}
-                  </Text>
+                  <Text paddingHorizontal={16}>{product.description}</Text>
                 </Block>
                 <Block row paddingHorizontal={16}>
                   <Text fontType="bold" size={17}>

@@ -15,16 +15,19 @@ const BottomTab = () => {
       route: routes.EQUIPMENT_SCREEN,
       label: t('equip'),
       component: common.PRODUCT_LIST_SCREEN,
+      type: 'equipments',
     },
     {
       route: routes.SUPPLEMENTS_SCREEN,
       label: t('supple'),
       component: common.PRODUCT_LIST_SCREEN,
+      type: 'supplements',
     },
     {
       route: routes.CLOTHING_SCREEN,
       label: t('clothing'),
       component: common.PRODUCT_LIST_SCREEN,
+      type: 'clothingAndAccessories',
     },
   ];
 
@@ -35,6 +38,7 @@ const BottomTab = () => {
           <Tab.Screen
             name={item.route}
             component={item.component}
+            initialParams={{type: item.type}}
             options={{
               tabBarLabel: item.label,
             }}

@@ -1,7 +1,7 @@
 import {useTheme, makeStyles} from '@theme';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import {getSize} from '@utils/responsive';
-import React, {useEffect, useRef} from 'react';
+import React, {useCallback, useEffect, useRef} from 'react';
 import {Animated, Pressable, View} from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import {
@@ -12,15 +12,26 @@ import {
   Supplements,
 } from '@assets/icons';
 import {routes} from '@navigation/routes';
+import {getProductType} from 'reduxs/reducers';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 
 const CustomTabBar = ({state, descriptors, navigation, props}) => {
   const {
     theme: {theme: themeStore},
   } = useSelector(stateRoot => stateRoot.root);
+  const dispatch = useDispatch();
   const styles = useStyles(props, themeStore);
   const theme = useTheme(themeStore);
   const totalNotification = 0;
+
+  const handleToHome = useCallback(() => {
+    navigation.navigate(routes.BOTTOM_TAB);
+  }, [navigation]);
+
+  const handleToSearch = useCallback(() => {
+    navigation.navigate(routes.SEARCH_SCREEN, {screen: 'screen'});
+  }, [navigation]);
+
   const TabItem = ({icon, active, onPress, index, keyItem, label}) => {
     const animation = new Animated.Value(0);
     const viewRef = useRef();
@@ -124,12 +135,12 @@ const CustomTabBar = ({state, descriptors, navigation, props}) => {
         );
       })}
       <View style={styles.top}>
-        <Pressable onPress={() => navigation.navigate(routes.SEARCH_SCREEN)}>
+        <Pressable onPress={handleToSearch}>
           <Search color={theme.colors.iconInf} />
         </Pressable>
       </View>
       <View style={styles.bottom}>
-        <Pressable onPress={() => navigation.navigate(routes.BOTTOM_TAB)}>
+        <Pressable onPress={handleToHome}>
           <Home color={theme.colors.iconInf} />
         </Pressable>
       </View>
