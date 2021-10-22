@@ -5,9 +5,10 @@ import React, {useEffect, useRef} from 'react';
 import {StatusBar, Animated, Text, Dimensions} from 'react-native';
 import {useNavigation} from '@react-navigation/core';
 import {routes} from '@navigation/routes';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import {Logo} from '@assets/icons';
 import {useStyles} from './styles';
+import {changeLanguage} from 'reduxs/reducers';
 
 const SplashScreen = props => {
   const {
@@ -15,13 +16,17 @@ const SplashScreen = props => {
     user: {first},
     turn: {isTurnPassword},
   } = useSelector(state => state.root);
+
+  const dispatch = useDispatch();
   const theme = useTheme(themeStore);
+  const languageStore = useSelector(state => state.root.setting.language);
 
   const styles = useStyles(props, themeStore);
   const navigation = useNavigation();
   const moveAnim = useRef(new Animated.Value(0)).current;
   const fadeAnim = useRef(new Animated.Value(0)).current;
   useEffect(() => {
+    dispatch(changeLanguage(languageStore));
     setTimeout(() => {
       first === false
         ? navigation.navigate(routes.ONBOARD_SCREEN)

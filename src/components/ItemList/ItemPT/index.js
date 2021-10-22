@@ -6,26 +6,15 @@ import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {Ratting} from '@assets/icons';
+import {useTranslation} from 'react-i18next';
 
-const ItemPT = ({
-  onPress,
-  _id,
-  courseId,
-  email,
-  mobile,
-  name,
-  gender,
-  birthday,
-  price,
-  image,
-  index,
-  props,
-}) => {
+const ItemPT = ({onPress, name, gender, price, image, index, props}) => {
   const {
     theme: {theme: themeStore},
   } = useSelector(stateRoot => stateRoot.root);
   const styles = useStyles(props, themeStore);
   const theme = useTheme(themeStore);
+  const {t} = useTranslation();
   return (
     <Block flex key={index} borderBottomWidth={0.3}>
       <Block
@@ -57,7 +46,7 @@ const ItemPT = ({
           </Block>
           <Block row alignCenter>
             <Text size={15} fontType="bold">
-              Gender:
+              {t('gender')}:
             </Text>
             <Block marginLeft={5} alignCenter>
               <Text size={15} marginLeft={5}>
@@ -67,7 +56,7 @@ const ItemPT = ({
           </Block>
           <Block row alignCenter>
             <Text size={15} fontType="bold">
-              Price:
+              {t('price')}:
             </Text>
             <Block marginLeft={5} alignCenter>
               <Text size={15} marginLeft={5}>
@@ -89,7 +78,7 @@ const ItemPT = ({
                     size={12}
                     color={theme.colors.white}
                     fontType="bold">
-                    Read more
+                    {t('readMore')}
                   </Text>
                 </LinearGradient>
               ) : (
@@ -101,7 +90,7 @@ const ItemPT = ({
                   backgroundColor={theme.colors.blue}
                   alignCenter>
                   <Text size={12} color={theme.colors.white} fontType="bold">
-                    Read more
+                    {t('readMore')}
                   </Text>
                 </Block>
               )}

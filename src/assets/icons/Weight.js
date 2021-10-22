@@ -1,11 +1,11 @@
 import * as React from 'react';
 import Svg, {Path} from 'react-native-svg';
 export const Weight = props => {
-  const {color} = props;
+  const {color, width, height} = props;
   return (
     <Svg
-      width={24}
-      height={24}
+      width={width}
+      height={height}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       {...props}>

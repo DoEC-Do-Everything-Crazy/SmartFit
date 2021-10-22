@@ -8,8 +8,10 @@ import {routes} from '@navigation/routes';
 import {useNavigation} from '@react-navigation/core';
 import {useSelector} from 'react-redux';
 import {useTheme} from '@theme';
+import {useTranslation} from 'react-i18next';
 
 const ListItemFeature = () => {
+  const {t} = useTranslation();
   const {
     theme: {theme: themeStore},
   } = useSelector(stateRoot => stateRoot.root);
@@ -21,29 +23,29 @@ const ListItemFeature = () => {
   const DATA_FEATURE = [
     {
       id: 1,
-      title: 'Your favorite',
+      title: t('yourFavorite'),
       image: <HeartPf color={theme.colors.iconInf} />,
       navigation: routes.YOUR_FAVORITE_SCREEN,
     },
     {
       id: 2,
-      title: 'Payment',
+      title: t('payment'),
       image: <Payment color={theme.colors.iconInf} />,
     },
     {
       id: 3,
-      title: 'Promotion',
+      title: t('promotion'),
       image: <Promotion color={theme.colors.iconInf} />,
     },
     {
       id: 4,
-      title: 'Order',
+      title: t('order'),
       image: <Order color={theme.colors.iconInf} />,
       navigation: routes.ORDER_SCREEN,
     },
     {
       id: 5,
-      title: 'Setting',
+      title: t('setting'),
       image: <Setting color={theme.colors.iconInf} />,
       navigation: routes.SETTING_SCREEN,
     },

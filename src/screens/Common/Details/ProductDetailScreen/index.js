@@ -5,15 +5,20 @@ import {Image, Platform, ScrollView, Pressable, Dimensions} from 'react-native';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
-import {images} from '@assets';
 import {BottomSheet} from '@components/BottomSheet';
 import {Rating} from 'react-native-ratings';
 import LinearGradient from 'react-native-linear-gradient';
 import {apiUrl} from '@config/api';
 import axios from 'axios';
+import {useTranslation} from 'react-i18next';
+import Review from '@components/Review';
+import RatingValue from '@components/RatingValue';
+import {DATA_REVIEW} from '@constants/';
 
 const ProductDetailScreen = ({props, route}) => {
+  const {t} = useTranslation();
   const [quali, setQuali] = useState(0);
+  const [isShowReview, setShowReview] = useState();
   const {id} = route.params;
   const {height: MAX_HEIGHT} = Dimensions.get('screen');
   const [product, setProduct] = useState(undefined);
@@ -33,6 +38,10 @@ const ProductDetailScreen = ({props, route}) => {
   const handleSum = useCallback(() => {
     setQuali(quali + 1);
   }, [quali]);
+
+  const handleShowReview = useCallback(() => {
+    setShowReview(!isShowReview);
+  }, [isShowReview]);
 
   const getProductDetail = async _id => {
     try {
@@ -76,7 +85,7 @@ const ProductDetailScreen = ({props, route}) => {
               Platform.OS === 'ios' ? 'padding' : 'height'
             }>
             <ScrollView>
-              <Block flex>
+              <Block paddingBottom={50} flex>
                 <Block row flex paddingTop={20} paddingHorizontal={16}>
                   <Text fontType="bold" size={20}>
                     Myprotein Bottle
@@ -151,12 +160,12 @@ const ProductDetailScreen = ({props, route}) => {
                 </Block>
                 <Block flex paddingTop={10} paddingBottom={20}>
                   <Button
-                    title="Add Cart"
+                    title={t('addCart')}
                     onPress={() => modalizRef?.current.close()}
                   />
                   <Block row paddingHorizontal={16}>
                     <Text fontType="bold" size={17}>
-                      Brand:
+                      {t('brand')}:
                     </Text>
                     <Text marginLeft={15} size={17}>
                       Shark
@@ -167,7 +176,7 @@ const ProductDetailScreen = ({props, route}) => {
                     fontType="bold"
                     size={17}
                     paddingHorizontal={16}>
-                    Description:
+                    {t('description')}:
                   </Text>
                   <Text paddingHorizontal={16}>
                     {`- Premium sports and gym shaker bottle: Boldfit gym shaker bottle is exclusively for work out regimens. 
@@ -177,6 +186,22 @@ const ProductDetailScreen = ({props, route}) => {
 - Better body Absorption: the tornado mixer works like a blending blade, Shake to create a fresh blend.`}
                   </Text>
                 </Block>
+                <Block row paddingHorizontal={16}>
+                  <Text fontType="bold" size={17}>
+                    {t('review')}:
+                  </Text>
+                  <Pressable onPress={handleShowReview}>
+                    <Text style={styles.link} marginLeft={15} size={17}>
+                      {t('readMore')}
+                    </Text>
+                  </Pressable>
+                </Block>
+                {isShowReview ? (
+                  <>
+                    <RatingValue />
+                    <Review data={DATA_REVIEW} />
+                  </>
+                ) : null}
               </Block>
             </ScrollView>
           </BottomSheet>

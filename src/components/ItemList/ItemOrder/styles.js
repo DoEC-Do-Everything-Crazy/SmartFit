@@ -1,5 +1,7 @@
 import {getSize} from '@utils/responsive';
 import {makeStyles} from '@theme';
+import {width} from 'utils/responsive';
+import {Platform} from 'react-native';
 
 export const useStyles = makeStyles()(({colors}) => ({
   image: {
@@ -51,5 +53,50 @@ export const useStyles = makeStyles()(({colors}) => ({
   },
   floatComponent: {
     backgroundColor: colors.background,
+  },
+  itemReorder: {
+    width: width / 2.2,
+    alignItems: 'center',
+    marginVertical: getSize.s(10),
+    paddingVertical: getSize.s(10),
+    paddingHorizontal: getSize.s(12),
+    borderRadius: getSize.s(8),
+    borderWidth: getSize.s(1),
+    marginRight: getSize.s(5),
+  },
+  itemLeave: {
+    width: width / 2.2,
+    alignItems: 'center',
+    marginVertical: getSize.s(10),
+    paddingVertical: getSize.s(10),
+    paddingHorizontal: getSize.s(12),
+    borderRadius: getSize.s(8),
+    marginLeft: getSize.s(5),
+    backgroundColor: colors.red,
+  },
+  itemHeader: {
+    justifyContent: 'center',
+    paddingVertical: getSize.s(5),
+    paddingHorizontal: getSize.s(20),
+    borderRadius: getSize.s(8),
+    marginHorizontal: getSize.s(12),
+    alignItems: 'center',
+  },
+  imageContainer: {
+    flex: 1,
+    marginBottom: Platform.select({ios: 0, android: 1}),
+    backgroundColor: colors.background,
+  },
+
+  text: {
+    fontSize: getSize.s(18),
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  imageItem: {
+    borderTopLeftRadius: getSize.m(5),
+    borderBottomLeftRadius: getSize.m(5),
+    width: getSize.s(100),
+    height: getSize.s(120),
   },
 }));

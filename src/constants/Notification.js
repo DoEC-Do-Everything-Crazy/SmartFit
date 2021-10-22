@@ -1,18 +1,3 @@
-const DATA_TYPE_NOTIFICATION = [
-  {
-    id: 1,
-    title: 'All',
-  },
-  {
-    id: 2,
-    title: 'Coupon',
-  },
-  {
-    id: 3,
-    title: 'System',
-  },
-];
-
 const DATA_NOTIFICATION = [
   {
     id: 1,
@@ -98,4 +83,4 @@ const DATA_NOTIFICATION = [
     date: '14-08-2021',
   },
 ];
-export {DATA_TYPE_NOTIFICATION, DATA_NOTIFICATION};
+export {DATA_NOTIFICATION};

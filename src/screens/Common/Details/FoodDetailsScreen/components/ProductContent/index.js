@@ -3,14 +3,14 @@ import {Block, Text} from '@components';
 import {HeartPf} from '@assets/icons';
 import {Image} from 'react-native';
 import ItemStats from '../ItemStats';
-import {Rating} from 'react-native-ratings';
 import React from 'react';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
+import {useTranslation} from 'react-i18next';
 
 const ProductContent = ({food, props}) => {
-  console.log('food', food.image);
+  const {t} = useTranslation();
   const {
     theme: {theme: themeStore},
   } = useSelector(stateRoot => stateRoot.root);
@@ -32,7 +32,7 @@ const ProductContent = ({food, props}) => {
         {content.map(_renderItem)}
         <Block alignCenter marginTop={10} marginBottom={20}>
           <HeartPf color={theme.colors.red} />
-          <Text size={16}>Favorite</Text>
+          <Text size={16}>{t('favorite')}</Text>
         </Block>
       </Block>
       <Block width="60%">

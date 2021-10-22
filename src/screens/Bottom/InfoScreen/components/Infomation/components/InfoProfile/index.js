@@ -6,8 +6,10 @@ import React from 'react';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
+import {useTranslation} from 'react-i18next';
 
 const InfoProfile = ({user, props}) => {
+  const {t} = useTranslation();
   const themeStore = useSelector(state => state.root.theme.theme);
   const theme = useTheme(themeStore);
   const styles = useStyles(props, themeStore);
@@ -52,7 +54,7 @@ const InfoProfile = ({user, props}) => {
               </Block>
               <Block justifyCenter>
                 <Text size={14} color={theme.colors.text} marginLeft={10}>
-                  {user.phoneNumber || 'not update yet'}
+                  {user.phoneNumber || t('notUpdateYet')}
                 </Text>
               </Block>
             </Block>
@@ -66,7 +68,7 @@ const InfoProfile = ({user, props}) => {
                   numberOfLines={1}
                   marginHorizontal={10}
                   color={theme.colors.text}>
-                  {user.email || 'not update yet'}
+                  {user.email || t('notUpdateYet')}
                 </Text>
               </Block>
             </Block>
@@ -87,7 +89,7 @@ const InfoProfile = ({user, props}) => {
               <Block justifyCenter>
                 <Text size={14} marginLeft={10} color={theme.colors.text}>
                   {dateFormat(new Date(user.birthday), 'dd/mm/yyyy') ||
-                    'not update yet'}
+                    t('notUpdateYet')}
                 </Text>
               </Block>
             </Block>

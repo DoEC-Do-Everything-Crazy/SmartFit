@@ -4,28 +4,30 @@ import React from 'react';
 import CustomTabBar from './CustomTabBar';
 import {routes} from '@navigation/routes';
 import {common} from '@screens/Common';
-
-const TabArr = [
-  {
-    route: routes.EQUIPMENT_SCREEN,
-    label: routes.EQUIPMENT_SCREEN,
-    component: common.PRODUCT_LIST_SCREEN,
-  },
-  {
-    route: routes.SUPPLEMENTS_SCREEN,
-    label: routes.SUPPLEMENTS_SCREEN,
-    component: common.PRODUCT_LIST_SCREEN,
-  },
-  {
-    route: routes.CLOTHING_SCREEN,
-    label: routes.CLOTHING_SCREEN,
-    component: common.PRODUCT_LIST_SCREEN,
-  },
-];
+import {useTranslation} from 'react-i18next';
 
 const Tab = createBottomTabNavigator();
 
 const BottomTab = () => {
+  const {t} = useTranslation();
+  const TabArr = [
+    {
+      route: routes.EQUIPMENT_SCREEN,
+      label: t('equip'),
+      component: common.PRODUCT_LIST_SCREEN,
+    },
+    {
+      route: routes.SUPPLEMENTS_SCREEN,
+      label: t('supple'),
+      component: common.PRODUCT_LIST_SCREEN,
+    },
+    {
+      route: routes.CLOTHING_SCREEN,
+      label: t('clothing'),
+      component: common.PRODUCT_LIST_SCREEN,
+    },
+  ];
+
   return (
     <Tab.Navigator tabBar={props => <CustomTabBar {...props} />}>
       {TabArr.map((item, index) => {

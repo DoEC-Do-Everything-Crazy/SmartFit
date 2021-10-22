@@ -12,10 +12,12 @@ import {useNavigation} from '@react-navigation/core';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {apiUrl} from '@config/api';
+import {useTranslation} from 'react-i18next';
 
 const VFTPhoneNumberScreen = ({route, props}) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
+  const {t} = useTranslation();
 
   const {phone} = route.params;
   const {auth} = firebase();
@@ -137,7 +139,7 @@ const VFTPhoneNumberScreen = ({route, props}) => {
     <Block flex backgroundColor={theme.colors.backgroundSetting}>
       <Header
         canGoBack
-        title="Sign in with phone number"
+        title={t('signInWithPhoneNumber')}
         colorTheme={theme.colors.blue}
       />
       <Block flex justifyCenter>
@@ -147,7 +149,7 @@ const VFTPhoneNumberScreen = ({route, props}) => {
             marginBottom={75}
             fontType="bold"
             style={{textAlign: 'center'}}>
-            Code is send to {phone}
+            {t('codeIsSendTo')} {phone}
           </Text>
           <Block row flex justifyContent="space-evenly">
             <TextInput
@@ -223,10 +225,10 @@ const VFTPhoneNumberScreen = ({route, props}) => {
               marginTop={60}
               fontType="bold"
               center>
-              Didn’t receive code?
+              {t('receiveCode')}
             </Text>
             <Text center style={styles.textRequestAgain}>
-              Request again
+              {t('requestAgain')}
             </Text>
           </Block>
         </Block>

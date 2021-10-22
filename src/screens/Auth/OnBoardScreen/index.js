@@ -10,6 +10,7 @@ import {useDispatch, useSelector} from 'react-redux';
 
 import {useNavigation} from '@react-navigation/core';
 import {firstLogin} from 'reduxs/reducers';
+import {useTranslation} from 'react-i18next';
 
 const {width: SliderWidth} = Dimensions.get('screen');
 
@@ -18,6 +19,7 @@ const OnBoardScreen = props => {
   const [activeIndex, setActivateIndex] = useState(0);
   const carouselRef = useRef(null);
   const dispatch = useDispatch();
+  const {t} = useTranslation();
 
   const {
     theme: {theme: themeStore},
@@ -27,18 +29,18 @@ const OnBoardScreen = props => {
   const [carouselState] = useState([
     {
       lotties: lotties.learn,
-      title: 'Learn anytime and anywhere',
-      text: 'Quarantine is the perfect time to spend your day learning something new, from anywhere!',
+      title: t('learnAnywhere'),
+      text: t('quarantine'),
     },
     {
       lotties: lotties.convenient,
-      title: 'convenient',
-      text: 'We bring convenience to users in choosing products about sports, courses, healthy meals at home.',
+      title: t('convenient'),
+      text: t('weBringConvenience'),
     },
     {
       lotties: lotties.like,
-      title: 'Prestige and quality',
-      text: 'The quality and reputation of the service are our core values, so customers will always feel secure when using the service.',
+      title: t('prestige'),
+      text: t('theQuality'),
     },
   ]);
   const handleNext = useCallback(() => {
@@ -94,7 +96,7 @@ const OnBoardScreen = props => {
         }
       </Block>
 
-      <Button title="Apply" onPress={handleNext} style={styles.button} />
+      <Button title={t('gotIt')} onPress={handleNext} style={styles.button} />
     </Block>
   );
 };

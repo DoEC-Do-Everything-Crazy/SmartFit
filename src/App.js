@@ -8,17 +8,22 @@
 
 import AppContainer from '@navigation';
 import React from 'react';
+
 import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/lib/integration/react';
 import {persistor, store} from './reduxs/store';
+import {QueryClient, QueryClientProvider} from 'react-query';
+const queryClient = new QueryClient();
 
 const App = () => {
   return (
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <AppContainer />
-      </PersistGate>
-    </Provider>
+    <QueryClientProvider client={queryClient}>
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <AppContainer />
+        </PersistGate>
+      </Provider>
+    </QueryClientProvider>
   );
 };
 

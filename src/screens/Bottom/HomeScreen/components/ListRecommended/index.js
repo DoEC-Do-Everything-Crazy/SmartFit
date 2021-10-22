@@ -10,9 +10,10 @@ import {width, height} from '@utils/responsive';
 import {Pressable} from 'react-native';
 import {useStyles} from './styles';
 import {routes} from '@navigation/routes';
-// import {DATA_RECOMMENDED} from '@constants';
+import {useTranslation} from 'react-i18next';
 
 const ListRecommended = props => {
+  const {t} = useTranslation();
   const themeStore = useSelector(state => state.root.theme.theme);
   const theme = useTheme(themeStore);
   const carouselRef = useRef(null);
@@ -33,13 +34,13 @@ const ListRecommended = props => {
       <Block marginHorizontal={16} flex row>
         <Block flex>
           <Text size={20} fontType="bold" color={theme.colors.iconInf}>
-            Recommended
+            {t('recommended')}
           </Text>
         </Block>
         <Pressable
           onPress={() => navigation.navigate(routes.PRODUCT_LIST_SCREEN)}>
           <Text size={17} style={styles.link}>
-            See all
+            {t('seeAll')}
           </Text>
         </Pressable>
       </Block>

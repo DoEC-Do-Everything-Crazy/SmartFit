@@ -5,10 +5,11 @@ import {FlatList} from 'react-native';
 import ItemPopular from '@components/ItemList/ItemPopular';
 import {apiUrl} from '@config/api';
 import axios from 'axios';
+import {useTranslation} from 'react-i18next';
 
 const ListItemPopular = () => {
   const [foods, setFoods] = useState([]);
-
+  const {t} = useTranslation();
   const getProduct = async () => {
     await axios
       .get(`${apiUrl}/food`, {
@@ -41,7 +42,7 @@ const ListItemPopular = () => {
     <Block flex>
       <Block row marginHorizontal={16} marginBottom={10} space="between">
         <Text fontType="bold" size={18}>
-          Popular Items
+          {t('menu')}
         </Text>
       </Block>
       <FlatList

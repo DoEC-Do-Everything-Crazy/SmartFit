@@ -38,9 +38,11 @@ const ItemMenu = ({icon, title, group_id, index, props, onPress}) => {
             {icon}
           </Block>
         )}
-        <Text color={theme.colors.text} fontType="bold" center>
-          {title}
-        </Text>
+        <Block width={65}>
+          <Text color={theme.colors.text} fontType="bold" center>
+            {title}
+          </Text>
+        </Block>
       </Block>
     </Pressable>
   );

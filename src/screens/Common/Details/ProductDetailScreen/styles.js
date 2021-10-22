@@ -1,11 +1,11 @@
-import {getSize, width} from '@utils/responsive';
-import {Platform} from 'react-native';
+import {getSize} from '@utils/responsive';
 import {makeStyles} from '@theme';
 
 export const useStyles = makeStyles()(({colors}) => ({
   image: {
     width: '100%',
-    height: '90%',
+    height: '100%',
+    resizeMode: 'contain',
   },
   header: {
     width: '100%',
@@ -47,5 +47,9 @@ export const useStyles = makeStyles()(({colors}) => ({
   },
   root: {
     backgroundColor: 'transparent',
+  },
+  link: {
+    color: colors.link,
+    textDecorationLine: 'underline',
   },
 }));

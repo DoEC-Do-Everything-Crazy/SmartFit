@@ -5,3 +5,4 @@ export * from './passwordReducer';
 export * from './themeReducer';
 export * from './turnSwitchReducer';
 export * from './idReducer';
+export * from './appSettingReducer';

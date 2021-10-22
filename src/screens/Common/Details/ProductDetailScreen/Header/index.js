@@ -7,8 +7,10 @@ import {useTheme} from '@theme';
 import {useNavigation} from '@react-navigation/core';
 import {Back, Cart} from '@assets/icons';
 import {routes} from '@navigation/routes';
+import {useTranslation} from 'react-i18next';
 
 const Header = props => {
+  const {t} = useTranslation();
   const {
     theme: {theme: themeStore},
   } = useSelector(stateRoot => stateRoot.root);
@@ -24,12 +26,12 @@ const Header = props => {
       </Block>
       {themeStore === 'light' ? (
         <Text center size={20} fontType="bold" color={theme.colors.text}>
-          Product Detail
+          {t('productDetail')}
         </Text>
       ) : (
         <Block justifyCenter alignCenter>
           <GradientText fontSize={20} fontWeight={'bold'}>
-            Product Detail
+            {t('productDetail')}
           </GradientText>
         </Block>
       )}

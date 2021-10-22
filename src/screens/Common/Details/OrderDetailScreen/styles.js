@@ -3,10 +3,6 @@ import {Platform} from 'react-native';
 import {makeStyles} from '@theme';
 
 export const useStyles = makeStyles()(({colors}) => ({
-  item: {
-    width: width,
-    height: '100%',
-  },
   itemReorder: {
     width: width / 2.2,
     alignItems: 'center',
@@ -40,14 +36,33 @@ export const useStyles = makeStyles()(({colors}) => ({
     marginBottom: Platform.select({ios: 0, android: 1}),
     backgroundColor: colors.background,
   },
-  image: {
-    borderRadius: getSize.s(10),
-    width: width,
-    height: getSize.s(240),
-  },
+
   text: {
     fontSize: getSize.s(18),
     fontWeight: 'bold',
     textAlign: 'center',
+  },
+  image: {
+    borderTopLeftRadius: getSize.m(5),
+    borderBottomLeftRadius: getSize.m(5),
+    width: getSize.s(100),
+    height: getSize.s(120),
+  },
+
+  itemCancel: {
+    justifyContent: 'center',
+    marginVertical: 10,
+    paddingVertical: 5,
+    paddingHorizontal: 12,
+    borderRadius: 8,
+    backgroundColor: colors.red,
+  },
+  itemConfirm: {
+    justifyContent: 'center',
+    marginVertical: 10,
+    paddingVertical: 5,
+    paddingHorizontal: 12,
+    borderRadius: 8,
+    backgroundColor: colors.green,
   },
 }));

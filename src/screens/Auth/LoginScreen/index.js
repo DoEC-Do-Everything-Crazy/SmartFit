@@ -8,12 +8,14 @@ import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {width} from 'utils/responsive';
+import {useTranslation} from 'react-i18next';
 
 const LoginScreen = ({navigation, props}) => {
   const {
     screen: {routeScreen},
     theme: {theme: themeStore},
   } = useSelector(state => state.root);
+  const {t} = useTranslation();
 
   const styles = useStyles(props, themeStore);
   const theme = useTheme(themeStore);
@@ -42,7 +44,7 @@ const LoginScreen = ({navigation, props}) => {
             }
             style={styles.button}>
             <Text size={18} color={theme.colors.white} fontType="bold">
-              Sign In Phone Number
+              {t('signInWithPhoneNumber')}
             </Text>
           </TouchableOpacity>
           <Block row alignCenter justifyCenter margin={16}>
@@ -56,7 +58,7 @@ const LoginScreen = ({navigation, props}) => {
               color={theme.colors.white}
               marginHorizontal={16}
               fontType="bold">
-              OR
+              {t('or')}
             </Text>
             <Block
               borderWidth={0.7}

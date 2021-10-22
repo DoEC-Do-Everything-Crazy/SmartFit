@@ -7,6 +7,7 @@ import CustomTabBar from './components/CustomTabBar';
 import TabDetails from './components/TabScreen/TabDetails';
 import TabLesson from './components/TabScreen/TabLesson';
 import {routes} from '@navigation/routes';
+import {useTranslation} from 'react-i18next';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -15,23 +16,29 @@ const DetailsCourseScreen = () => {
     theme: {theme: themeStore},
   } = useSelector(stateRoot => stateRoot.root);
   const theme = useTheme(themeStore);
+  const {t} = useTranslation();
   return (
     <Block flex backgroundColor={theme.colors.backgroundSetting}>
-      <Header canGoBack cart title="Cource" colorTheme={theme.colors.blue} />
+      <Header
+        canGoBack
+        cart
+        title={t('course')}
+        colorTheme={theme.colors.blue}
+      />
       <Tab.Navigator
         lazy
         swipeEnabled={false}
         tabBar={props => <CustomTabBar {...props} />}>
         <Tab.Screen
           options={{
-            tabBarLabel: 'Details',
+            tabBarLabel: t('detail'),
           }}
           name={routes.TAB_DETAILS}
           component={TabDetails}
         />
         <Tab.Screen
           options={{
-            tabBarLabel: 'Lessons',
+            tabBarLabel: t('lessons'),
           }}
           name={routes.TAB_LESSON}
           component={TabLesson}

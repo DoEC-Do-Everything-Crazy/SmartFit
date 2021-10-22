@@ -5,6 +5,7 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import React from 'react';
 import {makeStyles} from '@theme';
 import {useSelector} from 'react-redux';
+import {useTheme} from '@theme';
 
 const DropDown = ({
   onChangeValue,
@@ -15,12 +16,13 @@ const DropDown = ({
   setValue,
   setItems,
   containerStyle,
+  boxStyle,
   placeholder,
   props,
 }) => {
   const themeStore = useSelector(state => state.root.theme.theme);
   const styles = useStyles(props, themeStore);
-
+  const theme = useTheme(themeStore);
   DropDownPicker.addTranslation('TRANS', {
     PLACEHOLDER: placeholder,
     SEARCH_PLACEHOLDER: 'Type something ... ',
@@ -48,10 +50,17 @@ const DropDown = ({
       listMode="SCROLLVIEW"
       style={[styles.picker, containerStyle]}
       textStyle={styles.pickerText}
-      dropDownContainerStyle={styles.pickerBox}
-      ArrowDownIconComponent={({style}) => <ArrowDown style={style} />}
+      dropDownContainerStyle={[styles.pickerBox, boxStyle]}
+      ArrowDownIconComponent={({style}) => (
+        <ArrowDown color={theme.colors.text} style={style} />
+      )}
       ArrowUpIconComponent={({style}) => (
-        <ArrowUp width={17.774} height={9.637} style={style} />
+        <ArrowUp
+          color={theme.colors.text}
+          width={10}
+          height={10}
+          style={style}
+        />
       )}
       TickIconComponent={({style}) => <Tick style={style} />}
     />
@@ -61,20 +70,24 @@ const DropDown = ({
 const useStyles = makeStyles()(({colors}) => ({
   picker: {
     height: getSize.m(45),
-    backgroundColor: colors.white,
-    // borderWidth: 1
+    backgroundColor: colors.inputText,
+    borderColor: colors.inputText,
+    width: width - 30,
     borderRadius: 8,
+    marginLeft: getSize.s(16),
+    paddingRight: getSize.s(16),
   },
   pickerBox: {
-    backgroundColor: colors.white,
+    backgroundColor: colors.inputText,
     borderWidth: 0,
     borderRadius: 8,
     width: width - 30,
+    marginLeft: getSize.s(16),
   },
   pickerText: {
-    color: colors.black,
+    color: colors.text,
     // fontSize: font.size.body,
-    fontFamily: 'Aeonik-Regular',
+    // fontFamily: 'Aeonik-Regular',
   },
 }));
 export default DropDown;

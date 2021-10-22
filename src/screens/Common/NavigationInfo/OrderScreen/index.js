@@ -7,8 +7,8 @@ import {FlatList, Pressable, ScrollView} from 'react-native';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
-import {DATA_HEADER} from '@constants/';
 import LinearGradient from 'react-native-linear-gradient';
+import {useTranslation} from 'react-i18next';
 
 const OrderScreen = props => {
   const {
@@ -17,18 +17,31 @@ const OrderScreen = props => {
   const styles = useStyles(props, themeStore);
   const theme = useTheme(themeStore);
   const [isCamera, setCamera] = useState(false);
+  const {t} = useTranslation();
+  const DATA_HEADER = [
+    {
+      id: 1,
+      title: t('status'),
+    },
+    {
+      id: 2,
+      title: t('received'),
+    },
+    {
+      id: 3,
+      title: t('cancelled'),
+    },
+  ];
 
   const handleCamera = async () => {
     // const resultSP = await checkPermission(PERMISSION_TYPE.camera);
     // console.log('click');
     // if (resultSP === true) {
-    console.log('click');
     setCamera(true);
     // }
   };
   const handleCloseCamera = async () => {
     setCamera(false);
-    console.log('click');
   };
   const onSuccess = e => {
     console.log('click');
@@ -96,7 +109,7 @@ const OrderScreen = props => {
         <>
           <HeaderComponent
             canGoBack
-            title="Order"
+            title={t('orderCart')}
             colorTheme={theme.colors.black}
           />
           <Block

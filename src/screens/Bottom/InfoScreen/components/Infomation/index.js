@@ -11,6 +11,7 @@ import {TouchableOpacity} from 'react-native';
 import {removeUser} from 'reduxs/reducers';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
+import {useTranslation} from 'react-i18next';
 
 const Information = props => {
   const dispatch = useDispatch();
@@ -18,7 +19,7 @@ const Information = props => {
     theme: {theme: themeStore},
     user: {user},
   } = useSelector(state => state.root);
-
+  const {t} = useTranslation();
   const theme = useTheme(themeStore);
   const styles = useStyles(props, themeStore);
 
@@ -26,7 +27,7 @@ const Information = props => {
     <Block flex backgroundColor={theme.colors.blue}>
       <Header
         type="Bottom"
-        title="Infomation"
+        title={t('information')}
         colorTheme={theme.colors.white}
       />
       <Block
@@ -36,7 +37,7 @@ const Information = props => {
         {/* <InfoProfile user={user} /> */}
         <ListItemFeature />
         <Button
-          title="Logout"
+          title={t('logout')}
           onPress={() => {
             dispatch(removeUser());
           }}

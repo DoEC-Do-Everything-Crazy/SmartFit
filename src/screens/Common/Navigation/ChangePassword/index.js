@@ -9,11 +9,12 @@ import {useDispatch, useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {changePassword} from 'reduxs/reducers';
+import {useTranslation} from 'react-i18next';
 
 const ChangePassword = props => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
-
+  const {t} = useTranslation();
   const {
     theme: {theme: themeStore},
   } = useSelector(stateRoot => stateRoot.root);
@@ -21,12 +22,12 @@ const ChangePassword = props => {
   const theme = useTheme(themeStore);
 
   const validationSchema = yup.object().shape({
-    password: yup.string().required('Password is Required'),
+    password: yup.string().required(t('errorPasswordRequired')),
     confirmPassword: yup
       .string()
-      .min(6, () => 'New Password must be at least 6 characters')
-      .required('Password confim is Required')
-      .oneOf([yup.ref('password')], 'Confirm Password does not match'),
+      .min(6, () => t('errCharactersLeght'))
+      .required(t('errorPasswordRequired'))
+      .oneOf([yup.ref('password')], t('errNotMatch')),
   });
   return (
     <Formik
@@ -52,7 +53,7 @@ const ChangePassword = props => {
         <Block flex>
           <Header
             canGoBack
-            title="Change Password"
+            title={t('changePassword')}
             colorTheme={theme.colors.blue}
           />
           <Block
@@ -61,14 +62,14 @@ const ChangePassword = props => {
             paddingHorizontal={16}
             backgroundColor={theme.colors.backgroundSetting}>
             <Text size={18} center fontType="bold" color={theme.colors.text}>
-              Enter new password
+              {t('enterNewPassword')}
             </Text>
             <TextInput
               inputStyle={{paddingHorizontal: 16}}
               onChangeText={handleChange('password')}
               value={values.password}
               containerInputStyle={{width: width - 32, marginTop: 16}}
-              placeholder="Enter new password"
+              placeholder={t('enterNewPassword')}
               onBlur={handleBlur('password')}
               isSecure
             />
@@ -82,7 +83,7 @@ const ChangePassword = props => {
               onChangeText={handleChange('confirmPassword')}
               value={values.confirmPassword}
               containerInputStyle={{width: width - 32, marginTop: 16}}
-              placeholder="Enter confim confirmPassword"
+              placeholder={t('enterConfimPassword')}
               onBlur={handleBlur('confirmPassword')}
               isSecure
             />
@@ -97,7 +98,7 @@ const ChangePassword = props => {
               disabled={dirty && isValid ? false : true}
               containerStyle={{justifyContent: 'flex-end'}}
               onPress={handleSubmit}
-              title="Change password"
+              title={t('changePassword')}
             />
           </Block>
         </Block>

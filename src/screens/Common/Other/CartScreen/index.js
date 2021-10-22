@@ -10,6 +10,7 @@ import {useSelector} from 'react-redux';
 import {Cart_data} from '@assets/icons';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
+import {useTranslation} from 'react-i18next';
 
 const CartScreen = props => {
   const {
@@ -18,24 +19,24 @@ const CartScreen = props => {
   } = useSelector(stateRoot => stateRoot.root);
   const styles = useStyles(props, themeStore);
   const theme = useTheme(themeStore);
-
+  const {t} = useTranslation();
   const Cart = () =>
     DATA.length > 0 ? (
       <>
         <Block flex backgroundColor={theme.colors.backgroundSetting}>
-          <Header canGoBack colorTheme={theme.colors.blue} title="Cart" />
+          <Header canGoBack colorTheme={theme.colors.blue} title={t('cart')} />
           <CartList DATA={DATA} />
           <Block paddingHorizontal={16}>
             <PayInfo
-              title1="Order"
+              title1={t('orderCart')}
               titlePrice1={112}
-              title2="Delivery"
+              title2={t('delivery')}
               titlePrice2={15}
               total={127}
             />
           </Block>
           <Button
-            title="Order"
+            title={t('confirm')}
             // onPress={() => {
             //   something
             // }}

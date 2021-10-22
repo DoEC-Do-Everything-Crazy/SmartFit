@@ -1,4 +1,4 @@
-import {Heart} from '@assets/icons';
+import {Heart, WeightBig} from '@assets/icons';
 import {Block, Text} from '@components';
 import React from 'react';
 import {Pressable} from 'react-native';
@@ -6,15 +6,17 @@ import CircularProgress from 'react-native-circular-progress-indicator';
 import {useStyles} from './styles';
 import {useSelector} from 'react-redux';
 import {useTheme} from '@theme';
+import {HeightBig} from '@assets/icons/HeightBig';
 
 const StatsBlock = ({
   title,
-  height,
-  width,
+  heightComponent,
+  widthComponent,
   circular,
   heart,
   valueCir,
-  clock,
+  userHeight,
+  userWeight,
   bmp,
   onPress,
   props,
@@ -28,32 +30,72 @@ const StatsBlock = ({
   return (
     <Block
       shadow={20}
-      width={width}
-      height={height}
+      width={widthComponent}
+      height={heightComponent}
       borderRadius={10}
+      alignCenter
       backgroundColor={theme.colors.border}
       marginVertical={8}
-      paddingVertical={10}
       paddingHorizontal={10}>
       <Pressable onPress={onPress}>
-        <Text style={styles.text}>{title}</Text>
-        <Block alignCenter height="30%">
+        <Text margin={10} style={styles.text}>
+          {title}
+        </Text>
+
+        <Block
+          width={widthComponent}
+          height={heightComponent}
+          alignCenter
+          justifyCenter>
           {circular ? (
-            <CircularProgress
-              value={valueCir}
-              activeStrokeColor={colorProgress}
-              inActiveStrokeColor={colorProgress}
-              inActiveStrokeOpacity={0.3}
-              textColor={colorProgress}
-            />
+            <Block alignCenter height="50%">
+              <CircularProgress
+                value={valueCir}
+                radius={50}
+                activeStrokeColor={colorProgress}
+                inActiveStrokeColor={colorProgress}
+                inActiveStrokeOpacity={0.3}
+                textColor={colorProgress}
+              />
+            </Block>
           ) : (
             <Text />
           )}
           {heart ? <Heart color={colorProgress} /> : <Text />}
+
+          {userHeight && (
+            <Block
+              style={styles.body}
+              marginTop={20}
+              row
+              alignCenter
+              justifyCenter>
+              <HeightBig color={theme.colors.text} />
+              <Block marginLeft={5} column alignCenter>
+                <Text style={styles.clock} color={theme.colors.iconInf}>
+                  {userHeight}
+                </Text>
+                <Text style={styles.clock1} color={theme.colors.iconInf}>
+                  Cm
+                </Text>
+              </Block>
+            </Block>
+          )}
+          {userWeight && (
+            <Block style={styles.body} row alignCenter justifyCenter>
+              <WeightBig color={theme.colors.text} />
+              <Block marginLeft={5} column alignCenter>
+                <Text style={styles.clock} color={theme.colors.iconInf}>
+                  {userWeight}
+                </Text>
+                <Text style={styles.clock1} color={theme.colors.iconInf}>
+                  Kg
+                </Text>
+              </Block>
+            </Block>
+          )}
+          {bmp ? <Text>110 bpm</Text> : <Text />}
         </Block>
-        {clock ? <Text style={styles.clock}>08:00</Text> : <Text />}
-        {clock ? <Text style={styles.clock1}>Hours</Text> : <Text />}
-        {bmp ? <Text>110 bpm</Text> : <Text />}
       </Pressable>
     </Block>
   );

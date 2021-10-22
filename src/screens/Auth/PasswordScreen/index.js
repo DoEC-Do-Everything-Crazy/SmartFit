@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {Block, Empty, Text, Button, TextInput} from '@components';
 
 import {Dimensions} from 'react-native';
@@ -10,12 +11,13 @@ import {useTheme} from '@theme';
 import {useNavigation} from '@react-navigation/core';
 import {useSelector} from 'react-redux';
 import {exitApp} from 'hook';
+import {useTranslation} from 'react-i18next';
 
 const {width: SliderWidth} = Dimensions.get('screen');
 
 const PasswordScreen = props => {
   const navigation = useNavigation();
-
+  const {t} = useTranslation();
   const {
     theme: {theme: themeStore},
     password: {password},
@@ -34,7 +36,7 @@ const PasswordScreen = props => {
     if (passInput === password) {
       navigation.navigate(routes.BOTTOM_TAB);
     } else {
-      setTextErrord('You have entered the wrong password');
+      setTextErrord(t('errPassword'));
     }
   }, [navigation, passInput, password]);
   return (
@@ -45,10 +47,8 @@ const PasswordScreen = props => {
           <Empty lottie={lotties.password} />
         </Block>
         <Block flex>
-          <Text style={styles.renderTitle}>Enter password</Text>
-          <Text style={styles.renderText}>
-            Please enter your password to access the application
-          </Text>
+          <Text style={styles.renderTitle}>{t('enterPassword')}</Text>
+          <Text style={styles.renderText}>{t('pleaseEnter')}</Text>
         </Block>
         <Block
           flex
@@ -60,13 +60,17 @@ const PasswordScreen = props => {
             value={passInput}
             isSecure
             inputStyle={styles.textInput}
-            placeholder="Enter password"
+            placeholder={t('enterPassword')}
           />
           <Text style={styles.text}>{textError}</Text>
         </Block>
       </Block>
       <Block backgroundColor={theme.colors.backgroundSetting}>
-        <Button title="Access" onPress={handleNext} style={styles.button} />
+        <Button
+          title={t('confirm')}
+          onPress={handleNext}
+          style={styles.button}
+        />
       </Block>
     </Block>
   );

@@ -10,10 +10,11 @@ import {routes} from '@navigation/routes';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import {exitApp} from 'hook';
+import {useTranslation} from 'react-i18next';
 
 const SearchScreen = props => {
   const [data, setData] = useState('');
-
+  const {t} = useTranslation();
   const {
     theme: {theme: themeStore},
   } = useSelector(state => state.root);
@@ -37,11 +38,11 @@ const SearchScreen = props => {
 
   return (
     <Block flex backgroundColor={theme.colors.backgroundSetting}>
-      <Header title="Search" colorTheme={theme.colors.black} />
+      <Header title={t('search')} colorTheme={theme.colors.black} />
       <Block paddingTop={20}>
         <Block paddingHorizontal={16}>
           <TextInput
-            placeholder="Search"
+            placeholder={t('search')}
             inputStyle={styles.inputStyle}
             containerInputStyle={styles.containerInputStyle}
             rightIcon={() => (
@@ -76,7 +77,7 @@ const SearchScreen = props => {
                   size={17}
                   fontType="bold"
                   color={'#045694'}>
-                  History
+                  {t('history')}
                 </Text>
               </Block>
               <FlatList
@@ -96,7 +97,7 @@ const SearchScreen = props => {
                   size={17}
                   fontType="bold"
                   color={'#045694'}>
-                  Recent search | Clear all
+                  {t('recentSearch')}| {t('clearAll')}
                 </Text>
               </Block>
               <FlatList

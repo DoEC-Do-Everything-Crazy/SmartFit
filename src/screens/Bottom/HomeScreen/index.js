@@ -15,9 +15,12 @@ import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {width} from '@utils/responsive';
 import {apiUrl} from '@config/api';
+import {useTranslation} from 'react-i18next';
 
 const HomeScreen = props => {
   const [data, setData] = useState([]);
+
+  const {t} = useTranslation();
   const [activeIndex, setActivateIndex] = useState(0);
   const carouselRef = useRef(null);
   const themeStore = useSelector(state => state.root.theme.theme);
@@ -59,7 +62,12 @@ const HomeScreen = props => {
 
   return (
     <Block flex backgroundColor={theme.colors.blue}>
-      <Header type="Bottom" title="Home" colorTheme={theme.colors.white} cart />
+      <Header
+        type="Bottom"
+        title={t('home')}
+        colorTheme={theme.colors.white}
+        cart
+      />
       <Block
         flex
         alignCenter

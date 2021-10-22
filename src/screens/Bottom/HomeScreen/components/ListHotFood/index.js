@@ -8,11 +8,12 @@ import axios from 'axios';
 import {routes} from '@navigation/routes';
 import {useNavigation} from '@react-navigation/core';
 import {useSelector} from 'react-redux';
-// import {DATA_RECOMMENDED} from '@constants';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
+import {useTranslation} from 'react-i18next';
 
 const ListHotFood = props => {
+  const {t} = useTranslation();
   const themeStore = useSelector(state => state.root.theme.theme);
   const theme = useTheme(themeStore);
   const styles = useStyles(props, themeStore);
@@ -50,7 +51,7 @@ const ListHotFood = props => {
   );
 
   return (
-    <Block flex marginTop={32} marginBottom={20}>
+    <Block flex marginTop={32} marginBottom={10}>
       <Block
         row
         alignCenter
@@ -58,11 +59,11 @@ const ListHotFood = props => {
         marginBottom={20}
         space="between">
         <Text size={20} fontType="bold" color={theme.colors.iconInf}>
-          Hot Food
+          {t('hotFood')}
         </Text>
         <Pressable onPress={() => navigation.navigate(routes.FOOD_LIST_SCREEN)}>
           <Text size={17} style={styles.link}>
-            See all
+            {t('seeAll')}
           </Text>
         </Pressable>
       </Block>

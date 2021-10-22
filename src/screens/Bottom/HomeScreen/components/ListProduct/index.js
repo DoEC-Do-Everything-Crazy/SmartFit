@@ -10,8 +10,10 @@ import {useNavigation} from '@react-navigation/core';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
+import {useTranslation} from 'react-i18next';
 
 const ListProduct = props => {
+  const {t} = useTranslation();
   const [data, setData] = useState();
   const themeStore = useSelector(state => state.root.theme.theme);
   const theme = useTheme(themeStore);
@@ -54,12 +56,12 @@ const ListProduct = props => {
         marginBottom={20}
         space="between">
         <Text size={20} fontType="bold" color={theme.colors.iconInf}>
-          Hot Product
+          {t('hotProduct')}
         </Text>
         <Pressable
           onPress={() => navigation.navigate(routes.BOTTOM_TAB_PRODUCT)}>
           <Text size={17} style={styles.link}>
-            See all
+            {t('seeAll')}
           </Text>
         </Pressable>
       </Block>

@@ -15,6 +15,7 @@ import {
 // import rootSaga from '../saga';
 import {
   ChangeScreenReducer,
+  AppSettingReducer,
   UserReducer,
   PasswordReducer,
   ThemeReducer,
@@ -25,12 +26,13 @@ import {
 const persistConfig = {
   key: 'root',
   storage: EncryptedStorage,
-  // whitelist: ['screen', 'password'],
+  whitelist: ['screen', 'password', 'setting', 'user', 'turn', 'id'],
   //whitelist
   //blacklist
 };
 const persistedReducer = persistCombineReducers(persistConfig, {
   screen: ChangeScreenReducer,
+  setting: AppSettingReducer,
   user: UserReducer,
   password: PasswordReducer,
   theme: ThemeReducer,

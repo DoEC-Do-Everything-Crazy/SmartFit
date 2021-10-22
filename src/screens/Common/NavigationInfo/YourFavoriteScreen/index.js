@@ -5,8 +5,10 @@ import {useTheme} from '@theme';
 import {getSize} from '@utils/responsive';
 import React from 'react';
 import {FlatList} from 'react-native';
+import {useTranslation} from 'react-i18next';
 
 const YourFavoriteScreen = () => {
+  const {t} = useTranslation();
   const {
     theme: {theme: themeStore},
   } = useSelector(stateRoot => stateRoot.root);
@@ -19,7 +21,7 @@ const YourFavoriteScreen = () => {
 
   return (
     <Block flex backgroundColor={theme.colors.backgroundSetting}>
-      <Header canGoBack title="Favorite" colorTheme={theme.colors.black} />
+      <Header canGoBack title={t('favorite')} colorTheme={theme.colors.black} />
       <Block flex paddingHorizontal={16}>
         <FlatList
           showsVerticalScrollIndicator={false}

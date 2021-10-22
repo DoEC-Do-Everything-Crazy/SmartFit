@@ -7,9 +7,13 @@ export const useStyles = makeStyles()(({}) => ({
   },
   clock: {
     fontWeight: 'bold',
-    fontSize: 20,
+    fontSize: 34,
   },
   clock1: {
-    fontSize: 20,
+    fontSize: 24,
+  },
+  body: {
+    position: 'absolute',
+    top: 10,
   },
 }));

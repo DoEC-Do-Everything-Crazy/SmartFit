@@ -3,15 +3,30 @@ import React, {useState} from 'react';
 import {Pressable} from 'react-native';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
-import {DATA_TYPE_NOTIFICATION} from '@constants';
 import LinearGradient from 'react-native-linear-gradient';
+import {useTranslation} from 'react-i18next';
 
 const CategorySort = props => {
   const [selectedId, setSelectedId] = useState(1);
 
   const themeStore = useSelector(state => state.root.theme.theme);
   const styles = useStyles(props, themeStore);
+  const {t} = useTranslation();
 
+  const DATA_TYPE_NOTIFICATION = [
+    {
+      id: 1,
+      title: t('all'),
+    },
+    {
+      id: 2,
+      title: t('promotion'),
+    },
+    {
+      id: 3,
+      title: t('system'),
+    },
+  ];
   const Item = ({item, onPress, backgroundColor, textColor}) => (
     <Pressable onPress={onPress}>
       {themeStore === 'dark' ? (
@@ -60,7 +75,6 @@ const CategorySort = props => {
 
   return (
     <Block row justifyContent="center">
-      <Text style={[styles.text, styles.item]}>Sort by:</Text>
       {DATA_TYPE_NOTIFICATION.map((item, i) => (
         <_renderItem key={i} item={item} />
       ))}

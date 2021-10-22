@@ -9,6 +9,7 @@ import {useNavigation} from '@react-navigation/core';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
+import {useTranslation} from 'react-i18next';
 
 const EnterPhoneNumberScreen = props => {
   const navigation = useNavigation();
@@ -17,6 +18,7 @@ const EnterPhoneNumberScreen = props => {
   } = useSelector(state => state.root);
   const styles = useStyles(props, themeStore);
   const theme = useTheme(themeStore);
+  const {t} = useTranslation();
 
   const validationSchema = yup.object().shape({
     phoneNumber: yup
@@ -45,11 +47,11 @@ const EnterPhoneNumberScreen = props => {
           <Header
             canGoBack
             colorTheme={theme.colors.blue}
-            title="Sign in with phone number"
+            title={t('signInWithPhoneNumber')}
           />
           <Block flex justifyCenter paddingHorizontal={16}>
             <Text center fontType={'bold'} marginBottom={30}>
-              Enter your phone number to receive OTP
+              {t('enterOTP')}
             </Text>
             <Block marginBottom={10}>
               <TextInput
@@ -68,7 +70,7 @@ const EnterPhoneNumberScreen = props => {
           <Button
             containerStyle={{justifyContent: 'flex-end'}}
             onPress={handleSubmit}
-            title="Send"
+            title={t('send')}
           />
         </Block>
       )}

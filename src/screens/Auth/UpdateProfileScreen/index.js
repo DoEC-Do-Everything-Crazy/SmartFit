@@ -11,10 +11,12 @@ import {useNavigation} from '@react-navigation/core';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {apiUrl} from '@config/api';
+import {useTranslation} from 'react-i18next';
 
 const UpdateProfileScreen = ({route, props}) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
+  const {t} = useTranslation();
 
   const {
     theme: {theme: themeStore},
@@ -37,9 +39,9 @@ const UpdateProfileScreen = ({route, props}) => {
 
   const [valueGender, setValueGender] = useState(user.gender);
   const [gender, setGender] = useState([
-    {label: 'Male', value: 'male'},
-    {label: 'Female', value: 'female'},
-    {label: 'Other', value: 'other'},
+    {label: t('male'), value: 'male'},
+    {label: t('female'), value: 'female'},
+    {label: t('other'), value: 'other'},
   ]);
   const [openGender, setOpenGender] = useState(false);
 
@@ -88,11 +90,15 @@ const UpdateProfileScreen = ({route, props}) => {
 
   return (
     <Block flex backgroundColor={theme.colors.backgroundSetting}>
-      <Header canGoBack title="Update Profile" colorTheme={theme.colors.blue} />
+      <Header
+        canGoBack
+        title={t('updateProfile')}
+        colorTheme={theme.colors.blue}
+      />
       <Block flex paddingTop={20}>
         <Block style={styles.group}>
           <TextInput
-            placeholder="Enter full name"
+            placeholder={t('enterFullName')}
             inputStyle={styles.input}
             leftIcon={true}
             value={userProfile.displayName}
@@ -111,7 +117,7 @@ const UpdateProfileScreen = ({route, props}) => {
             )} */}
           </Block>
           <TextInput
-            placeholder="Enter email"
+            placeholder={t('enterEmail')}
             inputStyle={styles.input}
             value={userProfile.email}
             leftIcon={true}
@@ -130,7 +136,7 @@ const UpdateProfileScreen = ({route, props}) => {
             )} */}
           </Block>
           <TextInput
-            placeholder="Enter phone number"
+            placeholder={t('enterPhoneNumber')}
             inputStyle={styles.input}
             leftIcon={true}
             value={user.phoneNumber}
@@ -156,15 +162,16 @@ const UpdateProfileScreen = ({route, props}) => {
             setValue={setValueGender}
             setItems={setGender}
             containerStyle={styles.gender}
+            boxStyle={styles.pickerBox}
             onChangeValue={setValueGender}
-            placeholder="Select a gender"
+            placeholder={t('selectAGender')}
           />
           <TouchableOpacity
             style={{marginTop: 8, marginBottom: 24}}
             onPress={showDatepicker}>
             <TextInput
               disabled={true}
-              placeholder="Select date"
+              placeholder={t('selectDate')}
               colorPlaceholder={theme.colors.text}
               value={dateFormat(userProfile.birthday, 'dd/mm/yyyy')}
               inputStyle={styles.input}
@@ -194,7 +201,7 @@ const UpdateProfileScreen = ({route, props}) => {
         <Block justifyEnd>
           <Button
             // containerStyle={{justifyContent: 'flex-end'}}
-            title="Update"
+            title={t('update')}
             style={styles.button}
             onPress={handleOnSubmit}
           />

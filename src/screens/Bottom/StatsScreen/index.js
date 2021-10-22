@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {Height, Order, Weight} from '@assets/icons';
 import {Block, Button, Header, InviteLogin, Text, TextInput} from '@components';
 import {BottomSheet} from '@components/BottomSheet';
@@ -12,6 +13,7 @@ import {useTheme} from '@theme';
 import {useStyles} from './styles';
 import {Platform, ScrollView} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {useTranslation} from 'react-i18next';
 
 const StatsScreen = props => {
   const [weighttUser, setWeight] = useState(0);
@@ -21,6 +23,7 @@ const StatsScreen = props => {
     theme: {theme: themeStore},
     user: {user},
   } = useSelector(state => state.root);
+  const {t} = useTranslation();
   const theme = useTheme(themeStore);
   const styles = useStyles(props, themeStore);
   const insets = useSafeAreaInsets();
@@ -28,7 +31,7 @@ const StatsScreen = props => {
     return (
       <Block style={styles.headerWrapper}>
         <Text fontType="bold" style={styles.title}>
-          Your Stats
+          {t('yourStats')}
         </Text>
       </Block>
     );
@@ -43,7 +46,7 @@ const StatsScreen = props => {
   const FooterComponent = useCallback(() => {
     return (
       <Block>
-        <Button title="Create New Stats" />
+        <Button title={t('confirm')} />
       </Block>
     );
   }, []);
@@ -51,7 +54,11 @@ const StatsScreen = props => {
   return JSON.stringify(user) !== '{}' ? (
     <>
       <Block flex backgroundColor={theme.colors.blue}>
-        <Header type={'Bottom'} title="Stats" colorTheme={theme.colors.white} />
+        <Header
+          type={'Bottom'}
+          title={t('stats')}
+          colorTheme={theme.colors.white}
+        />
         <DateCategory />
         <Block
           row
@@ -63,35 +70,34 @@ const StatsScreen = props => {
           backgroundColor={theme.colors.backgroundSetting}>
           <Block backgroundColor={theme.colors.backgroundSetting}>
             <StatsBlock
-              width={width / 2 - 24}
-              height="50%"
-              title="Steps"
-              circular
-              valueCir={2285}
+              widthComponent={width / 2 - 24}
+              heightComponent="50%"
+              title={t('height')}
+              userHeight={170}
             />
             <StatsBlock
-              width={width / 2 - 24}
-              height="40%"
-              title="Heart"
-              heart
-              bmp
+              widthComponent={width / 2 - 24}
+              heightComponent="40%"
+              title={t('weight')}
+              userWeight={80}
             />
           </Block>
           <Block
             marginLeft={getSize.m(16)}
             backgroundColor={theme.colors.backgroundSetting}>
             <StatsBlock
-              width={width / 2 - 24}
-              height="40%"
-              title="Sleep"
-              clock
-            />
-            <StatsBlock
-              width={width / 2 - 24}
-              height="50%"
-              title="Calories"
+              widthComponent={width / 2 - 24}
+              heightComponent="40%"
+              title="BMI"
               circular={true}
               valueCir={357}
+            />
+            <StatsBlock
+              widthComponent={width / 2 - 24}
+              heightComponent="50%"
+              title={t('bodyShape')}
+              heart
+              bmp
             />
           </Block>
         </Block>
@@ -100,14 +106,14 @@ const StatsScreen = props => {
           paddingTop={10}
           backgroundColor={theme.colors.backgroundSetting}>
           <Block paddingHorizontal={16}>
-            <ItemFeature shadow height={50} title={'Daily Meals'}>
+            <ItemFeature shadow height={50} title={t('dailyMeals')}>
               <Order color={theme.colors.iconInf} />
             </ItemFeature>
           </Block>
           <Block flex style={styles.button}>
             <Button
               onPress={() => modalizRef.current?.open()}
-              title="Create Stats"
+              title={t('createStats')}
             />
           </Block>
           <BottomSheet
@@ -127,7 +133,7 @@ const StatsScreen = props => {
                   <Block flex paddingTop={20} paddingHorizontal={16}>
                     <Block flex>
                       <TextInput
-                        placeholder="Enter your height"
+                        placeholder={t('enterYourHeight')}
                         leftIcon={true}
                         value={heightUser}
                         onChangeText={setHeight}>
@@ -136,11 +142,15 @@ const StatsScreen = props => {
                     </Block>
                     <Block flex paddingTop={20}>
                       <TextInput
-                        placeholder="Enter your weight"
+                        placeholder={t('enterYourWeight')}
                         leftIcon={true}
                         value={weighttUser}
                         onChangeText={setWeight}>
-                        <Weight color={theme.colors.text} />
+                        <Weight
+                          width={24}
+                          height={24}
+                          color={theme.colors.text}
+                        />
                       </TextInput>
                     </Block>
                   </Block>

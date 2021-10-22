@@ -24,10 +24,15 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
+import {useTranslation} from 'react-i18next';
+import Review from '@components/Review';
+import RatingValue from '@components/RatingValue';
+import {DATA_REVIEW} from '@constants/';
 
 const {width: screenWidth, height: screenHeight} = Dimensions.get('window');
 
 const TabDetails = ({route, props}) => {
+  const {t} = useTranslation();
   const {user} = useSelector(state => state.root.user);
   const {id} = route.params;
   const {transferCourseScreen} = useSelector(state => state.root.screen);
@@ -37,6 +42,7 @@ const TabDetails = ({route, props}) => {
   const [dataPT, setDataPT] = useState([]);
   const [dataPTDetail, setDataPTDetail] = useState([]);
   const [infoPT, setInfoPT] = useState([]);
+  const [isShowReview, setShowReview] = useState();
   const {bottom} = useSafeAreaInsets();
   const keyboardVerticalOffset = Platform.OS === 'ios' ? 'padding' : 'height';
 
@@ -89,6 +95,9 @@ const TabDetails = ({route, props}) => {
       />
     );
   };
+  const handleShowReview = useCallback(() => {
+    setShowReview(!isShowReview);
+  }, [isShowReview]);
 
   const getCourseDetails = async fetchData => {
     try {
@@ -130,11 +139,11 @@ const TabDetails = ({route, props}) => {
   } = useSelector(stateRoot => stateRoot.root);
   const styles = useStyles(props, themeStore);
   const theme = useTheme(themeStore);
-  const minute = [25, 30, 35, 40, 45];
-  const randomMinute = minute[Math.floor(Math.random() * minute.length)];
-  const day = [3, 5];
-  const randomDay = day[Math.floor(Math.random() * day.length)];
-  const weeks = sessions / randomDay;
+
+  const randomMinute = sessions <= 50 ? 45 : 30;
+  const day = sessions <= 50 ? 3 : 5;
+  const weeks =
+    sessions <= 50 ? Math.round(sessions / 3) : Math.round(sessions / 5);
   const totalPrice = dataDetail?.price || 0 + dataPTDetail.price;
   const HeaderComponent = useCallback(
     props => {
@@ -184,7 +193,7 @@ const TabDetails = ({route, props}) => {
       {transferCourseScreen === 'CourseDetail' ? (
         <Header
           canGoBack
-          title="Course Detail"
+          title={t('courseDetail')}
           colorTheme={theme.colors.black}
         />
       ) : null}
@@ -227,7 +236,7 @@ const TabDetails = ({route, props}) => {
               tintColor={theme.colors.lightBlue}
             />
             <Text marginLeft={100} color={theme.colors.iconInf}>
-              6,3k Completed
+              6,3k {t('completed')}
             </Text>
           </Block>
           <Block marginTop={10}>
@@ -241,16 +250,22 @@ const TabDetails = ({route, props}) => {
               paddingHorizontal={16}
               marginBottom={32}>
               <Block>
-                <Text>Plan length: </Text>
-                <Text>Avg. Duration: </Text>
-                <Text>Days per Weeks: </Text>
-                <Text>Body Focus: </Text>
-                <Text>PT: </Text>
+                <Text>{t('planLength')}: </Text>
+                <Text>{t('duration')}: </Text>
+                <Text>{t('daysPerWeeks')}': </Text>
+                <Text>{t('bodyFocus')}: </Text>
+                <Text>{t('PT')}: </Text>
               </Block>
               <Block marginLeft={20}>
-                <Text fontType="bold">{weeks} weeks</Text>
-                <Text fontType="bold">{randomMinute} Minutes</Text>
-                <Text fontType="bold">{day} days </Text>
+                <Text fontType="bold">
+                  {weeks} {t('weeks')}
+                </Text>
+                <Text fontType="bold">
+                  {randomMinute} {t('minutes')}
+                </Text>
+                <Text fontType="bold">
+                  {day} {t('days')}
+                </Text>
                 <Text fontType="bold">Total body </Text>
                 <Block row alignCenter>
                   {infoPT?.name && (
@@ -267,7 +282,7 @@ const TabDetails = ({route, props}) => {
                           colors={['#70A2FF', '#54F0D1']}
                           style={styles.choose}>
                           <Text style={styles.choosePT} fontType="bold">
-                            Choose
+                            {t('choose')}
                           </Text>
                         </LinearGradient>
                       ) : (
@@ -275,7 +290,7 @@ const TabDetails = ({route, props}) => {
                           style={styles.choose}
                           backgroundColor={theme.colors.blue}>
                           <Text style={styles.choosePT} fontType="bold">
-                            Choose
+                            {t('choose')}
                           </Text>
                         </Block>
                       )}
@@ -290,13 +305,33 @@ const TabDetails = ({route, props}) => {
               <>
                 <Block paddingHorizontal={16}>
                   <PayInfo
-                    title1="Course"
+                    title1={t('course')}
                     titlePrice1={dataDetail.price}
-                    title2="Personal Trainer"
+                    title2={t('PT')}
                     titlePrice2={infoPT?.price || 0}
                     total={totalPrice}
                   />
                 </Block>
+                <Block
+                  row
+                  marginTop={20}
+                  paddingBottom={50}
+                  paddingHorizontal={16}>
+                  <Text fontType="bold" size={17}>
+                    {t('review')}:
+                  </Text>
+                  <Pressable onPress={handleShowReview}>
+                    <Text style={styles.link} marginLeft={15} size={17}>
+                      {t('readMore')}
+                    </Text>
+                  </Pressable>
+                </Block>
+                {isShowReview ? (
+                  <>
+                    <RatingValue />
+                    <Review data={DATA_REVIEW} />
+                  </>
+                ) : null}
               </>
             ) : null}
           </Block>
@@ -304,7 +339,7 @@ const TabDetails = ({route, props}) => {
           <BottomSheet
             ref={modalizPTList}
             HeaderComponent={() =>
-              HeaderComponent({title: 'Personal Trainer List'})
+              HeaderComponent({title: t('personalTrainerList')})
             }
             modalHeight={screenHeight * 0.6}
             adjustToContentHeight={false}>
@@ -326,7 +361,7 @@ const TabDetails = ({route, props}) => {
           <BottomSheet
             ref={modalizInf}
             HeaderComponent={() =>
-              HeaderComponent({title: 'Infomation', inf: true})
+              HeaderComponent({title: t('information'), inf: true})
             }>
             <KeyboardAvoidingView
               style={styles.sendControlContainerOuter}
@@ -345,7 +380,7 @@ const TabDetails = ({route, props}) => {
                   </Text>
                 </Block>
                 <Text marginTop={10} size={16} fontType="bold">
-                  Description
+                  {t('description')}
                 </Text>
                 <Text>No something</Text>
                 <Block
@@ -356,7 +391,7 @@ const TabDetails = ({route, props}) => {
                   borderColor={theme.colors.gray}
                   row>
                   <Block width={screenWidth / 3.6}>
-                    <Text fontType="bold">Ratting</Text>
+                    <Text fontType="bold">{t('ratting')}</Text>
                   </Block>
                   <Block width={screenWidth / 1.55} alignStart>
                     <Rating
@@ -376,7 +411,7 @@ const TabDetails = ({route, props}) => {
                   row
                   borderColor={theme.colors.gray}>
                   <Block width={screenWidth / 3.6}>
-                    <Text fontType="bold">Gender</Text>
+                    <Text fontType="bold">{t('gender')}</Text>
                   </Block>
                   <Block width={screenWidth / 1.55}>
                     <Text>{dataPTDetail.gender}</Text>
@@ -402,7 +437,7 @@ const TabDetails = ({route, props}) => {
                   row
                   borderColor={theme.colors.gray}>
                   <Block width={screenWidth / 3.6}>
-                    <Text fontType="bold">Mobile</Text>
+                    <Text fontType="bold">{t('mobile')}</Text>
                   </Block>
                   <Block width={screenWidth / 1.55}>
                     <Text>{dataPTDetail.mobile}</Text>
@@ -415,7 +450,7 @@ const TabDetails = ({route, props}) => {
                   row
                   borderColor={theme.colors.gray}>
                   <Block width={screenWidth / 3.6}>
-                    <Text fontType="bold">Birthday</Text>
+                    <Text fontType="bold">{t('birthday')}</Text>
                   </Block>
                   <Block width={screenWidth / 1.55}>
                     <Text>{dataPTDetail.birthday}</Text>
@@ -428,20 +463,23 @@ const TabDetails = ({route, props}) => {
                   row
                   borderColor={theme.colors.gray}>
                   <Block width={screenWidth / 3.6}>
-                    <Text fontType="bold">Price</Text>
+                    <Text fontType="bold">{t('price')}</Text>
                   </Block>
                   <Block width={screenWidth / 1.55}>
                     <Text>${dataPTDetail.price}</Text>
                   </Block>
                 </Block>
               </Block>
-              <Button title="CHOOSE" onPress={handleChoosePT} />
+              <Button title={t('choose')} onPress={handleChoosePT} />
             </KeyboardAvoidingView>
           </BottomSheet>
         </Block>
       </ScrollView>
       {JSON.stringify(user) !== '{}' ? (
-        <Button title="ADD CART" onPress={() => modalizInf?.current.close()} />
+        <Button
+          title={t('addCart')}
+          onPress={() => modalizInf?.current.close()}
+        />
       ) : (
         <InviteLogin
           navigate={routes.LOGIN_SCREEN}

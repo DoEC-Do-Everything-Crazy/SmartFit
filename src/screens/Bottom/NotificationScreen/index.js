@@ -7,6 +7,7 @@ import {useStyles} from './styles';
 import {InviteLogin} from '@components';
 import {routes} from '@navigation/routes';
 import {useSelector} from 'react-redux';
+import {useTranslation} from 'react-i18next';
 
 const NotificationScreen = props => {
   const {
@@ -15,6 +16,7 @@ const NotificationScreen = props => {
   } = useSelector(state => state.root);
   const styles = useStyles(props, themeStore);
   const theme = useTheme(themeStore);
+  const {t} = useTranslation();
 
   return (
     <Block
@@ -24,7 +26,7 @@ const NotificationScreen = props => {
       }>
       <Header
         type={JSON.stringify(user) !== '{}' ? 'Bottom' : ''}
-        title="Notifications"
+        title={t('notification')}
         colorTheme={theme.colors.white}
       />
       {JSON.stringify(user) !== '{}' ? (

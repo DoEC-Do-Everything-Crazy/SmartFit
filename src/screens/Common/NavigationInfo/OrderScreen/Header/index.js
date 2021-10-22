@@ -4,7 +4,7 @@ import {Pressable} from 'react-native';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
-
+import {useTranslation} from 'react-i18next';
 import {Back} from '@assets/icons';
 
 const Header = ({props, onPress}) => {
@@ -13,7 +13,7 @@ const Header = ({props, onPress}) => {
   } = useSelector(stateRoot => stateRoot.root);
   const styles = useStyles(props, themeStore);
   const theme = useTheme(themeStore);
-
+  const {t} = useTranslation();
   return (
     <Block style={styles.root}>
       <Block style={styles.arrowLeftBack}>
@@ -23,12 +23,12 @@ const Header = ({props, onPress}) => {
       </Block>
       {themeStore === 'light' ? (
         <Text center size={20} fontType="bold" color={theme.colors.text}>
-          Camera
+          {t('camera')}
         </Text>
       ) : (
         <Block justifyCenter alignCenter>
           <GradientText fontSize={20} fontWeight={'bold'}>
-            Camera
+            {t('camera')}
           </GradientText>
         </Block>
       )}

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {Block, Button, Switcher, Text, TextInput} from '@components';
 import React, {useCallback, useRef, useState} from 'react';
 import {Pressable, Platform} from 'react-native';
@@ -16,6 +17,7 @@ import {
 } from 'reduxs/reducers';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
+import {useTranslation} from 'react-i18next';
 
 const ItemSetting = ({data, title, index}, props) => {
   const {
@@ -23,17 +25,19 @@ const ItemSetting = ({data, title, index}, props) => {
     password: {password},
     turn: {isTurnPassword, isTurnDarkMode},
   } = useSelector(stateRoot => stateRoot.root);
+
   const styles = useStyles(props, themeStore);
   const theme = useTheme(themeStore);
 
   const navigation = useNavigation();
-  const Item = ({isSwitch, name, onPress, index}) => {
-    const [isEnabled, setIsEnabled] = useState(false);
+
+  const Item = ({isSwitch, isDropDown, name, onPress, index}) => {
     const [textError, setTextErrord] = useState('');
     const [passInput, setPassInput] = useState('');
     const dispatch = useDispatch();
     const modalizeRef = useRef(null);
     const insets = useSafeAreaInsets();
+    const {t} = useTranslation();
 
     const handleOpenBottomSheet = useCallback(() => {
       if (isTurnPassword === false) {
@@ -69,7 +73,7 @@ const ItemSetting = ({data, title, index}, props) => {
           setTextErrord('');
           setPassInput('');
         } else {
-          setTextErrord('You have entered the wrong password');
+          setTextErrord(t('errPassword'));
         }
       },
       [dispatch],
@@ -87,8 +91,8 @@ const ItemSetting = ({data, title, index}, props) => {
     const validationNewPasswordSchema = yup.object().shape({
       newPassword: yup
         .string()
-        .min(6, () => 'New Password must be at least 6 characters')
-        .required('Password is Required'),
+        .min(6, () => t('errCharactersLeght'))
+        .required(t('errorPasswordRequired')),
     });
 
     const HeaderComponent = useCallback(() => {
@@ -111,14 +115,14 @@ const ItemSetting = ({data, title, index}, props) => {
               }) => (
                 <Block paddingVertical={10}>
                   <Text center fontType="bold" size={16}>
-                    Create new password
+                    {t('createNewPassword')}
                   </Text>
                   <Block marginTop={30} marginHorizontal={16}>
                     <TextInput
                       onChangeText={handleChange('newPassword')}
                       value={values.newPassword}
                       inputStyle={styles.textInput}
-                      placeholder="Enter New Password"
+                      placeholder={t('enterNewPassword')}
                       onBlur={handleBlur('newPassword')}
                       isSecure
                     />
@@ -127,7 +131,7 @@ const ItemSetting = ({data, title, index}, props) => {
                     )}
                   </Block>
                   <Button
-                    title="Access"
+                    title={t('create')}
                     disabled={dirty && isValid ? false : true}
                     onPress={() => {
                       toggleSwitchCreate(values.newPassword);
@@ -142,20 +146,20 @@ const ItemSetting = ({data, title, index}, props) => {
               paddingVertical={10}
               backgroundColor={theme.colors.backgroundSetting}>
               <Text center fontType="bold" size={16}>
-                Enter password
+                {t('enterPassword')}
               </Text>
               <Block marginTop={30} marginHorizontal={16}>
                 <TextInput
                   onChangeText={setPassInput}
                   value={passInput}
                   inputStyle={styles.textInput}
-                  placeholder="Enter password"
+                  placeholder={t('enterPassword')}
                   isSecure
                 />
                 <Text style={styles.text}>{textError}</Text>
               </Block>
               <Button
-                title="Access"
+                title={t('confirm')}
                 onPress={() => {
                   toggleSwitchConfirm(passInput);
                 }}
@@ -257,6 +261,7 @@ const ItemSetting = ({data, title, index}, props) => {
       <Item
         onPress={onPress}
         isSwitch={item.isSwitch}
+        isDropDown={item.isDropDown}
         name={item.name}
         isPinCode={item.isPinCode}
         index={index}

@@ -2,12 +2,27 @@ import {Block, Text} from '@components';
 import React, {useState} from 'react';
 import {Pressable, ScrollView} from 'react-native';
 
-import {DATA_STATS} from '@constants/';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import LinearGradient from 'react-native-linear-gradient';
+import {useTranslation} from 'react-i18next';
 
 const DateCategory = props => {
+  const {t} = useTranslation();
+  const DATA_STATS = [
+    {
+      id: 1,
+      title: t('weekly'),
+    },
+    {
+      id: 2,
+      title: t('monthly'),
+    },
+    {
+      id: 3,
+      title: t('yearly'),
+    },
+  ];
   const {
     theme: {theme: themeStore},
   } = useSelector(state => state.root);

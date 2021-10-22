@@ -7,7 +7,7 @@ import Svg, {Path} from 'react-native-svg';
 export const ArrowUp = props => {
   const themeStore = useSelector(state => state.root.theme.theme);
   const theme = useTheme(themeStore);
-  const {width, height} = props;
+  const {width, height, color} = props;
   return (
     <Svg
       width={width}
@@ -18,10 +18,10 @@ export const ArrowUp = props => {
       <Path
         d="M1.061 8.576L8.887.75l7.826 7.826"
         fill="none"
-        stroke={theme.colors.black}
+        stroke={color}
         strokeLinecap="round"
         strokeLinejoin="round"
-        strokeWidth={1.5}
+        strokeWidth={2.5}
       />
     </Svg>
   );

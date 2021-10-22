@@ -7,12 +7,13 @@ import {useStyles} from './styles';
 import {useNavigation} from '@react-navigation/core';
 import {useSelector} from 'react-redux';
 import {useTheme} from '@theme';
+import {useTranslation} from 'react-i18next';
 
 const {width: SliderWidth} = Dimensions.get('screen');
 
 const ChangePinCode = props => {
   const navigation = useNavigation();
-
+  const {t} = useTranslation();
   const {password} = useSelector(state => state.root.password);
   const [textError, setTextErrord] = useState('');
   const [passInput, setPassInput] = useState('');
@@ -26,8 +27,9 @@ const ChangePinCode = props => {
     if (passInput === password) {
       navigation.navigate(routes.CHANGE_PASSWORD);
     } else {
-      setTextErrord('You have entered the wrong password');
+      setTextErrord(t('errPassword'));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [navigation, passInput, password]);
 
   return (
@@ -38,21 +40,25 @@ const ChangePinCode = props => {
           <Empty lottie={lotties.password} />
         </Block>
         <Block flex>
-          <Text style={styles.renderTitle}>Enter current Pin Code</Text>
+          <Text style={styles.renderTitle}>{t('enterCurrentCode')}</Text>
           <Block marginTop={30} width={SliderWidth} paddingHorizontal={16}>
             <TextInput
               onChangeText={setPassInput}
               value={passInput}
               isSecure
               inputStyle={styles.textInput}
-              placeholder="Enter password"
+              placeholder={t('enterPassword')}
             />
             <Text style={styles.text}>{textError}</Text>
           </Block>
         </Block>
       </Block>
       <Block backgroundColor={theme.colors.backgroundSetting}>
-        <Button title="Access" onPress={handleNext} style={styles.button} />
+        <Button
+          title={t('confirm')}
+          onPress={handleNext}
+          style={styles.button}
+        />
       </Block>
     </Block>
   );

@@ -52,13 +52,6 @@ const ItemOrderDetail = ({picture, title, group_id, index, props}) => {
         </Block>
 
         <Block row flex={1} paddingTop={5}>
-          <Block row flex={1} justifyStart>
-            <Text>Units:</Text>
-            <Text marginLeft={10} fontType="bold">
-              1
-            </Text>
-          </Block>
-
           <Block row flex={1} justifyEnd alignCenter>
             <Text fontType="bold">51$</Text>
           </Block>

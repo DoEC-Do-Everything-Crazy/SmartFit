@@ -66,4 +66,8 @@ export const useStyles = makeStyles()(({colors}) => ({
     width: getSize.s(17),
     height: getSize.s(10),
   },
+  link: {
+    color: colors.link,
+    textDecorationLine: 'underline',
+  },
 }));

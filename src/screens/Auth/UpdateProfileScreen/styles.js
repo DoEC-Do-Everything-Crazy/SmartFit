@@ -17,13 +17,17 @@ export const useStyles = makeStyles()(({colors}) => ({
   gender: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingLeft: '3%',
-    backgroundColor: colors.white,
+    marginLeft: getSize.s(-2),
+    backgroundColor: colors.inputText,
     borderRadius: getSize.s(8),
-    width: width - 30,
     height: getSize.s(60),
     marginBottom: getSize.s(30),
     borderWidth: 0,
+  },
+  pickerBox: {
+    width: width - 30,
+    marginLeft: getSize.s(-2),
+    borderColor: colors.inputText,
   },
   img: {
     height: getSize.m(20),

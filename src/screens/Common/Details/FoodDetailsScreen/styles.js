@@ -7,4 +7,8 @@ export const useStyles = makeStyles()(({colors}) => ({
     fontWeight: 'bold',
     color: colors.white,
   },
+  link: {
+    color: colors.link,
+    textDecorationLine: 'underline',
+  },
 }));

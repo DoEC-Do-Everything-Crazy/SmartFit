@@ -44,9 +44,6 @@ const RatingValue = () => {
   );
   return (
     <Block flex marginTop={10} marginHorizontal={16}>
-      <Text size={20} fontType="bold">
-        Rating {'&'} review
-      </Text>
       <Block row space="between">
         <Block>
           <Text size={40} fontType="bold">

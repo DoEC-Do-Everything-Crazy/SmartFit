@@ -9,10 +9,12 @@ import {routes} from '@navigation/routes';
 import {useNavigation} from '@react-navigation/core';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
+import {useTranslation} from 'react-i18next';
 
 const ItemCourse = ({course, props}) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
+  const {t} = useTranslation();
 
   const {
     theme: {theme: themeStore},
@@ -95,7 +97,7 @@ const ItemCourse = ({course, props}) => {
                 justifyCenter
                 alignCenter>
                 <Text color={theme.colors.white} fontType="bold">
-                  Detail
+                  {t('detail')}
                 </Text>
               </Block>
             </Block>

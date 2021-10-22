@@ -2,12 +2,14 @@ import {Block, Text} from '@components';
 import React from 'react';
 import {useTheme} from '@theme';
 import {useSelector} from 'react-redux';
+import {useTranslation} from 'react-i18next';
 
 const PayInfo = ({title1, titlePrice1, title2, titlePrice2, total}) => {
   const {
     theme: {theme: themeStore},
   } = useSelector(stateRoot => stateRoot.root);
   const theme = useTheme(themeStore);
+  const {t} = useTranslation();
   return (
     <Block
       borderRadius={8}
@@ -37,7 +39,7 @@ const PayInfo = ({title1, titlePrice1, title2, titlePrice2, total}) => {
         marginHorizontal={25}
       />
       <Block row marginHorizontal={16} marginTop={5} space="between">
-        <Text fontType="bold">Summary:</Text>
+        <Text fontType="bold">{t('total')}:</Text>
         <Text fontType="bold">{total}$</Text>
       </Block>
     </Block>

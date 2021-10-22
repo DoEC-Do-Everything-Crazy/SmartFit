@@ -4,12 +4,14 @@ import {useSelector} from 'react-redux';
 import {useTheme} from '@theme';
 import React from 'react';
 import {FlatList} from 'react-native';
+import {useTranslation} from 'react-i18next';
 
 const CourseListTypeScreen = () => {
   const {
     theme: {theme: themeStore},
   } = useSelector(stateRoot => stateRoot.root);
   const theme = useTheme(themeStore);
+  const {t} = useTranslation();
 
   const _renderItem = item => (
     <ItemCourseBig title={item.title} url={item.url} />
@@ -18,7 +20,7 @@ const CourseListTypeScreen = () => {
     <Block flex backgroundColor={theme.colors.backgroundSetting}>
       <Header
         canGoBack
-        title="Course Category"
+        title={t('courseCategory')}
         colorTheme={theme.colors.blue}
       />
       <Block flex alignCenter paddingHorizontal={16}>
