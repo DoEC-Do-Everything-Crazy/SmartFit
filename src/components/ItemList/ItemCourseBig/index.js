@@ -1,5 +1,5 @@
 import {Block, Text} from '@components';
-import {ImageBackground, Pressable} from 'react-native';
+import {Image, ImageBackground, Pressable} from 'react-native';
 
 import React from 'react';
 import {images} from '@assets';
@@ -45,11 +45,8 @@ const ItemCourseBig = ({title, url, props}) => {
         </Block>
         <Block>
           <Pressable onPress={() => onPress('boxing')}>
-            <ImageBackground
-              source={images.boxing}
-              style={styles.imageColumTwo}>
-              <Text style={styles.text}>{dataTitle[3]}</Text>
-            </ImageBackground>
+            <Image source={images.boxing} style={styles.imageColumTwo} />
+            <Text style={styles.textBoxing}>{dataTitle[3]}</Text>
           </Pressable>
         </Block>
       </Block>

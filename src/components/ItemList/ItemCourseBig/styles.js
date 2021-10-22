@@ -16,7 +16,7 @@ export const useStyles = makeStyles()(({}) => ({
     borderRadius: 5,
   },
   imageColumTwo: {
-    width: width / 2.3,
+    width: width / 2.5,
     marginTop: 16,
     marginLeft: 16,
     borderRadius: 5,
@@ -29,5 +29,13 @@ export const useStyles = makeStyles()(({}) => ({
     position: 'absolute',
     bottom: 0,
     margin: 10,
+  },
+  textBoxing: {
+    fontSize: 30,
+    fontWeight: 'bold',
+    color: '#fff',
+    position: 'absolute',
+    bottom: 10,
+    left: 25,
   },
 }));
