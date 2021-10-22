@@ -6,6 +6,7 @@ import {
   Camera as CameraComponent,
   TextInput,
 } from '@components';
+
 import Header from './Header';
 import {Image, Pressable, ScrollView} from 'react-native';
 import React, {useRef, useState} from 'react';

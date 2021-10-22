@@ -26,10 +26,4 @@ export const useStyles = makeStyles()(({colors}) => ({
     fontSize: getSize.s(18),
     fontWeight: 'bold',
   },
-  header: {
-    width: '100%',
-    zIndex: 100,
-    position: 'absolute',
-    top: 0,
-  },
 }));

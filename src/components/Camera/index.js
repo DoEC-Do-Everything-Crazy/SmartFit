@@ -72,22 +72,22 @@ const Camera = ({onPress, props}) => {
               {pausePreview ? (
                 <Block row>
                   <Pressable
-                    style={styles.button}
+                    style={styles.buttonLeft}
                     onPress={() => resumePicture(camera, true)}>
                     <CameraTouch color={theme.colors.green} />
                   </Pressable>
                   <Pressable
-                    style={styles.button}
+                    style={styles.buttonRight}
                     onPress={() => resumePicture(camera, false)}>
                     <CameraTouch color={theme.colors.red} />
                   </Pressable>
                 </Block>
               ) : (
                 <>
-                  <Pressable onPress={() => takePicture(camera)}>
-                    <Block style={styles.bottom}>
-                      <CameraTouch color={theme.colors.white} />
-                    </Block>
+                  <Pressable
+                    style={styles.button}
+                    onPress={() => takePicture(camera)}>
+                    <CameraTouch color={theme.colors.white} />
                   </Pressable>
                 </>
               )}

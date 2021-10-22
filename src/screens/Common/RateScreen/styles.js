@@ -95,4 +95,10 @@ export const useStyles = makeStyles()(({colors}) => ({
     width: getSize.s(100),
     height: getSize.s(120),
   },
+  header: {
+    width: '100%',
+    zIndex: 100,
+    position: 'absolute',
+    top: 0,
+  },
 }));
