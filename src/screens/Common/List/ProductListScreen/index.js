@@ -13,14 +13,16 @@ import {useTheme} from '@theme';
 const ProductListScreen = ({props, navigation}) => {
   const [products, setProducts] = useState([]);
   const viewRef = React.useRef(null);
+
   const {
+    productType: {type},
     theme: {theme: themeStore},
   } = useSelector(stateRoot => stateRoot.root);
   const theme = useTheme(themeStore);
   const styles = useStyles(props, themeStore);
   const fetchData = async () => {
     try {
-      const resData = await productApi.getProducts();
+      const resData = await productApi.getProductByType(type);
       setProducts(resData);
     } catch (error) {
       console.error(error.message);
@@ -29,7 +31,9 @@ const ProductListScreen = ({props, navigation}) => {
 
   useEffect(() => {
     fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
       viewRef.current.animate({0: {opacity: 0}, 1: {opacity: 1}});

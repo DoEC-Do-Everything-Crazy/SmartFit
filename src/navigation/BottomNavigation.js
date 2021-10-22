@@ -47,7 +47,7 @@ const BottomTabNavigation = () => {
         name={routes.INFO_SCREEN}
         component={bottom.INFO_SCREEN}
         options={{
-          tabBarLabel: t('infomation'),
+          tabBarLabel: t('information'),
         }}
       />
     </Tab.Navigator>

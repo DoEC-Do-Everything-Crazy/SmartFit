@@ -35,6 +35,23 @@ const getProduct = async (id, options) => {
   }
 };
 
+const getProductByType = async (type, options) => {
+  try {
+    const response = await axios.get(`${apiUrl}/products?type=${type}`, {
+      ...options,
+      validateStatus: false,
+    });
+
+    if (response.status === 404 || response.status === 500) {
+      throw response.data;
+    }
+
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 const addProduct = async (data, options) => {
   try {
     const response = await axios.post(`${apiUrl}/products/add`, data, {
@@ -96,4 +113,5 @@ export const productApi = {
   addProduct,
   updateProduct,
   deleteProduct,
+  getProductByType,
 };

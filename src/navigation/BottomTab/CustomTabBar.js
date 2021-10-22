@@ -1,5 +1,5 @@
 import {useTheme, makeStyles} from '@theme';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import {getSize} from '@utils/responsive';
 import React, {useEffect, useRef} from 'react';
 import {Animated, Pressable, View} from 'react-native';
@@ -12,12 +12,14 @@ import {
   Supplements,
 } from '@assets/icons';
 import {routes} from '@navigation/routes';
+import {getProductType} from 'reduxs/reducers';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 
 const CustomTabBar = ({state, descriptors, navigation, props}) => {
   const {
     theme: {theme: themeStore},
   } = useSelector(stateRoot => stateRoot.root);
+  const dispatch = useDispatch();
   const styles = useStyles(props, themeStore);
   const theme = useTheme(themeStore);
   const totalNotification = 0;
@@ -104,7 +106,7 @@ const CustomTabBar = ({state, descriptors, navigation, props}) => {
             type: 'tabPress',
             target: route.key,
           });
-
+          dispatch(getProductType(route.name));
           if (!isFocused && !event.defaultPrevented) {
             navigation.navigate(route.name);
           }

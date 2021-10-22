@@ -6,3 +6,4 @@ export * from './themeReducer';
 export * from './turnSwitchReducer';
 export * from './idReducer';
 export * from './appSettingReducer';
+export * from './productTypeReducer';

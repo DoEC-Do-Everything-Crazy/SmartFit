@@ -21,6 +21,7 @@ import {
   ThemeReducer,
   TurnSwitchReducer,
   IdReducer,
+  ProductTypeReducer,
 } from '../reducers/';
 
 const persistConfig = {
@@ -38,6 +39,7 @@ const persistedReducer = persistCombineReducers(persistConfig, {
   theme: ThemeReducer,
   turn: TurnSwitchReducer,
   id: IdReducer,
+  productType: ProductTypeReducer,
   // other reducers here
 });
 
