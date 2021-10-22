@@ -1,13 +1,13 @@
 import {Block, Text} from '@components';
 import {Image, Pressable, TouchableOpacity} from 'react-native';
 
+import {HeartPf} from '@assets/icons';
 import LinearGradient from 'react-native-linear-gradient';
 import React from 'react';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {width} from '@utils/responsive';
-import {HeartPf} from '@assets/icons';
 
 const ItemPopular = ({item, props}) => {
   const {
@@ -37,7 +37,7 @@ const ItemPopular = ({item, props}) => {
         </Block>
         <Block style={styles.text}>
           <Text center fontType="bold">
-            {item.foodName}
+            {item.name}
           </Text>
         </Block>
         <Block row marginHorizontal={4} marginVertical={3} space="between">

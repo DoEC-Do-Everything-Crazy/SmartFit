@@ -60,10 +60,10 @@ const ItemCourse = ({course, props}) => {
         <Block marginLeft={10} height={98} width="73%">
           <Block>
             <Text size={18} fontType="bold">
-              {course.courseName}
+              {course.name}
             </Text>
           </Block>
-          <Text numberOfLines={1}>{course.desc}</Text>
+          <Text numberOfLines={1}>{course.description}</Text>
           <Block row alignCenter marginTop={5}>
             <Ratting />
             <Text size={15} marginLeft={5}>

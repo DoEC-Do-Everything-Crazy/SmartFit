@@ -3,31 +3,20 @@ import React, {useEffect, useState} from 'react';
 
 import {FlatList} from 'react-native';
 import ItemPopular from '@components/ItemList/ItemPopular';
-import {apiUrl} from '@config/api';
-import axios from 'axios';
+import {foodApi} from 'api/foodApi';
 import {useTranslation} from 'react-i18next';
 
 const ListItemPopular = () => {
   const [foods, setFoods] = useState([]);
   const {t} = useTranslation();
-  const getProduct = async () => {
-    await axios
-      .get(`${apiUrl}/food`, {
-        validateStatus: false,
-      })
-      .then(response => {
-        if (response.status === 200) {
-          setFoods(response.data);
-          return;
-        }
 
-        if (response.status === 404 || response.status === 500) {
-          console.error(response.data.message);
-        }
-      })
-      .error(error => {
-        console.error('Internal server error');
-      });
+  const getProduct = async () => {
+    try {
+      const data = await foodApi.getFoods();
+      setFoods(data);
+    } catch (error) {
+      console.error(error.message);
+    }
   };
 
   useEffect(() => {

@@ -1,15 +1,16 @@
 import {Block, Text} from '@components';
-import ItemRecommended from '@components/ItemList/ItemRecommended';
-import React, {useRef, useState} from 'react';
+import React, {useRef} from 'react';
+import {height, width} from '@utils/responsive';
+
 import Carousel from 'react-native-snap-carousel';
+import ItemRecommended from '@components/ItemList/ItemRecommended';
+import {Pressable} from 'react-native';
+import {routes} from '@navigation/routes';
 import {useNavigation} from '@react-navigation/core';
 // import {routes} from '@navigation/routes';
 import {useSelector} from 'react-redux';
-import {useTheme} from '@theme';
-import {width, height} from '@utils/responsive';
-import {Pressable} from 'react-native';
 import {useStyles} from './styles';
-import {routes} from '@navigation/routes';
+import {useTheme} from '@theme';
 import {useTranslation} from 'react-i18next';
 
 const ListRecommended = props => {
@@ -24,7 +25,7 @@ const ListRecommended = props => {
       index={index}
       _id={item._id}
       title={item.title}
-      desc={item.desc}
+      desc={item.description}
       image={item.image}
     />
   );

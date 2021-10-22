@@ -1,33 +1,21 @@
 import React, {useEffect, useState} from 'react';
 
 import {Block} from '@components';
-import {width} from '@utils/responsive';
-import ItemNavProduct from '@components/ItemList/ItemNavProduct';
-import {apiUrl} from '@config/api';
-import axios from 'axios';
 import Carousel from 'react-native-snap-carousel';
+import ItemNavProduct from '@components/ItemList/ItemNavProduct';
+import {foodApi} from 'api/foodApi';
+import {width} from '@utils/responsive';
 
 const ListItemNavProduct = () => {
   const [foods, setFoods] = useState([]);
 
   const getProduct = async () => {
-    await axios
-      .get(`${apiUrl}/food`, {
-        validateStatus: false,
-      })
-      .then(response => {
-        if (response.status === 200) {
-          setFoods(response.data);
-          return;
-        }
-
-        if (response.status === 404 || response.status === 500) {
-          console.error(response.data.message);
-        }
-      })
-      .error(error => {
-        console.error('Internal server error');
-      });
+    try {
+      const data = await foodApi.getFoods();
+      setFoods(data);
+    } catch (error) {
+      console.error(error.message);
+    }
   };
   useEffect(() => {
     getProduct();

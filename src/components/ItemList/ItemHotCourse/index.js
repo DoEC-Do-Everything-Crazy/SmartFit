@@ -8,6 +8,7 @@ import {routes} from '@navigation/routes';
 import {useNavigation} from '@react-navigation/core';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
+
 // import {HeartPf} from '@assets/icons';
 
 const ItemHotCourse = ({item, props}) => {
@@ -51,7 +52,7 @@ const ItemHotCourse = ({item, props}) => {
           numberOfLines={1}
           color={theme.colors.white}
           fontType="bold">
-          {item.courseName}
+          {item.name}
         </Text>
       </Block>
     </Pressable>

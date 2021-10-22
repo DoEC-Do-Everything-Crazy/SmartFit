@@ -1,13 +1,14 @@
 import {Block, Camera, Header as HeaderComponent, Text} from '@components';
-import ItemOrder from '@components/ItemList/ItemOrder';
-import {checkPermission, PERMISSION_TYPE} from 'hook/permissions';
-import Header from './Header';
-import React, {useState} from 'react';
 import {FlatList, Pressable, ScrollView} from 'react-native';
+import {PERMISSION_TYPE, checkPermission} from 'hook/permissions';
+import React, {useState} from 'react';
+
+import Header from './Header';
+import ItemOrder from '@components/ItemList/ItemOrder';
+import LinearGradient from 'react-native-linear-gradient';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
-import LinearGradient from 'react-native-linear-gradient';
 import {useTranslation} from 'react-i18next';
 
 const OrderScreen = props => {

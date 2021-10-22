@@ -1,15 +1,15 @@
 import {Block, Text} from '@components';
+import {Image, Pressable} from 'react-native';
 
 import {HeartPf} from '@assets/icons';
-import {Image, Pressable} from 'react-native';
 import {Rating} from 'react-native-ratings';
 import React from 'react';
+import {routes} from '@navigation/routes';
+import {useNavigation} from '@react-navigation/core';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {width} from '@utils/responsive';
-import {useNavigation} from '@react-navigation/core';
-import {routes} from '@navigation/routes';
 
 const ItemCarousel = ({item, props}) => {
   const {
@@ -35,7 +35,7 @@ const ItemCarousel = ({item, props}) => {
         width={width * 0.4}
         numberOfLines={1}>
         <Text size={16} fontType="bold" numberOfLines={1}>
-          {item.productName}
+          {item.name}
         </Text>
         <Block row alignCenter marginTop={10}>
           <Rating
@@ -51,7 +51,7 @@ const ItemCarousel = ({item, props}) => {
         </Block>
 
         <Text size={11} marginTop={8} numberOfLines={5}>
-          {item.desc}
+          {item.description}
         </Text>
         <Block flex row>
           <Block flex alignStart>

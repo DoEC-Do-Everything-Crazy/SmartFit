@@ -3,8 +3,7 @@ import {FlatList, Pressable} from 'react-native';
 import React, {useEffect, useState} from 'react';
 
 import ItemHotFood from '@components/ItemList/ItemHotFood';
-import {apiUrl} from '@config/api';
-import axios from 'axios';
+import {foodApi} from 'api/foodApi';
 import {routes} from '@navigation/routes';
 import {useNavigation} from '@react-navigation/core';
 import {useSelector} from 'react-redux';
@@ -23,23 +22,12 @@ const ListHotFood = props => {
   const navigation = useNavigation();
 
   const getFoods = async () => {
-    await axios
-      .get(`${apiUrl}/food`, {
-        validateStatus: false,
-      })
-      .then(response => {
-        if (response.status === 200) {
-          setFoods(response.data);
-          return;
-        }
-
-        if (response.status === 404 || response.status === 500) {
-          console.error(response.data.message);
-        }
-      })
-      .error(error => {
-        console.error('Internal server error');
-      });
+    try {
+      const data = await foodApi.getFoods();
+      setFoods(data);
+    } catch (error) {
+      console.error(error.message);
+    }
   };
 
   useEffect(() => {

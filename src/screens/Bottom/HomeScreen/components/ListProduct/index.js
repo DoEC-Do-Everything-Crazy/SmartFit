@@ -3,8 +3,7 @@ import {FlatList, Pressable} from 'react-native';
 import React, {useEffect, useState} from 'react';
 
 import ItemHotProduct from '@components/ItemList/ItemHotProduct';
-import {apiUrl} from '@config/api';
-import axios from 'axios';
+import {productApi} from 'api/productApi';
 import {routes} from '@navigation/routes';
 import {useNavigation} from '@react-navigation/core';
 import {useSelector} from 'react-redux';
@@ -20,23 +19,13 @@ const ListProduct = props => {
   const styles = useStyles(props, themeStore);
 
   const navigation = useNavigation();
-
   const fetchData = async () => {
-    await axios
-      .get(`${apiUrl}/product`, {validateStatus: false})
-      .then(response => {
-        if (response.status === 200) {
-          setData(response.data);
-          return;
-        }
-
-        if (response.status === 404 || response.status === 500) {
-          console.error(response.data.message);
-        }
-      })
-      .catch(error => {
-        console.error('Internal server error');
-      });
+    try {
+      const resData = await productApi.getProducts();
+      setData(resData);
+    } catch (error) {
+      console.error(error.message);
+    }
   };
 
   useEffect(() => {

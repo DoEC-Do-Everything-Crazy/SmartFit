@@ -39,10 +39,10 @@ const ItemHotFood = ({item, index, props}) => {
           </Block>
           <Block column style={styles.title}>
             <Text numberOfLines={1} color={theme.colors.black} fontType="bold">
-              {item.foodName}
+              {item.name}
             </Text>
             <Text numberOfLines={1} color={theme.colors.black}>
-              {item.desc}
+              {item.description}
             </Text>
           </Block>
         </Block>
