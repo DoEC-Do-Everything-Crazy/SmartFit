@@ -139,6 +139,8 @@ const RootStack = () => {
       />
       <Stack.Screen name={routes.CART_SCREEN} component={common.CART_SCREEN} />
 
+      <Stack.Screen name={routes.RATE_SCREEN} component={common.RATE_SCREEN} />
+
       {/* Tabs */}
       <Stack.Screen name={routes.TAB_DETAILS} component={common.TAB_DETAILS} />
       <Stack.Screen name={routes.TAB_LESSON} component={common.TAB_LESSON} />
