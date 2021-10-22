@@ -54,7 +54,7 @@ const Header = props => {
             <Block>
               <Pressable
                 onPress={() => {
-                  navigation.navigate(routes.SEARCH_SCREEN);
+                  navigation.navigate(routes.SEARCH_SCREEN, {screen: 'screen'});
                 }}>
                 <Search color={theme.colors.text} />
               </Pressable>

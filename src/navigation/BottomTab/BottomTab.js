@@ -38,6 +38,7 @@ const BottomTab = () => {
           <Tab.Screen
             name={item.route}
             component={item.component}
+            initialParams={{type: item.type}}
             options={{
               tabBarLabel: item.label,
             }}

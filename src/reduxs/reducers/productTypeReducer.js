@@ -1,7 +1,7 @@
 import {createSlice} from '@reduxjs/toolkit';
 
 const defaultTypeState = {
-  type: '',
+  type: 'equipments',
 };
 
 const productTypeSlide = createSlice({

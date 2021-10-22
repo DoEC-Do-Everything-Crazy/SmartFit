@@ -12,8 +12,9 @@ import {useStyles} from './styles';
 import {exitApp} from 'hook';
 import {useTranslation} from 'react-i18next';
 
-const SearchScreen = props => {
+const SearchScreen = ({props, route}) => {
   const [data, setData] = useState('');
+  const {screen} = route?.params;
   const {t} = useTranslation();
   const {
     theme: {theme: themeStore},
@@ -38,7 +39,11 @@ const SearchScreen = props => {
 
   return (
     <Block flex backgroundColor={theme.colors.backgroundSetting}>
-      <Header title={t('search')} colorTheme={theme.colors.black} />
+      <Header
+        canGoBack={screen === 'screen' ? true : null}
+        title={t('search')}
+        colorTheme={theme.colors.black}
+      />
       <Block paddingTop={20}>
         <Block paddingHorizontal={16}>
           <TextInput

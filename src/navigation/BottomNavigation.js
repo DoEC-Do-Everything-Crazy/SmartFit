@@ -25,6 +25,7 @@ const BottomTabNavigation = () => {
       <Tab.Screen
         name={routes.SEARCH_SCREEN}
         component={bottom.SEARCH_SCREEN}
+        initialParams={{screen: 'tab'}}
         options={{
           tabBarLabel: t('search'),
         }}

@@ -10,12 +10,12 @@ import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
 
-const ProductListScreen = ({props, navigation}) => {
+const ProductListScreen = ({props, navigation, route}) => {
   const [products, setProducts] = useState([]);
   const viewRef = React.useRef(null);
+  const {type} = route.params;
 
   const {
-    productType: {type},
     theme: {theme: themeStore},
   } = useSelector(stateRoot => stateRoot.root);
   const theme = useTheme(themeStore);
