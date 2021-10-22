@@ -47,7 +47,7 @@ const ProductContent = ({food, props}) => {
                 marginTop={20}
                 fontType="bold"
                 marginHorizontal={16}>
-                {food.foodName}
+                {food.name}
               </Text>
             </Block>
             <Image source={{uri: food.image[0]}} style={styles.image} />

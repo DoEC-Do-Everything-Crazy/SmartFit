@@ -1,23 +1,24 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {Block, Button, Text} from '@components';
-import Header from './Header';
+import {Dimensions, Image, Platform, Pressable, ScrollView} from 'react-native';
 import React, {useCallback, useEffect, useRef, useState} from 'react';
-import {Image, Platform, ScrollView, Pressable, Dimensions} from 'react-native';
+
+import {BottomSheet} from '@components/BottomSheet';
+import {DATA_REVIEW} from '@constants/';
+import Header from './Header';
+import LinearGradient from 'react-native-linear-gradient';
+import {Rating} from 'react-native-ratings';
+import RatingValue from '@components/RatingValue';
+import Review from '@components/Review';
+import {productApi} from 'api/productApi';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
-import {BottomSheet} from '@components/BottomSheet';
-import {Rating} from 'react-native-ratings';
-import LinearGradient from 'react-native-linear-gradient';
-import {apiUrl} from '@config/api';
-import axios from 'axios';
 import {useTranslation} from 'react-i18next';
-import Review from '@components/Review';
-import RatingValue from '@components/RatingValue';
-import {DATA_REVIEW} from '@constants/';
 
 const ProductDetailScreen = ({props, route}) => {
   const {t} = useTranslation();
-  const [quali, setQuali] = useState(0);
+  const [quali, setQuali] = useState(1);
   const [isShowReview, setShowReview] = useState();
   const {id} = route.params;
   const {height: MAX_HEIGHT} = Dimensions.get('screen');
@@ -29,9 +30,7 @@ const ProductDetailScreen = ({props, route}) => {
   const theme = useTheme(themeStore);
   const modalizRef = useRef(null);
   const handleSub = useCallback(() => {
-    if (quali === 0) {
-      setQuali(0);
-    } else if (quali > 0) {
+    if (quali > 1) {
       setQuali(quali - 1);
     }
   }, [quali]);
@@ -43,22 +42,18 @@ const ProductDetailScreen = ({props, route}) => {
     setShowReview(!isShowReview);
   }, [isShowReview]);
 
-  const getProductDetail = async _id => {
+  const getProductDetail = async productId => {
     try {
-      const resp = await axios({
-        method: 'GET',
-        url: `${apiUrl}/product/` + _id,
-      });
-      var obj = resp.data;
-      setProduct(obj);
-    } catch (err) {
-      console.log('error', err);
+      const resData = await productApi.getProduct(productId);
+      console.log('resData', resData);
+      setProduct(resData);
+    } catch (error) {
+      console.error(error.message);
     }
   };
 
   useEffect(() => {
     getProductDetail(id);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

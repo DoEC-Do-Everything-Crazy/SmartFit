@@ -1,11 +1,12 @@
 import {Block, GradientText, Text} from '@components';
-import React from 'react';
+
+import {Back} from '@assets/icons';
 import {Pressable} from 'react-native';
+import React from 'react';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {useTranslation} from 'react-i18next';
-import {Back} from '@assets/icons';
 
 const Header = ({props, onPress}) => {
   const {

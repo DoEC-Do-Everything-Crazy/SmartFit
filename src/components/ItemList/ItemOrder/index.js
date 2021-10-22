@@ -1,15 +1,15 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import {Block, Text, TextInput, Button, Header} from '@components';
-import {BottomSheet} from '@components/BottomSheet';
-import React, {useCallback, useRef, useState} from 'react';
+import {Block, Button, Text, TextInput} from '@components';
 import {Image, Platform, Pressable, ScrollView} from 'react-native';
+import React, {useCallback, useRef, useState} from 'react';
+
+import {BottomSheet} from '@components/BottomSheet';
+/* eslint-disable react-hooks/exhaustive-deps */
+import {Camera} from '@assets/icons';
 import {Rating} from 'react-native-ratings';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
-import {Camera} from '@assets/icons';
-
 import {useTranslation} from 'react-i18next';
 
 const ItemOrder = ({picture, title, group_id, onPress, index, props}) => {

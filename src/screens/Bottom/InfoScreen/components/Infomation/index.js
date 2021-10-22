@@ -1,13 +1,9 @@
-import {Block, Button, Header, Text} from '@components';
+import {Block, Button, Header} from '@components';
 import {useDispatch, useSelector} from 'react-redux';
 
-import {AuthService} from '@services';
-import {DATA_STATISTICAL_PROFILE} from '@constants/';
 import InfoProfile from './components/InfoProfile';
 import ListItemFeature from './components/ListItemFeature';
 import React from 'react';
-import StatisticalProfile from './components/StatisticalProfile';
-import {TouchableOpacity} from 'react-native';
 import {removeUser} from 'reduxs/reducers';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
@@ -34,7 +30,7 @@ const Information = props => {
         flex
         style={styles.container}
         backgroundColor={theme.colors.backgroundSetting}>
-        {/* <InfoProfile user={user} /> */}
+        <InfoProfile user={user} />
         <ListItemFeature />
         <Button
           title={t('logout')}

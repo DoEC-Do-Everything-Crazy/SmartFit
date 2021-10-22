@@ -1,15 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import {Block, Button, Header, Text} from '@components';
-import {DATA_REVIEW} from '@constants/';
+import {Pressable, ScrollView} from 'react-native';
 import React, {useCallback, useEffect, useState} from 'react';
 
+import {DATA_REVIEW} from '@constants/';
 import DescriptionDetail from './components/DescriptionDetail';
 import ProductContent from './components/ProductContent';
 import RatingValue from '@components/RatingValue';
 import Review from '@components/Review';
-import {Pressable, ScrollView} from 'react-native';
 import {apiUrl} from '@config/api';
 import axios from 'axios';
+import {foodApi} from 'api/foodApi';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
@@ -30,16 +31,12 @@ const FoodDetailsScreen = ({route, props}) => {
     setShowReview(!isShowReview);
   }, [isShowReview]);
 
-  const getFoodDetail = async _id => {
+  const getFoodDetail = async foodId => {
     try {
-      const resp = await axios({
-        method: 'GET',
-        url: `${apiUrl}/food/` + _id,
-      });
-      var obj = resp.data;
-      setFood(obj);
-    } catch (err) {
-      console.log('error', err);
+      const data = await foodApi.getFood(foodId);
+      setFood(data);
+    } catch (error) {
+      console.error(error.message);
     }
   };
 
@@ -58,7 +55,7 @@ const FoodDetailsScreen = ({route, props}) => {
           />
           <ScrollView showsVerticalScrollIndicator={false}>
             <ProductContent food={food} />
-            <DescriptionDetail desc={food.desc} />
+            <DescriptionDetail desc={food.description} />
             <Block marginTop={20} row paddingHorizontal={16}>
               <Text fontType="bold" size={17}>
                 {t('review')}:

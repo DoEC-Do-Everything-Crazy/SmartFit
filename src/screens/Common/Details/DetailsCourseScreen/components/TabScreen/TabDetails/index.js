@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import {Block, Button, Header, InviteLogin, PayInfo, Text} from '@components';
 import Carousel, {ParallaxImage} from 'react-native-snap-carousel';
 import {
@@ -12,22 +11,23 @@ import {
 } from 'react-native';
 import React, {useCallback, useEffect, useRef, useState} from 'react';
 
+/* eslint-disable react-hooks/exhaustive-deps */
 import {Back} from '@assets/icons';
 import {BottomSheet} from '@components/BottomSheet';
+import {DATA_REVIEW} from '@constants/';
 import ItemPT from '@components/ItemList/ItemPT';
 import LinearGradient from 'react-native-linear-gradient';
 import {Rating} from 'react-native-ratings';
-import {apiUrl} from '@config/api';
-import axios from 'axios';
+import RatingValue from '@components/RatingValue';
+import Review from '@components/Review';
+import {courseApi} from 'api/courseApi';
+import {ptApi} from 'api/ptApi';
 import {routes} from '@navigation/routes';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {useTranslation} from 'react-i18next';
-import Review from '@components/Review';
-import RatingValue from '@components/RatingValue';
-import {DATA_REVIEW} from '@constants/';
 
 const {width: screenWidth, height: screenHeight} = Dimensions.get('window');
 
@@ -48,14 +48,10 @@ const TabDetails = ({route, props}) => {
 
   const getPtDetails = async _id => {
     try {
-      const resp = await axios({
-        method: 'GET',
-        url: `${apiUrl}/course/pt/` + _id,
-      });
-      var obj = resp.data;
-      setDataPTDetail(obj);
-    } catch (err) {
-      console.log('error', err);
+      const resData = await ptApi.getPT(_id, {validateStatus: false});
+      setDataPTDetail(resData);
+    } catch (error) {
+      console.log('error', error.message);
     }
   };
 
@@ -99,36 +95,26 @@ const TabDetails = ({route, props}) => {
     setShowReview(!isShowReview);
   }, [isShowReview]);
 
-  const getCourseDetails = async fetchData => {
+  const getCourseDetails = async courseId => {
     try {
-      const resp = await axios({
-        method: 'GET',
-        url: `${apiUrl}/course/` + id,
-        data: fetchData,
-      });
-      var obj = resp.data;
-      setDataDetail(obj);
-    } catch (err) {
-      console.log('error', err);
+      const resData = await courseApi.getCourse(courseId);
+      setDataDetail(resData);
+    } catch (error) {
+      console.error('error', error.message);
     }
   };
 
-  const getPt = async fetchData => {
+  const getPt = async () => {
     try {
-      const resp = await axios({
-        method: 'GET',
-        url: `${apiUrl}/course/pt`,
-        data: fetchData,
-      });
-      var obj = resp.data;
-      setDataPT(obj);
-    } catch (err) {
-      console.log('error', err);
+      const resData = await ptApi.getPTs();
+      setDataPT(resData);
+    } catch (error) {
+      console.log('error', error.message);
     }
   };
 
   useEffect(() => {
-    getCourseDetails();
+    getCourseDetails(id);
     getPt();
   }, []);
 
@@ -221,7 +207,7 @@ const TabDetails = ({route, props}) => {
             marginBottom={10}
             size={32}
             fontType="bold">
-            {dataDetail.courseName}
+            {dataDetail.name}
           </Text>
           <Block
             row
@@ -241,7 +227,7 @@ const TabDetails = ({route, props}) => {
           </Block>
           <Block marginTop={10}>
             <Text paddingHorizontal={16} fontType="bold">
-              {dataDetail.desc}
+              {dataDetail.description}
             </Text>
             <Block
               row

@@ -4,15 +4,14 @@ import {useDispatch, useSelector} from 'react-redux';
 
 import {TextInput} from 'react-native';
 import {addUser} from 'reduxs/reducers';
-import axios from 'axios';
 import firebase from '@config/firebase';
 import {routes} from '@navigation/routes';
 import setAuthToken from 'utils/setAuthToken';
 import {useNavigation} from '@react-navigation/core';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
-import {apiUrl} from '@config/api';
 import {useTranslation} from 'react-i18next';
+import {userApi} from 'api/userApi';
 
 const VFTPhoneNumberScreen = ({route, props}) => {
   const navigation = useNavigation();
@@ -89,28 +88,21 @@ const VFTPhoneNumberScreen = ({route, props}) => {
   }, []);
 
   const loadUser = async () => {
-    await axios
-      .post(`${apiUrl}/user`)
-      .then(response => {
-        if (response.status === 200) {
-          const user = response.data.user;
-          console.log('response data', response.data.user);
-          dispatch(addUser(user));
-          if (user.displayname !== '') {
-            console.log('exist');
-            navigation.navigate(routes.BOTTOM_TAB);
-          } else {
-            console.log('not exist');
-            navigation.navigate(routes.UPDATE_PROFILE_SCREEN);
-          }
-          return;
-        }
+    try {
+      const resData = await userApi.getUser();
+      let user = resData.user;
 
-        console.log(response);
-      })
-      .catch(error => {
-        console.error('load error', error.message);
-      });
+      dispatch(addUser(user));
+      if (user.displayname !== '') {
+        console.log('exist');
+        navigation.navigate(routes.BOTTOM_TAB);
+      } else {
+        console.log('not exist');
+        navigation.navigate(routes.UPDATE_PROFILE_SCREEN);
+      }
+    } catch (error) {
+      console.error(error.message);
+    }
   };
 
   const getUser = async () => {

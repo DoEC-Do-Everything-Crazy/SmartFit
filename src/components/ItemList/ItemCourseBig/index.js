@@ -1,19 +1,19 @@
 import {Block, Text} from '@components';
-import React from 'react';
 import {ImageBackground, Pressable} from 'react-native';
+
+import React from 'react';
+import {images} from '@assets';
+import {routes} from '@navigation/routes';
+import {useNavigation} from '@react-navigation/core';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
-import {useNavigation} from '@react-navigation/core';
-import {routes} from '@navigation/routes';
-import {images} from '@assets';
-import {useTheme} from '@theme';
 
 const dataTitle = ['GYM', 'YOGA', 'BELLY DANCE', 'BOXING', 'DANCE SPORT'];
 
 const ItemCourseBig = ({title, url, props}) => {
   const navigation = useNavigation();
-  const onPress = ({name}) => {
-    navigation.navigate(routes.COURSE_LIST_SCREEN);
+  const onPress = type => {
+    navigation.navigate(routes.COURSE_LIST_SCREEN, {type});
   };
 
   const {
@@ -23,19 +23,19 @@ const ItemCourseBig = ({title, url, props}) => {
 
   return (
     <Block marginBottom={16}>
-      <Pressable onPress={onPress}>
+      <Pressable onPress={() => onPress('gym')}>
         <ImageBackground source={images.gym} style={styles.imageHorizontal}>
           <Text style={styles.text}>{dataTitle[0]}</Text>
         </ImageBackground>
       </Pressable>
       <Block row>
         <Block>
-          <Pressable onPress={onPress}>
+          <Pressable onPress={() => onPress('yoga')}>
             <ImageBackground source={images.yoga} style={styles.imageColumOne}>
               <Text style={styles.text}>{dataTitle[1]}</Text>
             </ImageBackground>
           </Pressable>
-          <Pressable onPress={onPress}>
+          <Pressable onPress={() => onPress('bellyDance')}>
             <ImageBackground
               source={images.bellyDance}
               style={[styles.imageColumOne]}>
@@ -43,15 +43,17 @@ const ItemCourseBig = ({title, url, props}) => {
             </ImageBackground>
           </Pressable>
         </Block>
-        {/* <Block> */}
-        {/* <Pressable onPress={onPress}> */}
-        <ImageBackground source={images.boxing} style={styles.imageColumTwo}>
-          <Text style={styles.text}>{dataTitle[3]}</Text>
-        </ImageBackground>
-        {/* </Pressable> */}
-        {/* </Block> */}
+        <Block>
+          <Pressable onPress={() => onPress('boxing')}>
+            <ImageBackground
+              source={images.boxing}
+              style={styles.imageColumTwo}>
+              <Text style={styles.text}>{dataTitle[3]}</Text>
+            </ImageBackground>
+          </Pressable>
+        </Block>
       </Block>
-      <Pressable onPress={onPress}>
+      <Pressable onPress={() => onPress('danceSport')}>
         <ImageBackground
           source={images.danceSport}
           style={styles.imageHorizontal}>

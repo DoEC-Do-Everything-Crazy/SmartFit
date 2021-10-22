@@ -6,12 +6,11 @@ import {useDispatch, useSelector} from 'react-redux';
 
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {addUser} from 'reduxs/reducers';
-import axios from 'axios';
 import {useNavigation} from '@react-navigation/core';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
-import {apiUrl} from '@config/api';
 import {useTranslation} from 'react-i18next';
+import {userApi} from 'api/userApi';
 
 const UpdateProfileScreen = ({route, props}) => {
   const navigation = useNavigation();
@@ -55,33 +54,28 @@ const UpdateProfileScreen = ({route, props}) => {
   };
 
   const updateProfile = async () => {
-    await axios
-      .post(`${apiUrl}/user/update`, {
+    try {
+      await userApi.getUser({
         userProfile: {...userProfile, uid: user.uid, gender: valueGender},
         changePrimary:
           userProfile.email !== user.email ||
           userProfile.phoneNumber !== user.phoneNumber,
-      })
-      .then(response => {
-        if (response.status === 200) {
-          const newUser = {
-            ...user,
-            birthday: userProfile.birthday,
-            displayName: userProfile.displayName,
-            email: userProfile.email,
-            gender: valueGender,
-            phoneNumber: userProfile.phoneNumber,
-          };
-
-          dispatch(addUser(newUser));
-          navigation.goBack();
-          return;
-        }
-        console.log('!= 200', response);
-      })
-      .catch(error => {
-        console.error('load error', error.message);
       });
+
+      const newUser = {
+        ...user,
+        birthday: userProfile.birthday,
+        displayName: userProfile.displayName,
+        email: userProfile.email,
+        gender: valueGender,
+        phoneNumber: userProfile.phoneNumber,
+      };
+
+      dispatch(addUser(newUser));
+      navigation.goBack();
+    } catch (error) {
+      console.error(error.message);
+    }
   };
 
   const handleOnSubmit = () => {

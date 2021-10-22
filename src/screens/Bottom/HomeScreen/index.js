@@ -8,14 +8,13 @@ import ListHotFood from './components/ListHotFood';
 import ListMenu from './components/ListMenu';
 import ListProduct from './components/ListProduct';
 import ListRecommended from './components/ListRecommended';
-import axios from 'axios';
+import {courseApi} from 'api/courseApi';
 import {images} from '@assets';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
-import {width} from '@utils/responsive';
-import {apiUrl} from '@config/api';
 import {useTranslation} from 'react-i18next';
+import {width} from '@utils/responsive';
 
 const HomeScreen = props => {
   const [data, setData] = useState([]);
@@ -46,16 +45,13 @@ const HomeScreen = props => {
 
   const fetchData = async () => {
     try {
-      const resp = await axios({
-        method: 'GET',
-        url: `${apiUrl}/course`,
-      });
-      var obj = resp.data;
-      setData(obj);
-    } catch (err) {
-      console.log('error', err);
+      const resData = await courseApi.getCourses();
+      setData(resData);
+    } catch (error) {
+      console.log('error', error.message);
     }
   };
+
   useEffect(() => {
     fetchData();
   }, []);

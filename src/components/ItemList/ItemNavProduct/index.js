@@ -47,10 +47,10 @@ const ItemNavProduct = ({item, props}) => {
         <Block paddingHorizontal={8}>
           <Block>
             <Text size={17} fontType="bold">
-              {item.foodName}
+              {item.name}
             </Text>
             <Text size={12} numberOfLines={2}>
-              {item.desc}
+              {item.description}
             </Text>
           </Block>
           <Rating
