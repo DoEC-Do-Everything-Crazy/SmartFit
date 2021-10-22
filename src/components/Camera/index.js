@@ -85,7 +85,9 @@ const Camera = ({onPress, props}) => {
               ) : (
                 <>
                   <Pressable onPress={() => takePicture(camera)}>
-                    <CameraTouch color={theme.colors.white} />
+                    <Block style={styles.bottom}>
+                      <CameraTouch color={theme.colors.white} />
+                    </Block>
                   </Pressable>
                 </>
               )}

@@ -12,4 +12,9 @@ export const useStyles = makeStyles()(({}) => ({
     width: Dimensions.get('window').width,
     paddingBottom: getSize.s(20),
   },
+  bottom: {
+    position: 'absolute',
+    bottom: 0,
+    zIndex: 100,
+  },
 }));
