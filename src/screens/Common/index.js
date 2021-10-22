@@ -3,6 +3,7 @@ import CourseListScreen from './List/CourseListScreen';
 import ProductListScreen from './List/ProductListScreen';
 import CourseListTypeScreen from './List/CourseListTypeScreen';
 import FoodListScreen from './List/FoodListScreen';
+import RateScreen from './RateScreen';
 
 // DETAILS
 import DetailsCourseScreen from './Details/DetailsCourseScreen';
@@ -36,6 +37,7 @@ export const common = {
   FILTER_SCREEN: FilterScreen,
   FOOD_LIST_SCREEN: FoodListScreen,
   COURSE_LIST_TYPE_SCREEN: CourseListTypeScreen,
+  RATE_SCREEN: RateScreen,
 
   ORDER_SCREEN: OrderScreen,
   ORDER_DETAIL_SCREEN: OrderDetailScreen,
