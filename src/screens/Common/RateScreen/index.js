@@ -34,7 +34,7 @@ const RateScreen = ({props}) => {
   const courseId = '615fd5bbc3ee7b269cea854e';
   const productId = '';
   const foodId = '';
-  const [rate, setRate] = useState(null);
+  const [rate, setRate] = useState(0);
   const [used, setUsed] = useState(false);
   const formData = new FormData();
 
