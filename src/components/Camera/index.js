@@ -41,7 +41,7 @@ const Camera = ({onPress, props, screen}) => {
     if (get) {
       const newImage = {
         uri: imageSource,
-        name: new Date().getTime() + '.jpg',
+        name: new Date() + '.jpg',
         type: 'image/jpg',
       };
       dispatch(removeImage());
