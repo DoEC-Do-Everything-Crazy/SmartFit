@@ -52,4 +52,7 @@ export const routes = {
   FILTER_SCREEN: 'FILTER_SCREEN',
   CART_SCREEN: 'CART_SCREEN',
   RATE_SCREEN: 'RATE_SCREEN',
+
+  //Camera
+  TAKE_PICTURE: 'TAKE_PICTURE',
 };

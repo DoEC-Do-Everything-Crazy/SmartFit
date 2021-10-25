@@ -22,12 +22,13 @@ import {
   TurnSwitchReducer,
   IdReducer,
   ProductTypeReducer,
+  ImageRateReducer,
 } from '../reducers/';
 
 const persistConfig = {
   key: 'root',
   storage: EncryptedStorage,
-  whitelist: ['screen', 'password', 'setting', 'user', 'turn', 'id'],
+  whitelist: ['screen', 'password', 'setting', 'user', 'turn', 'id', 'image'],
   //whitelist
   //blacklist
 };
@@ -40,6 +41,7 @@ const persistedReducer = persistCombineReducers(persistConfig, {
   turn: TurnSwitchReducer,
   id: IdReducer,
   productType: ProductTypeReducer,
+  image: ImageRateReducer,
   // other reducers here
 });
 
