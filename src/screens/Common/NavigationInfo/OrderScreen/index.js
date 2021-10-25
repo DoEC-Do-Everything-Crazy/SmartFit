@@ -1,9 +1,8 @@
-import {Block, Camera, Header as HeaderComponent, Text} from '@components';
+import {Block, Header as HeaderComponent, Text} from '@components';
 import {FlatList, Pressable, ScrollView} from 'react-native';
-import {PERMISSION_TYPE, checkPermission} from 'hook/permissions';
+
 import React, {useState} from 'react';
 
-import Header from './Header';
 import ItemOrder from '@components/ItemList/ItemOrder';
 import LinearGradient from 'react-native-linear-gradient';
 import {useSelector} from 'react-redux';
@@ -34,23 +33,11 @@ const OrderScreen = props => {
     },
   ];
 
-  const handleCamera = async () => {
-    // const resultSP = await checkPermission(PERMISSION_TYPE.camera);
-    // console.log('click');
-    // if (resultSP === true) {
-    setCamera(true);
-    // }
-  };
-  const handleCloseCamera = async () => {
-    setCamera(false);
-  };
   const onSuccess = e => {
     console.log('click');
   };
 
-  const _renderItem = (item, index) => (
-    <ItemOrder onPress={handleCamera} index={index} />
-  );
+  const _renderItem = (item, index) => <ItemOrder index={index} />;
   const [selectedId, setSelectedId] = useState(1);
   const Item = ({item, onPress, backgroundColor, textColor}) => (
     <Pressable onPress={onPress}>
@@ -99,43 +86,34 @@ const OrderScreen = props => {
   };
   return (
     <Block flex backgroundColor={theme.colors.backgroundSetting}>
-      {isCamera ? (
-        <>
-          <Block style={styles.header}>
-            <Header onPress={handleCloseCamera} />
-          </Block>
-          <Camera />
-        </>
-      ) : (
-        <>
-          <HeaderComponent
-            canGoBack
-            title={t('orderCart')}
-            colorTheme={theme.colors.black}
+      <>
+        <HeaderComponent
+          canGoBack
+          title={t('orderCart')}
+          colorTheme={theme.colors.black}
+        />
+        <Block
+          flex
+          paddingHorizontal={16}
+          backgroundColor={theme.colors.backgroundSetting}>
+          <ScrollView
+            horizontal
+            scrollEnabled={false}
+            showsHorizontalScrollIndicator={false}
+            justifyContent="center"
+            alignItems="center">
+            {DATA_HEADER.map((item, i) => (
+              <_renderItemHeader key={i} item={item} />
+            ))}
+          </ScrollView>
+          <FlatList
+            showsVerticalScrollIndicator={false}
+            data={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
+            renderItem={_renderItem}
+            keyExtractor={item => item.item_id}
           />
-          <Block
-            flex
-            paddingHorizontal={16}
-            backgroundColor={theme.colors.backgroundSetting}>
-            <ScrollView
-              horizontal
-              scrollEnabled={false}
-              showsHorizontalScrollIndicator={false}
-              justifyContent="center"
-              alignItems="center">
-              {DATA_HEADER.map((item, i) => (
-                <_renderItemHeader key={i} item={item} />
-              ))}
-            </ScrollView>
-            <FlatList
-              showsVerticalScrollIndicator={false}
-              data={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
-              renderItem={_renderItem}
-              keyExtractor={item => item.item_id}
-            />
-          </Block>
-        </>
-      )}
+        </Block>
+      </>
     </Block>
   );
 };
