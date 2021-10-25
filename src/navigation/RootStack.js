@@ -140,6 +140,10 @@ const RootStack = () => {
       <Stack.Screen name={routes.CART_SCREEN} component={common.CART_SCREEN} />
 
       <Stack.Screen name={routes.RATE_SCREEN} component={common.RATE_SCREEN} />
+      <Stack.Screen
+        name={routes.TAKE_PICTURE}
+        component={common.TAKE_PICTURE}
+      />
 
       {/* Tabs */}
       <Stack.Screen name={routes.TAB_DETAILS} component={common.TAB_DETAILS} />
