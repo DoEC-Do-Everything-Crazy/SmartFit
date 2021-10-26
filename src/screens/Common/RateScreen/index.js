@@ -88,7 +88,6 @@ const RateScreen = ({picture, title, group_id, onPress, index, props}) => {
               onChangeText={() => setComment(comment)}
               value={comment}
               inputStyle={styles.textInput}
-              // placeholder="Enter comment"
               multiline={true}
             />
           </Block>
