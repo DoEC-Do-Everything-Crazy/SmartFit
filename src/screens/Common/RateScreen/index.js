@@ -11,6 +11,7 @@ import Header from './Header';
 import {Image, Pressable, ScrollView} from 'react-native';
 import React, {useRef, useState} from 'react';
 
+import {checkPermission, PERMISSION_TYPE} from '@hooks';
 import {Camera} from '@assets/icons';
 import {Rating} from 'react-native-ratings';
 
@@ -20,7 +21,6 @@ import {useTheme} from '@theme';
 import {useTranslation} from 'react-i18next';
 
 const RateScreen = ({picture, title, group_id, onPress, index, props}) => {
-  const modalizRef = useRef(null);
   const [isCamera, setCamera] = useState(false);
   const [comment, setComment] = useState('');
   const {t} = useTranslation();
@@ -33,11 +33,11 @@ const RateScreen = ({picture, title, group_id, onPress, index, props}) => {
   const styles = useStyles(props, themeStore);
   const theme = useTheme(themeStore);
   const handleCamera = async () => {
-    // const resultSP = await checkPermission(PERMISSION_TYPE.camera);
-    // console.log('click');
-    // if (resultSP === true) {
-    setCamera(true);
-    // }
+    const resultSP = await checkPermission(PERMISSION_TYPE.camera);
+    console.log('click');
+    if (resultSP === true) {
+      setCamera(true);
+    }
   };
 
   return (
