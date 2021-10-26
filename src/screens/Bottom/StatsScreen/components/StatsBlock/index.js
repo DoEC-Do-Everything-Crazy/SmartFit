@@ -94,7 +94,7 @@ const StatsBlock = ({
               </Block>
             </Block>
           )}
-          {bmp ? <Text>110 bpm</Text> : <Text />}
+          {bmp ? <Text>{bmp}</Text> : <Text />}
         </Block>
       </Pressable>
     </Block>
