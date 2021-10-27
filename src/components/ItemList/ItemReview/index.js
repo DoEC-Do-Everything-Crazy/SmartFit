@@ -8,7 +8,7 @@ import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
 
-const ItemReview = ({name, image, props}) => {
+const ItemReview = ({name, image, content, date, props}) => {
   const {
     theme: {theme: themeStore},
   } = useSelector(stateRoot => stateRoot.root);
@@ -16,7 +16,14 @@ const ItemReview = ({name, image, props}) => {
   const theme = useTheme(themeStore);
   return (
     <Block marginBottom={15}>
-      <Image style={styles.image} source={{uri: image}} />
+      <Image
+        style={styles.image}
+        source={{
+          uri:
+            image ||
+            'https://pbs.twimg.com/media/EYVxlOSXsAExOpX?format=jpg&name=small',
+        }}
+      />
       <Block
         marginLeft={25}
         marginTop={15}
@@ -25,7 +32,7 @@ const ItemReview = ({name, image, props}) => {
         borderRadius={8}
         backgroundColor={theme.colors.border}>
         <Text size={18} fontType="bold">
-          {name}
+          {name || 'Default Name'}
         </Text>
         <Block row space="between" alignCenter>
           <Rating
@@ -36,16 +43,10 @@ const ItemReview = ({name, image, props}) => {
             ratingBackgroundColor={theme.colors.lightGray}
           />
           <Text size={14} color={theme.colors.gray}>
-            June 5, 2019
+            {date.substring(0, 10) || 'June 5, 2019'}
           </Text>
         </Block>
-        <Text marginTop={10}>
-          The dress is great! Very classy and comfortable. It fit perfectly! I'm
-          5'7" and 130 pounds. I am a 34B chest. This dress would be too long
-          for those who are shorter but could be hemmed. I wouldn't recommend it
-          for those big chested as I am smaller chested and it fit me perfectly.
-          The underarms were not too wide and the dress was made well.
-        </Text>
+        <Text marginTop={10}>{content}</Text>
         <Block row justifyEnd alignCenter marginVertical={10}>
           <Text size={14} marginRight={5} color={theme.colors.gray}>
             Helpful

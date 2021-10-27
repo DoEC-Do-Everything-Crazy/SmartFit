@@ -1,24 +1,22 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import {Block, Button, Header, Text} from '@components';
-import {Pressable, ScrollView} from 'react-native';
-import React, {useCallback, useEffect, useState} from 'react';
-
-import {DATA_REVIEW} from '@constants/';
-import DescriptionDetail from './components/DescriptionDetail';
-import ProductContent from './components/ProductContent';
 import RatingValue from '@components/RatingValue';
 import Review from '@components/Review';
-import {apiUrl} from '@config/api';
-import axios from 'axios';
-import {foodApi} from 'api/foodApi';
-import {useSelector} from 'react-redux';
-import {useStyles} from './styles';
 import {useTheme} from '@theme';
+import {foodApi} from 'api/foodApi';
+import {rateApi} from 'api/rateApi';
+import React, {useCallback, useEffect, useState} from 'react';
 import {useTranslation} from 'react-i18next';
+import {Pressable, ScrollView} from 'react-native';
+import {useSelector} from 'react-redux';
+import DescriptionDetail from './components/DescriptionDetail';
+import ProductContent from './components/ProductContent';
+import {useStyles} from './styles';
 
 const FoodDetailsScreen = ({route, props}) => {
   const {id} = route.params;
   const [food, setFood] = useState(undefined);
+  const [rate, setRate] = useState(1);
   const [isShowReview, setShowReview] = useState();
   const {t} = useTranslation();
   const {
@@ -40,8 +38,18 @@ const FoodDetailsScreen = ({route, props}) => {
     }
   };
 
+  const getFoodRating = async foodId => {
+    try {
+      const data = await rateApi.getRateById('foodId', foodId);
+      setRate(data);
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
   useEffect(() => {
     getFoodDetail(id);
+    getFoodRating(id);
   }, []);
 
   return (
@@ -69,7 +77,7 @@ const FoodDetailsScreen = ({route, props}) => {
             {isShowReview ? (
               <>
                 <RatingValue />
-                <Review data={DATA_REVIEW} />
+                <Review rate={rate} />
               </>
             ) : null}
           </ScrollView>
