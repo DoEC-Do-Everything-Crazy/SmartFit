@@ -11,7 +11,7 @@ import Header from './Header';
 import {Image, Pressable, ScrollView} from 'react-native';
 import React, {useRef, useState} from 'react';
 
-import {checkPermission, PERMISSION_TYPE} from '@hooks';
+import {checkPermission, PERMISSION_TYPE} from '../../../hook';
 import {Camera} from '@assets/icons';
 import {Rating} from 'react-native-ratings';
 
