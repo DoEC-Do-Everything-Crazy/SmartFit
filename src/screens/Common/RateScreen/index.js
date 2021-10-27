@@ -13,10 +13,6 @@ import {rateApi} from 'api/rateApi';
 import React, {useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {Image, Pressable, ScrollView} from 'react-native';
-import React, {useRef, useState} from 'react';
-
-import {checkPermission, PERMISSION_TYPE} from '../../../hook';
-import {Camera} from '@assets/icons';
 import {Rating} from 'react-native-ratings';
 import {useDispatch, useSelector} from 'react-redux';
 import {removeImage} from 'reduxs/reducers';
