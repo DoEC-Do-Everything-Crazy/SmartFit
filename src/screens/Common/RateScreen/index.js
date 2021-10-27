@@ -9,16 +9,17 @@ import {
 import {routes} from '@navigation/routes';
 import {useNavigation} from '@react-navigation/core';
 import {useTheme} from '@theme';
+import {rateApi} from 'api/rateApi';
 import React, {useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {Image, Pressable, ScrollView} from 'react-native';
 import {Rating} from 'react-native-ratings';
-import {apiUrl} from '@config/api';
-import axios from 'axios';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import {removeImage} from 'reduxs/reducers';
 import {useStyles} from './styles';
 
 const RateScreen = ({props}) => {
+  const dispatch = useDispatch();
   const {t} = useTranslation();
   const {
     theme: {theme: themeStore},
@@ -30,41 +31,27 @@ const RateScreen = ({props}) => {
 
   const navigation = useNavigation();
   const [content, setContent] = useState('');
-  const userId = user.uid;
   const courseId = '615fd5bbc3ee7b269cea854e';
   const productId = '';
   const foodId = '';
-  const [rate, setRate] = useState(0);
-  const [used, setUsed] = useState(false);
-  const formData = new FormData();
+  const [rate, setRate] = useState(5);
 
   const handleCamera = async () => {
     navigation.navigate(routes.TAKE_PICTURE);
     console.log(image);
   };
-
-  const fetchData = async () => {
-    await axios({
-      method: 'post',
-      url: `${apiUrl}/rates/addWithImage`,
-      data: formData,
+  const addRate = async formData => {
+    const res = await rateApi.addRateReview(formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
-      validateStatus: false,
-    })
-      .then(response => {
-        if (response.status === 200) {
-          console.log('success');
-          return;
-        }
-        if (response.status === 404 || response.status === 500) {
-          console.log('error ' + response.message);
-        }
-      })
-      .catch(error => {
-        console.log('error ---> ' + error.message);
-      });
+    });
+
+    if (res === 200) {
+      console.log('add rate success');
+      dispatch(removeImage());
+      navigation.navigate(routes.ORDER_SCREEN);
+    }
   };
 
   const ratingCompleted = rating => {
@@ -72,17 +59,18 @@ const RateScreen = ({props}) => {
   };
 
   const handleFormSubmit = () => {
-    formData.append('userId', userId);
+    const formData = new FormData();
+    formData.append('userId', user.uid);
     formData.append('productId', productId);
     formData.append('courseId', courseId);
+    formData.append('foodId', foodId);
     formData.append('rate', rate);
     formData.append('content', content);
-    formData.append('used', used);
+
     for (let i = 0; i < image.length; i++) {
       formData.append('images', image[i]);
     }
-    fetchData();
-    console.log('aaaaaa   ', formData);
+    addRate(formData);
   };
 
   return (
@@ -102,6 +90,7 @@ const RateScreen = ({props}) => {
           <Rating
             type="custom"
             ratingCount={5}
+            startingValue={5}
             imageSize={36}
             onFinishRating={ratingCompleted}
             ratingBackgroundColor="#c8c7c8"
