@@ -14,6 +14,7 @@ import React, {useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {Image, Pressable, ScrollView} from 'react-native';
 import {Rating} from 'react-native-ratings';
+import {checkPermission, PERMISSION_TYPE} from '../../../hook';
 import {useDispatch, useSelector} from 'react-redux';
 import {removeImage} from 'reduxs/reducers';
 import {useStyles} from './styles';
@@ -37,8 +38,12 @@ const RateScreen = ({props}) => {
   const [rate, setRate] = useState(5);
 
   const handleCamera = async () => {
-    navigation.navigate(routes.TAKE_PICTURE);
-    console.log(image);
+    const resultSP = await checkPermission(PERMISSION_TYPE.camera);
+    console.log('click');
+    if (resultSP === true) {
+      navigation.navigate(routes.TAKE_PICTURE);
+      console.log(image);
+    }
   };
   const addRate = async formData => {
     const res = await rateApi.addRateReview(formData, {
