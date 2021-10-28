@@ -119,6 +119,7 @@ export default {
   sendReview: 'Gửi đánh giá',
   favorite: 'Yêu thích',
   orderDetail: 'Chi tiết đơn hàng',
+  choosePhoto: 'Chọn ảnh',
   //Request OTP
   signInWithPhoneNumber: 'Đăng nhập bằng số điện thoại',
   codeIsSendTo: 'Mã được gửi tới',

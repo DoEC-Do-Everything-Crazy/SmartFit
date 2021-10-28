@@ -2,6 +2,7 @@ const icons = {
   sendemail: require('./icons/sendemail.png'),
   plus: require('./icons/plus.png'),
   like: require('./icons/like.png'),
+  gallery: require('./icons/gallery.png'),
 };
 
 const lotties = {

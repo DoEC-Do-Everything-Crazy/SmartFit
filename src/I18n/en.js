@@ -120,6 +120,7 @@ export default {
   sendReview: 'Send review',
   favorite: 'Favorite',
   orderDetail: 'Order detail',
+  choosePhoto: 'Choose Photo',
   //Request OTP
   signInWithPhoneNumber: 'Sign in with phone number',
   codeIsSendTo: 'Code is send to',
