@@ -65,6 +65,7 @@ export default {
   //Cart Screen
   orderCart: 'Order',
   delivery: 'Delivery',
+  discount: 'discount',
   total: 'Total',
   cart: 'Cart',
   //Course Type Screen

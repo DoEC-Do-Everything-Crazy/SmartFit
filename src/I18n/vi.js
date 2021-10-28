@@ -65,6 +65,7 @@ export default {
   //Cart Screen
   orderCart: 'Đơn hàng',
   delivery: 'Vận chuyển',
+  discount: 'Giảm giá',
   total: 'Tổng',
   cart: 'Giỏ hàng',
   //Course Type Screen

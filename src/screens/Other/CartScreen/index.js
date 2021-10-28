@@ -4,7 +4,7 @@ import CartList from './components/CartList';
 import {Cart_data} from '@assets/icons';
 import Header from '@components/Header';
 import {Pressable} from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import {routes} from '@navigation/routes';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
@@ -20,6 +20,8 @@ const CartScreen = props => {
   const styles = useStyles(props, themeStore);
   const theme = useTheme(themeStore);
   const {t} = useTranslation();
+
+  const [isDiscount, setIsDiscount] = useState(false);
 
   const Cart = () => {
     return (
@@ -44,6 +46,9 @@ const CartScreen = props => {
                 )}
                 title2={t('delivery')}
                 titlePrice2={20000}
+                title3={t('discount')}
+                titlePrice3={4000}
+                isDiscount={isDiscount}
               />
             </Block>
             <Button
