@@ -1,10 +1,11 @@
 import {Block, Text} from '@components';
+
 import React from 'react';
-import {useTheme} from '@theme';
 import {useSelector} from 'react-redux';
+import {useTheme} from '@theme';
 import {useTranslation} from 'react-i18next';
 
-const PayInfo = ({title1, titlePrice1, title2, titlePrice2, total}) => {
+const PayInfo = ({title1, titlePrice1, title2, titlePrice2}) => {
   const {
     theme: {theme: themeStore},
   } = useSelector(stateRoot => stateRoot.root);
@@ -40,7 +41,7 @@ const PayInfo = ({title1, titlePrice1, title2, titlePrice2, total}) => {
       />
       <Block row marginHorizontal={16} marginTop={5} space="between">
         <Text fontType="bold">{t('total')}:</Text>
-        <Text fontType="bold">{total}$</Text>
+        <Text fontType="bold">{titlePrice1 + titlePrice2}$</Text>
       </Block>
     </Block>
   );

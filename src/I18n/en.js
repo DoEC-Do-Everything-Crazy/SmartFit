@@ -81,7 +81,7 @@ export default {
   bodyFocus: 'Body Focus',
   PT: 'Personal Trainer',
   choose: 'Choose',
-  addCart: 'Add cart',
+  addToCart: 'Add cart',
   days: 'days',
   minutes: 'minutes',
   weeks: 'weeks',
