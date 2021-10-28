@@ -4,11 +4,16 @@ import React, {useState} from 'react';
 import {Block} from '@components';
 import {CameraTouch} from '@assets/icons';
 import {RNCamera} from 'react-native-camera';
-import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
+import {routes} from '@navigation/routes';
+import {addImage, removeImage} from 'reduxs/reducers';
+import {useDispatch, useSelector} from 'react-redux';
+import {useNavigation} from '@react-navigation/core';
 import {useTheme} from '@theme';
 
-const Camera = ({onPress, props}) => {
+const Camera = ({onPress, props, screen}) => {
+  const navigation = useNavigation();
+  const dispatch = useDispatch();
   const {
     theme: {theme: themeStore},
   } = useSelector(stateRoot => stateRoot.root);
@@ -36,11 +41,11 @@ const Camera = ({onPress, props}) => {
     if (get) {
       const newImage = {
         uri: imageSource,
-        name: new Date() + '.jpg',
+        name: new Date().getTime() + '.jpg',
         type: 'image/jpg',
       };
-
-      console.log('new image', newImage);
+      dispatch(addImage(newImage));
+      navigation.navigate(screen);
     }
 
     await camera.resumePreview();

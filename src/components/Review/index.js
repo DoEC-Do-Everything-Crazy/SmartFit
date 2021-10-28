@@ -4,21 +4,21 @@ import {FlatList} from 'react-native';
 import ItemReview from '@components/ItemList/ItemReview';
 import {useTranslation} from 'react-i18next';
 
-const Review = ({data}) => {
+const Review = ({rate}) => {
   const {t} = useTranslation();
   const _renderItem = ({item}) => (
-    <ItemReview image={item.image} name={item.name} />
+    <ItemReview content={item.content} date={item.createdAt} />
   );
 
   return (
     <Block flex marginTop={10} marginHorizontal={16}>
       <Text size={20} fontType="bold">
-        8 t{'review'}
+        8 {t('review')}
       </Text>
       <FlatList
         contentContainerStyle={{marginTop: 20}}
         renderItem={_renderItem}
-        data={data}
+        data={rate}
         keyExtractor={item => item.id}
       />
     </Block>

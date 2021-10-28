@@ -25,6 +25,7 @@ import FilterScreen from './Other/FilterScreen';
 import CartScreen from './Other/CartScreen';
 import ChangePassword from './Navigation/ChangePassword';
 import ChangePinCode from './Navigation/ChangePinCode';
+import TakePicture from './RateScreen/TakePicture';
 
 export const common = {
   DETAILS_COURSE_SCREEN: DetailsCourseScreen,
@@ -46,4 +47,5 @@ export const common = {
   SETTING_SCREEN: SettingScreen,
   CHANGE_PASSWORD: ChangePassword,
   CHANGE_PIN_CODE: ChangePinCode,
+  TAKE_PICTURE: TakePicture,
 };
