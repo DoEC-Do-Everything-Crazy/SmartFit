@@ -1,4 +1,5 @@
 import {Camera} from '@assets/icons';
+import {icons} from '@assets';
 import {
   Block,
   Button,
@@ -16,8 +17,9 @@ import {Image, Pressable, ScrollView} from 'react-native';
 import {Rating} from 'react-native-ratings';
 import {checkPermission, PERMISSION_TYPE} from '../../../hook';
 import {useDispatch, useSelector} from 'react-redux';
-import {removeImage} from 'reduxs/reducers';
+import {addImage, removeImage} from 'reduxs/reducers';
 import {useStyles} from './styles';
+import ImagePicker from 'react-native-image-crop-picker';
 
 const RateScreen = ({props}) => {
   const dispatch = useDispatch();
@@ -39,12 +41,27 @@ const RateScreen = ({props}) => {
 
   const handleCamera = async () => {
     const resultSP = await checkPermission(PERMISSION_TYPE.camera);
-    console.log('click');
     if (resultSP === true) {
       navigation.navigate(routes.TAKE_PICTURE);
-      console.log(image);
     }
   };
+
+  const handleGallery = () => {
+    // dispatch(removeImage());
+    ImagePicker.openPicker({
+      width: 300,
+      height: 400,
+      cropping: true,
+    }).then(images => {
+      const newImage = {
+        uri: images.path,
+        name: new Date().getTime() + '.jpg',
+        type: 'image/jpg',
+      };
+      dispatch(addImage(newImage));
+    });
+  };
+
   const addRate = async formData => {
     const res = await rateApi.addRateReview(formData, {
       headers: {
@@ -139,6 +156,18 @@ const RateScreen = ({props}) => {
               />
             ))}
 
+            <Block
+              backgroundColor={theme.colors.border}
+              justifyCenter
+              alignCenter
+              style={styles.image}>
+              <Pressable onPress={handleGallery}>
+                <Image style={{tintColor: 'blue'}} source={icons.gallery} />
+              </Pressable>
+              <Text paddingVertical={5} center fontType="bold" size={12}>
+                {t('choosePhoto')}
+              </Text>
+            </Block>
             <Block
               backgroundColor={theme.colors.border}
               justifyCenter
