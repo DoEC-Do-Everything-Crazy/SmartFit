@@ -7,7 +7,12 @@ import {useTranslation} from 'react-i18next';
 const Review = ({rate}) => {
   const {t} = useTranslation();
   const _renderItem = ({item}) => (
-    <ItemReview content={item.content} date={item.createdAt} />
+    <ItemReview
+      content={item.content}
+      date={item.createdAt}
+      image={item.image}
+      rating={item.rate}
+    />
   );
 
   return (

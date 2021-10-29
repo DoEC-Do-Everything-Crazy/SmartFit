@@ -91,7 +91,7 @@ const ProductDetailScreen = ({props, route}) => {
             keyboardAvoidingBehavior={
               Platform.OS === 'ios' ? 'padding' : 'height'
             }>
-            <ScrollView>
+            <ScrollView showsVerticalScrollIndicator={false}>
               <Block paddingBottom={50} flex>
                 <Block row flex paddingTop={20} paddingHorizontal={16}>
                   <Text fontType="bold" size={20}>
