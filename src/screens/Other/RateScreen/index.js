@@ -34,9 +34,9 @@ const RateScreen = ({props}) => {
 
   const navigation = useNavigation();
   const [content, setContent] = useState('');
-  const courseId = '6172be2194a553b535d6e924';
+  const courseId = '';
   const productId = '';
-  const foodId = '';
+  const foodId = '6172be2194a553b535d6e924';
   const [rate, setRate] = useState(5);
 
   const handleCamera = async () => {
