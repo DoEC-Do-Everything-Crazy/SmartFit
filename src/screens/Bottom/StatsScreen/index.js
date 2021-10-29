@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import {Height, Order, Weight} from '@assets/icons';
+// import {TextInput} from 'react-native';
 import {Block, Button, Header, InviteLogin, Text, TextInput} from '@components';
 import {BottomSheet} from '@components/BottomSheet';
 import ItemFeature from '@components/ItemList/ItemFeature';
@@ -17,15 +18,15 @@ import StatsBlock from './components/StatsBlock';
 import {useStyles} from './styles';
 
 const StatsScreen = props => {
-  const [height, setHeight] = useState(0);
   const [weight, setWeight] = useState(0);
+  const [height, setHeight] = useState(0);
   const [bmi, setBMI] = useState({
+    id: '',
     type: '',
     height: '',
     weight: '',
     bmi: '',
   });
-  const [Id, setId] = useState('');
   const modalizRef = useRef(null);
   const {
     theme: {theme: themeStore},
@@ -51,28 +52,40 @@ const StatsScreen = props => {
       return <Block style={[styles.floatComponent, {height: insets.bottom}]} />;
     }
   }, [insets.bottom, styles.floatComponent]);
+
   const FooterComponent = useCallback(() => {
     return (
       <Block>
-        <Button title={t('confirm')} onPress={handleAddBMI} />
+        <Button title={t('confirm')} onPress={handleUpdateBMI} />
       </Block>
     );
   }, []);
 
   const fetchBMIData = async () => {
+    console.log('fetchBMIData');
     try {
-      const resData = await bmiApi.getBMI(user.uid, {validateStatus: false});
+      const response = await bmiApi.getBMI(user.uid, {validateStatus: false});
       setBMI({
-        type: resData.type,
-        height: resData.height,
-        weight: resData.weight,
-        bmi: resData.bmi,
+        id: response._id,
+        type: response.type,
+        height: response.height,
+        weight: response.weight,
+        bmi: response.bmi,
       });
-      setId(resData._id);
+      setHeight(response.height);
+      setWeight(response.weight);
     } catch (error) {
       console.log('error', error.message);
     }
   };
+
+  useEffect(() => {
+    fetchBMIData();
+  }, []);
+
+  useEffect(() => {
+    console.log(height, weight);
+  }, [height, weight]);
 
   const addBMI = async () => {
     const currentDate = new Date();
@@ -91,23 +104,21 @@ const StatsScreen = props => {
     } catch (error) {
       console.log('error', error.message);
     }
-    console.log(user.uid, height, weight, date);
   };
 
   const updateBMI = async () => {
-    const currentDate = new Date();
-    const date = convertDateFormat(currentDate);
-
     const data = {
-      id: Id,
+      id: bmi.id,
       userID: user.uid,
       height: height,
       weight: weight,
-      updatedAt: date,
     };
+
+    console.log(data);
 
     try {
       await bmiApi.updateBMI(data, {validateStatus: false});
+      setBMI(data);
     } catch (error) {
       console.log('error', error.message);
     }
@@ -119,20 +130,16 @@ const StatsScreen = props => {
   };
 
   const handleAddBMI = async event => {
-    event.preventDefault();
-
     addBMI();
+
+    modalizRef.current?.close();
   };
 
   const handleUpdateBMI = async event => {
-    event.preventDefault();
-
     updateBMI();
-  };
 
-  useEffect(() => {
-    fetchBMIData();
-  }, [bmi]);
+    modalizRef.current?.close();
+  };
 
   return JSON.stringify(user) !== '{}' ? (
     <>
@@ -203,6 +210,7 @@ const StatsScreen = props => {
             ref={modalizRef}
             overlayStyle={styles.root}
             adjustToContentHeight={true}
+            closeOnOverlayTap={true}
             HeaderComponent={HeaderComponent}
             FooterComponent={FooterComponent}
             FloatingComponent={FloatingComponent}
@@ -216,25 +224,23 @@ const StatsScreen = props => {
                   <Block flex paddingTop={20} paddingHorizontal={16}>
                     <Block flex>
                       <TextInput
-                        placeholder={
-                          bmi.height === '' ? t('enterYourHeight') : bmi.height
-                        }
+                        placeholder={t('enterYourHeight')}
+                        maxLength={3}
                         leftIcon={true}
+                        value={height + ''}
                         keyboardType="numeric"
-                        defaultValue={bmi.height}
-                        onChangeText={text => setHeight(text)}>
+                        onChangeText={setHeight}>
                         <Height color={theme.colors.text} />
                       </TextInput>
                     </Block>
                     <Block flex paddingTop={20}>
                       <TextInput
-                        placeholder={
-                          bmi.weight === '' ? t('enterYourWeight') : bmi.weight
-                        }
+                        placeholder={t('enterYourWeight')}
+                        maxLength={3}
                         leftIcon={true}
+                        value={weight + ''}
                         keyboardType="numeric"
-                        defaultValue={bmi.weight}
-                        onChangeText={text => setWeight(text)}>
+                        onChangeText={setWeight}>
                         <Weight
                           width={24}
                           height={24}
