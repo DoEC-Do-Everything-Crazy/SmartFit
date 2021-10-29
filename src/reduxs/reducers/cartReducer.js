@@ -19,8 +19,6 @@ const cartSlice = createSlice({
         element => element.key === addItem.key,
       );
 
-      console.log('index', index);
-
       if (index !== -1) {
         let newCart = state.cart;
 
@@ -34,8 +32,6 @@ const cartSlice = createSlice({
       }
 
       state.cart = [...state.cart, {...addItem, quantity}];
-
-      console.log('cart', state.cart);
     },
     removeCartItem(state, action) {
       let {removeItem} = action.payload;
@@ -50,6 +46,7 @@ const cartSlice = createSlice({
       let {key} = action.payload;
 
       const index = state.cart.findIndex(element => element.key === key);
+      console.log('index', state.cart[index].key);
 
       if (index !== -1) {
         let newCart = state.cart;
@@ -67,7 +64,7 @@ const cartSlice = createSlice({
 
       const index = state.cart.findIndex(element => (element.key = key));
 
-      if (index !== -1 && state.cart[index] > 1) {
+      if (index !== -1 && state.cart[index].quantity > 1) {
         let newCart = state.cart;
 
         newCart[index] = {

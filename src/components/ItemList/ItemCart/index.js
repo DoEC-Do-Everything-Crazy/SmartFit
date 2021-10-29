@@ -1,27 +1,28 @@
 import {Block, Text} from '@components';
 import {Image, Pressable} from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
+import React, {useCallback, useState} from 'react';
+import {decreaseCartItem, increaseCartItem} from 'reduxs/reducers';
+import {useDispatch, useSelector} from 'react-redux';
 
-import React, {useState, useCallback} from 'react';
-import {useSelector} from 'react-redux';
+import LinearGradient from 'react-native-linear-gradient';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
 
 const ItemCart = ({item, props}) => {
+  const dispatch = useDispatch();
   const {
     theme: {theme: themeStore},
   } = useSelector(stateRoot => stateRoot.root);
   const styles = useStyles(props, themeStore);
   const theme = useTheme(themeStore);
-  const [quali, setQuali] = useState(1);
-  const handleSub = useCallback(() => {
-    if (quali > 1) {
-      setQuali(quali - 1);
-    }
-  }, [quali]);
-  const handleSum = useCallback(() => {
-    setQuali(quali + 1);
-  }, [quali]);
+
+  const handleSub = () => {
+    dispatch(decreaseCartItem({key: item.key}));
+  };
+
+  const handleSum = () => {
+    dispatch(increaseCartItem({key: item.key}));
+  };
 
   return (
     <Pressable>
@@ -60,7 +61,7 @@ const ItemCart = ({item, props}) => {
                 </Pressable>
                 <Block justifyCenter alignCenter marginHorizontal={15}>
                   <Text fontType="bold" size={15} center>
-                    {quali}
+                    {item.quantity}
                   </Text>
                 </Block>
                 <Pressable onPress={handleSum}>
