@@ -5,7 +5,6 @@ import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
 import {BottomSheet} from '@components/BottomSheet';
-import {DATA_REVIEW} from '@constants/';
 import Header from './Header';
 import LinearGradient from 'react-native-linear-gradient';
 import {Rating} from 'react-native-ratings';
@@ -13,6 +12,7 @@ import RatingValue from '@components/RatingValue';
 import Review from '@components/Review';
 import {addCartItem} from 'reduxs/reducers';
 import {productApi} from 'api/productApi';
+import {rateApi} from 'api/rateApi';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {useTranslation} from 'react-i18next';
@@ -25,6 +25,7 @@ const ProductDetailScreen = ({props, route}) => {
   const {id} = route.params;
   const {height: MAX_HEIGHT} = Dimensions.get('screen');
   const [product, setProduct] = useState(undefined);
+  const [rate, setRate] = useState(1);
   const {
     theme: {theme: themeStore},
   } = useSelector(stateRoot => stateRoot.root);
@@ -53,7 +54,17 @@ const ProductDetailScreen = ({props, route}) => {
     }
   };
 
+  const getProductRating = async productId => {
+    try {
+      const data = await rateApi.getRateById('productId', productId);
+      setRate(data);
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
   useEffect(() => {
+    getProductRating(id);
     getProductDetail(id);
   }, []);
 
@@ -192,7 +203,7 @@ const ProductDetailScreen = ({props, route}) => {
                 {isShowReview ? (
                   <>
                     <RatingValue />
-                    <Review data={DATA_REVIEW} />
+                    <Review rate={rate} />
                   </>
                 ) : null}
               </Block>
