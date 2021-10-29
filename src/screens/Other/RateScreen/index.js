@@ -34,7 +34,7 @@ const RateScreen = ({props}) => {
 
   const navigation = useNavigation();
   const [content, setContent] = useState('');
-  const courseId = '615fd5bbc3ee7b269cea854e';
+  const courseId = '6172be2194a553b535d6e924';
   const productId = '';
   const foodId = '';
   const [rate, setRate] = useState(5);

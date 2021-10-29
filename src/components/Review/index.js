@@ -8,6 +8,8 @@ const Review = ({rate}) => {
   const {t} = useTranslation();
   const _renderItem = ({item}) => (
     <ItemReview
+      name={item.displayName}
+      userImage={item.photoURL}
       content={item.content}
       date={item.createdAt}
       image={item.image}

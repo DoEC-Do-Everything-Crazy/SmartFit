@@ -46,7 +46,7 @@ const ItemReview = ({name, userImage, image, content, date, rating, props}) => {
             ratingBackgroundColor={theme.colors.lightGray}
           />
           <Text size={14} color={theme.colors.gray}>
-            {date.substring(0, 10) || 'June 5, 2019'}
+            {date.substring(0, 10) || 'Month day, year'}
           </Text>
         </Block>
         <Text marginTop={10}>{content}</Text>
