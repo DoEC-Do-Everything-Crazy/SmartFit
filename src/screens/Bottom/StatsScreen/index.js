@@ -102,8 +102,6 @@ const StatsScreen = props => {
       weight: weight,
     };
 
-    console.log(data);
-
     try {
       await bmiApi.updateBMI(data, {validateStatus: false});
       fetchBMIData();
@@ -117,19 +115,19 @@ const StatsScreen = props => {
     return time.getTime();
   };
 
-  const handleAddBMI = async event => {
+  const handleAddBMI = async () => {
     addBMI();
 
     modalizRef.current?.close();
   };
 
-  const handleUpdateBMI = async event => {
+  const handleUpdateBMI = async () => {
     updateBMI();
 
     modalizRef.current?.close();
   };
 
-  return JSON.stringify(user) !== '{}' ? (
+  return JSON.stringify(user) ? (
     <>
       <Block flex backgroundColor={theme.colors.blue}>
         <Header
