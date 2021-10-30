@@ -53,14 +53,6 @@ const StatsScreen = props => {
     }
   }, [insets.bottom, styles.floatComponent]);
 
-  const FooterComponent = useCallback(() => {
-    return (
-      <Block>
-        <Button title={t('confirm')} onPress={handleUpdateBMI} />
-      </Block>
-    );
-  }, []);
-
   const fetchBMIData = async () => {
     console.log('fetchBMIData');
     try {
@@ -82,10 +74,6 @@ const StatsScreen = props => {
   useEffect(() => {
     fetchBMIData();
   }, []);
-
-  useEffect(() => {
-    console.log(height, weight);
-  }, [height, weight]);
 
   const addBMI = async () => {
     const currentDate = new Date();
@@ -118,7 +106,7 @@ const StatsScreen = props => {
 
     try {
       await bmiApi.updateBMI(data, {validateStatus: false});
-      setBMI(data);
+      fetchBMIData();
     } catch (error) {
       console.log('error', error.message);
     }
@@ -212,7 +200,6 @@ const StatsScreen = props => {
             adjustToContentHeight={true}
             closeOnOverlayTap={true}
             HeaderComponent={HeaderComponent}
-            FooterComponent={FooterComponent}
             FloatingComponent={FloatingComponent}
             scrollViewProps={{keyboardShouldPersistTaps: 'handle'}}
             keyboardAvoidingBehavior={
@@ -247,6 +234,16 @@ const StatsScreen = props => {
                           color={theme.colors.text}
                         />
                       </TextInput>
+                    </Block>
+                    <Block>
+                      <Button
+                        title={t('confirm')}
+                        onPress={
+                          bmi.height || bmi.weight === 0
+                            ? handleUpdateBMI
+                            : handleAddBMI
+                        }
+                      />
                     </Block>
                   </Block>
                 </Block>
