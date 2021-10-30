@@ -42,11 +42,7 @@ const updateBMI = async (data, options) => {
       validateStatus: false,
     });
 
-    if (response.status === 404 || response.status === 500) {
-      throw response.data;
-    }
-
-    return;
+    return response.data;
   } catch (error) {
     throw error;
   }
