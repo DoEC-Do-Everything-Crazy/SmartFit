@@ -5,7 +5,6 @@ import Button from './base/Button';
 import Shimmer from './base/Shimmer';
 import CheckBox from './base/CheckBox';
 import TextInput from './base/TextInput';
-import WebView from './base/WebView';
 import Icon from './base/Icon';
 import Empty from './base/Empty';
 import GradientText from './base/GradientText';
@@ -29,7 +28,6 @@ export {
   CheckBox,
   TextInput,
   Empty,
-  WebView,
   GradientText,
   Switcher,
   DropDown,

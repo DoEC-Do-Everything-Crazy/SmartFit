@@ -1,21 +1,3 @@
-const DATA_FOOD = [
-  {
-    id: 1,
-    title: 'Protein',
-    stats: '160g',
-  },
-  {
-    id: 2,
-    title: 'Carbs',
-    stats: '45g',
-  },
-  {
-    id: 3,
-    title: 'Vitamin',
-    stats: 'A+',
-  },
-];
-
 const DATA_REVIEW = [
   {
     id: 1,
@@ -37,4 +19,4 @@ const DATA_REVIEW = [
   },
 ];
 
-export {DATA_FOOD, DATA_REVIEW};
+export {DATA_REVIEW};
