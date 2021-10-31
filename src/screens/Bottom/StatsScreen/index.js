@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import {Height, Order, Weight} from '@assets/icons';
-// import {TextInput} from 'react-native';
 import {Block, Button, Header, InviteLogin, Text, TextInput} from '@components';
 import {BottomSheet} from '@components/BottomSheet';
 import ItemFeature from '@components/ItemList/ItemFeature';
@@ -54,18 +53,21 @@ const StatsScreen = props => {
   }, [insets.bottom, styles.floatComponent]);
 
   const fetchBMIData = async () => {
-    console.log('fetchBMIData');
     try {
-      const response = await bmiApi.getBMI(user.uid, {validateStatus: false});
-      setBMI({
-        id: response._id,
-        type: response.type,
-        height: response.height,
-        weight: response.weight,
-        bmi: response.bmi,
+      const response = await bmiApi.getBMI(user.uid, {
+        validateStatus: false,
       });
-      setHeight(response.height);
-      setWeight(response.weight);
+      if (response) {
+        setBMI({
+          id: response._id,
+          type: response.type,
+          height: response.height,
+          weight: response.weight,
+          bmi: response.bmi,
+        });
+        setHeight(response.height);
+        setWeight(response.weight);
+      }
     } catch (error) {
       console.log('error', error.message);
     }
@@ -75,56 +77,25 @@ const StatsScreen = props => {
     fetchBMIData();
   }, []);
 
-  const addBMI = async () => {
-    const currentDate = new Date();
-    const date = convertDateFormat(currentDate);
-
+  const handleBMI = async () => {
     const data = {
-      userID: user.uid,
-      height: height,
-      weight: weight,
-      updatedAt: date,
-    };
-
-    try {
-      const resData = await bmiApi.addBMI(data, {validateStatus: false});
-      console.log(resData);
-    } catch (error) {
-      console.log('error', error.message);
-    }
-  };
-
-  const updateBMI = async () => {
-    const data = {
-      id: bmi.id,
       userID: user.uid,
       height: height,
       weight: weight,
     };
 
     try {
-      await bmiApi.updateBMI(data, {validateStatus: false});
+      await bmiApi.addUpdateBMI(data, {validateStatus: false});
       fetchBMIData();
     } catch (error) {
       console.log('error', error.message);
     }
   };
 
-  const convertDateFormat = date => {
-    const time = new Date(date);
-    return time.getTime();
-  };
-
-  const handleAddBMI = async () => {
-    addBMI();
-
+  const handleAddUpdateBMI = async () => {
     modalizRef.current?.close();
-  };
 
-  const handleUpdateBMI = async () => {
-    updateBMI();
-
-    modalizRef.current?.close();
+    handleBMI();
   };
 
   return JSON.stringify(user) ? (
@@ -236,11 +207,7 @@ const StatsScreen = props => {
                     <Block>
                       <Button
                         title={t('confirm')}
-                        onPress={
-                          bmi.height || bmi.weight === 0
-                            ? handleUpdateBMI
-                            : handleAddBMI
-                        }
+                        onPress={handleAddUpdateBMI}
                       />
                     </Block>
                   </Block>
