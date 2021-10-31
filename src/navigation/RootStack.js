@@ -1,10 +1,8 @@
 import {
-  createStackNavigator,
   CardStyleInterpolators,
+  createStackNavigator,
 } from '@react-navigation/stack';
-import {auth} from '@screens/Auth';
-import {bottom} from '@screens/Bottom';
-import {common} from '@screens/Common';
+import {auth, bottom, details, list, setting, other} from '@screens';
 import React from 'react';
 import BottomNavigation from './BottomNavigation';
 import BottomTab from './BottomTab/BottomTab';
@@ -75,79 +73,71 @@ const RootStack = () => {
       {/* LIST */}
       <Stack.Screen
         name={routes.COURSE_LIST_SCREEN}
-        component={common.COURSE_LIST_SCREEN}
+        component={list.COURSE_LIST_SCREEN}
       />
       <Stack.Screen
         name={routes.PRODUCT_LIST_SCREEN}
-        component={common.PRODUCT_LIST_SCREEN}
+        component={list.PRODUCT_LIST_SCREEN}
       />
       <Stack.Screen
         name={routes.FOOD_LIST_SCREEN}
-        component={common.FOOD_LIST_SCREEN}
+        component={list.FOOD_LIST_SCREEN}
       />
       <Stack.Screen
         name={routes.COURSE_LIST_TYPE_SCREEN}
-        component={common.COURSE_LIST_TYPE_SCREEN}
-      />
-      {/* FEATURE INFO */}
-      <Stack.Screen
-        name={routes.YOUR_FAVORITE_SCREEN}
-        component={common.YOUR_FAVORITE_SCREEN}
-      />
-      <Stack.Screen
-        name={routes.SETTING_SCREEN}
-        component={common.SETTING_SCREEN}
-      />
-      <Stack.Screen
-        name={routes.ORDER_SCREEN}
-        component={common.ORDER_SCREEN}
+        component={list.COURSE_LIST_TYPE_SCREEN}
       />
 
       {/* DETAILS */}
       <Stack.Screen
-        name={routes.DETAILS_COURSE_SCREEN}
-        component={common.DETAILS_COURSE_SCREEN}
+        name={routes.COURSE_DETAILS_SCREEN}
+        component={details.COURSE_DETAILS_SCREEN}
       />
       <Stack.Screen
         name={routes.ORDER_DETAIL_SCREEN}
-        component={common.ORDER_DETAIL_SCREEN}
+        component={details.ORDER_DETAIL_SCREEN}
       />
       <Stack.Screen
         name={routes.FOOD_DETAILS_SCREEN}
-        component={common.FOOD_DETAILS_SCREEN}
+        component={details.FOOD_DETAILS_SCREEN}
       />
       <Stack.Screen
         name={routes.PRODUCT_DETAIL_SCREEN}
-        component={common.PRODUCT_DETAIL_SCREEN}
+        component={details.PRODUCT_DETAIL_SCREEN}
       />
 
-      {/* FEATURE SETTING */}
+      {/* Tabs */}
+      <Stack.Screen name={routes.TAB_DETAILS} component={details.TAB_DETAILS} />
+      <Stack.Screen name={routes.TAB_LESSON} component={details.TAB_LESSON} />
+
+      {/*SETTING */}
+      <Stack.Screen
+        name={routes.SETTING_SCREEN}
+        component={setting.SETTING_SCREEN}
+      />
       <Stack.Screen
         name={routes.CHANGE_PASSWORD}
-        component={common.CHANGE_PASSWORD}
+        component={setting.CHANGE_PASSWORD}
       />
       <Stack.Screen
         name={routes.CHANGE_PIN_CODE}
-        component={common.CHANGE_PIN_CODE}
+        component={setting.CHANGE_PIN_CODE}
       />
 
       {/* OTHER */}
 
       <Stack.Screen
         name={routes.FILTER_SCREEN}
-        component={common.FILTER_SCREEN}
+        component={other.FILTER_SCREEN}
       />
-      <Stack.Screen name={routes.CART_SCREEN} component={common.CART_SCREEN} />
-
-      <Stack.Screen name={routes.RATE_SCREEN} component={common.RATE_SCREEN} />
       <Stack.Screen
-        name={routes.TAKE_PICTURE}
-        component={common.TAKE_PICTURE}
+        name={routes.YOUR_FAVORITE_SCREEN}
+        component={other.YOUR_FAVORITE_SCREEN}
       />
-
-      {/* Tabs */}
-      <Stack.Screen name={routes.TAB_DETAILS} component={common.TAB_DETAILS} />
-      <Stack.Screen name={routes.TAB_LESSON} component={common.TAB_LESSON} />
+      <Stack.Screen name={routes.CART_SCREEN} component={other.CART_SCREEN} />
+      <Stack.Screen name={routes.ORDER_SCREEN} component={other.ORDER_SCREEN} />
+      <Stack.Screen name={routes.RATE_SCREEN} component={other.RATE_SCREEN} />
+      <Stack.Screen name={routes.TAKE_PICTURE} component={other.TAKE_PICTURE} />
     </Stack.Navigator>
   );
 };

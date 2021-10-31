@@ -1,10 +1,9 @@
+import {routes} from '@navigation/routes';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import React from 'react';
-
-import CustomTabBar from './CustomTabBar';
-import {routes} from '@navigation/routes';
-import {common} from '@screens/Common';
 import {useTranslation} from 'react-i18next';
+import {list} from '@screens/List';
+import CustomTabBar from './CustomTabBar';
 
 const Tab = createBottomTabNavigator();
 
@@ -14,19 +13,19 @@ const BottomTab = () => {
     {
       route: routes.EQUIPMENT_SCREEN,
       label: t('equip'),
-      component: common.PRODUCT_LIST_SCREEN,
+      component: list.PRODUCT_LIST_SCREEN,
       type: 'equipments',
     },
     {
       route: routes.SUPPLEMENTS_SCREEN,
       label: t('supple'),
-      component: common.PRODUCT_LIST_SCREEN,
+      component: list.PRODUCT_LIST_SCREEN,
       type: 'supplements',
     },
     {
       route: routes.CLOTHING_SCREEN,
       label: t('clothing'),
-      component: common.PRODUCT_LIST_SCREEN,
+      component: list.PRODUCT_LIST_SCREEN,
       type: 'clothingAndAccessories',
     },
   ];

@@ -1,6 +1,5 @@
-import LinearGradient from 'react-native-linear-gradient';
-import {useTheme, makeStyles} from '@theme';
-import {useSelector} from 'react-redux';
+import {Chart, Home, Info, Notification, Search} from '@assets/icons';
+import {makeStyles, useTheme} from '@theme';
 import {getSize} from '@utils/responsive';
 import React from 'react';
 import {
@@ -9,8 +8,8 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
+import {useSelector} from 'react-redux';
 import {routes} from './routes';
-import {Chart, Home, Info, Notification, Search} from '@assets/icons';
 
 const CustomTabBar = ({state, descriptors, navigation, props}) => {
   const {
