@@ -35,10 +35,10 @@ const RateScreen = ({props}) => {
 
   const navigation = useNavigation();
   const [content, setContent] = useState('');
-  const courseId = '';
-  const productId = '';
-  const foodId = '';
   const [rate, setRate] = useState(5);
+  const courseId = null;
+  const productId = null;
+  const foodId = null;
 
   const handleCamera = async () => {
     const resultSP = await checkPermission(PERMISSION_TYPE.camera);
