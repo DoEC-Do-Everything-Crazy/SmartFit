@@ -22,6 +22,7 @@ import RatingValue from '@components/RatingValue';
 import Review from '@components/Review';
 import {courseApi} from 'api/courseApi';
 import {ptApi} from 'api/ptApi';
+import {rateApi} from 'api/rateApi';
 import {routes} from '@navigation/routes';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useSelector} from 'react-redux';
@@ -43,6 +44,7 @@ const TabDetails = ({route, props}) => {
   const [dataPTDetail, setDataPTDetail] = useState([]);
   const [infoPT, setInfoPT] = useState([]);
   const [isShowReview, setShowReview] = useState();
+  const [rate, setRate] = useState(1);
   const {bottom} = useSafeAreaInsets();
   const keyboardVerticalOffset = Platform.OS === 'ios' ? 'padding' : 'height';
 
@@ -113,7 +115,17 @@ const TabDetails = ({route, props}) => {
     }
   };
 
+  const getFoodRating = async courseId => {
+    try {
+      const data = await rateApi.getRateById('courseId', courseId);
+      setRate(data);
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
   useEffect(() => {
+    getFoodRating(id);
     getCourseDetails(id);
     getPt();
   }, []);
@@ -315,7 +327,7 @@ const TabDetails = ({route, props}) => {
                 {isShowReview ? (
                   <>
                     <RatingValue />
-                    <Review data={DATA_REVIEW} />
+                    <Review rate={rate} />
                   </>
                 ) : null}
               </>
