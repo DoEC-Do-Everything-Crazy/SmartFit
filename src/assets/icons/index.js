@@ -1,4 +1,4 @@
-export * from './AddTocart';
+export * from './AddToWishList';
 export * from './CartDelete';
 export * from './List';
 export * from './HeartPf';

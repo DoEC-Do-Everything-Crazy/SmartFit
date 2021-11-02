@@ -10,21 +10,22 @@ import {
   ScrollView,
 } from 'react-native';
 import React, {useCallback, useEffect, useRef, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 
 /* eslint-disable react-hooks/exhaustive-deps */
 import {Back} from '@assets/icons';
 import {BottomSheet} from '@components/BottomSheet';
-import {DATA_REVIEW} from '@constants/';
 import ItemPT from '@components/ItemList/ItemPT';
 import LinearGradient from 'react-native-linear-gradient';
 import {Rating} from 'react-native-ratings';
 import RatingValue from '@components/RatingValue';
 import Review from '@components/Review';
+import {addCartItem} from 'reduxs/reducers';
 import {courseApi} from 'api/courseApi';
+import {rateApi} from 'api/rateApi';
 import {ptApi} from 'api/ptApi';
 import {routes} from '@navigation/routes';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {useTranslation} from 'react-i18next';
@@ -32,6 +33,7 @@ import {useTranslation} from 'react-i18next';
 const {width: screenWidth, height: screenHeight} = Dimensions.get('window');
 
 const TabDetails = ({route, props}) => {
+  const dispatch = useDispatch();
   const {t} = useTranslation();
   const {user} = useSelector(state => state.root.user);
   const {id} = route.params;
@@ -42,6 +44,7 @@ const TabDetails = ({route, props}) => {
   const [dataPT, setDataPT] = useState([]);
   const [dataPTDetail, setDataPTDetail] = useState([]);
   const [infoPT, setInfoPT] = useState([]);
+  const [rate, setRate] = useState(1);
   const [isShowReview, setShowReview] = useState();
   const {bottom} = useSafeAreaInsets();
   const keyboardVerticalOffset = Platform.OS === 'ios' ? 'padding' : 'height';
@@ -113,7 +116,17 @@ const TabDetails = ({route, props}) => {
     }
   };
 
+  const getCourseRating = async courseId => {
+    try {
+      const data = await rateApi.getRateById('courseId', courseId);
+      setRate(data);
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
   useEffect(() => {
+    getCourseRating(id);
     getCourseDetails(id);
     getPt();
   }, []);
@@ -183,7 +196,7 @@ const TabDetails = ({route, props}) => {
           colorTheme={theme.colors.black}
         />
       ) : null}
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <Block paddingTop={20}>
           <Block paddingHorizontal={16}>
             <Carousel
@@ -315,7 +328,7 @@ const TabDetails = ({route, props}) => {
                 {isShowReview ? (
                   <>
                     <RatingValue />
-                    <Review data={DATA_REVIEW} />
+                    <Review rate={rate} />
                   </>
                 ) : null}
               </>
@@ -461,10 +474,18 @@ const TabDetails = ({route, props}) => {
           </BottomSheet>
         </Block>
       </ScrollView>
-      {JSON.stringify(user) !== '{}' ? (
+      {user ? (
         <Button
-          title={t('addCart')}
-          onPress={() => modalizInf?.current.close()}
+          title={t('addToCart')}
+          onPress={() => {
+            dispatch(
+              addCartItem({
+                addItem: {...dataDetail, pt: dataPTDetail},
+                quantity: 1,
+              }),
+            );
+            modalizInf?.current.close();
+          }}
         />
       ) : (
         <InviteLogin

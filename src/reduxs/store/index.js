@@ -1,34 +1,44 @@
-import {configureStore, getDefaultMiddleware} from '@reduxjs/toolkit';
-import EncryptedStorage from 'react-native-encrypted-storage';
+// import createSagaMiddleware from 'redux-saga';
+// import rootSaga from '../saga';
 import {
-  persistStore,
+  AppSettingReducer,
+  CartReducer,
+  ChangeScreenReducer,
+  IdReducer,
+  ImageRateReducer,
+  PasswordReducer,
+  ProductTypeReducer,
+  ThemeReducer,
+  TurnSwitchReducer,
+  UserReducer,
+} from '../reducers/';
+import {
   FLUSH,
-  REHYDRATE,
   PAUSE,
   PERSIST,
   PURGE,
   REGISTER,
+  REHYDRATE,
   persistCombineReducers,
+  persistStore,
 } from 'redux-persist';
+import {configureStore, getDefaultMiddleware} from '@reduxjs/toolkit';
 
-// import createSagaMiddleware from 'redux-saga';
-// import rootSaga from '../saga';
-import {
-  ChangeScreenReducer,
-  AppSettingReducer,
-  UserReducer,
-  PasswordReducer,
-  ThemeReducer,
-  TurnSwitchReducer,
-  IdReducer,
-  ProductTypeReducer,
-  ImageRateReducer,
-} from '../reducers/';
+import EncryptedStorage from 'react-native-encrypted-storage';
 
 const persistConfig = {
   key: 'root',
   storage: EncryptedStorage,
-  whitelist: ['screen', 'password', 'setting', 'user', 'turn', 'id', 'image'],
+  whitelist: [
+    'screen',
+    'password',
+    'setting',
+    'user',
+    'turn',
+    'id',
+    'image',
+    'cart',
+  ],
   //whitelist
   //blacklist
 };
@@ -42,6 +52,7 @@ const persistedReducer = persistCombineReducers(persistConfig, {
   id: IdReducer,
   productType: ProductTypeReducer,
   image: ImageRateReducer,
+  cart: CartReducer,
   // other reducers here
 });
 

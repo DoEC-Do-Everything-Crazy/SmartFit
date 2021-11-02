@@ -35,7 +35,9 @@ const ItemOrder = ({picture, title, group_id, onPress, index, props}) => {
     setShowDetail(true);
   }, []);
   const handleOpenConfirm = useCallback(() => {
-    navigation.navigate(routes.RATE_SCREEN);
+    navigation.navigate(routes.RATE_SCREEN, {
+      item: {foodId: '6176c277b585a7132c9bd557'},
+    });
   }, []);
   const FloatingComponent = useCallback(() => {
     if (insets.bottom === 0) {

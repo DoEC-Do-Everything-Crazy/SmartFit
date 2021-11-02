@@ -28,7 +28,7 @@ export default {
   yourFavorite: 'Danh sách yêu thích',
   payment: 'Thanh toán',
   promotion: 'Khuyến mãi',
-  order: 'Danh sách đặt hàng',
+  order: 'Đơn hàng',
   logout: 'Đăng xuất',
   notUpdateYet: 'Chưa cập nhật',
   //Notification Screen
@@ -65,6 +65,7 @@ export default {
   //Cart Screen
   orderCart: 'Đơn hàng',
   delivery: 'Vận chuyển',
+  discount: 'Giảm giá',
   total: 'Tổng',
   cart: 'Giỏ hàng',
   //Course Type Screen
@@ -81,7 +82,7 @@ export default {
   bodyFocus: 'Vùng tác động',
   PT: 'Huấn luyện viên',
   choose: 'Chọn',
-  addCart: 'Thêm vào giỏ hàng',
+  addToCart: 'Thêm vào giỏ hàng',
   days: 'ngày',
   minutes: 'phút',
   weeks: 'tuần',

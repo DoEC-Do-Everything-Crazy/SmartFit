@@ -1,19 +1,22 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import {Block, Button, Header, Text} from '@components';
-import RatingValue from '@components/RatingValue';
-import Review from '@components/Review';
-import {useTheme} from '@theme';
-import {foodApi} from 'api/foodApi';
-import {rateApi} from 'api/rateApi';
-import React, {useCallback, useEffect, useState} from 'react';
-import {useTranslation} from 'react-i18next';
 import {Pressable, ScrollView} from 'react-native';
-import {useSelector} from 'react-redux';
+import React, {useCallback, useEffect, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+
 import DescriptionDetail from './components/DescriptionDetail';
 import ProductContent from './components/ProductContent';
+import RatingValue from '@components/RatingValue';
+import Review from '@components/Review';
+import {addCartItem} from 'reduxs/reducers';
+import {foodApi} from 'api/foodApi';
+import {rateApi} from 'api/rateApi';
 import {useStyles} from './styles';
+import {useTheme} from '@theme';
+import {useTranslation} from 'react-i18next';
 
 const FoodDetailsScreen = ({route, props}) => {
+  const dispatch = useDispatch();
   const {id} = route.params;
   const [food, setFood] = useState(undefined);
   const [rate, setRate] = useState(1);
@@ -45,6 +48,10 @@ const FoodDetailsScreen = ({route, props}) => {
     } catch (error) {
       console.error(error.message);
     }
+  };
+
+  const addToCart = () => {
+    dispatch(addCartItem({addItem: food, quantity: 1}));
   };
 
   useEffect(() => {
@@ -82,6 +89,7 @@ const FoodDetailsScreen = ({route, props}) => {
             ) : null}
           </ScrollView>
           <Button
+            onPress={addToCart}
             title={t('buyNow')}
             containerStyle={{backgroundColor: theme.colors.blue}}
             titleStyle={styles.btn}

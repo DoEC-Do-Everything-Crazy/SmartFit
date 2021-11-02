@@ -1,16 +1,20 @@
-import {AddTocart, CartDelete} from '@assets/icons';
+import {AddToWishList, CartDelete} from '@assets/icons';
+import React, {useEffect, useState} from 'react';
+import {addWishListItem, removeCartItem} from 'reduxs/reducers';
+import {useDispatch, useSelector} from 'react-redux';
+
 import {Block} from '@components';
-import ItemCart from '@components/ItemList/ItemCart';
-import React, {useState} from 'react';
 import {FlatList} from 'react-native';
+import ItemCart from '@components/ItemList/ItemCart';
 import Swipeout from 'react-native-swipeout';
-import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 
-const CartList = ({DATA, props}) => {
+const CartList = ({...props}) => {
+  const dispatch = useDispatch();
   const [row, setRow] = useState(null);
   const {
     theme: {theme: themeStore},
+    cart: {cart},
   } = useSelector(stateRoot => stateRoot.root);
   const styles = useStyles(props, themeStore);
 
@@ -18,10 +22,13 @@ const CartList = ({DATA, props}) => {
     {
       component: (
         <Block style={styles.component_icon}>
-          <AddTocart />
+          <AddToWishList />
         </Block>
       ),
       underlayColor: 'transparent',
+      onPress: () => {
+        dispatch(addWishListItem({addItem: cart[row]}));
+      },
     },
     {
       component: (
@@ -30,7 +37,9 @@ const CartList = ({DATA, props}) => {
         </Block>
       ),
       underlayColor: 'transparent',
-      onPress: () => {},
+      onPress: () => {
+        dispatch(removeCartItem({removeItem: cart[row]}));
+      },
     },
   ];
   const onSwipeOpen = index => {
@@ -42,6 +51,7 @@ const CartList = ({DATA, props}) => {
       setRow(null);
     }
   };
+
   const renderItem = ({item, index}) => (
     <Swipeout
       style={styles.swipeOut}
@@ -52,18 +62,13 @@ const CartList = ({DATA, props}) => {
       rowIndex={index}
       sectionId={0}
       autoClose={true}>
-      <ItemCart
-        id={item.id}
-        title={item.name}
-        image={item.image}
-        price={item.price}
-      />
+      <ItemCart item={item} />
     </Swipeout>
   );
   return (
     <Block flex justifyCenter paddingTop={20}>
       <FlatList
-        data={DATA}
+        data={cart}
         renderItem={renderItem}
         keyExtractor={item => item.id}
         extraData={row}

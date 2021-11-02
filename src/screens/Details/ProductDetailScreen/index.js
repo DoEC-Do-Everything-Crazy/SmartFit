@@ -2,27 +2,30 @@
 import {Block, Button, Text} from '@components';
 import {Dimensions, Image, Platform, Pressable, ScrollView} from 'react-native';
 import React, {useCallback, useEffect, useRef, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 
 import {BottomSheet} from '@components/BottomSheet';
-import {DATA_REVIEW} from '@constants/';
 import Header from './Header';
 import LinearGradient from 'react-native-linear-gradient';
 import {Rating} from 'react-native-ratings';
 import RatingValue from '@components/RatingValue';
 import Review from '@components/Review';
+import {addCartItem} from 'reduxs/reducers';
 import {productApi} from 'api/productApi';
-import {useSelector} from 'react-redux';
+import {rateApi} from 'api/rateApi';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {useTranslation} from 'react-i18next';
 
 const ProductDetailScreen = ({props, route}) => {
+  const dispatch = useDispatch();
   const {t} = useTranslation();
   const [quali, setQuali] = useState(1);
   const [isShowReview, setShowReview] = useState();
   const {id} = route.params;
   const {height: MAX_HEIGHT} = Dimensions.get('screen');
   const [product, setProduct] = useState(undefined);
+  const [rate, setRate] = useState(1);
   const {
     theme: {theme: themeStore},
   } = useSelector(stateRoot => stateRoot.root);
@@ -45,14 +48,23 @@ const ProductDetailScreen = ({props, route}) => {
   const getProductDetail = async productId => {
     try {
       const resData = await productApi.getProduct(productId);
-      console.log('resData', resData);
       setProduct(resData);
     } catch (error) {
       console.error(error.message);
     }
   };
 
+  const getProductRating = async productId => {
+    try {
+      const data = await rateApi.getRateById('productId', productId);
+      setRate(data);
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
   useEffect(() => {
+    getProductRating(id);
     getProductDetail(id);
   }, []);
 
@@ -79,7 +91,7 @@ const ProductDetailScreen = ({props, route}) => {
             keyboardAvoidingBehavior={
               Platform.OS === 'ios' ? 'padding' : 'height'
             }>
-            <ScrollView>
+            <ScrollView showsVerticalScrollIndicator={false}>
               <Block paddingBottom={50} flex>
                 <Block row flex paddingTop={20} paddingHorizontal={16}>
                   <Text fontType="bold" size={20}>
@@ -155,8 +167,11 @@ const ProductDetailScreen = ({props, route}) => {
                 </Block>
                 <Block flex paddingTop={10} paddingBottom={20}>
                   <Button
-                    title={t('addCart')}
-                    onPress={() => modalizRef?.current.close()}
+                    title={t('addToCart')}
+                    onPress={() => {
+                      dispatch(addCartItem({addItem: product, quantity: 1}));
+                      modalizRef?.current.close();
+                    }}
                   />
                   <Block row paddingHorizontal={16}>
                     <Text fontType="bold" size={17}>
@@ -188,7 +203,7 @@ const ProductDetailScreen = ({props, route}) => {
                 {isShowReview ? (
                   <>
                     <RatingValue />
-                    <Review data={DATA_REVIEW} />
+                    <Review rate={rate} />
                   </>
                 ) : null}
               </Block>

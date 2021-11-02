@@ -1,5 +1,3 @@
-import {Camera} from '@assets/icons';
-import {icons} from '@assets';
 import {
   Block,
   Button,
@@ -7,21 +5,25 @@ import {
   Text,
   TextInput,
 } from '@components';
+import {Image, Pressable, ScrollView} from 'react-native';
+import {PERMISSION_TYPE, checkPermission} from '../../../hook';
+import React, {useState} from 'react';
+import {addImage, removeImage} from 'reduxs/reducers';
+import {useDispatch, useSelector} from 'react-redux';
+
+import {Camera} from '@assets/icons';
+import ImagePicker from 'react-native-image-crop-picker';
+import {Rating} from 'react-native-ratings';
+import {icons} from '@assets';
+import {rateApi} from 'api/rateApi';
 import {routes} from '@navigation/routes';
 import {useNavigation} from '@react-navigation/core';
-import {useTheme} from '@theme';
-import {rateApi} from 'api/rateApi';
-import React, {useState} from 'react';
-import {useTranslation} from 'react-i18next';
-import {Image, Pressable, ScrollView} from 'react-native';
-import {Rating} from 'react-native-ratings';
-import {checkPermission, PERMISSION_TYPE} from '../../../hook';
-import {useDispatch, useSelector} from 'react-redux';
-import {addImage, removeImage} from 'reduxs/reducers';
 import {useStyles} from './styles';
-import ImagePicker from 'react-native-image-crop-picker';
+import {useTheme} from '@theme';
+import {useTranslation} from 'react-i18next';
 
-const RateScreen = ({props}) => {
+const RateScreen = ({route, props}) => {
+  const {item} = route.params;
   const dispatch = useDispatch();
   const {t} = useTranslation();
   const {
@@ -34,10 +36,10 @@ const RateScreen = ({props}) => {
 
   const navigation = useNavigation();
   const [content, setContent] = useState('');
-  const courseId = '615fd5bbc3ee7b269cea854e';
-  const productId = '';
-  const foodId = '';
   const [rate, setRate] = useState(5);
+  const courseId = item.courseId || null;
+  const productId = item.productId || null;
+  const foodId = item.foodId || null;
 
   const handleCamera = async () => {
     const resultSP = await checkPermission(PERMISSION_TYPE.camera);
