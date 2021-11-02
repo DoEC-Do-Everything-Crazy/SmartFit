@@ -22,7 +22,8 @@ import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {useTranslation} from 'react-i18next';
 
-const RateScreen = ({props}) => {
+const RateScreen = ({route, props}) => {
+  const {item} = route.params;
   const dispatch = useDispatch();
   const {t} = useTranslation();
   const {
@@ -36,9 +37,9 @@ const RateScreen = ({props}) => {
   const navigation = useNavigation();
   const [content, setContent] = useState('');
   const [rate, setRate] = useState(5);
-  const courseId = null;
-  const productId = null;
-  const foodId = null;
+  const courseId = item.courseId || null;
+  const productId = item.productId || null;
+  const foodId = item.foodId || null;
 
   const handleCamera = async () => {
     const resultSP = await checkPermission(PERMISSION_TYPE.camera);
