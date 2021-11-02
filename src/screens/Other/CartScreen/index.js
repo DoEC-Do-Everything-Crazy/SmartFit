@@ -1,10 +1,10 @@
 import {Block, Button, InviteLogin, PayInfo, Text} from '@components';
+import React, {useState} from 'react';
 
 import CartList from './components/CartList';
 import {Cart_data} from '@assets/icons';
 import Header from '@components/Header';
 import {Pressable} from 'react-native';
-import React, {useState} from 'react';
 import {routes} from '@navigation/routes';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
@@ -85,7 +85,7 @@ const CartScreen = props => {
     </Block>
   );
 
-  return user ? (
+  return !user ? (
     <Cart color={theme.colors.white} />
   ) : (
     <>

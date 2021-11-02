@@ -21,7 +21,7 @@ const ItemCart = ({item, props}) => {
   };
 
   const handleSum = () => {
-    dispatch(increaseCartItem({key: item.key}));
+    dispatch(increaseCartItem(item.key));
   };
 
   return (
