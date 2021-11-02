@@ -85,7 +85,7 @@ const CartScreen = props => {
     </Block>
   );
 
-  return !user ? (
+  return user ? (
     <Cart color={theme.colors.white} />
   ) : (
     <>
