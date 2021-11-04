@@ -6,7 +6,6 @@ const icons = {
 };
 
 const lotties = {
-  emptySearch: require('./lotties/emptySearch.json'),
   convenient: require('./lotties/convenient.json'),
   learn: require('./lotties/learn.json'),
   like: require('./lotties/like.json'),
@@ -15,10 +14,7 @@ const lotties = {
 };
 
 const images = {
-  lesson: require('./images/lesson.png'),
   food: require('./images/food.png'),
-  image: require('./images/image.png'),
-  favorite: require('./images/favorite.png'),
   boxing: require('./images/boxing.png'),
   bellyDance: require('./images/bellyDance.png'),
   danceSport: require('./images/danceSport.png'),
@@ -29,7 +25,6 @@ const images = {
   banner3: require('./images/banner3.jpg'),
   banner4: require('./images/banner4.jpg'),
   equipment1: require('./images/equipment1.png'),
-  product1: require('./images/product1.jpg'),
 };
 
 export {icons, lotties, images};
