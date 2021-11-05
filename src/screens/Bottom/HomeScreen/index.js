@@ -9,6 +9,7 @@ import ListMenu from './components/ListMenu';
 import ListProduct from './components/ListProduct';
 import ListRecommended from './components/ListRecommended';
 import {courseApi} from 'api/courseApi';
+import {rateApi} from 'api/rateApi';
 import {images} from '@assets';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
@@ -18,6 +19,7 @@ import {width} from '@utils/responsive';
 
 const HomeScreen = props => {
   const [data, setData] = useState([]);
+  const [dataRecommended, setDataRecommended] = useState([]);
 
   const {t} = useTranslation();
   const [activeIndex, setActivateIndex] = useState(0);
@@ -43,6 +45,14 @@ const HomeScreen = props => {
     <Image source={item.img} style={styles.image} />
   );
 
+  const newArray = dataRecommended
+    .map(x => ({x, r: Math.random()}))
+    .sort((a, b) => a.r - b.r)
+    .map(a => a.x)
+    .map(x => ({x, r: Math.random()}))
+    .sort((a, b) => a.r - b.r)
+    .map(a => a.x);
+
   const fetchData = async () => {
     try {
       const resData = await courseApi.getCourses();
@@ -52,8 +62,18 @@ const HomeScreen = props => {
     }
   };
 
+  const fetchDataRecommended = async () => {
+    try {
+      const resData = await rateApi.getRecommendedWithRate();
+      setDataRecommended(resData);
+    } catch (error) {
+      console.log('error', error.message);
+    }
+  };
+
   useEffect(() => {
     fetchData();
+    fetchDataRecommended();
   }, []);
 
   return (
@@ -100,7 +120,7 @@ const HomeScreen = props => {
             }
           </Block>
           <ListMenu />
-          <ListRecommended />
+          <ListRecommended data={newArray} />
           <ListHotFood />
           <ListHotCourse data={data} />
           <ListProduct />
