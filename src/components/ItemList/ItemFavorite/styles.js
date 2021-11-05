@@ -6,6 +6,7 @@ export const useStyles = makeStyles()(({colors}) => ({
     position: 'absolute',
     width: (width - 96) / 2,
     height: (width - 96) / 2,
+    borderRadius: 200,
   },
   content: {
     alignItems: 'center',

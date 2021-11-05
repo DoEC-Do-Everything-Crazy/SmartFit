@@ -78,16 +78,14 @@ const cartSlice = createSlice({
       state.wishList = [];
     },
     addWishListItem(state, action) {
-      let {addItem} = action.payload;
+      let key = action.payload;
 
-      state.wishList = [...state.wishList, addItem];
+      state.wishList = [...state.wishList, key];
     },
     removeWishListItem(state, action) {
-      let {removeItem} = action.payload;
+      let key = action.payload;
 
-      const newWishList = state.wishList.filter(
-        element => element.key !== removeItem.key,
-      );
+      const newWishList = state.wishList.filter(element => element !== key);
 
       state.wishList = newWishList;
     },

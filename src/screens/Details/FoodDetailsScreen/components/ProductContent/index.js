@@ -3,16 +3,20 @@ import {Block, Text} from '@components';
 import {HeartPf} from '@assets/icons';
 import {Image} from 'react-native';
 import ItemStats from '../ItemStats';
-import React from 'react';
-import {useSelector} from 'react-redux';
+import React, {useEffect} from 'react';
+import {Pressable} from 'react-native';
+import {useSelector, useDispatch} from 'react-redux';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {useTranslation} from 'react-i18next';
+import {addWishListItem, removeWishListItem} from 'reduxs/reducers';
 
 const ProductContent = ({food, props}) => {
+  const dispatch = useDispatch();
   const {t} = useTranslation();
   const {
     theme: {theme: themeStore},
+    cart: {wishList},
   } = useSelector(stateRoot => stateRoot.root);
   const styles = useStyles(props, themeStore);
   const theme = useTheme(themeStore);
@@ -26,14 +30,30 @@ const ProductContent = ({food, props}) => {
   const _renderItem = item => (
     <ItemStats title={item.title} stats={item.stats} />
   );
+  useEffect(() => {
+    console.log(wishList);
+  }, [wishList]);
   return (
     <Block row alignCenter space="between" paddingTop={20}>
       <Block alignCenter justifyCenter width="40%">
         {content.map(_renderItem)}
-        <Block alignCenter marginTop={10} marginBottom={20}>
-          <HeartPf color={theme.colors.red} />
-          <Text size={16}>{t('favorite')}</Text>
-        </Block>
+        <Pressable
+          onPress={() => {
+            if (wishList.includes(food.key)) {
+              dispatch(removeWishListItem(food.key));
+            } else {
+              dispatch(addWishListItem(food.key));
+            }
+          }}>
+          <Block alignCenter marginTop={10} marginBottom={20}>
+            <HeartPf
+              isActive={wishList.includes(food.key)}
+              activeColor={theme.colors.red}
+              deActiveColor={theme.colors.gray}
+            />
+            <Text size={16}>{t('favorite')}</Text>
+          </Block>
+        </Pressable>
       </Block>
       <Block width="60%">
         <Block

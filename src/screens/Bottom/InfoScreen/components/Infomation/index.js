@@ -8,6 +8,7 @@ import {removeUser} from 'reduxs/reducers';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {useTranslation} from 'react-i18next';
+import {ScrollView} from 'react-native';
 
 const Information = props => {
   const dispatch = useDispatch();
@@ -26,19 +27,21 @@ const Information = props => {
         title={t('information')}
         colorTheme={theme.colors.white}
       />
-      <Block
-        flex
-        style={styles.container}
-        backgroundColor={theme.colors.backgroundSetting}>
-        <InfoProfile user={user} />
-        <ListItemFeature />
-        <Button
-          title={t('logout')}
-          onPress={() => {
-            dispatch(removeUser());
-          }}
-        />
-      </Block>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <Block
+          flex
+          style={styles.container}
+          backgroundColor={theme.colors.backgroundSetting}>
+          <InfoProfile user={user} />
+          <ListItemFeature />
+          <Button
+            title={t('logout')}
+            onPress={() => {
+              dispatch(removeUser());
+            }}
+          />
+        </Block>
+      </ScrollView>
     </Block>
   );
 };
