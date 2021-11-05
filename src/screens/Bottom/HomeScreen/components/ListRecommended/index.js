@@ -7,27 +7,21 @@ import ItemRecommended from '@components/ItemList/ItemRecommended';
 import {Pressable} from 'react-native';
 import {routes} from '@navigation/routes';
 import {useNavigation} from '@react-navigation/core';
-// import {routes} from '@navigation/routes';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {useTranslation} from 'react-i18next';
 
-const ListRecommended = props => {
+const ListRecommended = ({data, props}) => {
   const {t} = useTranslation();
   const themeStore = useSelector(state => state.root.theme.theme);
   const theme = useTheme(themeStore);
   const carouselRef = useRef(null);
   const navigation = useNavigation();
   const styles = useStyles(props, themeStore);
+
   const _renderItem = ({item, index}) => (
-    <ItemRecommended
-      index={index}
-      _id={item._id}
-      title={item.title}
-      desc={item.description}
-      image={item.image}
-    />
+    <ItemRecommended item={item} index={index} />
   );
 
   return (
@@ -49,7 +43,7 @@ const ListRecommended = props => {
         <Carousel
           ref={carouselRef}
           hasParallaxImages={true}
-          data={[1, 2, 3, 4, 5, 6, 7, 8, 9]}
+          data={data.slice(0, 5)}
           sliderWidth={width + 75}
           itemWidth={width / 1.4}
           sliderHeight={height / 2}
