@@ -12,7 +12,7 @@ export const useStyles = makeStyles()(({colors}) => ({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: getSize.s(8),
-    marginTop: getSize.s(50),
+    marginTop: getSize.s(60),
     paddingTop: getSize.s(80),
     paddingBottom: getSize.s(32),
     paddingHorizontal: getSize.s(16),

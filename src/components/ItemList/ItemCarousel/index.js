@@ -14,6 +14,7 @@ import {width} from '@utils/responsive';
 const ItemCarousel = ({item, props}) => {
   const {
     theme: {theme: themeStore},
+    cart: {wishList},
   } = useSelector(stateRoot => stateRoot.root);
   const styles = useStyles(props, themeStore);
   const theme = useTheme(themeStore);
@@ -27,7 +28,11 @@ const ItemCarousel = ({item, props}) => {
       marginBottom={16}>
       <Image source={{uri: item.image[0]}} style={styles.image} />
       <Block shadow style={styles.heartContainer}>
-        <HeartPf color={theme.colors.red} />
+        <HeartPf
+          isActive={wishList.includes(item.key)}
+          activeColor={theme.colors.red}
+          deActiveColor={theme.colors.gray}
+        />
       </Block>
       <Block
         paddingLeft={16}
@@ -41,6 +46,7 @@ const ItemCarousel = ({item, props}) => {
           <Rating
             type="custom"
             ratingCount={5}
+            readonly={true}
             imageSize={18}
             tintColor={theme.colors.backgroundSetting}
             ratingBackgroundColor={theme.colors.lightGray}

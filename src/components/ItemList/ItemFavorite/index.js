@@ -1,4 +1,3 @@
-import {images} from '@assets';
 import {HeartPf} from '@assets/icons';
 import {Block, Text} from '@components';
 import {width} from '@utils/responsive';
@@ -63,6 +62,9 @@ const ItemFavorite = ({item, marginTop, props}) => {
       <Pressable onPress={handleNavigate} style={styles.content}>
         <Text size={22} marginTop={16} center fontType="bold">
           {item.name}
+        </Text>
+        <Text size={15} marginTop={5} center>
+          {item.description}
         </Text>
         <Text
           size={17}

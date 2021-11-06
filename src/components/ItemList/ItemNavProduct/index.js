@@ -38,7 +38,7 @@ const ItemNavProduct = ({item, props}) => {
         <Block style={styles.icon}>
           <HeartPf
             isActive={wishList.includes(item.key)}
-            activeColor={theme.colors.yellow}
+            activeColor={theme.colors.red}
             deActiveColor={theme.colors.gray}
           />
         </Block>
@@ -61,6 +61,7 @@ const ItemNavProduct = ({item, props}) => {
           <Rating
             style={styles.ratting}
             ratingCount={5}
+            readonly={true}
             imageSize={15}
             type="custom"
             ratingColor="#FF7F50"

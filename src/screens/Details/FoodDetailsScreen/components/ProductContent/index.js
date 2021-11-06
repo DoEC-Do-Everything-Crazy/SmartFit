@@ -27,6 +27,14 @@ const ProductContent = ({food, props}) => {
     {title: 'Vitamin', stats: 'A+'},
   ];
 
+  const handleFavorite = () => {
+    if (wishList.includes(food.key)) {
+      dispatch(removeWishListItem(food.key));
+    } else {
+      dispatch(addWishListItem(food.key));
+    }
+  };
+
   const _renderItem = item => (
     <ItemStats title={item.title} stats={item.stats} />
   );
@@ -37,14 +45,7 @@ const ProductContent = ({food, props}) => {
     <Block row alignCenter space="between" paddingTop={20}>
       <Block alignCenter justifyCenter width="40%">
         {content.map(_renderItem)}
-        <Pressable
-          onPress={() => {
-            if (wishList.includes(food.key)) {
-              dispatch(removeWishListItem(food.key));
-            } else {
-              dispatch(addWishListItem(food.key));
-            }
-          }}>
+        <Pressable onPress={handleFavorite}>
           <Block alignCenter marginTop={10} marginBottom={20}>
             <HeartPf
               isActive={wishList.includes(food.key)}

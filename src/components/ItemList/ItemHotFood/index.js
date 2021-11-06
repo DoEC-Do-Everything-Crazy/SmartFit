@@ -12,6 +12,7 @@ import {useTheme} from '@theme';
 const ItemHotFood = ({item, index, props}) => {
   const {
     theme: {theme: themeStore},
+    cart: {wishList},
   } = useSelector(stateRoot => stateRoot.root);
   const styles = useStyles(props, themeStore);
   const theme = useTheme(themeStore);
@@ -35,7 +36,11 @@ const ItemHotFood = ({item, index, props}) => {
         </Block>
         <Block row flex>
           <Block shadow style={styles.icon}>
-            <HeartPf color={theme.colors.red} />
+            <HeartPf
+              isActive={wishList.includes(item.key)}
+              activeColor={theme.colors.red}
+              deActiveColor={theme.colors.gray}
+            />
           </Block>
           <Block column style={styles.title}>
             <Text numberOfLines={1} color={theme.colors.black} fontType="bold">
