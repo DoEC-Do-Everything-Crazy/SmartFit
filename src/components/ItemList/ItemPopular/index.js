@@ -12,6 +12,7 @@ import {width} from '@utils/responsive';
 const ItemPopular = ({item, props}) => {
   const {
     theme: {theme: themeStore},
+    cart: {wishList},
   } = useSelector(stateRoot => stateRoot.root);
   const styles = useStyles(props, themeStore);
   const theme = useTheme(themeStore);
@@ -33,7 +34,7 @@ const ItemPopular = ({item, props}) => {
           }}
         />
         <Block style={styles.icon}>
-          <HeartPf color={theme.colors.red} />
+          <HeartPf isActive={wishList.includes(item.key)} />
         </Block>
         <Block style={styles.text}>
           <Text center fontType="bold">

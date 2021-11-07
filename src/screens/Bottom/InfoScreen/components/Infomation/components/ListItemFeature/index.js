@@ -24,7 +24,7 @@ const ListItemFeature = () => {
     {
       id: 1,
       title: t('yourFavorite'),
-      image: <HeartPf color={theme.colors.iconInf} />,
+      image: <HeartPf activeColor={theme.colors.iconInf} isActive={true} />,
       navigation: routes.YOUR_FAVORITE_SCREEN,
     },
     {

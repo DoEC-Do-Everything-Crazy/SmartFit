@@ -229,6 +229,7 @@ const TabDetails = ({route, props}) => {
             paddingHorizontal={16}
             backgroundColor={theme.colors.lightBlue}>
             <Rating
+              readonly={true}
               type="custom"
               ratingColor="#045694"
               ratingCount={5}

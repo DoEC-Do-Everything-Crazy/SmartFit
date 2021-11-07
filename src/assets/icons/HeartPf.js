@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Svg, {Path} from 'react-native-svg';
 export const HeartPf = props => {
-  const {color} = props;
+  const {isActive = false, deACtiveColor = 'gray', activeColor = 'red'} = props;
   return (
     <Svg
       width={24}
@@ -11,7 +11,7 @@ export const HeartPf = props => {
       {...props}>
       <Path
         d="M12 21.054C-8 10 6-2 12 5.588 18-2 32 10 12 21.054z"
-        fill={color}
+        fill={isActive ? activeColor : deACtiveColor}
       />
     </Svg>
   );

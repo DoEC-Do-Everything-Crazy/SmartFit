@@ -4,13 +4,19 @@ import {Dimensions, Image, Platform, Pressable, ScrollView} from 'react-native';
 import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
+import {HeartPf} from '@assets/icons';
 import {BottomSheet} from '@components/BottomSheet';
 import Header from './Header';
 import LinearGradient from 'react-native-linear-gradient';
 import {Rating} from 'react-native-ratings';
 import RatingValue from '@components/RatingValue';
 import Review from '@components/Review';
-import {addCartItem} from 'reduxs/reducers';
+import {
+  addCartItem,
+  addWishListItem,
+  clearWishList,
+  removeWishListItem,
+} from 'reduxs/reducers';
 import {productApi} from 'api/productApi';
 import {rateApi} from 'api/rateApi';
 import {useStyles} from './styles';
@@ -28,6 +34,7 @@ const ProductDetailScreen = ({props, route}) => {
   const [rate, setRate] = useState(1);
   const {
     theme: {theme: themeStore},
+    cart: {wishList},
   } = useSelector(stateRoot => stateRoot.root);
   const styles = useStyles(props, themeStore);
   const theme = useTheme(themeStore);
@@ -63,6 +70,14 @@ const ProductDetailScreen = ({props, route}) => {
     }
   };
 
+  const handleFavorite = () => {
+    if (wishList.includes(product.key)) {
+      dispatch(removeWishListItem(product.key));
+    } else {
+      dispatch(addWishListItem(product.key));
+    }
+  };
+
   useEffect(() => {
     getProductRating(id);
     getProductDetail(id);
@@ -93,11 +108,25 @@ const ProductDetailScreen = ({props, route}) => {
             }>
             <ScrollView showsVerticalScrollIndicator={false}>
               <Block paddingBottom={50} flex>
-                <Block row flex paddingTop={20} paddingHorizontal={16}>
+                <Block
+                  row
+                  flex
+                  alignCenter
+                  space={'between'}
+                  paddingTop={20}
+                  paddingHorizontal={16}>
                   <Text fontType="bold" size={20}>
                     {product.name}
                   </Text>
-                  <Block justifyCenter flex alignEnd>
+
+                  <Block row justifyCenter>
+                    <Pressable onPress={handleFavorite} marginRight={10}>
+                      <HeartPf
+                        isActive={wishList.includes(product.key)}
+                        activeColor={theme.colors.red}
+                        deActiveColor={theme.colors.gray}
+                      />
+                    </Pressable>
                     <Rating
                       type="custom"
                       ratingColor={'#FFD700'}
