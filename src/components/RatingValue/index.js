@@ -18,6 +18,7 @@ const RatingValue = () => {
     <Rating
       ratingColor="#FF7F50"
       ratingCount={count}
+      readonly={true}
       startingValue={count}
       imageSize={15}
       tintColor={theme.colors.backgroundSetting}

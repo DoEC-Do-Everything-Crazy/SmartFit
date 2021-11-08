@@ -14,6 +14,7 @@ const ItemHotProduct = ({item, index, props}) => {
   const [color, setColor] = useState();
   const {
     theme: {theme: themeStore},
+    cart: {wishList},
   } = useSelector(stateRoot => stateRoot.root);
   const styles = useStyles(props, themeStore);
   const theme = useTheme(themeStore);
@@ -35,7 +36,7 @@ const ItemHotProduct = ({item, index, props}) => {
           onPress={() => {
             setTouch(!isTouch);
           }}>
-          <HeartPf color={color} />
+          <HeartPf isActive={wishList.includes(item.key)} />
         </Pressable>
         <Block style={styles.title}>
           <Text color={theme.colors.white} numberOfLines={1} fontType="bold">
