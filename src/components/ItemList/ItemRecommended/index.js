@@ -1,5 +1,6 @@
 import {Block, Text} from '@components';
 import React from 'react';
+import {useEffect, useState} from 'react';
 import {Image, Pressable} from 'react-native';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
@@ -8,40 +9,40 @@ import {routes} from '@navigation/routes';
 import {useNavigation} from '@react-navigation/core';
 import {HeartLine, Ratting} from '@assets/icons';
 import {width} from '@utils/responsive';
+import {recommendedApi} from 'api/recommendedApi.js';
 
 const ItemRecommended = ({item, index, props}) => {
   const {
     theme: {theme: themeStore},
   } = useSelector(stateRoot => stateRoot.root);
+  const [rate, setRate] = useState([]);
   const styles = useStyles(props, themeStore);
   const theme = useTheme(themeStore);
   const navigation = useNavigation();
 
-  const navigationWithId = async (foodId, courseId, productId) => {
-    if (foodId) {
-      navigation.navigate(routes.FOOD_DETAILS_SCREEN, {id: foodId});
-    } else if (courseId) {
-      navigation.navigate(routes.TAB_DETAILS, {id: courseId});
+  const fetchRateData = async () => {
+    const data = await recommendedApi.getAvgRate();
+    setRate(data);
+    console.log(data);
+  };
+
+  const navigationWithId = async (key, id) => {
+    if (key === 'F') {
+      navigation.navigate(routes.FOOD_DETAILS_SCREEN, {id: id});
     } else {
-      navigation.navigate(routes.PRODUCT_DETAIL_SCREEN, {id: productId});
+      navigation.navigate(routes.TAB_DETAILS, {id: id});
     }
   };
 
+  useEffect(() => {
+    fetchRateData();
+  }, []);
+
   return (
     <Pressable
-      onPress={() =>
-        item._id.map(item => item.foodId).length
-          ? navigationWithId(
-              item._id[0].foodId,
-              item._id[0].courseId,
-              item._id[0].productId,
-            )
-          : navigationWithId(
-              item._id[0].foodId,
-              item._id[0].courseId,
-              item._id[0].productId,
-            )
-      }>
+      onPress={() => {
+        navigationWithId(item.key.split('')[0], item._id);
+      }}>
       <Block
         flex
         key={index}
@@ -60,7 +61,14 @@ const ItemRecommended = ({item, index, props}) => {
               radius={5}>
               <Ratting />
               <Text fontType="bold" color={theme.colors.white} marginLeft={5}>
-                {item.rate}
+                {rate
+                  .slice(0, 5)
+                  .map(itemRate =>
+                    itemRate.foodId === item._id ||
+                    itemRate.courseId === item._id
+                      ? Math.round(itemRate.rate * 10) / 10
+                      : null,
+                  )}
               </Text>
             </Block>
           </Block>
@@ -69,27 +77,25 @@ const ItemRecommended = ({item, index, props}) => {
           </Block>
         </Block>
         <Block flex>
-          {item._id.map((item, index) => (
-            <Text
-              marginTop={10}
-              size={24}
-              color={theme.colors.text}
-              numberOfLines={1}
-              fontType="bold"
-              key={index}>
-              {item.name}
-            </Text>
-          ))}
+          <Text
+            marginTop={10}
+            size={24}
+            color={theme.colors.text}
+            numberOfLines={1}
+            fontType="bold"
+            key={index}>
+            {item.name}
+          </Text>
         </Block>
         <Block alignCenter flex marginTop={30}>
-          {item._id.map((item, index) => (
+          {item.image.slice(0, 1).map((item, index) => (
             <Image
               height="100%"
               width="100%"
               key={index}
               style={styles.image}
               source={{
-                uri: item.imageItem[0],
+                uri: item,
               }}
             />
           ))}
@@ -103,16 +109,14 @@ const ItemRecommended = ({item, index, props}) => {
             backgroundColor={theme.colors.recommended}
             alignCenter
             radius={5}>
-            {item._id.map((item, index) => (
-              <Text
-                size={20}
-                numberOfLines={1}
-                fontType="bold"
-                color={theme.colors.white}
-                key={index}>
-                {item.price}
-              </Text>
-            ))}
+            <Text
+              size={20}
+              numberOfLines={1}
+              fontType="bold"
+              color={theme.colors.white}
+              key={index}>
+              {item.price}
+            </Text>
           </Block>
         </Block>
       </Block>

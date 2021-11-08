@@ -9,7 +9,8 @@ import ListMenu from './components/ListMenu';
 import ListProduct from './components/ListProduct';
 import ListRecommended from './components/ListRecommended';
 import {courseApi} from 'api/courseApi';
-import {rateApi} from 'api/rateApi';
+import {recommendedApi} from 'api/recommendedApi';
+import {bmiApi} from 'api/bmiApi';
 import {images} from '@assets';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
@@ -18,9 +19,11 @@ import {useTranslation} from 'react-i18next';
 import {width} from '@utils/responsive';
 
 const HomeScreen = props => {
+  const {
+    user: {user},
+  } = useSelector(state => state.root);
   const [data, setData] = useState([]);
   const [dataRecommended, setDataRecommended] = useState([]);
-
   const {t} = useTranslation();
   const [activeIndex, setActivateIndex] = useState(0);
   const carouselRef = useRef(null);
@@ -47,11 +50,7 @@ const HomeScreen = props => {
 
   const newArray = dataRecommended
     .map(x => ({x, r: Math.random()}))
-    .sort((a, b) => a.r - b.r)
-    .map(a => a.x)
-    .map(x => ({x, r: Math.random()}))
-    .sort((a, b) => a.r - b.r)
-    .map(a => a.x);
+    .sort((a, b) => a.r - b.r);
 
   const fetchData = async () => {
     try {
@@ -62,10 +61,18 @@ const HomeScreen = props => {
     }
   };
 
-  const fetchDataRecommended = async () => {
+  const fetchRecommendedByBMI = async () => {
     try {
-      const resData = await rateApi.getRecommendedWithRate();
-      setDataRecommended(resData);
+      const response = await bmiApi.getBMI(user.uid, {
+        validateStatus: false,
+      });
+      if (!response) {
+        const resData = await recommendedApi.getRecommendedByBMI(30, {
+          validateStatus: false,
+        });
+        console.log(resData);
+        setDataRecommended(resData);
+      }
     } catch (error) {
       console.log('error', error.message);
     }
@@ -73,7 +80,8 @@ const HomeScreen = props => {
 
   useEffect(() => {
     fetchData();
-    fetchDataRecommended();
+    fetchRecommendedByBMI();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
