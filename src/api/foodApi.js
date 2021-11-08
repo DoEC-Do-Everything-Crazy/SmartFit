@@ -90,4 +90,10 @@ const deleteFood = async (id, options) => {
   }
 };
 
-export const foodApi = {getFoods, getFood, addFood, updateFood, deleteFood};
+export const foodApi = {
+  getFoods,
+  getFood,
+  addFood,
+  updateFood,
+  deleteFood,
+};
