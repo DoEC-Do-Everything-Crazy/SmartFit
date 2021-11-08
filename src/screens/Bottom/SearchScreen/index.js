@@ -1,19 +1,20 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {Block, Header, Text, TextInput} from '@components';
 import ItemSearch from '@components/ItemList/ItemSearch';
 import {useTheme} from '@theme';
+import {searchApi} from 'api/searchApi.js';
+import {debounce} from 'lodash';
 import React, {useEffect, useState} from 'react';
-import {FlatList, Pressable} from 'react-native';
-import {DATA_SEARCH} from '@constants';
-import {Filter} from '@assets/icons';
-import {useNavigation} from '@react-navigation/core';
-import {routes} from '@navigation/routes';
+import {useTranslation} from 'react-i18next';
+import {FlatList} from 'react-native';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
-import {exitApp} from 'hook';
-import {useTranslation} from 'react-i18next';
 
-const SearchScreen = ({props, route}) => {
-  const [data, setData] = useState('');
+const SearchScreen = ({props, route, match}) => {
+  const [page, setPage] = useState(1);
+  const [dataSearch, setDataSearch] = useState([]);
+  const [name, setName] = useState('');
+  const [loadingMore, setLoadingMore] = useState(false);
   const {screen} = route?.params;
   const {t} = useTranslation();
   const {
@@ -21,13 +22,38 @@ const SearchScreen = ({props, route}) => {
   } = useSelector(state => state.root);
   const styles = useStyles(props, themeStore);
   const theme = useTheme(themeStore);
+  let stopFetchMore = false;
+  const fetchData = async () => {
+    try {
+      setDataSearch([]);
+      setPage(1);
+      if (name) {
+        const resData = await searchApi.getDataSearch(name, page);
+        setDataSearch(resData.data);
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
-  useEffect(() => {
-    exitApp();
-  }, []);
+  const loadMore = async () => {
+    setLoadingMore(true);
+    try {
+      if (!stopFetchMore) {
+        const resData = await searchApi.getDataSearch(name, page + 1);
+        setPage(page + 1);
+        setDataSearch(dataSearch.concat(resData.data));
+        stopFetchMore = true;
+      }
+      setLoadingMore(false);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
-  const navigation = useNavigation();
-  const _renderItem = ({item}) => <ItemSearch />;
+  const _renderItem = ({item}) => {
+    return <ItemSearch item={item} />;
+  };
 
   const _renderItemSearch = ({item}) => (
     <Block paddingHorizontal={16}>
@@ -36,6 +62,10 @@ const SearchScreen = ({props, route}) => {
       </Text>
     </Block>
   );
+
+  useEffect(() => {
+    fetchData();
+  }, [name]);
 
   return (
     <Block flex backgroundColor={theme.colors.backgroundSetting}>
@@ -50,24 +80,20 @@ const SearchScreen = ({props, route}) => {
             placeholder={t('search')}
             inputStyle={styles.inputStyle}
             containerInputStyle={styles.containerInputStyle}
-            rightIcon={() => (
-              <Pressable
-                onPress={() => {
-                  navigation.navigate(routes.FILTER_SCREEN);
-                }}>
-                <Block style={styles.iconSeach}>
-                  <Filter color={theme.colors.iconInf} />
-                </Block>
-              </Pressable>
-            )}
+            onChangeText={debounce(text => setName(text), 500)}
           />
         </Block>
-        {data.length > 0 ? (
+        {dataSearch.length > 0 ? (
           <FlatList
             showsVerticalScrollIndicator={false}
-            data={data}
+            data={dataSearch}
             keyExtractor={(item, index) => String(index)}
             renderItem={_renderItem}
+            onEndReached={loadMore}
+            onEndReachedThreshold={0.5}
+            onScrollBeginDrag={() => {
+              stopFetchMore = false;
+            }}
           />
         ) : (
           <Block>
@@ -87,7 +113,7 @@ const SearchScreen = ({props, route}) => {
               </Block>
               <FlatList
                 showsVerticalScrollIndicator={false}
-                data={[1, 2]}
+                data={dataSearch}
                 keyExtractor={item => item.id}
                 renderItem={_renderItem}
               />
@@ -107,7 +133,7 @@ const SearchScreen = ({props, route}) => {
               </Block>
               <FlatList
                 showsVerticalScrollIndicator={false}
-                data={DATA_SEARCH}
+                data={dataSearch}
                 keyExtractor={item => item.id}
                 renderItem={_renderItemSearch}
               />
