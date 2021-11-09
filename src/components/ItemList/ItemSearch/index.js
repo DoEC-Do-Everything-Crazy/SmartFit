@@ -6,17 +6,14 @@ import {Image, Pressable} from 'react-native';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 
-const ItemSearch = ({item, props}) => {
+const ItemSearch = ({item, props, onPress}) => {
   const navigation = useNavigation();
   const {
     theme: {theme: themeStore},
   } = useSelector(stateRoot => stateRoot.root);
   const styles = useStyles(props, themeStore);
   return (
-    <Pressable
-      key={item.key}
-      // onPress={() => navigation.navigate(routes.FOOD_DETAILS_SCREEN)}
-      style={styles.container}>
+    <Pressable key={item.key} onPress={onPress} style={styles.container}>
       <Block row alignCenter width="85%">
         <Block
           shadow
