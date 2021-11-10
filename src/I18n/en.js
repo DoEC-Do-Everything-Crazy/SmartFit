@@ -166,4 +166,6 @@ export default {
   send: 'Send',
 
   getCode: 'Get the code',
+  //Payment Screen
+  payment: 'Payment',
 };

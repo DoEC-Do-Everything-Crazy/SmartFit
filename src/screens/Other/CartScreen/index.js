@@ -9,10 +9,12 @@ import {routes} from '@navigation/routes';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
+import {useNavigation} from '@react-navigation/core';
 import {useTranslation} from 'react-i18next';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
 const CartScreen = props => {
+  const navigation = useNavigation();
   const {
     theme: {theme: themeStore},
     user: {user},
@@ -56,9 +58,7 @@ const CartScreen = props => {
             </Block>
             <Button
               title={t('confirm')}
-              // onPress={() => {
-              //   something
-              // }}
+              onPress={() => navigation.navigate(routes.PAYMENT_SCREEN)}
             />
           </Block>
         ) : (

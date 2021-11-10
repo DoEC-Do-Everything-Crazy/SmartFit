@@ -166,4 +166,6 @@ export default {
   expiry: 'HSD',
   promotionDay: 'Ngày khuyến mãi',
   getCode: 'Lấy mã',
+  //Payment Screen
+  payment: 'Thanh toán',
 };
