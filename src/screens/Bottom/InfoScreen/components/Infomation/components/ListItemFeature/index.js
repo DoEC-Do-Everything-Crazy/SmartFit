@@ -24,27 +24,22 @@ const ListItemFeature = () => {
     {
       id: 1,
       title: t('yourFavorite'),
-      image: <HeartPf color={theme.colors.iconInf} />,
+      image: <HeartPf activeColor={theme.colors.iconInf} isActive={true} />,
       navigation: routes.YOUR_FAVORITE_SCREEN,
     },
     {
       id: 2,
-      title: t('payment'),
-      image: <Payment color={theme.colors.iconInf} />,
-    },
-    {
-      id: 3,
       title: t('promotion'),
       image: <Promotion color={theme.colors.iconInf} />,
     },
     {
-      id: 4,
+      id: 3,
       title: t('order'),
       image: <Order color={theme.colors.iconInf} />,
       navigation: routes.ORDER_SCREEN,
     },
     {
-      id: 5,
+      id: 4,
       title: t('setting'),
       image: <Setting color={theme.colors.iconInf} />,
       navigation: routes.SETTING_SCREEN,

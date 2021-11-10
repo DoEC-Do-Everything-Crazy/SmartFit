@@ -9,3 +9,4 @@ export * from './appSettingReducer';
 export * from './productTypeReducer';
 export * from './cartReducer';
 export * from './imageRateReducer';
+export * from './historyReducer';

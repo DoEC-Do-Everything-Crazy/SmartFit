@@ -11,10 +11,12 @@ const lotties = {
   like: require('./lotties/like.json'),
   password: require('./lotties/password.json'),
   login: require('./lotties/login.json'),
+  emptySearch: require('./lotties/emptySearch.json'),
 };
 
 const images = {
   food: require('./images/food.png'),
+  promotion: require('./images/promotion.png'),
   boxing: require('./images/boxing.png'),
   bellyDance: require('./images/bellyDance.png'),
   danceSport: require('./images/danceSport.png'),

@@ -1,11 +1,4 @@
-import {
-  Course,
-  Discount20,
-  Discount50,
-  Equipment,
-  Food,
-  Social,
-} from '@assets/icons';
+import {Course, Discount20, Discount50, Equipment, Food} from '@assets/icons';
 import {Block} from '@components';
 import ItemMenu from '@components/ItemList/ItemMenu';
 import React from 'react';
@@ -40,16 +33,14 @@ const ListMenu = () => {
       navigation: routes.FOOD_LIST_SCREEN,
     },
     {
-      title: t('social'),
-      icon: <Social color={theme.colors.white} />,
-    },
-    {
       title: t('discount') + ' 20%',
       icon: <Discount20 color={theme.colors.white} />,
+      navigation: routes.NOTIFICATION_SCREEN,
     },
     {
       title: t('discount') + ' 50%',
       icon: <Discount50 color={theme.colors.white} />,
+      navigation: routes.NOTIFICATION_SCREEN,
     },
   ];
   const _renderItem = ({item, index}) => {

@@ -56,7 +56,6 @@ export default {
   product: 'Sản phẩm',
   food: 'Đồ ăn',
   social: 'Mạng   xã hội',
-  discount: 'Giảm',
   recommended: 'Dành cho bạn',
   seeAll: 'Tất cả',
   hotFood: 'Đồ ăn ưa thích',

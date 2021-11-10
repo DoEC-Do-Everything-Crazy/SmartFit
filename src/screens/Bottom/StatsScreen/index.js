@@ -4,20 +4,28 @@ import {Block, Button, Header, InviteLogin, Text, TextInput} from '@components';
 import {BottomSheet} from '@components/BottomSheet';
 import ItemFeature from '@components/ItemList/ItemFeature';
 import {routes} from '@navigation/routes';
+import {useTheme} from '@theme';
 import {getSize, width} from '@utils/responsive';
-import React, {useRef, useCallback, useState} from 'react';
+import {bmiApi} from 'api/bmiApi';
+import React, {useCallback, useRef, useState, useEffect} from 'react';
+import {useTranslation} from 'react-i18next';
+import {Platform, ScrollView} from 'react-native';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useSelector} from 'react-redux';
 import DateCategory from './components/DateCategory';
 import StatsBlock from './components/StatsBlock';
-import {useTheme} from '@theme';
 import {useStyles} from './styles';
-import {Platform, ScrollView} from 'react-native';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {useTranslation} from 'react-i18next';
 
 const StatsScreen = props => {
-  const [weighttUser, setWeight] = useState(0);
-  const [heightUser, setHeight] = useState(0);
+  const [weight, setWeight] = useState(0);
+  const [height, setHeight] = useState(0);
+  const [bmi, setBMI] = useState({
+    id: '',
+    type: '',
+    height: '',
+    weight: '',
+    bmi: '',
+  });
   const modalizRef = useRef(null);
   const {
     theme: {theme: themeStore},
@@ -43,15 +51,54 @@ const StatsScreen = props => {
       return <Block style={[styles.floatComponent, {height: insets.bottom}]} />;
     }
   }, [insets.bottom, styles.floatComponent]);
-  const FooterComponent = useCallback(() => {
-    return (
-      <Block>
-        <Button title={t('confirm')} />
-      </Block>
-    );
+
+  const fetchBMIData = async () => {
+    try {
+      const response = await bmiApi.getBMI(user.uid, {
+        validateStatus: false,
+      });
+      if (response) {
+        setBMI({
+          id: response._id,
+          type: response.type,
+          height: response.height,
+          weight: response.weight,
+          bmi: response.bmi,
+        });
+        setHeight(response.height);
+        setWeight(response.weight);
+      }
+    } catch (error) {
+      console.log('error', error.message);
+    }
+  };
+
+  useEffect(() => {
+    fetchBMIData();
   }, []);
 
-  return JSON.stringify(user) !== '{}' ? (
+  const handleBMI = async () => {
+    const data = {
+      userID: user.uid,
+      height: height,
+      weight: weight,
+    };
+
+    try {
+      await bmiApi.addUpdateBMI(data, {validateStatus: false});
+      fetchBMIData();
+    } catch (error) {
+      console.log('error', error.message);
+    }
+  };
+
+  const handleAddUpdateBMI = async () => {
+    modalizRef.current?.close();
+
+    handleBMI();
+  };
+
+  return JSON.stringify(user) ? (
     <>
       <Block flex backgroundColor={theme.colors.blue}>
         <Header
@@ -59,7 +106,6 @@ const StatsScreen = props => {
           title={t('stats')}
           colorTheme={theme.colors.white}
         />
-        <DateCategory />
         <Block
           row
           style={styles.container}
@@ -73,13 +119,13 @@ const StatsScreen = props => {
               widthComponent={width / 2 - 24}
               heightComponent="50%"
               title={t('height')}
-              userHeight={170}
+              userHeight={bmi.height === '' ? '0' : bmi.height + ' '}
             />
             <StatsBlock
               widthComponent={width / 2 - 24}
               heightComponent="40%"
               title={t('weight')}
-              userWeight={80}
+              userWeight={bmi.weight === '' ? '0' : bmi.weight + ' '}
             />
           </Block>
           <Block
@@ -90,14 +136,14 @@ const StatsScreen = props => {
               heightComponent="40%"
               title="BMI"
               circular={true}
-              valueCir={357}
+              valueCir={bmi.bmi}
             />
             <StatsBlock
               widthComponent={width / 2 - 24}
               heightComponent="50%"
               title={t('bodyShape')}
               heart
-              bmp
+              bmp={bmi.type === '' ? 'Do not have' : bmi.type}
             />
           </Block>
         </Block>
@@ -120,8 +166,8 @@ const StatsScreen = props => {
             ref={modalizRef}
             overlayStyle={styles.root}
             adjustToContentHeight={true}
+            closeOnOverlayTap={true}
             HeaderComponent={HeaderComponent}
-            FooterComponent={FooterComponent}
             FloatingComponent={FloatingComponent}
             scrollViewProps={{keyboardShouldPersistTaps: 'handle'}}
             keyboardAvoidingBehavior={
@@ -134,8 +180,10 @@ const StatsScreen = props => {
                     <Block flex>
                       <TextInput
                         placeholder={t('enterYourHeight')}
+                        maxLength={3}
                         leftIcon={true}
-                        value={heightUser}
+                        value={height + ''}
+                        keyboardType="numeric"
                         onChangeText={setHeight}>
                         <Height color={theme.colors.text} />
                       </TextInput>
@@ -143,8 +191,10 @@ const StatsScreen = props => {
                     <Block flex paddingTop={20}>
                       <TextInput
                         placeholder={t('enterYourWeight')}
+                        maxLength={3}
                         leftIcon={true}
-                        value={weighttUser}
+                        value={weight + ''}
+                        keyboardType="numeric"
                         onChangeText={setWeight}>
                         <Weight
                           width={24}
@@ -152,6 +202,12 @@ const StatsScreen = props => {
                           color={theme.colors.text}
                         />
                       </TextInput>
+                    </Block>
+                    <Block>
+                      <Button
+                        title={t('confirm')}
+                        onPress={handleAddUpdateBMI}
+                      />
                     </Block>
                   </Block>
                 </Block>

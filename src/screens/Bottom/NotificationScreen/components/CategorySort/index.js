@@ -16,15 +16,7 @@ const CategorySort = props => {
   const DATA_TYPE_NOTIFICATION = [
     {
       id: 1,
-      title: t('all'),
-    },
-    {
-      id: 2,
       title: t('promotion'),
-    },
-    {
-      id: 3,
-      title: t('system'),
     },
   ];
   const Item = ({item, onPress, backgroundColor, textColor}) => (

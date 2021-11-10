@@ -11,6 +11,7 @@ import {
   ThemeReducer,
   TurnSwitchReducer,
   UserReducer,
+  HistoryReducer,
 } from '../reducers/';
 import {
   FLUSH,
@@ -53,6 +54,7 @@ const persistedReducer = persistCombineReducers(persistConfig, {
   productType: ProductTypeReducer,
   image: ImageRateReducer,
   cart: CartReducer,
+  history: HistoryReducer,
   // other reducers here
 });
 

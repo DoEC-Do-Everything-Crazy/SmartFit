@@ -15,6 +15,7 @@ const ItemNavProduct = ({item, props}) => {
   const navigation = useNavigation();
   const {
     theme: {theme: themeStore},
+    cart: {wishList},
   } = useSelector(stateRoot => stateRoot.root);
   const styles = useStyles(props, themeStore);
   const theme = useTheme(themeStore);
@@ -35,7 +36,11 @@ const ItemNavProduct = ({item, props}) => {
         space="between"
         backgroundColor={theme.colors.border}>
         <Block style={styles.icon}>
-          <HeartPf color={theme.colors.red} />
+          <HeartPf
+            isActive={wishList.includes(item.key)}
+            activeColor={theme.colors.red}
+            deActiveColor={theme.colors.gray}
+          />
         </Block>
 
         <Image
@@ -56,6 +61,7 @@ const ItemNavProduct = ({item, props}) => {
           <Rating
             style={styles.ratting}
             ratingCount={5}
+            readonly={true}
             imageSize={15}
             type="custom"
             ratingColor="#FF7F50"

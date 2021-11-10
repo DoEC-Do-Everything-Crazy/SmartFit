@@ -14,6 +14,7 @@ import {width} from '@utils/responsive';
 const ItemCarousel = ({item, props}) => {
   const {
     theme: {theme: themeStore},
+    cart: {wishList},
   } = useSelector(stateRoot => stateRoot.root);
   const styles = useStyles(props, themeStore);
   const theme = useTheme(themeStore);
@@ -27,7 +28,11 @@ const ItemCarousel = ({item, props}) => {
       marginBottom={16}>
       <Image source={{uri: item.image[0]}} style={styles.image} />
       <Block shadow style={styles.heartContainer}>
-        <HeartPf color={theme.colors.red} />
+        <HeartPf
+          isActive={wishList.includes(item.key)}
+          activeColor={theme.colors.red}
+          deActiveColor={theme.colors.gray}
+        />
       </Block>
       <Block
         paddingLeft={16}
@@ -41,6 +46,7 @@ const ItemCarousel = ({item, props}) => {
           <Rating
             type="custom"
             ratingCount={5}
+            readonly={true}
             imageSize={18}
             tintColor={theme.colors.backgroundSetting}
             ratingBackgroundColor={theme.colors.lightGray}
@@ -49,27 +55,25 @@ const ItemCarousel = ({item, props}) => {
             (3)
           </Text>
         </Block>
-
         <Text size={11} marginTop={8} numberOfLines={5}>
           {item.description}
         </Text>
-        <Block flex row>
-          <Block flex alignStart>
-            <Text size={14} marginTop={8} color={'#FF7F50'} fontType="bold">
-              {`$${item.lastPrice}`}
+
+        <Block flex alignStart>
+          <Text size={14} marginTop={8} color={'#FF7F50'} fontType="bold">
+            {`$${item.lastPrice}`}
+          </Text>
+        </Block>
+        <Pressable
+          onPress={() =>
+            navigation.navigate(routes.PRODUCT_DETAIL_SCREEN, {id: item._id})
+          }>
+          <Block flex>
+            <Text size={14} color={theme.colors.link} marginTop={8}>
+              {'Detail >>'}
             </Text>
           </Block>
-          <Pressable
-            onPress={() =>
-              navigation.navigate(routes.PRODUCT_DETAIL_SCREEN, {id: item._id})
-            }>
-            <Block flex alignEnd>
-              <Text size={14} color={theme.colors.link} marginTop={8}>
-                {'Detail >>'}
-              </Text>
-            </Block>
-          </Pressable>
-        </Block>
+        </Pressable>
       </Block>
     </Block>
   );

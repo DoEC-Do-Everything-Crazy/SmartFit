@@ -14,7 +14,22 @@ export const useStyles = makeStyles()(({colors}) => ({
     position: 'absolute',
   },
   item: {
-    marginVertical: getSize.m(8),
+    marginVertical: getSize.m(5),
     paddingHorizontal: getSize.m(16),
+  },
+  imagePromotion: {
+    width: 90,
+    height: 90,
+  },
+  valuePromotion: {
+    fontWeight: 'bold',
+    color: colors.iconInf,
+    fontSize: 25,
+    textAlign: 'center',
+  },
+  expiryDate: {
+    fontWeight: 'bold',
+    color: 'white',
+    fontSize: 15,
   },
 }));

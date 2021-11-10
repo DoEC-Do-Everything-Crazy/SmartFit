@@ -22,16 +22,16 @@ const NotificationScreen = props => {
     <Block
       flex
       backgroundColor={
-        JSON.stringify(user) !== '{}' ? theme.colors.blue : null
+        JSON.stringify(user) !== '{}' ? theme.colors.white : null
       }>
       <Header
-        type={JSON.stringify(user) !== '{}' ? 'Bottom' : ''}
-        title={t('notification')}
-        colorTheme={theme.colors.white}
+        canGoBack
+        cart
+        title={t('promotion')}
+        colorTheme={theme.colors.blue}
       />
       {JSON.stringify(user) !== '{}' ? (
         <>
-          <CategorySort />
           <Block flex>
             <Block
               flex

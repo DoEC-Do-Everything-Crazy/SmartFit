@@ -1,23 +1,48 @@
 import {Block, Text} from '@components';
 import React from 'react';
-import {Image, Pressable, Alert} from 'react-native';
+import {useEffect, useState} from 'react';
+import {Image, Pressable} from 'react-native';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
+import {routes} from '@navigation/routes';
 import {useNavigation} from '@react-navigation/core';
 import {HeartLine, Ratting} from '@assets/icons';
-import {images} from '@assets';
 import {width} from '@utils/responsive';
+import {recommendedApi} from 'api/recommendedApi.js';
 
-const ItemRecommended = ({_id, title, desc, image, index, props}) => {
+const ItemRecommended = ({item, index, props}) => {
   const {
     theme: {theme: themeStore},
   } = useSelector(stateRoot => stateRoot.root);
+  const [rate, setRate] = useState([]);
   const styles = useStyles(props, themeStore);
   const theme = useTheme(themeStore);
   const navigation = useNavigation();
+
+  const fetchRateData = async () => {
+    const data = await recommendedApi.getAvgRate();
+    setRate(data);
+    console.log(data);
+  };
+
+  const navigationWithId = async (key, id) => {
+    if (key === 'F') {
+      navigation.navigate(routes.FOOD_DETAILS_SCREEN, {id: id});
+    } else {
+      navigation.navigate(routes.TAB_DETAILS, {id: id});
+    }
+  };
+
+  useEffect(() => {
+    fetchRateData();
+  }, []);
+
   return (
-    <Pressable onPress={() => Alert.alert('Chưa có')}>
+    <Pressable
+      onPress={() => {
+        navigationWithId(item.key.split('')[0], item._id);
+      }}>
       <Block
         flex
         key={index}
@@ -36,7 +61,14 @@ const ItemRecommended = ({_id, title, desc, image, index, props}) => {
               radius={5}>
               <Ratting />
               <Text fontType="bold" color={theme.colors.white} marginLeft={5}>
-                4.5
+                {rate
+                  .slice(0, 5)
+                  .map(itemRate =>
+                    itemRate.foodId === item._id ||
+                    itemRate.courseId === item._id
+                      ? Math.round(itemRate.rate * 10) / 10
+                      : null,
+                  )}
               </Text>
             </Block>
           </Block>
@@ -50,12 +82,23 @@ const ItemRecommended = ({_id, title, desc, image, index, props}) => {
             size={24}
             color={theme.colors.text}
             numberOfLines={1}
-            fontType="bold">
-            Fit Equipment
+            fontType="bold"
+            key={index}>
+            {item.name}
           </Text>
         </Block>
         <Block alignCenter flex marginTop={30}>
-          <Image source={images.equipment1} style={styles.image} />
+          {item.image.slice(0, 1).map((item, index) => (
+            <Image
+              height="100%"
+              width="100%"
+              key={index}
+              style={styles.image}
+              source={{
+                uri: item,
+              }}
+            />
+          ))}
           <Block width={width / 2} />
         </Block>
         <Block height={width / 9} />
@@ -67,11 +110,12 @@ const ItemRecommended = ({_id, title, desc, image, index, props}) => {
             alignCenter
             radius={5}>
             <Text
-              size={17}
+              size={20}
               numberOfLines={1}
               fontType="bold"
-              color={theme.colors.white}>
-              $2000
+              color={theme.colors.white}
+              key={index}>
+              {item.price}
             </Text>
           </Block>
         </Block>

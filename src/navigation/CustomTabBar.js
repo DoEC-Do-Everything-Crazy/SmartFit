@@ -18,7 +18,7 @@ const CustomTabBar = ({state, descriptors, navigation, props}) => {
   const styles = useStyles(props, themeStore);
   const theme = useTheme(themeStore);
   const TabItem = ({icon, label, active, onPress, index}) => {
-    const totalNotification = 3;
+    const totalNotification = 0;
 
     const animation = new Animated.Value(0);
 
@@ -64,7 +64,7 @@ const CustomTabBar = ({state, descriptors, navigation, props}) => {
             ]}>
             {active ? (
               <Animated.Text style={styles.label}>
-                {index === 3
+                {index === 0
                   ? totalNotification > 0
                     ? `${label} (${totalNotification || 0})`
                     : label
