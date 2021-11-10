@@ -55,27 +55,25 @@ const ItemCarousel = ({item, props}) => {
             (3)
           </Text>
         </Block>
-
         <Text size={11} marginTop={8} numberOfLines={5}>
           {item.description}
         </Text>
-        <Block flex row>
-          <Block flex alignStart>
-            <Text size={14} marginTop={8} color={'#FF7F50'} fontType="bold">
-              {`$${item.lastPrice}`}
+
+        <Block flex alignStart>
+          <Text size={14} marginTop={8} color={'#FF7F50'} fontType="bold">
+            {`$${item.lastPrice}`}
+          </Text>
+        </Block>
+        <Pressable
+          onPress={() =>
+            navigation.navigate(routes.PRODUCT_DETAIL_SCREEN, {id: item._id})
+          }>
+          <Block flex>
+            <Text size={14} color={theme.colors.link} marginTop={8}>
+              {'Detail >>'}
             </Text>
           </Block>
-          <Pressable
-            onPress={() =>
-              navigation.navigate(routes.PRODUCT_DETAIL_SCREEN, {id: item._id})
-            }>
-            <Block flex alignEnd>
-              <Text size={14} color={theme.colors.link} marginTop={8}>
-                {'Detail >>'}
-              </Text>
-            </Block>
-          </Pressable>
-        </Block>
+        </Pressable>
       </Block>
     </Block>
   );

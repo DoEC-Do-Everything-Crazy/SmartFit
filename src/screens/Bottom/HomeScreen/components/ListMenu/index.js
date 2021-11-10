@@ -40,10 +40,6 @@ const ListMenu = () => {
       navigation: routes.FOOD_LIST_SCREEN,
     },
     {
-      title: t('social'),
-      icon: <Social color={theme.colors.white} />,
-    },
-    {
       title: t('discount') + ' 20%',
       icon: <Discount20 color={theme.colors.white} />,
     },
