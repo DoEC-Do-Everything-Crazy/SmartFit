@@ -1,5 +1,6 @@
 import {Block, Text} from '@components';
 import React from 'react';
+import {width} from '@utils/responsive';
 import {useEffect, useState} from 'react';
 import {Image, Pressable} from 'react-native';
 import {useSelector} from 'react-redux';
@@ -8,7 +9,6 @@ import {useTheme} from '@theme';
 import {routes} from '@navigation/routes';
 import {useNavigation} from '@react-navigation/core';
 import {HeartLine, Ratting} from '@assets/icons';
-import {width} from '@utils/responsive';
 import {recommendedApi} from 'api/recommendedApi.js';
 
 const ItemRecommended = ({item, index, props}) => {
@@ -88,7 +88,7 @@ const ItemRecommended = ({item, index, props}) => {
           </Text>
         </Block>
         <Block alignCenter flex marginTop={30}>
-          {item.image.slice(0, 1).map((item, index) => (
+          {item.image.map((item, index) => (
             <Image
               height="100%"
               width="100%"
