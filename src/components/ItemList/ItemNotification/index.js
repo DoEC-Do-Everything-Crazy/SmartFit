@@ -42,7 +42,7 @@ const ItemNotification = ({item, props}) => {
       }}>
       <Block
         row
-        borderRadius={5}
+        borderRadius={20}
         borderWidth={2}
         borderColor={'gray'}
         padding={5}>
@@ -50,8 +50,7 @@ const ItemNotification = ({item, props}) => {
           justifyContent={'center'}
           alignItems={'center'}
           textAlign={'center'}
-          padding={7}
-          borderRadius={10}>
+          padding={7}>
           <ImageBackground
             style={styles.imagePromotion}
             source={images.promotion}>
@@ -72,13 +71,14 @@ const ItemNotification = ({item, props}) => {
           </Block>
           <Block
             marginTop={5}
-            paddingBottom={3}
+            paddingTop={1}
+            paddingBottom={1}
             backgroundColor={theme.colors.orange}
             radius={10}
             width={'75%'}
             alignItems={'center'}
             justifyContent={'center'}>
-            <Text color={'white'}>{expiryDate(item.endDate)}</Text>
+            <Text style={styles.expiryDate}>{expiryDate(item.endDate)}</Text>
           </Block>
         </Block>
       </Block>
