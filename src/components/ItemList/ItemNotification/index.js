@@ -40,31 +40,30 @@ const ItemNotification = ({item, props}) => {
       onPress={() => {
         item._id;
       }}>
-      <Block
-        row
-        borderRadius={20}
-        borderWidth={2}
-        borderColor={'gray'}
-        padding={5}>
+      <Block row borderRadius={5} borderColor={'gray'} padding={5}>
         <Block
+          paddingVertical={5}
+          borderRadius={5}
+          borderColor={'gray'}
+          backgroundColor={theme.colors.white}
           justifyContent={'center'}
           alignItems={'center'}
           textAlign={'center'}
           padding={7}>
-          <ImageBackground
-            style={styles.imagePromotion}
-            source={images.promotion}>
-            <Text style={styles.valuePromotion}>{item.value * 100 + '%'}</Text>
-          </ImageBackground>
+          <Text style={styles.valuePromotion}>{item.value * 100 + '%'}</Text>
         </Block>
-        <Block marginLeft={10} flex flexDirection={'column'}>
+        {/* Details */}
+        <Block
+          paddingVertical={5}
+          borderRadius={5}
+          paddingLeft={10}
+          flex
+          flexDirection={'column'}
+          backgroundColor={theme.colors.white}>
           <Block>
             <Text style={styles.title}>{item.name}</Text>
           </Block>
           <Block>
-            <Text style={styles.text}>
-              {'Mã giảm giá : ' + item.value * 100 + '%'}
-            </Text>
             <Text style={styles.text}>
               {'Ngày khuyến mãi: ' + ' ' + convertGetTimeToDate(item.startDate)}
             </Text>
@@ -75,7 +74,7 @@ const ItemNotification = ({item, props}) => {
             paddingBottom={1}
             backgroundColor={theme.colors.orange}
             radius={10}
-            width={'75%'}
+            width={'50%'}
             alignItems={'center'}
             justifyContent={'center'}>
             <Text style={styles.expiryDate}>{expiryDate(item.endDate)}</Text>
