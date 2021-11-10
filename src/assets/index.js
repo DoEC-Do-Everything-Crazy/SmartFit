@@ -15,6 +15,7 @@ const lotties = {
 
 const images = {
   food: require('./images/food.png'),
+  promotion: require('./images/promotion.png'),
   boxing: require('./images/boxing.png'),
   bellyDance: require('./images/bellyDance.png'),
   danceSport: require('./images/danceSport.png'),
