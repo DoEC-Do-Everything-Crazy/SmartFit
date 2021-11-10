@@ -22,7 +22,7 @@ const NotificationScreen = props => {
     <Block
       flex
       backgroundColor={
-        JSON.stringify(user) !== '{}' ? theme.colors.blue : null
+        JSON.stringify(user) !== '{}' ? theme.colors.white : null
       }>
       <Header
         canGoBack
