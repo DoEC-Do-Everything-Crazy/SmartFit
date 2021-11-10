@@ -25,9 +25,10 @@ const NotificationScreen = props => {
         JSON.stringify(user) !== '{}' ? theme.colors.blue : null
       }>
       <Header
-        type={JSON.stringify(user) !== '{}' ? 'Bottom' : ''}
-        title={t('notification')}
-        colorTheme={theme.colors.white}
+        canGoBack
+        cart
+        title={t('promotion')}
+        colorTheme={theme.colors.blue}
       />
       {JSON.stringify(user) !== '{}' ? (
         <>

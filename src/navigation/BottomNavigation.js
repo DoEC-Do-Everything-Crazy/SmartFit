@@ -37,13 +37,13 @@ const BottomTabNavigation = () => {
           tabBarLabel: t('stats'),
         }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name={routes.NOTIFICATION_SCREEN}
         component={bottom.NOTIFICATION_SCREEN}
         options={{
           tabBarLabel: t('notification'),
         }}
-      />
+      /> */}
       <Tab.Screen
         name={routes.INFO_SCREEN}
         component={bottom.INFO_SCREEN}
