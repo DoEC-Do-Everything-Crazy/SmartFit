@@ -18,7 +18,7 @@ const CustomTabBar = ({state, descriptors, navigation, props}) => {
   const styles = useStyles(props, themeStore);
   const theme = useTheme(themeStore);
   const TabItem = ({icon, label, active, onPress, index}) => {
-    const totalNotification = 2;
+    const totalNotification = 0;
 
     const animation = new Animated.Value(0);
 
