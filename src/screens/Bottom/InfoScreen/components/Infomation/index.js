@@ -27,21 +27,19 @@ const Information = props => {
         title={t('information')}
         colorTheme={theme.colors.white}
       />
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <Block
-          flex
-          style={styles.container}
-          backgroundColor={theme.colors.backgroundSetting}>
-          <InfoProfile user={user} />
-          <ListItemFeature />
-          <Button
-            title={t('logout')}
-            onPress={() => {
-              dispatch(removeUser());
-            }}
-          />
-        </Block>
-      </ScrollView>
+      <Block
+        flex
+        style={styles.container}
+        backgroundColor={theme.colors.backgroundSetting}>
+        <InfoProfile user={user} />
+        <ListItemFeature />
+        <Button
+          title={t('logout')}
+          onPress={() => {
+            dispatch(removeUser());
+          }}
+        />
+      </Block>
     </Block>
   );
 };

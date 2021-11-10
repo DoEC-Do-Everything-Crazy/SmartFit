@@ -64,7 +64,7 @@ const CustomTabBar = ({state, descriptors, navigation, props}) => {
             ]}>
             {active ? (
               <Animated.Text style={styles.label}>
-                {index === 3
+                {index === 0
                   ? totalNotification > 0
                     ? `${label} (${totalNotification || 0})`
                     : label
