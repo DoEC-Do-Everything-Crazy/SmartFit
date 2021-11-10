@@ -27,4 +27,8 @@ export const useStyles = makeStyles()(({colors}) => ({
     marginTop: 45,
     textAlign: 'center',
   },
+  expiryDate: {
+    fontWeight: 'bold',
+    color: 'white',
+  },
 }));
