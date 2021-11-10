@@ -17,4 +17,14 @@ export const useStyles = makeStyles()(({colors}) => ({
     marginVertical: getSize.m(8),
     paddingHorizontal: getSize.m(16),
   },
+  imagePromotion: {
+    width: 90,
+    height: 90,
+  },
+  valuePromotion: {
+    fontWeight: 'bold',
+    color: 'white',
+    marginTop: 45,
+    textAlign: 'center',
+  },
 }));
