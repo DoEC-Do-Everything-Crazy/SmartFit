@@ -31,7 +31,6 @@ const NotificationScreen = props => {
       />
       {JSON.stringify(user) !== '{}' ? (
         <>
-          <CategorySort />
           <Block flex>
             <Block
               flex

@@ -106,7 +106,6 @@ const StatsScreen = props => {
           title={t('stats')}
           colorTheme={theme.colors.white}
         />
-        <DateCategory />
         <Block
           row
           style={styles.container}
