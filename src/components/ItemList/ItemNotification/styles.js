@@ -14,7 +14,7 @@ export const useStyles = makeStyles()(({colors}) => ({
     position: 'absolute',
   },
   item: {
-    marginVertical: getSize.m(8),
+    marginVertical: getSize.m(5),
     paddingHorizontal: getSize.m(16),
   },
   imagePromotion: {
@@ -23,12 +23,13 @@ export const useStyles = makeStyles()(({colors}) => ({
   },
   valuePromotion: {
     fontWeight: 'bold',
-    color: 'white',
-    marginTop: 45,
+    color: colors.iconInf,
+    fontSize: 25,
     textAlign: 'center',
   },
   expiryDate: {
     fontWeight: 'bold',
     color: 'white',
+    fontSize: 15,
   },
 }));
