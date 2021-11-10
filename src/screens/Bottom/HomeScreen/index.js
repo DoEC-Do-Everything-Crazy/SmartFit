@@ -63,16 +63,15 @@ const HomeScreen = props => {
 
   const fetchRecommendedByBMI = async () => {
     try {
-      const response = await bmiApi.getBMI(user.uid, {
+      // const response = await bmiApi.getBMI(user.uid, {
+      //   validateStatus: false,
+      // });
+      // if (!response) {
+      const resData = await recommendedApi.getRecommendedByBMI(30, {
         validateStatus: false,
       });
-      if (!response) {
-        const resData = await recommendedApi.getRecommendedByBMI(30, {
-          validateStatus: false,
-        });
-        console.log(resData);
-        setDataRecommended(resData);
-      }
+      setDataRecommended(resData);
+      // }
     } catch (error) {
       console.log('error', error.message);
     }
@@ -128,7 +127,7 @@ const HomeScreen = props => {
             }
           </Block>
           <ListMenu />
-          <ListRecommended data={newArray} />
+          <ListRecommended data={dataRecommended} />
           <ListHotFood />
           <ListHotCourse data={data} />
           <ListProduct />
