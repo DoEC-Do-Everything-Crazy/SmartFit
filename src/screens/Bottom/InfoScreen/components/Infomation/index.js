@@ -8,7 +8,6 @@ import {removeUser} from 'reduxs/reducers';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {useTranslation} from 'react-i18next';
-import {ScrollView} from 'react-native';
 
 const Information = props => {
   const dispatch = useDispatch();

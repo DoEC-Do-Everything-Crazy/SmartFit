@@ -1,4 +1,4 @@
-import {Heart, WeightBig} from '@assets/icons';
+import {WeightBig} from '@assets/icons';
 import {Block, Text} from '@components';
 import React from 'react';
 import {Pressable} from 'react-native';
@@ -7,13 +7,14 @@ import {useStyles} from './styles';
 import {useSelector} from 'react-redux';
 import {useTheme} from '@theme';
 import {HeightBig} from '@assets/icons/HeightBig';
+import {getSize} from 'utils/responsive';
 
 const StatsBlock = ({
   title,
   heightComponent,
   widthComponent,
   circular,
-  heart,
+  icon,
   valueCir,
   userHeight,
   userWeight,
@@ -46,11 +47,12 @@ const StatsBlock = ({
           width={widthComponent}
           height={heightComponent}
           alignCenter
+          paddingTop={getSize.s(40)}
           justifyCenter>
           {circular ? (
             <Block alignCenter height="50%">
               <CircularProgress
-                value={valueCir}
+                value={Number(valueCir)}
                 radius={50}
                 activeStrokeColor={colorProgress}
                 inActiveStrokeColor={colorProgress}
@@ -61,8 +63,7 @@ const StatsBlock = ({
           ) : (
             <Text />
           )}
-          {heart ? <Heart color={colorProgress} /> : <Text />}
-
+          <Block paddingTop={getSize.s(40)}>{icon ? icon : <Text />}</Block>
           {userHeight && (
             <Block
               style={styles.body}
@@ -94,7 +95,15 @@ const StatsBlock = ({
               </Block>
             </Block>
           )}
-          {bmp ? <Text>{bmp}</Text> : <Text />}
+          <Block paddingTop={getSize.m(10)}>
+            {bmp ? (
+              <Text style={styles.textBody} color={theme.colors.iconInf}>
+                {bmp}
+              </Text>
+            ) : (
+              <Text />
+            )}
+          </Block>
         </Block>
       </Pressable>
     </Block>

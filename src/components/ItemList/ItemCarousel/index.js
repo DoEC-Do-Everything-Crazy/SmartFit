@@ -10,6 +10,7 @@ import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {width} from '@utils/responsive';
+import {useTranslation} from 'react-i18next';
 
 const ItemCarousel = ({item, props}) => {
   const {
@@ -19,6 +20,7 @@ const ItemCarousel = ({item, props}) => {
   const styles = useStyles(props, themeStore);
   const theme = useTheme(themeStore);
   const navigation = useNavigation();
+  const {t} = useTranslation();
   return (
     <Block
       row
@@ -69,8 +71,13 @@ const ItemCarousel = ({item, props}) => {
             navigation.navigate(routes.PRODUCT_DETAIL_SCREEN, {id: item._id})
           }>
           <Block flex>
-            <Text size={14} color={theme.colors.link} marginTop={8}>
-              {'Detail >>'}
+            <Text
+              size={14}
+              fontType="bold"
+              color={theme.colors.link}
+              marginTop={8}>
+              {t('detail')}
+              {' >>'}
             </Text>
           </Block>
         </Pressable>

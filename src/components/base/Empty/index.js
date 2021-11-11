@@ -42,7 +42,7 @@ const Empty = ({
       {contentMore && (
         <Pressable onPress={onPress}>
           <Block style={[styles.button, buttonStyles]}>
-            <Text center color="white">
+            <Text center color="black">
               {contentMore}
             </Text>
           </Block>
