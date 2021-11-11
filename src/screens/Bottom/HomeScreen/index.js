@@ -48,10 +48,6 @@ const HomeScreen = props => {
     <Image source={item.img} style={styles.image} />
   );
 
-  const newArray = dataRecommended
-    .map(x => ({x, r: Math.random()}))
-    .sort((a, b) => a.r - b.r);
-
   const fetchData = async () => {
     try {
       const resData = await courseApi.getCourses();
@@ -63,15 +59,15 @@ const HomeScreen = props => {
 
   const fetchRecommendedByBMI = async () => {
     try {
-      // const response = await bmiApi.getBMI(user.uid, {
-      //   validateStatus: false,
-      // });
-      // if (!response) {
-      const resData = await recommendedApi.getRecommendedByBMI(30, {
+      const response = await bmiApi.getBMI(user.uid, {
         validateStatus: false,
       });
-      setDataRecommended(resData);
-      // }
+      if (response) {
+        const resData = await recommendedApi.getRecommendedByBMI(response.bmi, {
+          validateStatus: false,
+        });
+        setDataRecommended(resData);
+      }
     } catch (error) {
       console.log('error', error.message);
     }

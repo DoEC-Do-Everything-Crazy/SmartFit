@@ -5,7 +5,7 @@ import {FlatList} from 'react-native';
 import {promotionApi} from 'api/promotionApi.js';
 import {useSelector} from 'react-redux';
 
-const ListNotification = () => {
+const ListNotification = props => {
   const {
     user: {user},
   } = useSelector(state => state.root);
@@ -13,9 +13,13 @@ const ListNotification = () => {
 
   const fetchRecommendedByBMI = async () => {
     try {
-      const response = await promotionApi.getPromotionByUserID(user.uid, {
-        validateStatus: false,
-      });
+      const response = await promotionApi.getPromotionByUserID(
+        user.uid,
+        props.valuePromotion / 100,
+        {
+          validateStatus: false,
+        },
+      );
       if (response) {
         setNotification(response);
       }

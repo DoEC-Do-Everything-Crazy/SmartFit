@@ -36,16 +36,18 @@ const ListMenu = () => {
       title: t('discount') + ' 20%',
       icon: <Discount20 color={theme.colors.white} />,
       navigation: routes.NOTIFICATION_SCREEN,
+      value: 20,
     },
     {
       title: t('discount') + ' 50%',
       icon: <Discount50 color={theme.colors.white} />,
       navigation: routes.NOTIFICATION_SCREEN,
+      value: 50,
     },
   ];
   const _renderItem = ({item, index}) => {
     const onPress = () => {
-      navigation.navigate(item.navigation);
+      navigation.navigate(item.navigation, {valuePromotion: item.value});
     };
     return (
       <ItemMenu
