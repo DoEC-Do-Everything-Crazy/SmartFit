@@ -175,9 +175,9 @@ const StatsScreen = props => {
             }>
             <ScrollView>
               <Block flex>
-                <Block row flex paddingTop={20} paddingHorizontal={16}>
-                  <Block flex paddingTop={20} paddingHorizontal={16}>
-                    <Block flex>
+                <Block row flex paddingTop={20}>
+                  <Block flex paddingTop={20}>
+                    <Block flex paddingHorizontal={16}>
                       <TextInput
                         placeholder={t('enterYourHeight')}
                         maxLength={3}
@@ -188,7 +188,7 @@ const StatsScreen = props => {
                         <Height color={theme.colors.text} />
                       </TextInput>
                     </Block>
-                    <Block flex paddingTop={20}>
+                    <Block flex paddingTop={20} paddingHorizontal={16}>
                       <TextInput
                         placeholder={t('enterYourWeight')}
                         maxLength={3}
