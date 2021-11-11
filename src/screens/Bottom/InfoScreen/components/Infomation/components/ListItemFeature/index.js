@@ -31,6 +31,8 @@ const ListItemFeature = () => {
       id: 2,
       title: t('promotion'),
       image: <Promotion color={theme.colors.iconInf} />,
+      navigation: routes.NOTIFICATION_SCREEN,
+      value: 20,
     },
     {
       id: 3,
@@ -48,7 +50,7 @@ const ListItemFeature = () => {
 
   const _renderItem = ({item}) => {
     const onPress = () => {
-      navigation.navigate(item.navigation);
+      navigation.navigate(item.navigation, {valuePromotion: item.value});
     };
     return (
       <ItemFeature height={50} title={item.title} onPress={onPress}>
