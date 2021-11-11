@@ -22,9 +22,9 @@ const StatsScreen = props => {
   const [bmi, setBMI] = useState({
     id: '',
     type: '',
-    height: '',
-    weight: '',
-    bmi: '',
+    height: 0,
+    weight: 0,
+    bmi: 0,
   });
   const modalizRef = useRef(null);
   const {
@@ -119,13 +119,13 @@ const StatsScreen = props => {
               widthComponent={width / 2 - 24}
               heightComponent="50%"
               title={t('height')}
-              userHeight={bmi.height === '' ? '0' : bmi.height + ' '}
+              userHeight={bmi.height === 0 ? '0' : bmi.height + ' '}
             />
             <StatsBlock
               widthComponent={width / 2 - 24}
               heightComponent="40%"
               title={t('weight')}
-              userWeight={bmi.weight === '' ? '0' : bmi.weight + ' '}
+              userWeight={bmi.weight === 0 ? '0' : bmi.weight + ' '}
             />
           </Block>
           <Block
@@ -136,7 +136,7 @@ const StatsScreen = props => {
               heightComponent="40%"
               title="BMI"
               circular={true}
-              valueCir={bmi.bmi}
+              valueCir={Number(bmi.bmi)}
             />
             <StatsBlock
               widthComponent={width / 2 - 24}

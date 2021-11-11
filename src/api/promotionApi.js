@@ -1,9 +1,9 @@
 import {apiUrl} from '@config/api';
 import axios from 'axios';
 
-const getPromotionByUserID = async (userID, options) => {
+const getPromotionByUserID = async (userID, value, options) => {
   try {
-    const response = await axios.get(`${apiUrl}/promotion/${userID}`, {
+    const response = await axios.get(`${apiUrl}/promotion/${userID}/${value}`, {
       ...options,
       validateStatus: false,
     });

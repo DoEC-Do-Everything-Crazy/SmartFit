@@ -1,10 +1,10 @@
 import {Block, Text} from '@components';
 import React from 'react';
-import {Pressable, ImageBackground} from 'react-native';
+import {Pressable} from 'react-native';
+import {useTranslation} from 'react-i18next';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
-import {images} from '@assets';
 
 const ItemNotification = ({item, props}) => {
   const {
@@ -12,6 +12,7 @@ const ItemNotification = ({item, props}) => {
   } = useSelector(stateRoot => stateRoot.root);
   const styles = useStyles(props, themeStore);
   const theme = useTheme(themeStore);
+  const {t} = useTranslation();
 
   const convertGetTimeToDate = time => {
     const endDate = new Date(time);
@@ -28,9 +29,9 @@ const ItemNotification = ({item, props}) => {
       String(currenDate.toISOString().substring(0, 10)) ===
       String(endDate.toISOString().substring(0, 10))
     ) {
-      return 'HSD sẽ hết trong hôm nay';
+      return t('warningOFD');
     } else {
-      return 'HSD : ' + String(endDate.toISOString().substring(0, 10));
+      return t('expiry') + ' ' + String(endDate.toISOString().substring(0, 10));
     }
   };
 
@@ -41,6 +42,7 @@ const ItemNotification = ({item, props}) => {
         item._id;
       }}>
       <Block row borderRadius={5} borderColor={'gray'} padding={5}>
+        {/* Value Promotion */}
         <Block
           paddingVertical={5}
           borderRadius={5}
@@ -65,7 +67,10 @@ const ItemNotification = ({item, props}) => {
           </Block>
           <Block>
             <Text style={styles.text}>
-              {'Ngày khuyến mãi: ' + ' ' + convertGetTimeToDate(item.startDate)}
+              {t('promotionDay') +
+                ':' +
+                ' ' +
+                convertGetTimeToDate(item.startDate)}
             </Text>
           </Block>
           <Block
