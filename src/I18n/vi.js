@@ -160,4 +160,8 @@ export default {
   or: 'HOẶC',
   enterOTP: 'Nhập số điện thoại của bạn để nhận OTP',
   send: 'Gửi',
+  //Notification Screen
+  warningOFD: 'HSD sẽ hết trong hôm nay',
+  expiry: 'HSD',
+  promotionDay: 'Ngày khuyến mãi',
 };

@@ -23,7 +23,6 @@ const ItemRecommended = ({item, index, props}) => {
   const fetchRateData = async () => {
     const data = await recommendedApi.getAvgRate();
     setRate(data);
-    console.log(data);
   };
 
   const navigationWithId = async (key, id) => {
@@ -88,7 +87,7 @@ const ItemRecommended = ({item, index, props}) => {
           </Text>
         </Block>
         <Block alignCenter flex marginTop={30}>
-          {item.image.map((item, index) => (
+          {item.image.slice(0, 1).map((item, index) => (
             <Image
               height="100%"
               width="100%"
@@ -115,7 +114,7 @@ const ItemRecommended = ({item, index, props}) => {
               fontType="bold"
               color={theme.colors.white}
               key={index}>
-              {item.price}
+              {item.price + ' ' + 'VNĐ'}
             </Text>
           </Block>
         </Block>
