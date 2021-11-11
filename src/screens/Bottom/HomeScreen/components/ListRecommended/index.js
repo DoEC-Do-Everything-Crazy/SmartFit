@@ -38,13 +38,13 @@ const ListRecommended = ({data, props}) => {
           </Text>
         </Pressable>
       </Block>
-      <Block marginLeft={-75} marginTop={16}>
+      <Block marginLeft={-132} marginTop={16}>
         <Carousel
           ref={carouselRef}
           hasParallaxImages={true}
           data={data.slice(0, 5)}
-          sliderWidth={width + 75}
-          itemWidth={width / 1.4}
+          sliderWidth={width + 130}
+          itemWidth={width / 1.8}
           sliderHeight={height / 2}
           renderItem={_renderItem}
           useScrollView
