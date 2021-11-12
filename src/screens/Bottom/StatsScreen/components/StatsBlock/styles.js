@@ -16,4 +16,8 @@ export const useStyles = makeStyles()(({}) => ({
     position: 'absolute',
     top: 10,
   },
+  textBody: {
+    fontWeight: 'bold',
+    fontSize: 18,
+  },
 }));

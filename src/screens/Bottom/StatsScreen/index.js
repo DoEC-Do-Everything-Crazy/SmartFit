@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import {Height, Order, Weight} from '@assets/icons';
+import {Fat, Height, Order, Ordinary, Underweight, Weight} from '@assets/icons';
+import {Overweight} from '@assets/icons/Overweight';
 import {Block, Button, Header, InviteLogin, Text, TextInput} from '@components';
 import {BottomSheet} from '@components/BottomSheet';
 import ItemFeature from '@components/ItemList/ItemFeature';
@@ -98,7 +99,7 @@ const StatsScreen = props => {
     handleBMI();
   };
 
-  return JSON.stringify(user) ? (
+  return (
     <>
       <Block flex backgroundColor={theme.colors.blue}>
         <Header
@@ -142,7 +143,17 @@ const StatsScreen = props => {
               widthComponent={width / 2 - 24}
               heightComponent="50%"
               title={t('bodyShape')}
-              heart
+              icon={
+                bmi.type === 'Underweight' ? (
+                  <Underweight color={theme.colors.iconInf} />
+                ) : bmi.type === 'Overweight' ? (
+                  <Overweight color={theme.colors.iconInf} />
+                ) : bmi.type === 'Ordinary' ? (
+                  <Ordinary color={theme.colors.iconInf} />
+                ) : (
+                  <Fat color={theme.colors.iconInf} />
+                )
+              }
               bmp={bmi.type === '' ? 'Do not have' : bmi.type}
             />
           </Block>
@@ -217,15 +228,15 @@ const StatsScreen = props => {
         </Block>
       </Block>
     </>
-  ) : (
-    <>
-      <Header
-        title="Stats"
-        colorTheme={theme.colors.blue}
-        backgroundColor={theme.colors.white}
-      />
-      <InviteLogin navigate={routes.LOGIN_SCREEN} routes={routes.INFO_SCREEN} />
-    </>
+    // ) : (
+    //   <>
+    //     <Header
+    //       title="Stats"
+    //       colorTheme={theme.colors.blue}
+    //       backgroundColor={theme.colors.white}
+    //     />
+    //     <InviteLogin navigate={routes.LOGIN_SCREEN} routes={routes.INFO_SCREEN} />
+    //   </>
   );
 };
 
