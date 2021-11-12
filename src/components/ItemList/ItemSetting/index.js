@@ -12,7 +12,6 @@ import {useDispatch, useSelector} from 'react-redux';
 import {
   changePassword,
   changeTheme,
-  turnDarkMode,
   turnPassword,
 } from 'reduxs/reducers';
 import {useStyles} from './styles';
@@ -50,10 +49,8 @@ const ItemSetting = ({data, title, index}, props) => {
     const handleDarkMode = useCallback(() => {
       if (themeStore === 'dark') {
         dispatch(changeTheme('light'));
-        dispatch(turnDarkMode());
       } else {
         dispatch(changeTheme('dark'));
-        dispatch(turnDarkMode());
       }
     }, [dispatch]);
 
