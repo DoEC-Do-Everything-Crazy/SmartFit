@@ -1,11 +1,29 @@
-import React from 'react';
-import {Block, Text, Header, TextInput} from '@components';
+import React, {useState} from 'react';
+import {Block, Text, Header, TextInput, DropDown} from '@components';
+import {getSize, width} from '@utils/responsive';
+import {useStyles} from './styles';
+import {useTranslation} from 'react-i18next';
+import {useSelector} from 'react-redux';
 
-const DeliveryInformation = () => {
+const DeliveryInformation = ({props}) => {
+  const {t} = useTranslation();
+  const styles = useStyles(props, themeStore);
+  const {
+    theme: {theme: themeStore},
+  } = useSelector(state => state.root);
+
+  const [openProvince, setOpenProvince] = useState(false);
+  const [valueProvince, setValueProvince] = useState('');
+
+  const [province, setProvince] = useState([
+    {label: 'Tiền Giang', value: 'Tiền Giang'},
+    {label: 'Long An', value: 'Long An'},
+    {label: 'Bến Tre', value: 'Bến Tre'},
+  ]);
   return (
     <Block flex>
       <Header canGoBack title="Thêm địa chỉ" />
-      <Block backgroundColor="white">
+      <Block padding={10}>
         <Text marginHorizontal={16} size={20} fontType="bold">
           Liên hệ
         </Text>
@@ -14,6 +32,47 @@ const DeliveryInformation = () => {
           <Block marginVertical={5} />
           <TextInput paddingHorizontal={10} placeholder="Số điện thoại" />
         </Block>
+      </Block>
+      <Block padding={10} backgroundColor="red">
+        <Text marginHorizontal={16} size={20} fontType="bold">
+          Liên hệ
+        </Text>
+        <DropDown
+          open={openProvince}
+          value={valueProvince}
+          items={province}
+          setOpen={setOpenProvince}
+          setValue={setValueProvince}
+          setItems={setProvince}
+          containerStyle={styles.containerDropdown}
+          boxStyle={styles.pickerBox}
+          onChangeValue={setValueProvince}
+          placeholder={'Tỉnh, thành phố'}
+        />
+        <DropDown
+          open={openProvince}
+          value={valueProvince}
+          items={province}
+          setOpen={setOpenProvince}
+          setValue={setValueProvince}
+          setItems={setProvince}
+          containerStyle={styles.containerDropdown}
+          boxStyle={styles.pickerBox}
+          onChangeValue={setValueProvince}
+          placeholder={'Tỉnh, thành phố'}
+        />
+        <DropDown
+          open={openProvince}
+          value={valueProvince}
+          items={province}
+          setOpen={setOpenProvince}
+          setValue={setValueProvince}
+          setItems={setProvince}
+          containerStyle={styles.containerDropdown}
+          boxStyle={styles.pickerBox}
+          onChangeValue={setValueProvince}
+          placeholder={'Tỉnh, thành phố'}
+        />
       </Block>
     </Block>
   );
