@@ -33,34 +33,10 @@ const DeliveryInformation = ({props}) => {
           <TextInput paddingHorizontal={10} placeholder="Số điện thoại" />
         </Block>
       </Block>
-      <Block padding={10} backgroundColor="red">
+      <Block flex padding={10} backgroundColor="red">
         <Text marginHorizontal={16} size={20} fontType="bold">
           Liên hệ
         </Text>
-        <DropDown
-          open={openProvince}
-          value={valueProvince}
-          items={province}
-          setOpen={setOpenProvince}
-          setValue={setValueProvince}
-          setItems={setProvince}
-          containerStyle={styles.containerDropdown}
-          boxStyle={styles.pickerBox}
-          onChangeValue={setValueProvince}
-          placeholder={'Tỉnh, thành phố'}
-        />
-        <DropDown
-          open={openProvince}
-          value={valueProvince}
-          items={province}
-          setOpen={setOpenProvince}
-          setValue={setValueProvince}
-          setItems={setProvince}
-          containerStyle={styles.containerDropdown}
-          boxStyle={styles.pickerBox}
-          onChangeValue={setValueProvince}
-          placeholder={'Tỉnh, thành phố'}
-        />
         <DropDown
           open={openProvince}
           value={valueProvince}
