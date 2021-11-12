@@ -32,20 +32,19 @@ const ListRecommended = ({data, props}) => {
             {t('recommended')}
           </Text>
         </Block>
-        <Pressable
-          onPress={() => navigation.navigate(routes.PRODUCT_LIST_SCREEN)}>
+        <Pressable onPress={() => navigation.navigate(routes.FOOD_LIST_SCREEN)}>
           <Text size={17} style={styles.link}>
             {t('seeAll')}
           </Text>
         </Pressable>
       </Block>
-      <Block marginLeft={-75} marginTop={16}>
+      <Block marginLeft={-132} marginTop={16}>
         <Carousel
           ref={carouselRef}
           hasParallaxImages={true}
           data={data.slice(0, 5)}
-          sliderWidth={width + 75}
-          itemWidth={width / 1.4}
+          sliderWidth={width + 130}
+          itemWidth={width / 1.8}
           sliderHeight={height / 2}
           renderItem={_renderItem}
           useScrollView

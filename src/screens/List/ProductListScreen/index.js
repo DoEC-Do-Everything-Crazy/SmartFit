@@ -45,7 +45,7 @@ const ProductListScreen = ({props, navigation, route}) => {
   );
 
   return (
-    <Block backgroundColor={theme.colors.backgroundSetting}>
+    <Block flex backgroundColor={theme.colors.backgroundSetting}>
       <ScrollView
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}>
@@ -57,7 +57,7 @@ const ProductListScreen = ({props, navigation, route}) => {
             <FlatList
               showsVerticalScrollIndicator={false}
               showsHorizontalScrollIndicator={false}
-              style={{marginTop: 16, marginLeft: 70}}
+              style={{marginTop: 16, marginLeft: 80}}
               numColumns={1}
               data={products}
               renderItem={_renderItemCarousel}

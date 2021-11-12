@@ -32,8 +32,9 @@ export default {
   logout: 'Logout',
   notUpdateYet: 'not update yet',
   //Notification Screen
-  all: 'All',
-  system: 'System',
+  warningOFD: 'Expires today',
+  expiry: 'Expiry',
+  promotionDay: 'Promotion day',
   //Stats Screen
   height: 'Height',
   weight: 'Weight',

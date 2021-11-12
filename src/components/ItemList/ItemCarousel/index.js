@@ -37,9 +37,11 @@ const ItemCarousel = ({item, props}) => {
         />
       </Block>
       <Block
+        radius={8}
+        backgroundColor={theme.colors.border}
         paddingLeft={16}
         paddingRight={2}
-        width={width * 0.4}
+        width={width * 0.38}
         numberOfLines={1}>
         <Text size={16} fontType="bold" numberOfLines={1}>
           {item.name}

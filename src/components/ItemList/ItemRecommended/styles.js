@@ -3,8 +3,8 @@ import {makeStyles} from '@theme';
 
 export const useStyles = makeStyles()(({colors}) => ({
   image: {
-    height: getSize.s(200),
-    width: width / 2,
+    height: getSize.s(160),
+    width: getSize.s(160),
   },
   container: {
     borderWidth: 1,

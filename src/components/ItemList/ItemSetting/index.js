@@ -23,7 +23,7 @@ const ItemSetting = ({data, title, index}, props) => {
   const {
     theme: {theme: themeStore},
     password: {password},
-    turn: {isTurnPassword, isTurnDarkMode},
+    turn: {isTurnPassword},
   } = useSelector(stateRoot => stateRoot.root);
 
   const styles = useStyles(props, themeStore);
@@ -192,7 +192,7 @@ const ItemSetting = ({data, title, index}, props) => {
                   index === 1
                     ? isTurnPassword
                     : index === 2
-                    ? isTurnDarkMode
+                    ? themeStore === 'dark'
                     : null
                 }
                 onValueChange={() => {
