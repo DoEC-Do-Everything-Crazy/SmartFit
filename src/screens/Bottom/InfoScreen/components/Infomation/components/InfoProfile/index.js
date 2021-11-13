@@ -43,7 +43,7 @@ const InfoProfile = ({user, props}) => {
             center
             size={18}
             marginTop={3}
-            color={theme.colors.darkBlue}
+            color={theme.colors.text}
             fontType="bold">
             {user.displayName}
           </Text>

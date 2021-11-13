@@ -59,7 +59,7 @@ const ListMenu = () => {
     );
   };
   return (
-    <Block flex alignCenter marginTop={10}>
+    <Block flex alignCenter>
       <FlatList
         showsHorizontalScrollIndicator={false}
         horizontal

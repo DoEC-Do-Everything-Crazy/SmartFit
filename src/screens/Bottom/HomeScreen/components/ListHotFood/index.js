@@ -39,7 +39,7 @@ const ListHotFood = props => {
   );
 
   return (
-    <Block flex marginTop={32} marginBottom={10}>
+    <Block flex marginTop={30} marginBottom={10}>
       <Block
         row
         alignCenter

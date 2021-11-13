@@ -93,6 +93,7 @@ export default {
   birthday: 'Ngày sinh',
   price: 'Giá',
   readMore: 'Xem thêm',
+  hidden: 'Ẩn',
   equip: 'Dụng cụ',
   supple: 'Thực phẩm chức năng',
   clothing: 'Quần áo & Phụ kiện',

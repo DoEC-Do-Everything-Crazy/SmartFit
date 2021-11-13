@@ -8,7 +8,7 @@ export const useStyles = makeStyles()(({colors}) => ({
   },
   image: {
     width: '100%',
-    height: getSize.s(160),
+    height: getSize.s(130),
     borderRadius: getSize.s(8),
   },
   pagination: {

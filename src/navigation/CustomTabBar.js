@@ -2,6 +2,7 @@ import {Chart, Home, Info, Notification, Search} from '@assets/icons';
 import {makeStyles, useTheme} from '@theme';
 import {getSize} from '@utils/responsive';
 import React from 'react';
+import LinearGradient from 'react-native-linear-gradient';
 import {
   Animated,
   StyleSheet,
@@ -48,7 +49,16 @@ const CustomTabBar = ({state, descriptors, navigation, props}) => {
         <Animated.View style={styles.container}>
           <Animated.View
             style={[StyleSheet.absoluteFill, {transform: [{translateX}]}]}>
-            <Animated.View style={[styles.cover, {opacity: animation}]} />
+            <Animated.View style={[styles.cover, {opacity: animation}]}>
+              {themeStore === 'dark' ? (
+                <LinearGradient
+                  start={{x: 0, y: 0}}
+                  end={{x: 1, y: 0}}
+                  colors={['#70A2FF', '#54F0D1']}
+                  style={styles.coverDark}
+                />
+              ) : null}
+            </Animated.View>
           </Animated.View>
           <Animated.View
             style={{
@@ -83,7 +93,11 @@ const CustomTabBar = ({state, descriptors, navigation, props}) => {
         const label =
           options.tabBarLabel !== undefined ? options.tabBarLabel : route.name;
         const isFocused = state.index === index;
-        const color = isFocused ? theme.colors.white : theme.colors.lightText;
+        const color = isFocused
+          ? theme.colors.white
+          : themeStore === 'dark'
+          ? theme.colors.white
+          : theme.colors.lightText;
         const iconTab =
           route.name === routes.HOME_SCREEN ? (
             <Home color={color} />
@@ -148,6 +162,10 @@ export const useStyles = makeStyles()(({colors}) => ({
     height: getSize.s(40),
     borderRadius: getSize.m(8),
     backgroundColor: colors.blue,
+  },
+  coverDark: {
+    height: getSize.s(40),
+    borderRadius: getSize.m(8),
   },
 }));
 

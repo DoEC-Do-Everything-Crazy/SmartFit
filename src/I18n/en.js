@@ -94,6 +94,7 @@ export default {
   birthday: 'Birthday',
   price: 'Price',
   readMore: 'Read more',
+  hidden: 'Hidden',
   equip: 'Equip',
   supple: 'Supple',
   clothing: 'Clothing & Accessories',

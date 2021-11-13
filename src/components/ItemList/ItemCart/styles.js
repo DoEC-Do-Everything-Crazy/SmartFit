@@ -15,7 +15,9 @@ export const useStyles = makeStyles()(({}) => ({
     borderRadius: getSize.m(15),
   },
   text: {
+    fontSize: 15,
     color: 'white',
     fontWeight: 'bold',
+    textAlign: 'center',
   },
 }));

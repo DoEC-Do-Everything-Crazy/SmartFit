@@ -18,6 +18,8 @@ export const useStyles = makeStyles()(({colors, font}) => ({
     borderBottomLeftRadius: getSize.s(16),
   },
   header: {
+    height: getSize.s(50),
+    justifyContent: 'center',
     borderTopLeftRadius: getSize.s(16),
     backgroundColor: `${colors.headerDetail}99`,
     width: '100%',
@@ -26,6 +28,8 @@ export const useStyles = makeStyles()(({colors, font}) => ({
     top: 0,
   },
   bottom: {
+    height: getSize.s(30),
+    justifyContent: 'center',
     borderBottomLeftRadius: getSize.s(16),
     backgroundColor: `${colors.headerDetail}99`,
     width: '100%',

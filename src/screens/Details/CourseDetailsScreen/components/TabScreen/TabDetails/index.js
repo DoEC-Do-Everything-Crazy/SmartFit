@@ -314,14 +314,14 @@ const TabDetails = ({route, props}) => {
                 <Block
                   row
                   marginTop={20}
-                  paddingBottom={50}
+                  paddingBottom={20}
                   paddingHorizontal={16}>
                   <Text fontType="bold" size={17}>
                     {t('review')}:
                   </Text>
                   <Pressable onPress={handleShowReview}>
                     <Text style={styles.link} marginLeft={15} size={17}>
-                      {t('readMore')}
+                      {isShowReview ? t('hidden') : t('readMore')}
                     </Text>
                   </Pressable>
                 </Block>

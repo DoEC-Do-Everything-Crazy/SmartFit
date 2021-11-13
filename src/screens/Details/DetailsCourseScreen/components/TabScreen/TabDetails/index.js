@@ -15,7 +15,7 @@ import {useDispatch, useSelector} from 'react-redux';
 /* eslint-disable react-hooks/exhaustive-deps */
 import {Back} from '@assets/icons';
 import {BottomSheet} from '@components/BottomSheet';
-import {DATA_REVIEW} from '@constants/';
+
 import ItemPT from '@components/ItemList/ItemPT';
 import LinearGradient from 'react-native-linear-gradient';
 import {Rating} from 'react-native-ratings';
@@ -316,14 +316,14 @@ const TabDetails = ({route, props}) => {
                 <Block
                   row
                   marginTop={20}
-                  paddingBottom={50}
+                  paddingBottom={20}
                   paddingHorizontal={16}>
                   <Text fontType="bold" size={17}>
                     {t('review')}:
                   </Text>
                   <Pressable onPress={handleShowReview}>
                     <Text style={styles.link} marginLeft={15} size={17}>
-                      {t('readMore')}
+                      {isShowReview ? t('hidden') : t('readMore')}
                     </Text>
                   </Pressable>
                 </Block>
