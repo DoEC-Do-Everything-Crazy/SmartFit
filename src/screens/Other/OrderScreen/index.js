@@ -94,6 +94,7 @@ const OrderScreen = props => {
         />
         <Block
           flex
+          marginTop={20}
           paddingHorizontal={16}
           backgroundColor={theme.colors.backgroundSetting}>
           <ScrollView

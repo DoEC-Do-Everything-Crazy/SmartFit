@@ -10,7 +10,7 @@ export const useStyles = makeStyles()(({colors}) => ({
     justifyContent: 'center',
     alignItems: 'center',
     borderColor: colors.border,
-    backgroundColor: colors.header,
+    backgroundColor: colors.border,
     zIndex: 100,
   },
   arrowLeftBack: {
