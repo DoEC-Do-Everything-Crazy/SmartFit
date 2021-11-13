@@ -1,5 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import {Fat, Height, Order, Ordinary, Underweight, Weight} from '@assets/icons';
+import {
+  Body,
+  Fat,
+  Height,
+  Order,
+  Ordinary,
+  Underweight,
+  Weight,
+} from '@assets/icons';
 import {Overweight} from '@assets/icons/Overweight';
 import {Block, Button, Header, InviteLogin, Text, TextInput} from '@components';
 import {BottomSheet} from '@components/BottomSheet';
@@ -150,6 +158,8 @@ const StatsScreen = props => {
                   <Overweight color={theme.colors.iconInf} />
                 ) : bmi.type === 'Ordinary' ? (
                   <Ordinary color={theme.colors.iconInf} />
+                ) : bmi.type === '' ? (
+                  <Body color={theme.colors.iconInf} />
                 ) : (
                   <Fat color={theme.colors.iconInf} />
                 )

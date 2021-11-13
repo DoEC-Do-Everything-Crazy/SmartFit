@@ -71,7 +71,7 @@ const StatsBlock = ({
               row
               alignCenter
               justifyCenter>
-              <HeightBig color={theme.colors.text} />
+              <HeightBig color={theme.colors.iconInf} />
               <Block marginLeft={5} column alignCenter>
                 <Text style={styles.clock} color={theme.colors.iconInf}>
                   {userHeight}
@@ -84,7 +84,7 @@ const StatsBlock = ({
           )}
           {userWeight && (
             <Block style={styles.body} row alignCenter justifyCenter>
-              <WeightBig color={theme.colors.text} />
+              <WeightBig color={theme.colors.iconInf} />
               <Block marginLeft={5} column alignCenter>
                 <Text style={styles.clock} color={theme.colors.iconInf}>
                   {userWeight}
