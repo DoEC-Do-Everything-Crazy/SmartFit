@@ -13,7 +13,8 @@ const ListNotification = props => {
   } = useSelector(state => state.root);
   const [notification, setNotification] = useState([]);
   const theme = useTheme(themeStore);
-  const fetchRecommendedByBMI = async () => {
+
+  const fetchPromotion = async () => {
     try {
       const response = await promotionApi.getPromotionByUserID(
         user.uid,
@@ -31,7 +32,7 @@ const ListNotification = props => {
   };
 
   useEffect(() => {
-    fetchRecommendedByBMI();
+    fetchPromotion();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
