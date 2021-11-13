@@ -165,4 +165,5 @@ export default {
   warningOFD: 'HSD sẽ hết trong hôm nay',
   expiry: 'HSD',
   promotionDay: 'Ngày khuyến mãi',
+  getCode: 'Lấy mã',
 };

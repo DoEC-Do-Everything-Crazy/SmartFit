@@ -197,7 +197,7 @@ const TabDetails = ({route, props}) => {
           colorTheme={theme.colors.black}
         />
       ) : null}
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <Block paddingTop={20}>
           <Block paddingHorizontal={16}>
             <Carousel

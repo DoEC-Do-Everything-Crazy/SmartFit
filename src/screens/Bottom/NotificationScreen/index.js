@@ -19,11 +19,7 @@ const NotificationScreen = ({route, props}) => {
   const {t} = useTranslation();
 
   return (
-    <Block
-      flex
-      backgroundColor={
-        JSON.stringify(user) !== '{}' ? theme.colors.white : null
-      }>
+    <Block flex backgroundColor={theme.colors.backgroundSetting}>
       <Header
         canGoBack
         cart
@@ -33,10 +29,7 @@ const NotificationScreen = ({route, props}) => {
       {JSON.stringify(user) !== '{}' ? (
         <>
           <Block flex>
-            <Block
-              flex
-              style={styles.container}
-              backgroundColor={theme.colors.backgroundSetting}>
+            <Block flex backgroundColor={theme.colors.backgroundSetting}>
               <ListNotification valuePromotion={valuePromotion} />
             </Block>
           </Block>

@@ -194,7 +194,7 @@ const StatsScreen = props => {
             keyboardAvoidingBehavior={
               Platform.OS === 'ios' ? 'padding' : 'height'
             }>
-            <ScrollView>
+            <ScrollView showsVerticalScrollIndicator={false}>
               <Block flex>
                 <Block row flex paddingTop={20}>
                   <Block flex paddingTop={20}>

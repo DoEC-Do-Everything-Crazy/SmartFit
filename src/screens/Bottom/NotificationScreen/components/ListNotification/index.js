@@ -4,13 +4,15 @@ import React, {useState, useEffect} from 'react';
 import {FlatList} from 'react-native';
 import {promotionApi} from 'api/promotionApi.js';
 import {useSelector} from 'react-redux';
+import {useTheme} from '@theme';
 
 const ListNotification = props => {
   const {
+    theme: {theme: themeStore},
     user: {user},
   } = useSelector(state => state.root);
   const [notification, setNotification] = useState([]);
-
+  const theme = useTheme(themeStore);
   const fetchRecommendedByBMI = async () => {
     try {
       const response = await promotionApi.getPromotionByUserID(
@@ -36,7 +38,7 @@ const ListNotification = props => {
   const _renderItem = ({item}) => <ItemNotification item={item} />;
 
   return (
-    <Block marginTop={10}>
+    <Block marginTop={10} backgroundColor={theme.colors.backgroundSetting}>
       <FlatList
         showsVerticalScrollIndicator={false}
         nestedScrollEnabled

@@ -164,4 +164,6 @@ export default {
   //PhoneNumber Screen
   enterOTP: 'Enter your phone number to receive OTP',
   send: 'Send',
+
+  getCode: 'Get the code',
 };

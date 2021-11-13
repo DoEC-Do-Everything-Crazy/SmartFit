@@ -159,7 +159,7 @@ const ItemOrder = ({picture, title, group_id, onPress, index, props}) => {
           keyboardAvoidingBehavior={
             Platform.OS === 'ios' ? 'padding' : 'height'
           }>
-          <ScrollView>
+          <ScrollView showsVerticalScrollIndicator={false}>
             <Block flex backgroundColor={theme.colors.backgroundSetting}>
               <Block
                 flex

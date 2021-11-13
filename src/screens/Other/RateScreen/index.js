@@ -136,7 +136,10 @@ const RateScreen = ({route, props}) => {
           padding={16}
           marginTop={15}
           backgroundColor={theme.colors.backgroundSetting}>
-          <ScrollView horizontal>
+          <ScrollView
+            horizontal
+            showsVerticalScrollIndicator={false}
+            showsHorizontalScrollIndicator={false}>
             {image.map((item, index) => (
               <Image
                 source={{
@@ -146,7 +149,6 @@ const RateScreen = ({route, props}) => {
                 style={styles.image}
               />
             ))}
-
             <Block
               backgroundColor={theme.colors.border}
               justifyCenter
