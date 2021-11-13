@@ -8,7 +8,7 @@ import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {routes} from '@navigation/routes';
 import {useNavigation} from '@react-navigation/core';
-import {HeartLine, Ratting} from '@assets/icons';
+import {HeartPf, Ratting} from '@assets/icons';
 import {recommendedApi} from 'api/recommendedApi.js';
 
 const ItemRecommended = ({item, index, props}) => {
@@ -55,7 +55,7 @@ const ItemRecommended = ({item, index, props}) => {
             <Block
               row
               alignCenter
-              backgroundColor={theme.colors.recommended}
+              backgroundColor={'#045694'}
               paddingHorizontal={10}
               radius={5}>
               <Ratting />
@@ -72,13 +72,13 @@ const ItemRecommended = ({item, index, props}) => {
             </Block>
           </Block>
           <Block justifyEnd>
-            <HeartLine color={theme.colors.lightGray} />
+            <HeartPf color={theme.colors.lightGray} />
           </Block>
         </Block>
         <Block flex>
           <Text
             marginTop={10}
-            size={20}
+            size={16}
             color={theme.colors.text}
             numberOfLines={1}
             fontType="bold"
@@ -103,13 +103,10 @@ const ItemRecommended = ({item, index, props}) => {
         <Block height={width / 12} />
         <Block row flex>
           <Block style={styles.space} />
-          <Block
-            flex
-            backgroundColor={theme.colors.recommended}
-            alignCenter
-            radius={5}>
+          <Block flex backgroundColor={'#045694'} alignCenter radius={5}>
             <Text
-              size={18}
+              margin={2}
+              size={16}
               numberOfLines={1}
               fontType="bold"
               color={theme.colors.white}

@@ -10,7 +10,9 @@ import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {changePassword} from 'reduxs/reducers';
 import {useTranslation} from 'react-i18next';
+import {KeyboardAvoidingView, Platform} from 'react-native';
 
+const keyboardVerticalOffset = Platform.OS === 'ios' ? 'padding' : 'height';
 const ChangePassword = props => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -50,58 +52,63 @@ const ChangePassword = props => {
         isValid,
         dirty,
       }) => (
-        <Block flex>
-          <Header
-            canGoBack
-            title={t('changePassword')}
-            colorTheme={theme.colors.blue}
-          />
-          <Block
-            flex
-            justifyCenter
-            paddingHorizontal={16}
-            backgroundColor={theme.colors.backgroundSetting}>
-            <Text size={18} center fontType="bold" color={theme.colors.text}>
-              {t('enterNewPassword')}
-            </Text>
-            <TextInput
-              inputStyle={{paddingHorizontal: 16}}
-              onChangeText={handleChange('password')}
-              value={values.password}
-              containerInputStyle={{width: width - 32, marginTop: 16}}
-              placeholder={t('enterNewPassword')}
-              onBlur={handleBlur('password')}
-              isSecure
-            />
-            <Block marginTop={8} marginBottom={24}>
-              {errors.password && touched.password && (
-                <Text style={styles.text}>{errors.password}</Text>
-              )}
-            </Block>
-            <TextInput
-              inputStyle={{paddingHorizontal: 16}}
-              onChangeText={handleChange('confirmPassword')}
-              value={values.confirmPassword}
-              containerInputStyle={{width: width - 32, marginTop: 16}}
-              placeholder={t('enterConfimPassword')}
-              onBlur={handleBlur('confirmPassword')}
-              isSecure
-            />
-            <Block marginTop={8} marginBottom={24}>
-              {errors.confirmPassword && touched.confirmPassword && (
-                <Text style={styles.text}>{errors.confirmPassword}</Text>
-              )}
-            </Block>
-          </Block>
-          <Block backgroundColor={theme.colors.backgroundSetting}>
-            <Button
-              disabled={dirty && isValid ? false : true}
-              containerStyle={{justifyContent: 'flex-end'}}
-              onPress={handleSubmit}
+        <KeyboardAvoidingView
+          style={styles.sendControlContainerOuter}
+          behavior={keyboardVerticalOffset}
+          keyboardVerticalOffset={-5}>
+          <Block flex>
+            <Header
+              canGoBack
               title={t('changePassword')}
+              colorTheme={theme.colors.blue}
             />
+            <Block
+              flex
+              justifyCenter
+              paddingHorizontal={16}
+              backgroundColor={theme.colors.backgroundSetting}>
+              <Text size={18} center fontType="bold" color={theme.colors.text}>
+                {t('enterNewPassword')}
+              </Text>
+              <TextInput
+                inputStyle={{paddingHorizontal: 16}}
+                onChangeText={handleChange('password')}
+                value={values.password}
+                containerInputStyle={{width: width - 32, marginTop: 16}}
+                placeholder={t('enterNewPassword')}
+                onBlur={handleBlur('password')}
+                isSecure
+              />
+              <Block marginTop={8} marginBottom={24}>
+                {errors.password && touched.password && (
+                  <Text style={styles.text}>{errors.password}</Text>
+                )}
+              </Block>
+              <TextInput
+                inputStyle={{paddingHorizontal: 16}}
+                onChangeText={handleChange('confirmPassword')}
+                value={values.confirmPassword}
+                containerInputStyle={{width: width - 32, marginTop: 16}}
+                placeholder={t('enterConfimPassword')}
+                onBlur={handleBlur('confirmPassword')}
+                isSecure
+              />
+              <Block marginTop={8} marginBottom={24}>
+                {errors.confirmPassword && touched.confirmPassword && (
+                  <Text style={styles.text}>{errors.confirmPassword}</Text>
+                )}
+              </Block>
+            </Block>
+            <Block backgroundColor={theme.colors.backgroundSetting}>
+              <Button
+                disabled={dirty && isValid ? false : true}
+                containerStyle={{justifyContent: 'flex-end'}}
+                onPress={handleSubmit}
+                title={t('changePassword')}
+              />
+            </Block>
           </Block>
-        </Block>
+        </KeyboardAvoidingView>
       )}
     </Formik>
   );

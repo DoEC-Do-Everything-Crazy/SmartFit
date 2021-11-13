@@ -93,6 +93,7 @@ export default {
   birthday: 'Ngày sinh',
   price: 'Giá',
   readMore: 'Xem thêm',
+  hidden: 'Ẩn',
   equip: 'Dụng cụ',
   supple: 'Thực phẩm chức năng',
   clothing: 'Quần áo & Phụ kiện',
@@ -164,4 +165,5 @@ export default {
   warningOFD: 'HSD sẽ hết trong hôm nay',
   expiry: 'HSD',
   promotionDay: 'Ngày khuyến mãi',
+  getCode: 'Lấy mã',
 };

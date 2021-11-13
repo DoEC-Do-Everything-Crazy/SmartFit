@@ -1,10 +1,12 @@
 import {Block, Text} from '@components';
-import React from 'react';
+import React, {useCallback} from 'react';
 import {Pressable} from 'react-native';
 import {useTranslation} from 'react-i18next';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
+import Clipboard from '@react-native-clipboard/clipboard';
+import Snackbar from 'react-native-snackbar';
 
 const ItemNotification = ({item, props}) => {
   const {
@@ -19,6 +21,13 @@ const ItemNotification = ({item, props}) => {
 
     return String(endDate.toISOString().substring(0, 10));
   };
+  const handleCopyToClipBoard = useCallback(value => {
+    Clipboard.setString(value);
+    Snackbar.show({
+      text: 'Coppied!',
+      duration: Snackbar.LENGTH_SHORT,
+    });
+  }, []);
 
   const expiryDate = time => {
     const endDate = new Date(time);
@@ -45,44 +54,59 @@ const ItemNotification = ({item, props}) => {
         {/* Value Promotion */}
         <Block
           paddingVertical={5}
+          width={80}
           borderRadius={5}
           borderColor={'gray'}
-          backgroundColor={theme.colors.white}
-          justifyContent={'center'}
-          alignItems={'center'}
+          backgroundColor={theme.colors.border}
+          justifyCenter
+          alignCenter
           textAlign={'center'}
           padding={7}>
-          <Text style={styles.valuePromotion}>{item.value * 100 + '%'}</Text>
+          <Text center style={styles.valuePromotion}>
+            {item.value * 100 + '%'}
+          </Text>
         </Block>
         {/* Details */}
         <Block
-          paddingVertical={5}
           borderRadius={5}
           paddingLeft={10}
           flex
           flexDirection={'column'}
-          backgroundColor={theme.colors.white}>
-          <Block>
-            <Text style={styles.title}>{item.name}</Text>
-          </Block>
-          <Block>
-            <Text style={styles.text}>
-              {t('promotionDay') +
-                ':' +
-                ' ' +
-                convertGetTimeToDate(item.startDate)}
+          backgroundColor={theme.colors.border}>
+          <Block paddingLeft={10} paddingVertical={15}>
+            <Text paddingBottom={5} style={styles.title}>
+              {item.name}
             </Text>
-          </Block>
-          <Block
-            marginTop={5}
-            paddingTop={1}
-            paddingBottom={1}
-            backgroundColor={theme.colors.orange}
-            radius={10}
-            width={'50%'}
-            alignItems={'center'}
-            justifyContent={'center'}>
-            <Text style={styles.expiryDate}>{expiryDate(item.endDate)}</Text>
+            <Block>
+              <Text style={styles.text}>
+                {t('promotionDay') +
+                  ':' +
+                  ' ' +
+                  convertGetTimeToDate(item.startDate)}
+              </Text>
+            </Block>
+            <Block row>
+              <Block
+                marginTop={5}
+                paddingTop={1}
+                paddingBottom={1}
+                backgroundColor={theme.colors.orange}
+                radius={10}
+                width={'50%'}
+                alignItems={'center'}
+                justifyContent={'center'}>
+                <Text style={styles.expiryDate}>
+                  {expiryDate(item.endDate)}
+                </Text>
+              </Block>
+              <Block justifyCenter style={styles.code}>
+                <Pressable onPress={() => handleCopyToClipBoard('')}>
+                  <Text fontType="bold" color={theme.colors.link}>
+                    {t('getCode')}
+                  </Text>
+                </Pressable>
+              </Block>
+            </Block>
           </Block>
         </Block>
       </Block>

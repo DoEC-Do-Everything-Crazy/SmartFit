@@ -42,7 +42,9 @@ const FilterScreen = props => {
           Filter Search
         </Text>
       </Block>
-      <ScrollView>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        showsHorizontalScrollIndicator={false}>
         <Block
           borderBottomWidth={1}
           borderBottomColor={

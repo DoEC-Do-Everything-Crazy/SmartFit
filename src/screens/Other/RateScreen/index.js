@@ -1,10 +1,4 @@
-import {
-  Block,
-  Button,
-  Header as HeaderComponent,
-  Text,
-  TextInput,
-} from '@components';
+import {Block, Button, Header, Text, TextInput} from '@components';
 import {Image, Pressable, ScrollView} from 'react-native';
 import {PERMISSION_TYPE, checkPermission} from '../../../hook';
 import React, {useState} from 'react';
@@ -98,19 +92,14 @@ const RateScreen = ({route, props}) => {
   };
 
   return (
-    <Block flex>
-      <>
-        <HeaderComponent
-          canGoBack
-          title={t('ratting')}
-          colorTheme={theme.colors.blue}
-        />
-        <Block backgroundColor={theme.colors.backgroundSetting}>
-          <Block paddingVertical={15}>
-            <Text center fontType="bold" size={16}>
-              {t('whatIsYouRate')}
-            </Text>
-          </Block>
+    <Block flex backgroundColor={theme.colors.backgroundSetting}>
+      <Header canGoBack title={t('ratting')} colorTheme={theme.colors.black} />
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <Block paddingVertical={15} marginTop={5}>
+          <Text center fontType="bold" size={16}>
+            {t('whatIsYouRate')}
+          </Text>
+
           <Rating
             type="custom"
             ratingCount={5}
@@ -147,7 +136,10 @@ const RateScreen = ({route, props}) => {
           padding={16}
           marginTop={15}
           backgroundColor={theme.colors.backgroundSetting}>
-          <ScrollView horizontal>
+          <ScrollView
+            horizontal
+            showsVerticalScrollIndicator={false}
+            showsHorizontalScrollIndicator={false}>
             {image.map((item, index) => (
               <Image
                 source={{
@@ -157,14 +149,16 @@ const RateScreen = ({route, props}) => {
                 style={styles.image}
               />
             ))}
-
             <Block
               backgroundColor={theme.colors.border}
               justifyCenter
               alignCenter
               style={styles.image}>
               <Pressable onPress={handleGallery}>
-                <Image style={{tintColor: 'blue'}} source={icons.gallery} />
+                <Image
+                  style={{tintColor: themeStore === 'dark' ? 'white' : 'blue'}}
+                  source={icons.gallery}
+                />
               </Pressable>
               <Text paddingVertical={5} center fontType="bold" size={12}>
                 {t('choosePhoto')}
@@ -184,10 +178,10 @@ const RateScreen = ({route, props}) => {
             </Block>
           </ScrollView>
         </Block>
-        <Block style={styles.button}>
-          <Button title={t('sendReview')} onPress={handleFormSubmit} />
-        </Block>
-      </>
+      </ScrollView>
+      <Block style={styles.button}>
+        <Button title={t('sendReview')} onPress={handleFormSubmit} />
+      </Block>
     </Block>
   );
 };

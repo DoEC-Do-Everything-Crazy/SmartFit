@@ -47,3 +47,7 @@ export * from './CameraTouch';
 export * from './WeightBig';
 export * from './HeightBig';
 export * from './List';
+export * from './Fat';
+export * from './Underweight';
+export * from './Ordinary';
+export * from './Body';

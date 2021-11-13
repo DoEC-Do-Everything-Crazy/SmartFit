@@ -32,4 +32,9 @@ export const useStyles = makeStyles()(({colors}) => ({
     color: 'white',
     fontSize: 15,
   },
+  code: {
+    position: 'absolute',
+    right: 16,
+    top: 5,
+  },
 }));

@@ -43,15 +43,15 @@ const CustomTabBar = ({state, descriptors, navigation, props}) => {
       try {
         if (active) {
           viewRef.current.animate({
-            0: {scale: 1, rotate: '0deg'},
-            1: {scale: 1.5, rotate: '360deg'},
+            0: {scale: 1},
+            1: {scale: 1.5},
           });
         }
         if (state.history.length > 0) {
           if (keyItem === state.history[state.history.length - 2].key) {
             viewRef.current.animate({
-              0: {scale: 1.5, rotate: '360deg'},
-              1: {scale: 1, rotate: '0deg'},
+              0: {scale: 1.5},
+              1: {scale: 1},
             });
           }
         }
@@ -86,7 +86,7 @@ const CustomTabBar = ({state, descriptors, navigation, props}) => {
           <Animatable.View
             ref={viewRef}
             animation={active ? 'zoomIn' : null}
-            duration={1000}>
+            duration={500}>
             {icon}
           </Animatable.View>
         </Animated.View>

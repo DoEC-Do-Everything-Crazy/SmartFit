@@ -62,12 +62,7 @@ const ProductContent = ({food, props}) => {
           backgroundColor={theme.colors.border}>
           <Block flex alignCenter justifyCenter>
             <Block style={styles.header}>
-              <Text
-                center
-                size={22}
-                marginTop={20}
-                fontType="bold"
-                marginHorizontal={16}>
+              <Text center size={22} fontType="bold" marginHorizontal={16}>
                 {food.name}
               </Text>
             </Block>

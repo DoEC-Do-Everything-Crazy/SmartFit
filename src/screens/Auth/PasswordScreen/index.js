@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import {Block, Empty, Text, Button, TextInput} from '@components';
 
-import {Dimensions} from 'react-native';
+import {Dimensions, KeyboardAvoidingView, Platform} from 'react-native';
 import React, {useCallback, useEffect, useState} from 'react';
 import {lotties} from '@assets';
 import {routes} from '@navigation/routes';
@@ -13,6 +13,7 @@ import {useSelector} from 'react-redux';
 import {exitApp} from 'hook';
 import {useTranslation} from 'react-i18next';
 
+const keyboardVerticalOffset = Platform.OS === 'ios' ? 'padding' : 'height';
 const {width: SliderWidth} = Dimensions.get('screen');
 
 const PasswordScreen = props => {
@@ -40,39 +41,44 @@ const PasswordScreen = props => {
     }
   }, [navigation, passInput, password]);
   return (
-    <Block style={styles.root}>
-      <Block style={styles.renderRoot}>
-        <Block flex />
-        <Block flex>
-          <Empty lottie={lotties.password} />
+    <KeyboardAvoidingView
+      style={styles.sendControlContainerOuter}
+      behavior={keyboardVerticalOffset}
+      keyboardVerticalOffset={-5}>
+      <Block style={styles.root}>
+        <Block style={styles.renderRoot}>
+          <Block flex />
+          <Block flex>
+            <Empty lottie={lotties.password} />
+          </Block>
+          <Block flex>
+            <Text style={styles.renderTitle}>{t('enterPassword')}</Text>
+            <Text style={styles.renderText}>{t('pleaseEnter')}</Text>
+          </Block>
+          <Block
+            flex
+            marginBottom={10}
+            width={SliderWidth}
+            paddingHorizontal={16}>
+            <TextInput
+              onChangeText={setPassInput}
+              value={passInput}
+              isSecure
+              inputStyle={styles.textInput}
+              placeholder={t('enterPassword')}
+            />
+            <Text style={styles.text}>{textError}</Text>
+          </Block>
         </Block>
-        <Block flex>
-          <Text style={styles.renderTitle}>{t('enterPassword')}</Text>
-          <Text style={styles.renderText}>{t('pleaseEnter')}</Text>
-        </Block>
-        <Block
-          flex
-          marginBottom={10}
-          width={SliderWidth}
-          paddingHorizontal={16}>
-          <TextInput
-            onChangeText={setPassInput}
-            value={passInput}
-            isSecure
-            inputStyle={styles.textInput}
-            placeholder={t('enterPassword')}
+        <Block backgroundColor={theme.colors.backgroundSetting}>
+          <Button
+            title={t('confirm')}
+            onPress={handleNext}
+            style={styles.button}
           />
-          <Text style={styles.text}>{textError}</Text>
         </Block>
       </Block>
-      <Block backgroundColor={theme.colors.backgroundSetting}>
-        <Button
-          title={t('confirm')}
-          onPress={handleNext}
-          style={styles.button}
-        />
-      </Block>
-    </Block>
+    </KeyboardAvoidingView>
   );
 };
 export default PasswordScreen;

@@ -3,15 +3,15 @@ import {makeStyles} from '@theme';
 
 export const useStyles = makeStyles()(({colors}) => ({
   image: {
-    height: getSize.s(160),
-    width: getSize.s(160),
+    height: getSize.s(100),
+    width: getSize.s(150),
   },
   container: {
     borderWidth: 1,
     borderColor: colors.recommended,
   },
   space: {
-    flex: 1,
+    flex: 0.8,
   },
   title: {
     width: '100%',

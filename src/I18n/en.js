@@ -94,6 +94,7 @@ export default {
   birthday: 'Birthday',
   price: 'Price',
   readMore: 'Read more',
+  hidden: 'Hidden',
   equip: 'Equip',
   supple: 'Supple',
   clothing: 'Clothing & Accessories',
@@ -163,4 +164,6 @@ export default {
   //PhoneNumber Screen
   enterOTP: 'Enter your phone number to receive OTP',
   send: 'Send',
+
+  getCode: 'Get the code',
 };
