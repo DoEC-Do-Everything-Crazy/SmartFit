@@ -8,4 +8,7 @@ export const useStyles = makeStyles()(({colors}) => ({
     bottom: '2%',
     left: '4%',
   },
+  sendControlContainerOuter: {
+    flex: 1,
+  },
 }));

@@ -1,5 +1,5 @@
 import {Block, Empty, Text, Button, TextInput} from '@components';
-import {Dimensions} from 'react-native';
+import {Dimensions, KeyboardAvoidingView, Platform} from 'react-native';
 import React, {useCallback, useState} from 'react';
 import {lotties} from '@assets';
 import {routes} from '@navigation/routes';
@@ -10,7 +10,7 @@ import {useTheme} from '@theme';
 import {useTranslation} from 'react-i18next';
 
 const {width: SliderWidth} = Dimensions.get('screen');
-
+const keyboardVerticalOffset = Platform.OS === 'ios' ? 'padding' : 'height';
 const ChangePinCode = props => {
   const navigation = useNavigation();
   const {t} = useTranslation();
@@ -33,34 +33,39 @@ const ChangePinCode = props => {
   }, [navigation, passInput, password]);
 
   return (
-    <Block style={styles.root}>
-      <Block style={styles.renderRoot}>
-        <Block flex />
-        <Block flex>
-          <Empty lottie={lotties.password} />
-        </Block>
-        <Block flex>
-          <Text style={styles.renderTitle}>{t('enterCurrentCode')}</Text>
-          <Block marginTop={30} width={SliderWidth} paddingHorizontal={16}>
-            <TextInput
-              onChangeText={setPassInput}
-              value={passInput}
-              isSecure
-              inputStyle={styles.textInput}
-              placeholder={t('enterPassword')}
-            />
-            <Text style={styles.text}>{textError}</Text>
+    <KeyboardAvoidingView
+      style={styles.sendControlContainerOuter}
+      behavior={keyboardVerticalOffset}
+      keyboardVerticalOffset={-5}>
+      <Block style={styles.root}>
+        <Block style={styles.renderRoot}>
+          <Block flex />
+          <Block flex>
+            <Empty lottie={lotties.password} />
+          </Block>
+          <Block flex>
+            <Text style={styles.renderTitle}>{t('enterCurrentCode')}</Text>
+            <Block marginTop={30} width={SliderWidth} paddingHorizontal={16}>
+              <TextInput
+                onChangeText={setPassInput}
+                value={passInput}
+                isSecure
+                inputStyle={styles.textInput}
+                placeholder={t('enterPassword')}
+              />
+              <Text style={styles.text}>{textError}</Text>
+            </Block>
           </Block>
         </Block>
+        <Block backgroundColor={theme.colors.backgroundSetting}>
+          <Button
+            title={t('confirm')}
+            onPress={handleNext}
+            style={styles.button}
+          />
+        </Block>
       </Block>
-      <Block backgroundColor={theme.colors.backgroundSetting}>
-        <Button
-          title={t('confirm')}
-          onPress={handleNext}
-          style={styles.button}
-        />
-      </Block>
-    </Block>
+    </KeyboardAvoidingView>
   );
 };
 export default ChangePinCode;

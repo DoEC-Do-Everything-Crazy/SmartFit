@@ -12,7 +12,9 @@ export const useStyles = makeStyles()(({colors}) => ({
     justifyContent: 'center',
     backgroundColor: colors.backgroundSetting,
   },
-
+  sendControlContainerOuter: {
+    flex: 1,
+  },
   renderTitle: {
     marginTop: getSize.s(30),
     fontSize: getSize.s(24),
