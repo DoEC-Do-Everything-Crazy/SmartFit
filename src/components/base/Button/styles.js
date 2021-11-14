@@ -9,7 +9,7 @@ export const useStyles = makeStyles()(({}) => ({
     alignItems: 'center',
     height: getSize.v(60),
     paddingHorizontal: getSize.m(20),
-    marginVertical: getSize.m(20),
+    marginBottom: getSize.m(20),
     borderRadius: getSize.m(8),
   },
   leftIcon: {
