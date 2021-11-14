@@ -1,6 +1,6 @@
 import * as Animatable from 'react-native-animatable';
 
-import {FlatList, ScrollView} from 'react-native';
+import {FlatList, ScrollView, Pressable} from 'react-native';
 import React, {useEffect, useState} from 'react';
 
 import {Block} from '@components';
@@ -9,6 +9,15 @@ import {productApi} from 'api/productApi';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+  withSpring,
+} from 'react-native-reanimated';
+import LinearGradient from 'react-native-linear-gradient';
+import {Cart} from '@assets/icons';
+import {useNavigation} from '@react-navigation/core';
+import {routes} from '@navigation/routes';
 
 const ProductListScreen = ({props, navigation, route}) => {
   const [products, setProducts] = useState([]);
@@ -33,13 +42,34 @@ const ProductListScreen = ({props, navigation, route}) => {
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  const offset = useSharedValue(0);
 
+  const animatedStyles = useAnimatedStyle(() => {
+    return {
+      transform: [
+        {
+          translateY: withSpring(offset.value * 255, {
+            damping: 20,
+            stiffness: 200,
+          }),
+        },
+      ],
+    };
+  });
+  const onScroll = event => {
+    // Check if the user is scrolling up or down by confronting the new scroll position with your own one
+
+    const offsetList = event.nativeEvent.contentOffset.y;
+
+    offsetList > 0 ? (offset.value = 1) : (offset.value = 0);
+  };
+  const navigations = useNavigation();
   useEffect(() => {
-    const unsubscribe = navigation.addListener('focus', () => {
+    const unsubscribe = navigations.addListener('focus', () => {
       viewRef.current.animate({0: {opacity: 0}, 1: {opacity: 1}});
     });
     return () => unsubscribe;
-  }, [navigation]);
+  }, [navigations]);
   const _renderItemCarousel = ({item, index}) => (
     <ItemCarousel item={item} key={index} />
   );
@@ -47,6 +77,7 @@ const ProductListScreen = ({props, navigation, route}) => {
   return (
     <Block flex backgroundColor={theme.colors.backgroundSetting}>
       <ScrollView
+        onScroll={onScroll}
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}>
         <Animatable.View
@@ -66,6 +97,22 @@ const ProductListScreen = ({props, navigation, route}) => {
           </Block>
         </Animatable.View>
       </ScrollView>
+      <Animated.View style={[styles.groupButton, animatedStyles]}>
+        <Pressable
+          onPress={() => {
+            navigation.navigate(routes.CART_SCREEN);
+          }}>
+          {themeStore === 'dark' ? (
+            <LinearGradient
+              start={{x: 0, y: 0}}
+              end={{x: 1, y: 0}}
+              colors={['#70A2FF', '#54F0D1']}
+              style={styles.layout}
+            />
+          ) : null}
+          <Cart color={theme.colors.white} />
+        </Pressable>
+      </Animated.View>
     </Block>
   );
 };

@@ -1,6 +1,6 @@
 import {Block, Header} from '@components';
 import Carousel, {Pagination} from 'react-native-snap-carousel';
-import {Image, ScrollView} from 'react-native';
+import {Image, ScrollView, Pressable} from 'react-native';
 import React, {useEffect, useRef, useState} from 'react';
 
 import ListHotCourse from './components/ListHotCourse';
@@ -17,7 +17,15 @@ import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {useTranslation} from 'react-i18next';
 import {width} from '@utils/responsive';
-
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+  withSpring,
+} from 'react-native-reanimated';
+import LinearGradient from 'react-native-linear-gradient';
+import {Cart} from '@assets/icons';
+import {useNavigation} from '@react-navigation/native';
+import {routes} from '@navigation/routes';
 const HomeScreen = props => {
   const {
     user: {user},
@@ -44,6 +52,7 @@ const HomeScreen = props => {
       img: images.banner4,
     },
   ];
+
   const _renderItemCarousel = ({item, index}) => (
     <Image source={item.img} style={styles.image} />
   );
@@ -72,7 +81,28 @@ const HomeScreen = props => {
       console.log('error', error.message);
     }
   };
+  const offset = useSharedValue(0);
 
+  const animatedStyles = useAnimatedStyle(() => {
+    return {
+      transform: [
+        {
+          translateY: withSpring(offset.value * 255, {
+            damping: 20,
+            stiffness: 200,
+          }),
+        },
+      ],
+    };
+  });
+  const onScroll = event => {
+    // Check if the user is scrolling up or down by confronting the new scroll position with your own one
+
+    const offsetList = event.nativeEvent.contentOffset.y;
+
+    offsetList > 0 ? (offset.value = 1) : (offset.value = 0);
+  };
+  const navigation = useNavigation();
   useEffect(() => {
     fetchData();
     fetchRecommendedByBMI();
@@ -81,18 +111,13 @@ const HomeScreen = props => {
 
   return (
     <Block flex backgroundColor={theme.colors.blue}>
-      <Header
-        type="Bottom"
-        title={t('home')}
-        colorTheme={theme.colors.white}
-        cart
-      />
+      <Header type="Bottom" title={t('home')} colorTheme={theme.colors.white} />
       <Block
         flex
         alignCenter
         backgroundColor={theme.colors.backgroundSetting}
         style={styles.container}>
-        <ScrollView showsVerticalScrollIndicator={false}>
+        <ScrollView onScroll={onScroll} showsVerticalScrollIndicator={false}>
           <Block alignCenter marginTop={20}>
             <Carousel
               loop
@@ -128,6 +153,22 @@ const HomeScreen = props => {
           <ListHotCourse data={data} />
           <ListProduct />
         </ScrollView>
+        <Animated.View style={[styles.groupButton, animatedStyles]}>
+          <Pressable
+            onPress={() => {
+              navigation.navigate(routes.CART_SCREEN);
+            }}>
+            {themeStore === 'dark' ? (
+              <LinearGradient
+                start={{x: 0, y: 0}}
+                end={{x: 1, y: 0}}
+                colors={['#70A2FF', '#54F0D1']}
+                style={styles.layout}
+              />
+            ) : null}
+            <Cart color={theme.colors.white} />
+          </Pressable>
+        </Animated.View>
       </Block>
     </Block>
   );
