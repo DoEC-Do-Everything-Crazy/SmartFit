@@ -51,7 +51,7 @@ const ChangePinCode = props => {
                 value={passInput}
                 isSecure
                 inputStyle={styles.textInput}
-                placeholder={t('enterPassword')}
+                label={t('enterPassword')}
               />
               <Text style={styles.text}>{textError}</Text>
             </Block>

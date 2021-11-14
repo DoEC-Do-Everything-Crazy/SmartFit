@@ -128,7 +128,7 @@ const RateScreen = ({route, props}) => {
             onChangeText={text => setContent(text)}
             value={content}
             inputStyle={styles.textInput}
-            placeholder="Enter comment"
+            label="Enter comment"
             multiline={true}
           />
         </Block>

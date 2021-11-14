@@ -200,7 +200,7 @@ const StatsScreen = props => {
                   <Block flex paddingTop={20}>
                     <Block flex paddingHorizontal={16}>
                       <TextInput
-                        placeholder={t('enterYourHeight')}
+                        label={t('enterYourHeight')}
                         maxLength={3}
                         leftIcon={true}
                         value={height + ''}
@@ -211,7 +211,7 @@ const StatsScreen = props => {
                     </Block>
                     <Block flex paddingTop={20} paddingHorizontal={16}>
                       <TextInput
-                        placeholder={t('enterYourWeight')}
+                        label={t('enterYourWeight')}
                         maxLength={3}
                         leftIcon={true}
                         value={weight + ''}

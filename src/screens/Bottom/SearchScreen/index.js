@@ -98,7 +98,7 @@ const SearchScreen = ({props, route, match}) => {
         <Block paddingHorizontal={16}>
           <TextInput
             onFocus={() => setIsSearch(true)}
-            placeholder={t('search')}
+            label={t('search')}
             inputStyle={styles.inputStyle}
             containerInputStyle={styles.containerInputStyle}
             onChangeText={debounce(text => setName(text), 500)}

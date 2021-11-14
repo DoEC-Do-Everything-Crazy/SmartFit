@@ -30,7 +30,7 @@ const Search = props => {
           borderColor={theme.colors.blue}>
           <Image style={styles.image} source={icons.search} />
           <TextInput
-            placeholder="Search for your meal"
+            label="Search for your meal"
             value={search}
             style={styles.search}
             onChangeText={text => {

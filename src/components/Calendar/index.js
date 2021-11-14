@@ -32,7 +32,7 @@ const Calendar = ({testID, value, is24Hour, display, props}) => {
     <TouchableOpacity onPress={showDatepicker}>
       <TextInput
         disabled={true}
-        placeholder={''}
+        // label={''}
         value={dateFormat(date, 'dd/mm/yyyy')}
         inputStyle={styles.input}
         leftIcon={icons.birthday}

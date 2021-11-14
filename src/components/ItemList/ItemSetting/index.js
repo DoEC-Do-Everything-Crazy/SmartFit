@@ -9,11 +9,7 @@ import {Formik} from 'formik';
 import {BottomSheet} from '@components/BottomSheet';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useDispatch, useSelector} from 'react-redux';
-import {
-  changePassword,
-  changeTheme,
-  turnPassword,
-} from 'reduxs/reducers';
+import {changePassword, changeTheme, turnPassword} from 'reduxs/reducers';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {useTranslation} from 'react-i18next';
@@ -119,7 +115,7 @@ const ItemSetting = ({data, title, index}, props) => {
                       onChangeText={handleChange('newPassword')}
                       value={values.newPassword}
                       inputStyle={styles.textInput}
-                      placeholder={t('enterNewPassword')}
+                      label={t('enterNewPassword')}
                       onBlur={handleBlur('newPassword')}
                       isSecure
                     />
@@ -150,7 +146,7 @@ const ItemSetting = ({data, title, index}, props) => {
                   onChangeText={setPassInput}
                   value={passInput}
                   inputStyle={styles.textInput}
-                  placeholder={t('enterPassword')}
+                  label={t('enterPassword')}
                   isSecure
                 />
                 <Text style={styles.text}>{textError}</Text>

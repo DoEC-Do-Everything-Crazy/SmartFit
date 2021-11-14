@@ -59,7 +59,7 @@ const EnterPhoneNumberScreen = props => {
                 value={values.phoneNumber}
                 inputStyle={styles.textInput}
                 keyboardType="number-pad"
-                placeholder="Enter phone number"
+                label="Enter phone number"
                 onBlur={handleBlur('phoneNumber')}
               />
               {errors.phoneNumber && touched.phoneNumber && (

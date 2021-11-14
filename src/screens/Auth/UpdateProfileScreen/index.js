@@ -92,7 +92,7 @@ const UpdateProfileScreen = ({route, props}) => {
       <Block flex paddingTop={20}>
         <Block style={styles.group}>
           <TextInput
-            placeholder={t('enterFullName')}
+            label={t('enterFullName')}
             inputStyle={styles.input}
             leftIcon={true}
             value={userProfile.displayName}
@@ -111,7 +111,7 @@ const UpdateProfileScreen = ({route, props}) => {
             )} */}
           </Block>
           <TextInput
-            placeholder={t('enterEmail')}
+            label={t('enterEmail')}
             inputStyle={styles.input}
             value={userProfile.email}
             leftIcon={true}
@@ -130,7 +130,7 @@ const UpdateProfileScreen = ({route, props}) => {
             )} */}
           </Block>
           <TextInput
-            placeholder={t('enterPhoneNumber')}
+            label={t('enterPhoneNumber')}
             inputStyle={styles.input}
             leftIcon={true}
             value={user.phoneNumber}
@@ -158,15 +158,14 @@ const UpdateProfileScreen = ({route, props}) => {
             containerStyle={styles.gender}
             boxStyle={styles.pickerBox}
             onChangeValue={setValueGender}
-            placeholder={t('selectAGender')}
+            label={t('selectAGender')}
           />
           <TouchableOpacity
             style={{marginTop: 8, marginBottom: 24}}
             onPress={showDatepicker}>
             <TextInput
               disabled={true}
-              placeholder={t('selectDate')}
-              colorPlaceholder={theme.colors.text}
+              label={t('selectDate')}
               value={dateFormat(userProfile.birthday, 'dd/mm/yyyy')}
               inputStyle={styles.input}
               leftIcon={true}>

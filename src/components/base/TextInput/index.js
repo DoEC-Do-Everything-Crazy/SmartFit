@@ -13,6 +13,8 @@ import {useTheme} from '@theme';
 const InputText = ({...props}) => {
   const {
     ref,
+    onBlur,
+    onFocus,
     label,
     labelStyle,
     containerInputStyle,
@@ -83,7 +85,7 @@ const InputText = ({...props}) => {
   };
 
   const _renderLabel = () => (
-    <Text marginBottom={5} style={labelStyle}>
+    <Text marginLeft={10} size={12} marginTop={5} style={labelStyle}>
       {label}
     </Text>
   );
@@ -105,10 +107,14 @@ const InputText = ({...props}) => {
     return (
       <>
         {leftIcon ? (
-          <Block paddingLeft={10} width={'100%'}>
+          <Block paddingLeft={10} paddingTop={20} width={'100%'}>
             <TextInput
-              onFocus={() => setInput(false)}
-              onBlur={() => setInput(true)}
+              onFocus={() => {
+                setInput(false), onFocus;
+              }}
+              onBlur={() => {
+                setInput(true), onBlur;
+              }}
               ref={ref}
               autoCorrect={false}
               textAlignVertical={props.multiline ? 'top' : 'center'}
@@ -125,8 +131,12 @@ const InputText = ({...props}) => {
           </Block>
         ) : (
           <TextInput
-            onFocus={() => setInput(false)}
-            onBlur={() => setInput(true)}
+            onFocus={() => {
+              setInput(false), onFocus;
+            }}
+            onBlur={() => {
+              setInput(true), onBlur;
+            }}
             ref={ref}
             autoCorrect={false}
             textAlignVertical={props.multiline ? 'top' : 'center'}
@@ -150,6 +160,7 @@ const InputText = ({...props}) => {
       flexShrink
       style={[
         containerInputStyle,
+        styles.containerInputStyle,
         {
           borderRadius: 8,
           borderColor: borderColor,

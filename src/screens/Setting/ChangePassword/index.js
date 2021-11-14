@@ -75,7 +75,7 @@ const ChangePassword = props => {
                 onChangeText={handleChange('password')}
                 value={values.password}
                 containerInputStyle={{width: width - 32, marginTop: 16}}
-                placeholder={t('enterNewPassword')}
+                label={t('enterNewPassword')}
                 onBlur={handleBlur('password')}
                 isSecure
               />
@@ -89,7 +89,7 @@ const ChangePassword = props => {
                 onChangeText={handleChange('confirmPassword')}
                 value={values.confirmPassword}
                 containerInputStyle={{width: width - 32, marginTop: 16}}
-                placeholder={t('enterConfimPassword')}
+                label={t('enterConfimPassword')}
                 onBlur={handleBlur('confirmPassword')}
                 isSecure
               />
