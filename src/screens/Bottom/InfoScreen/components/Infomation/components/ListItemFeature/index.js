@@ -32,7 +32,7 @@ const ListItemFeature = () => {
       title: t('promotion'),
       image: <Promotion color={theme.colors.iconInf} />,
       navigation: routes.NOTIFICATION_SCREEN,
-      value: 20,
+      value: 0,
     },
     {
       id: 3,

@@ -23,7 +23,11 @@ const NotificationScreen = ({route, props}) => {
       <Header
         canGoBack
         cart
-        title={t('promotion') + ' ' + valuePromotion + '%'}
+        title={
+          valuePromotion === 0
+            ? t('promotion')
+            : t('promotion') + ' ' + valuePromotion + '%'
+        }
         colorTheme={theme.colors.blue}
       />
       {JSON.stringify(user) !== '{}' ? (
