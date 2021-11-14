@@ -6,7 +6,7 @@ import ItemPopular from '@components/ItemList/ItemPopular';
 import {foodApi} from 'api/foodApi';
 import {useTranslation} from 'react-i18next';
 
-const ListItemPopular = () => {
+const ListItemPopular = props => {
   const [foods, setFoods] = useState([]);
   const {t} = useTranslation();
 
@@ -21,6 +21,7 @@ const ListItemPopular = () => {
 
   useEffect(() => {
     getProduct();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const _renderItem = ({item, index}) => (
@@ -38,7 +39,7 @@ const ListItemPopular = () => {
         contentContainerStyle={{alignSelf: 'center'}}
         showsVerticalScrollIndicator={false}
         nestedScrollEnabled
-        data={foods}
+        data={props.foodsBMI ? props.foodsBMI : foods}
         numColumns={2}
         keyExtractor={item => item.id}
         renderItem={_renderItem}

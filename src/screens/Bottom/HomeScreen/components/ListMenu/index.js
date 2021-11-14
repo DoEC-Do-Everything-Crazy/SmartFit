@@ -47,7 +47,11 @@ const ListMenu = () => {
   ];
   const _renderItem = ({item, index}) => {
     const onPress = () => {
-      navigation.navigate(item.navigation, {valuePromotion: item.value});
+      navigation.navigate(
+        item.navigation,
+        {valuePromotion: item.value},
+        {title: t('healthyFood')},
+      );
     };
     return (
       <ItemMenu
