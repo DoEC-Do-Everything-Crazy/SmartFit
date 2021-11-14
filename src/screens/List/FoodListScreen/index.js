@@ -16,6 +16,7 @@ import {Cart} from '@assets/icons';
 import {useNavigation} from '@react-navigation/core';
 import {routes} from '@navigation/routes';
 import {useStyles} from './styles';
+import {SafeAreaView} from 'react-native-safe-area-context';
 const FoodListScreen = props => {
   const {
     theme: {theme: themeStore},

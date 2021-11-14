@@ -26,4 +26,7 @@ export const useStyles = makeStyles()(({colors}) => ({
     fontSize: getSize.s(18),
     fontWeight: 'bold',
   },
+  sendControlContainerOuter: {
+    flex: 1,
+  },
 }));

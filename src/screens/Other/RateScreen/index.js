@@ -15,6 +15,7 @@ import {useNavigation} from '@react-navigation/core';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {useTranslation} from 'react-i18next';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 const RateScreen = ({route, props}) => {
   const {item} = route.params;
@@ -92,97 +93,107 @@ const RateScreen = ({route, props}) => {
   };
 
   return (
-    <Block flex backgroundColor={theme.colors.backgroundSetting}>
-      <Header canGoBack title={t('ratting')} colorTheme={theme.colors.black} />
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <Block paddingVertical={15} marginTop={5}>
-          <Text center fontType="bold" size={16}>
-            {t('whatIsYouRate')}
-          </Text>
-
-          <Rating
-            type="custom"
-            ratingCount={5}
-            startingValue={5}
-            imageSize={36}
-            onFinishRating={ratingCompleted}
-            ratingBackgroundColor="#c8c7c8"
-            tintColor={theme.colors.backgroundSetting}
-            ratingColor="#FFD700"
-          />
-        </Block>
-        <Block
-          paddingVertical={15}
-          alignCenter
-          backgroundColor={theme.colors.backgroundSetting}>
-          <Block width="60%">
+    <SafeAreaView
+      edges={['bottom', 'left', 'right']}
+      style={styles.sendControlContainerOuter}>
+      <Block flex backgroundColor={theme.colors.backgroundSetting}>
+        <Header
+          canGoBack
+          title={t('ratting')}
+          colorTheme={theme.colors.black}
+        />
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <Block paddingVertical={15} marginTop={5}>
             <Text center fontType="bold" size={16}>
-              {t('pleaseShare')}
+              {t('whatIsYouRate')}
             </Text>
+
+            <Rating
+              type="custom"
+              ratingCount={5}
+              startingValue={5}
+              imageSize={36}
+              onFinishRating={ratingCompleted}
+              ratingBackgroundColor="#c8c7c8"
+              tintColor={theme.colors.backgroundSetting}
+              ratingColor="#FFD700"
+            />
           </Block>
-        </Block>
-        <Block
-          paddingHorizontal={16}
-          backgroundColor={theme.colors.backgroundSetting}>
-          <TextInput
-            onChangeText={text => setContent(text)}
-            value={content}
-            inputStyle={styles.textInput}
-            label="Enter comment"
-            multiline={true}
-          />
-        </Block>
-        <Block
-          padding={16}
-          marginTop={15}
-          backgroundColor={theme.colors.backgroundSetting}>
-          <ScrollView
-            horizontal
-            showsVerticalScrollIndicator={false}
-            showsHorizontalScrollIndicator={false}>
-            {image.map((item, index) => (
-              <Image
-                source={{
-                  uri: image[index].uri,
-                }}
-                height="100%"
-                style={styles.image}
-              />
-            ))}
-            <Block
-              backgroundColor={theme.colors.border}
-              justifyCenter
-              alignCenter
-              style={styles.image}>
-              <Pressable onPress={handleGallery}>
+          <Block
+            paddingVertical={15}
+            alignCenter
+            backgroundColor={theme.colors.backgroundSetting}>
+            <Block width="60%">
+              <Text center fontType="bold" size={16}>
+                {t('pleaseShare')}
+              </Text>
+            </Block>
+          </Block>
+          <Block
+            paddingHorizontal={16}
+            backgroundColor={theme.colors.backgroundSetting}>
+            <TextInput
+              onChangeText={text => setContent(text)}
+              value={content}
+              inputStyle={styles.textInput}
+              label="Enter comment"
+              multiline={true}
+            />
+          </Block>
+          <Block
+            padding={16}
+            marginTop={15}
+            backgroundColor={theme.colors.backgroundSetting}>
+            <ScrollView
+              horizontal
+              showsVerticalScrollIndicator={false}
+              showsHorizontalScrollIndicator={false}>
+              {image.map((item, index) => (
                 <Image
-                  style={{tintColor: themeStore === 'dark' ? 'white' : 'blue'}}
-                  source={icons.gallery}
+                  source={{
+                    uri: image[index].uri,
+                  }}
+                  height="100%"
+                  style={styles.image}
                 />
-              </Pressable>
-              <Text paddingVertical={5} center fontType="bold" size={12}>
-                {t('choosePhoto')}
-              </Text>
-            </Block>
-            <Block
-              backgroundColor={theme.colors.border}
-              justifyCenter
-              alignCenter
-              style={styles.image}>
-              <Pressable onPress={handleCamera}>
-                <Camera />
-              </Pressable>
-              <Text paddingVertical={5} center fontType="bold" size={12}>
-                {t('addYourPhotos')}
-              </Text>
-            </Block>
-          </ScrollView>
+              ))}
+              <Block
+                backgroundColor={theme.colors.border}
+                justifyCenter
+                alignCenter
+                style={styles.image}>
+                <Pressable onPress={handleGallery}>
+                  <Image
+                    style={{
+                      tintColor: themeStore === 'dark' ? 'white' : 'blue',
+                    }}
+                    source={icons.gallery}
+                  />
+                </Pressable>
+                <Text paddingVertical={5} center fontType="bold" size={12}>
+                  {t('choosePhoto')}
+                </Text>
+              </Block>
+              <Block
+                backgroundColor={theme.colors.border}
+                justifyCenter
+                alignCenter
+                style={styles.image}>
+                <Pressable onPress={handleCamera}>
+                  <Camera />
+                </Pressable>
+                <Text paddingVertical={5} center fontType="bold" size={12}>
+                  {t('addYourPhotos')}
+                </Text>
+              </Block>
+            </ScrollView>
+          </Block>
+        </ScrollView>
+        <Block style={styles.button}>
+          <Button title={t('sendReview')} onPress={handleFormSubmit} />
         </Block>
-      </ScrollView>
-      <Block style={styles.button}>
-        <Button title={t('sendReview')} onPress={handleFormSubmit} />
       </Block>
-    </Block>
+    </SafeAreaView>
   );
 };
 

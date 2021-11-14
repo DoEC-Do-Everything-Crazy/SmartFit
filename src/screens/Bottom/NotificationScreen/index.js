@@ -7,6 +7,7 @@ import {InviteLogin} from '@components';
 import {routes} from '@navigation/routes';
 import {useSelector} from 'react-redux';
 import {useTranslation} from 'react-i18next';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 const NotificationScreen = ({route, props}) => {
   const {
@@ -19,32 +20,36 @@ const NotificationScreen = ({route, props}) => {
   const {t} = useTranslation();
 
   return (
-    <Block flex backgroundColor={theme.colors.backgroundSetting}>
-      <Header
-        canGoBack
-        cart
-        title={
-          valuePromotion === 0
-            ? t('promotion')
-            : t('promotion') + ' ' + valuePromotion + '%'
-        }
-        colorTheme={theme.colors.blue}
-      />
-      {JSON.stringify(user) !== '{}' ? (
-        <>
-          <Block flex>
-            <Block flex backgroundColor={theme.colors.backgroundSetting}>
-              <ListNotification valuePromotion={valuePromotion} />
-            </Block>
-          </Block>
-        </>
-      ) : (
-        <InviteLogin
-          navigate={routes.LOGIN_SCREEN}
-          routes={routes.NOTIFICATION_SCREEN}
+    <SafeAreaView
+      edges={['bottom', 'left', 'right']}
+      style={styles.sendControlContainerOuter}>
+      <Block flex backgroundColor={theme.colors.backgroundSetting}>
+        <Header
+          canGoBack
+          cart
+          title={
+            valuePromotion === 0
+              ? t('promotion')
+              : t('promotion') + ' ' + valuePromotion + '%'
+          }
+          colorTheme={theme.colors.blue}
         />
-      )}
-    </Block>
+        {JSON.stringify(user) !== '{}' ? (
+          <>
+            <Block flex>
+              <Block flex backgroundColor={theme.colors.backgroundSetting}>
+                <ListNotification valuePromotion={valuePromotion} />
+              </Block>
+            </Block>
+          </>
+        ) : (
+          <InviteLogin
+            navigate={routes.LOGIN_SCREEN}
+            routes={routes.NOTIFICATION_SCREEN}
+          />
+        )}
+      </Block>
+    </SafeAreaView>
   );
 };
 

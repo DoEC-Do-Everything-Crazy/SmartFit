@@ -18,6 +18,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import {Cart} from '@assets/icons';
 import {useNavigation} from '@react-navigation/core';
 import {routes} from '@navigation/routes';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 const ProductListScreen = ({props, navigation, route}) => {
   const [products, setProducts] = useState([]);
@@ -75,45 +76,49 @@ const ProductListScreen = ({props, navigation, route}) => {
   );
 
   return (
-    <Block flex backgroundColor={theme.colors.backgroundSetting}>
-      <ScrollView
-        onScroll={onScroll}
-        showsVerticalScrollIndicator={false}
-        showsHorizontalScrollIndicator={false}>
-        <Animatable.View
-          ref={viewRef}
-          easing={'ease-in-out'}
-          style={styles.container}>
-          <Block marginTop={32} justifyCenter alignCenter>
-            <FlatList
-              showsVerticalScrollIndicator={false}
-              showsHorizontalScrollIndicator={false}
-              style={{marginTop: 16, marginLeft: 80}}
-              numColumns={1}
-              data={products}
-              renderItem={_renderItemCarousel}
-              keyExtractor={(item, index) => index}
-            />
-          </Block>
-        </Animatable.View>
-      </ScrollView>
-      <Animated.View style={[styles.groupButton, animatedStyles]}>
-        <Pressable
-          onPress={() => {
-            navigation.navigate(routes.CART_SCREEN);
-          }}>
-          {themeStore === 'dark' ? (
-            <LinearGradient
-              start={{x: 0, y: 0}}
-              end={{x: 1, y: 0}}
-              colors={['#70A2FF', '#54F0D1']}
-              style={styles.layout}
-            />
-          ) : null}
-          <Cart color={theme.colors.white} />
-        </Pressable>
-      </Animated.View>
-    </Block>
+    <SafeAreaView
+      edges={['bottom', 'top', 'left', 'right']}
+      style={styles.sendControlContainerOuter}>
+      <Block flex backgroundColor={theme.colors.backgroundSetting}>
+        <ScrollView
+          onScroll={onScroll}
+          showsVerticalScrollIndicator={false}
+          showsHorizontalScrollIndicator={false}>
+          <Animatable.View
+            ref={viewRef}
+            easing={'ease-in-out'}
+            style={styles.container}>
+            <Block justifyCenter alignCenter>
+              <FlatList
+                showsVerticalScrollIndicator={false}
+                showsHorizontalScrollIndicator={false}
+                style={{marginTop: 16, marginLeft: 80}}
+                numColumns={1}
+                data={products}
+                renderItem={_renderItemCarousel}
+                keyExtractor={(item, index) => index}
+              />
+            </Block>
+          </Animatable.View>
+        </ScrollView>
+        <Animated.View style={[styles.groupButton, animatedStyles]}>
+          <Pressable
+            onPress={() => {
+              navigation.navigate(routes.CART_SCREEN);
+            }}>
+            {themeStore === 'dark' ? (
+              <LinearGradient
+                start={{x: 0, y: 0}}
+                end={{x: 1, y: 0}}
+                colors={['#70A2FF', '#54F0D1']}
+                style={styles.layout}
+              />
+            ) : null}
+            <Cart color={theme.colors.white} />
+          </Pressable>
+        </Animated.View>
+      </Block>
+    </SafeAreaView>
   );
 };
 

@@ -13,6 +13,7 @@ import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/lib/integration/react';
 import {persistor, store} from './reduxs/store';
 import {QueryClient, QueryClientProvider} from 'react-query';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 const queryClient = new QueryClient();
 

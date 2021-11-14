@@ -11,6 +11,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {useNavigation} from '@react-navigation/core';
 import {firstLogin} from 'reduxs/reducers';
 import {useTranslation} from 'react-i18next';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 const {width: SliderWidth} = Dimensions.get('screen');
 
@@ -66,7 +67,7 @@ const OnBoardScreen = props => {
   );
 
   return (
-    <Block style={styles.root}>
+    <SafeAreaView edges={['bottom', 'left', 'right']} style={styles.root}>
       <Block style={styles.bodyLayout}>
         <Carousel
           layout={'default'}
@@ -97,7 +98,7 @@ const OnBoardScreen = props => {
       </Block>
 
       <Button title={t('gotIt')} onPress={handleNext} style={styles.button} />
-    </Block>
+    </SafeAreaView>
   );
 };
 export default OnBoardScreen;

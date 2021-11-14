@@ -10,4 +10,7 @@ export const useStyles = makeStyles()(({colors}) => ({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  sendControlContainerOuter: {
+    flex: 1,
+  },
 }));

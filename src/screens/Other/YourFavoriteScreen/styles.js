@@ -14,4 +14,7 @@ export const useStyles = makeStyles()(({}) => ({
     width: getSize.m(200),
     height: getSize.m(260),
   },
+  sendControlContainerOuter: {
+    flex: 1,
+  },
 }));

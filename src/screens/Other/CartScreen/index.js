@@ -10,6 +10,7 @@ import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {useTranslation} from 'react-i18next';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 const CartScreen = props => {
   const {
@@ -25,7 +26,9 @@ const CartScreen = props => {
 
   const Cart = () => {
     return (
-      <>
+      <SafeAreaView
+        edges={['bottom', 'left', 'right']}
+        style={styles.sendControlContainerOuter}>
         {cart.length > 0 ? (
           <Block flex backgroundColor={theme.colors.backgroundSetting}>
             <Header
@@ -61,7 +64,7 @@ const CartScreen = props => {
         ) : (
           <NotData />
         )}
-      </>
+      </SafeAreaView>
     );
   };
 

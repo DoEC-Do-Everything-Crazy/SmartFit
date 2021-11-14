@@ -101,4 +101,7 @@ export const useStyles = makeStyles()(({colors}) => ({
     position: 'absolute',
     top: 0,
   },
+  sendControlContainerOuter: {
+    flex: 1,
+  },
 }));

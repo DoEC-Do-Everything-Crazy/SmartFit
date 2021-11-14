@@ -19,7 +19,7 @@ import {bmiApi} from 'api/bmiApi';
 import React, {useCallback, useRef, useState, useEffect} from 'react';
 import {useTranslation} from 'react-i18next';
 import {Platform, ScrollView} from 'react-native';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useSelector} from 'react-redux';
 import DateCategory from './components/DateCategory';
 import StatsBlock from './components/StatsBlock';
@@ -108,136 +108,132 @@ const StatsScreen = props => {
   };
 
   return (
-    <>
-      <Block flex backgroundColor={theme.colors.blue}>
-        <Header
-          type={'Bottom'}
-          title={t('stats')}
-          colorTheme={theme.colors.white}
-        />
-        <Block
-          row
-          style={styles.container}
-          flex
-          alignCenter
-          paddingTop={20}
-          paddingHorizontal={16}
-          backgroundColor={theme.colors.backgroundSetting}>
-          <Block backgroundColor={theme.colors.backgroundSetting}>
-            <StatsBlock
-              widthComponent={width / 2 - 24}
-              heightComponent="50%"
-              title={t('height')}
-              userHeight={bmi.height === 0 ? '0' : bmi.height + ' '}
-            />
-            <StatsBlock
-              widthComponent={width / 2 - 24}
-              heightComponent="40%"
-              title={t('weight')}
-              userWeight={bmi.weight === 0 ? '0' : bmi.weight + ' '}
-            />
-          </Block>
-          <Block
-            marginLeft={getSize.m(16)}
-            backgroundColor={theme.colors.backgroundSetting}>
-            <StatsBlock
-              widthComponent={width / 2 - 24}
-              heightComponent="40%"
-              title="BMI"
-              circular={true}
-              valueCir={Number(bmi.bmi)}
-            />
-            <StatsBlock
-              widthComponent={width / 2 - 24}
-              heightComponent="50%"
-              title={t('bodyShape')}
-              icon={
-                bmi.type === 'Underweight' ? (
-                  <Underweight color={theme.colors.iconInf} />
-                ) : bmi.type === 'Overweight' ? (
-                  <Overweight color={theme.colors.iconInf} />
-                ) : bmi.type === 'Ordinary' ? (
-                  <Ordinary color={theme.colors.iconInf} />
-                ) : bmi.type === '' ? (
-                  <Body color={theme.colors.iconInf} />
-                ) : (
-                  <Fat color={theme.colors.iconInf} />
-                )
-              }
-              bmp={bmi.type === '' ? 'Do not have' : bmi.type}
-            />
-          </Block>
+    <Block flex backgroundColor={theme.colors.blue}>
+      <Header
+        type={'Bottom'}
+        title={t('stats')}
+        colorTheme={theme.colors.white}
+      />
+      <Block
+        row
+        style={styles.container}
+        flex
+        alignCenter
+        paddingTop={20}
+        paddingHorizontal={16}
+        backgroundColor={theme.colors.backgroundSetting}>
+        <Block backgroundColor={theme.colors.backgroundSetting}>
+          <StatsBlock
+            widthComponent={width / 2 - 24}
+            heightComponent="50%"
+            title={t('height')}
+            userHeight={bmi.height === 0 ? '0' : bmi.height + ' '}
+          />
+          <StatsBlock
+            widthComponent={width / 2 - 24}
+            heightComponent="40%"
+            title={t('weight')}
+            userWeight={bmi.weight === 0 ? '0' : bmi.weight + ' '}
+          />
         </Block>
         <Block
-          height="30%"
-          paddingTop={10}
+          marginLeft={getSize.m(16)}
           backgroundColor={theme.colors.backgroundSetting}>
-          <Block paddingHorizontal={16}>
-            <ItemFeature shadow height={50} title={t('dailyMeals')}>
-              <Order color={theme.colors.iconInf} />
-            </ItemFeature>
-          </Block>
-          <Block flex style={styles.button}>
-            <Button
-              onPress={() => modalizRef.current?.open()}
-              title={t('createStats')}
-            />
-          </Block>
-          <BottomSheet
-            ref={modalizRef}
-            overlayStyle={styles.root}
-            adjustToContentHeight={true}
-            closeOnOverlayTap={true}
-            HeaderComponent={HeaderComponent}
-            FloatingComponent={FloatingComponent}
-            scrollViewProps={{keyboardShouldPersistTaps: 'handle'}}
-            keyboardAvoidingBehavior={
-              Platform.OS === 'ios' ? 'padding' : 'height'
-            }>
-            <ScrollView showsVerticalScrollIndicator={false}>
-              <Block flex>
-                <Block row flex paddingTop={20}>
-                  <Block flex paddingTop={20}>
-                    <Block flex paddingHorizontal={16}>
-                      <TextInput
-                        label={t('enterYourHeight')}
-                        maxLength={3}
-                        leftIcon={true}
-                        value={height + ''}
-                        keyboardType="numeric"
-                        onChangeText={setHeight}>
-                        <Height color={theme.colors.text} />
-                      </TextInput>
-                    </Block>
-                    <Block flex paddingTop={20} paddingHorizontal={16}>
-                      <TextInput
-                        label={t('enterYourWeight')}
-                        maxLength={3}
-                        leftIcon={true}
-                        value={weight + ''}
-                        keyboardType="numeric"
-                        onChangeText={setWeight}>
-                        <Weight
-                          width={24}
-                          height={24}
-                          color={theme.colors.text}
-                        />
-                      </TextInput>
-                    </Block>
-                    <Block>
-                      <Button
-                        title={t('confirm')}
-                        onPress={handleAddUpdateBMI}
+          <StatsBlock
+            widthComponent={width / 2 - 24}
+            heightComponent="40%"
+            title="BMI"
+            circular={true}
+            valueCir={Number(bmi.bmi)}
+          />
+          <StatsBlock
+            widthComponent={width / 2 - 24}
+            heightComponent="50%"
+            title={t('bodyShape')}
+            icon={
+              bmi.type === 'Underweight' ? (
+                <Underweight color={theme.colors.iconInf} />
+              ) : bmi.type === 'Overweight' ? (
+                <Overweight color={theme.colors.iconInf} />
+              ) : bmi.type === 'Ordinary' ? (
+                <Ordinary color={theme.colors.iconInf} />
+              ) : bmi.type === '' ? (
+                <Body color={theme.colors.iconInf} />
+              ) : (
+                <Fat color={theme.colors.iconInf} />
+              )
+            }
+            bmp={bmi.type === '' ? 'Do not have' : bmi.type}
+          />
+        </Block>
+      </Block>
+      <Block
+        height="30%"
+        paddingTop={10}
+        backgroundColor={theme.colors.backgroundSetting}>
+        <Block paddingHorizontal={16}>
+          <ItemFeature shadow height={50} title={t('dailyMeals')}>
+            <Order color={theme.colors.iconInf} />
+          </ItemFeature>
+        </Block>
+        <Block flex style={styles.button}>
+          <Button
+            onPress={() => modalizRef.current?.open()}
+            title={t('createStats')}
+          />
+        </Block>
+        <BottomSheet
+          ref={modalizRef}
+          overlayStyle={styles.root}
+          adjustToContentHeight={true}
+          closeOnOverlayTap={true}
+          HeaderComponent={HeaderComponent}
+          FloatingComponent={FloatingComponent}
+          scrollViewProps={{keyboardShouldPersistTaps: 'handle'}}
+          keyboardAvoidingBehavior={
+            Platform.OS === 'ios' ? 'padding' : 'height'
+          }>
+          <ScrollView showsVerticalScrollIndicator={false}>
+            <Block flex>
+              <Block row flex paddingTop={20}>
+                <Block flex paddingTop={20}>
+                  <Block flex paddingHorizontal={16}>
+                    <TextInput
+                      label={t('enterYourHeight')}
+                      maxLength={3}
+                      leftIcon={true}
+                      value={height + ''}
+                      keyboardType="numeric"
+                      onChangeText={setHeight}>
+                      <Height color={theme.colors.text} />
+                    </TextInput>
+                  </Block>
+                  <Block flex paddingVertical={20} paddingHorizontal={16}>
+                    <TextInput
+                      label={t('enterYourWeight')}
+                      maxLength={3}
+                      leftIcon={true}
+                      value={weight + ''}
+                      keyboardType="numeric"
+                      onChangeText={setWeight}>
+                      <Weight
+                        width={24}
+                        height={24}
+                        color={theme.colors.text}
                       />
-                    </Block>
+                    </TextInput>
+                  </Block>
+                  <Block>
+                    <Button title={t('confirm')} onPress={handleAddUpdateBMI} />
                   </Block>
                 </Block>
               </Block>
-            </ScrollView>
-          </BottomSheet>
-        </Block>
+            </Block>
+          </ScrollView>
+        </BottomSheet>
       </Block>
-    </>
+    </Block>
+
     // ) : (
     //   <>
     //     <Header

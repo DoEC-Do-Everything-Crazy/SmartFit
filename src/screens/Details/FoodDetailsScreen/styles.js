@@ -11,4 +11,7 @@ export const useStyles = makeStyles()(({colors}) => ({
     color: colors.link,
     textDecorationLine: 'underline',
   },
+  sendControlContainerOuter: {
+    flex: 1,
+  },
 }));

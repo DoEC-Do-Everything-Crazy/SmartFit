@@ -14,6 +14,7 @@ import {rateApi} from 'api/rateApi';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {useTranslation} from 'react-i18next';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 const FoodDetailsScreen = ({route, props}) => {
   const dispatch = useDispatch();
@@ -60,7 +61,9 @@ const FoodDetailsScreen = ({route, props}) => {
   }, []);
 
   return (
-    <>
+    <SafeAreaView
+      edges={['bottom', 'left', 'right']}
+      style={styles.sendControlContainerOuter}>
       {food && (
         <Block flex backgroundColor={theme.colors.backgroundSetting}>
           <Header
@@ -96,7 +99,7 @@ const FoodDetailsScreen = ({route, props}) => {
           />
         </Block>
       )}
-    </>
+    </SafeAreaView>
   );
 };
 

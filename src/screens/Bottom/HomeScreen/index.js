@@ -26,6 +26,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import {Cart} from '@assets/icons';
 import {useNavigation} from '@react-navigation/native';
 import {routes} from '@navigation/routes';
+import {SafeAreaView} from 'react-native-safe-area-context';
 const HomeScreen = props => {
   const {
     user: {user},

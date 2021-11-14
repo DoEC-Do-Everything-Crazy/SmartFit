@@ -9,6 +9,7 @@ import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {useTranslation} from 'react-i18next';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 const OrderScreen = props => {
   const {
@@ -85,37 +86,41 @@ const OrderScreen = props => {
     );
   };
   return (
-    <Block flex backgroundColor={theme.colors.backgroundSetting}>
-      <>
-        <HeaderComponent
-          canGoBack
-          title={t('orderCart')}
-          colorTheme={theme.colors.black}
-        />
-        <Block
-          flex
-          marginTop={20}
-          paddingHorizontal={16}
-          backgroundColor={theme.colors.backgroundSetting}>
-          <ScrollView
-            horizontal
-            scrollEnabled={false}
-            showsHorizontalScrollIndicator={false}
-            justifyContent="center"
-            alignItems="center">
-            {DATA_HEADER.map((item, i) => (
-              <_renderItemHeader key={i} item={item} />
-            ))}
-          </ScrollView>
-          <FlatList
-            showsVerticalScrollIndicator={false}
-            data={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
-            renderItem={_renderItem}
-            keyExtractor={item => item.item_id}
+    <SafeAreaView
+      edges={['bottom', 'left', 'right']}
+      style={styles.sendControlContainerOuter}>
+      <Block flex backgroundColor={theme.colors.backgroundSetting}>
+        <>
+          <HeaderComponent
+            canGoBack
+            title={t('orderCart')}
+            colorTheme={theme.colors.black}
           />
-        </Block>
-      </>
-    </Block>
+          <Block
+            flex
+            marginTop={20}
+            paddingHorizontal={16}
+            backgroundColor={theme.colors.backgroundSetting}>
+            <ScrollView
+              horizontal
+              scrollEnabled={false}
+              showsHorizontalScrollIndicator={false}
+              justifyContent="center"
+              alignItems="center">
+              {DATA_HEADER.map((item, i) => (
+                <_renderItemHeader key={i} item={item} />
+              ))}
+            </ScrollView>
+            <FlatList
+              showsVerticalScrollIndicator={false}
+              data={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
+              renderItem={_renderItem}
+              keyExtractor={item => item.item_id}
+            />
+          </Block>
+        </>
+      </Block>
+    </SafeAreaView>
   );
 };
 

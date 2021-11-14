@@ -26,7 +26,7 @@ import {courseApi} from 'api/courseApi';
 import {ptApi} from 'api/ptApi';
 import {rateApi} from 'api/rateApi';
 import {routes} from '@navigation/routes';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {useTranslation} from 'react-i18next';
@@ -189,307 +189,312 @@ const TabDetails = ({route, props}) => {
   };
 
   return (
-    <Block flex backgroundColor={theme.colors.backgroundSetting}>
-      {transferCourseScreen === 'CourseDetail' ? (
-        <Header
-          canGoBack
-          title={t('courseDetail')}
-          colorTheme={theme.colors.black}
-        />
-      ) : null}
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <Block paddingTop={20}>
-          <Block paddingHorizontal={16}>
-            <Carousel
-              loop
-              layout={'tinder'}
-              layoutCardOffset={10}
-              inactiveSlideScale={0.94}
-              inactiveSlideOpacity={0.7}
-              sliderWidth={screenWidth}
-              sliderHeight={300}
-              itemWidth={screenWidth}
-              data={dataDetail.image || []}
-              renderItem={_renderItem}
-              hasParallaxImages={true}
-              containerCustomStyle={styles.slider}
-            />
-          </Block>
-          <Text
-            paddingHorizontal={16}
-            marginTop={32}
-            marginBottom={10}
-            size={32}
-            fontType="bold">
-            {dataDetail.name}
-          </Text>
-          <Block
-            row
-            paddingVertical={10}
-            paddingHorizontal={16}
-            backgroundColor={theme.colors.lightBlue}>
-            <Rating
-              readonly={true}
-              type="custom"
-              ratingColor="#045694"
-              ratingCount={5}
-              imageSize={18}
-              tintColor={theme.colors.lightBlue}
-            />
-            <Text marginLeft={100} color={theme.colors.iconInf}>
-              6,3k {t('completed')}
-            </Text>
-          </Block>
-          <Block marginTop={10}>
-            <Text paddingHorizontal={16} fontType="bold">
-              {dataDetail.description}
+    <SafeAreaView
+      edges={['bottom', 'left', 'right']}
+      style={styles.sendControlContainerOuter}>
+      <Block flex backgroundColor={theme.colors.backgroundSetting}>
+        {transferCourseScreen === 'CourseDetail' ? (
+          <Header
+            canGoBack
+            title={t('courseDetail')}
+            colorTheme={theme.colors.black}
+          />
+        ) : null}
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <Block paddingTop={20}>
+            <Block paddingHorizontal={16}>
+              <Carousel
+                loop
+                layout={'tinder'}
+                layoutCardOffset={10}
+                inactiveSlideScale={0.94}
+                inactiveSlideOpacity={0.7}
+                sliderWidth={screenWidth}
+                sliderHeight={300}
+                itemWidth={screenWidth}
+                data={dataDetail.image || []}
+                renderItem={_renderItem}
+                hasParallaxImages={true}
+                containerCustomStyle={styles.slider}
+              />
+            </Block>
+            <Text
+              paddingHorizontal={16}
+              marginTop={32}
+              marginBottom={10}
+              size={32}
+              fontType="bold">
+              {dataDetail.name}
             </Text>
             <Block
               row
-              alignCenter
-              marginVertical={16}
+              paddingVertical={10}
               paddingHorizontal={16}
-              marginBottom={32}>
-              <Block>
-                <Text>{t('planLength')}: </Text>
-                <Text>{t('duration')}: </Text>
-                <Text>{t('daysPerWeeks')}': </Text>
-                <Text>{t('bodyFocus')}: </Text>
-                <Text>{t('PT')}: </Text>
-              </Block>
-              <Block marginLeft={20}>
-                <Text fontType="bold">
-                  {weeks} {t('weeks')}
-                </Text>
-                <Text fontType="bold">
-                  {randomMinute} {t('minutes')}
-                </Text>
-                <Text fontType="bold">
-                  {day} {t('days')}
-                </Text>
-                <Text fontType="bold">Total body </Text>
-                <Block row alignCenter>
-                  {infoPT?.name && (
-                    <Text marginRight={10} fontType="bold">
-                      {infoPT?.name}
-                    </Text>
-                  )}
-                  {transferCourseScreen === 'CourseDetail' ? (
-                    <Pressable onPress={() => modalizPTList?.current.open()}>
-                      {themeStore === 'dark' ? (
-                        <LinearGradient
-                          start={{x: 0, y: 0}}
-                          end={{x: 1, y: 0}}
-                          colors={['#70A2FF', '#54F0D1']}
-                          style={styles.choose}>
-                          <Text style={styles.choosePT} fontType="bold">
-                            {t('choose')}
-                          </Text>
-                        </LinearGradient>
-                      ) : (
-                        <Block
-                          style={styles.choose}
-                          backgroundColor={theme.colors.blue}>
-                          <Text style={styles.choosePT} fontType="bold">
-                            {t('choose')}
-                          </Text>
-                        </Block>
-                      )}
-                    </Pressable>
-                  ) : (
-                    <Text fontType="bold">{infoPT?.name}</Text>
-                  )}
-                </Block>
-              </Block>
+              backgroundColor={theme.colors.lightBlue}>
+              <Rating
+                readonly={true}
+                type="custom"
+                ratingColor="#045694"
+                ratingCount={5}
+                imageSize={18}
+                tintColor={theme.colors.lightBlue}
+              />
+              <Text marginLeft={100} color={theme.colors.iconInf}>
+                6,3k {t('completed')}
+              </Text>
             </Block>
-            {transferCourseScreen === 'CourseDetail' ? (
-              <>
-                <Block paddingHorizontal={16}>
-                  <PayInfo
-                    title1={t('course')}
-                    titlePrice1={dataDetail.price}
-                    title2={t('PT')}
-                    titlePrice2={infoPT?.price || 0}
-                    total={totalPrice}
-                  />
+            <Block marginTop={10}>
+              <Text paddingHorizontal={16} fontType="bold">
+                {dataDetail.description}
+              </Text>
+              <Block
+                row
+                alignCenter
+                marginVertical={16}
+                paddingHorizontal={16}
+                marginBottom={32}>
+                <Block>
+                  <Text>{t('planLength')}: </Text>
+                  <Text>{t('duration')}: </Text>
+                  <Text>{t('daysPerWeeks')}': </Text>
+                  <Text>{t('bodyFocus')}: </Text>
+                  <Text>{t('PT')}: </Text>
                 </Block>
-                <Block
-                  row
-                  marginTop={20}
-                  paddingBottom={20}
-                  paddingHorizontal={16}>
-                  <Text fontType="bold" size={17}>
-                    {t('review')}:
+                <Block marginLeft={20}>
+                  <Text fontType="bold">
+                    {weeks} {t('weeks')}
                   </Text>
-                  <Pressable onPress={handleShowReview}>
-                    <Text style={styles.link} marginLeft={15} size={17}>
-                      {isShowReview ? t('hidden') : t('readMore')}
-                    </Text>
-                  </Pressable>
-                </Block>
-                {isShowReview ? (
-                  <>
-                    <RatingValue />
-                    <Review rate={rate} />
-                  </>
-                ) : null}
-              </>
-            ) : null}
-          </Block>
-          {/* BOTTOM SHEET PT */}
-          <BottomSheet
-            ref={modalizPTList}
-            HeaderComponent={() =>
-              HeaderComponent({title: t('personalTrainerList')})
-            }
-            modalHeight={screenHeight * 0.6}
-            adjustToContentHeight={false}>
-            <KeyboardAvoidingView
-              style={styles.sendControlContainerOuter}
-              behavior={keyboardVerticalOffset}
-              keyboardVerticalOffset={bottom * 0.7}>
-              <Block flex alignCenter>
-                <FlatList
-                  showsVerticalScrollIndicator={false}
-                  data={dataPT}
-                  keyExtractor={(item, index) => index.toString()}
-                  renderItem={_renderItemPT}
-                />
-              </Block>
-            </KeyboardAvoidingView>
-          </BottomSheet>
-          {/* BOTTOM SHEET PT DETAILS */}
-          <BottomSheet
-            ref={modalizInf}
-            HeaderComponent={() =>
-              HeaderComponent({title: t('information'), inf: true})
-            }>
-            <KeyboardAvoidingView
-              style={styles.sendControlContainerOuter}
-              behavior={keyboardVerticalOffset}
-              keyboardVerticalOffset={bottom * 0.7}>
-              <Block marginHorizontal={16}>
-                <Block alignCenter>
-                  <Image
-                    source={{
-                      uri: dataPTDetail.image,
-                    }}
-                    style={styles.imageInf}
-                  />
-                  <Text marginTop={10} size={18} fontType="bold">
-                    {dataPTDetail.name}
+                  <Text fontType="bold">
+                    {randomMinute} {t('minutes')}
                   </Text>
-                </Block>
-                <Text marginTop={10} size={16} fontType="bold">
-                  {t('description')}
-                </Text>
-                <Text>No something</Text>
-                <Block
-                  marginTop={10}
-                  paddingVertical={5}
-                  borderTopWidth={0.3}
-                  alignCenter
-                  borderColor={theme.colors.gray}
-                  row>
-                  <Block width={screenWidth / 3.6}>
-                    <Text fontType="bold">{t('ratting')}</Text>
+                  <Text fontType="bold">
+                    {day} {t('days')}
+                  </Text>
+                  <Text fontType="bold">Total body </Text>
+                  <Block row alignCenter>
+                    {infoPT?.name && (
+                      <Text marginRight={10} fontType="bold">
+                        {infoPT?.name}
+                      </Text>
+                    )}
+                    {transferCourseScreen === 'CourseDetail' ? (
+                      <Pressable onPress={() => modalizPTList?.current.open()}>
+                        {themeStore === 'dark' ? (
+                          <LinearGradient
+                            start={{x: 0, y: 0}}
+                            end={{x: 1, y: 0}}
+                            colors={['#70A2FF', '#54F0D1']}
+                            style={styles.choose}>
+                            <Text style={styles.choosePT} fontType="bold">
+                              {t('choose')}
+                            </Text>
+                          </LinearGradient>
+                        ) : (
+                          <Block
+                            style={styles.choose}
+                            backgroundColor={theme.colors.blue}>
+                            <Text style={styles.choosePT} fontType="bold">
+                              {t('choose')}
+                            </Text>
+                          </Block>
+                        )}
+                      </Pressable>
+                    ) : (
+                      <Text fontType="bold">{infoPT?.name}</Text>
+                    )}
                   </Block>
-                  <Block width={screenWidth / 1.55} alignStart>
-                    <Rating
-                      type="custom"
-                      ratingCount={5}
-                      ratingBackgroundColor="#c8c7c8"
-                      imageSize={20}
-                      ratingColor="#FFD700"
-                      tintColor={theme.colors.backgroundSetting}
+                </Block>
+              </Block>
+              {transferCourseScreen === 'CourseDetail' ? (
+                <>
+                  <Block paddingHorizontal={16}>
+                    <PayInfo
+                      title1={t('course')}
+                      titlePrice1={dataDetail.price}
+                      title2={t('PT')}
+                      titlePrice2={infoPT?.price || 0}
+                      total={totalPrice}
                     />
                   </Block>
+                  <Block
+                    row
+                    marginTop={20}
+                    paddingBottom={20}
+                    paddingHorizontal={16}>
+                    <Text fontType="bold" size={17}>
+                      {t('review')}:
+                    </Text>
+                    <Pressable onPress={handleShowReview}>
+                      <Text style={styles.link} marginLeft={15} size={17}>
+                        {isShowReview ? t('hidden') : t('readMore')}
+                      </Text>
+                    </Pressable>
+                  </Block>
+                  {isShowReview ? (
+                    <>
+                      <RatingValue />
+                      <Review rate={rate} />
+                    </>
+                  ) : null}
+                </>
+              ) : null}
+            </Block>
+            {/* BOTTOM SHEET PT */}
+            <BottomSheet
+              ref={modalizPTList}
+              HeaderComponent={() =>
+                HeaderComponent({title: t('personalTrainerList')})
+              }
+              modalHeight={screenHeight * 0.6}
+              adjustToContentHeight={false}>
+              <KeyboardAvoidingView
+                style={styles.sendControlContainerOuter}
+                behavior={keyboardVerticalOffset}
+                keyboardVerticalOffset={bottom * 0.7}>
+                <Block flex alignCenter>
+                  <FlatList
+                    showsVerticalScrollIndicator={false}
+                    data={dataPT}
+                    keyExtractor={(item, index) => index.toString()}
+                    renderItem={_renderItemPT}
+                  />
                 </Block>
-                <Block
-                  alignCenter
-                  paddingVertical={5}
-                  borderTopWidth={0.3}
-                  row
-                  borderColor={theme.colors.gray}>
-                  <Block width={screenWidth / 3.6}>
-                    <Text fontType="bold">{t('gender')}</Text>
+              </KeyboardAvoidingView>
+            </BottomSheet>
+            {/* BOTTOM SHEET PT DETAILS */}
+            <BottomSheet
+              ref={modalizInf}
+              HeaderComponent={() =>
+                HeaderComponent({title: t('information'), inf: true})
+              }>
+              <KeyboardAvoidingView
+                style={styles.sendControlContainerOuter}
+                behavior={keyboardVerticalOffset}
+                keyboardVerticalOffset={bottom * 0.7}>
+                <Block marginHorizontal={16}>
+                  <Block alignCenter>
+                    <Image
+                      source={{
+                        uri: dataPTDetail.image,
+                      }}
+                      style={styles.imageInf}
+                    />
+                    <Text marginTop={10} size={18} fontType="bold">
+                      {dataPTDetail.name}
+                    </Text>
                   </Block>
-                  <Block width={screenWidth / 1.55}>
-                    <Text>{dataPTDetail.gender}</Text>
+                  <Text marginTop={10} size={16} fontType="bold">
+                    {t('description')}
+                  </Text>
+                  <Text>No something</Text>
+                  <Block
+                    marginTop={10}
+                    paddingVertical={5}
+                    borderTopWidth={0.3}
+                    alignCenter
+                    borderColor={theme.colors.gray}
+                    row>
+                    <Block width={screenWidth / 3.6}>
+                      <Text fontType="bold">{t('ratting')}</Text>
+                    </Block>
+                    <Block width={screenWidth / 1.55} alignStart>
+                      <Rating
+                        type="custom"
+                        ratingCount={5}
+                        ratingBackgroundColor="#c8c7c8"
+                        imageSize={20}
+                        ratingColor="#FFD700"
+                        tintColor={theme.colors.backgroundSetting}
+                      />
+                    </Block>
+                  </Block>
+                  <Block
+                    alignCenter
+                    paddingVertical={5}
+                    borderTopWidth={0.3}
+                    row
+                    borderColor={theme.colors.gray}>
+                    <Block width={screenWidth / 3.6}>
+                      <Text fontType="bold">{t('gender')}</Text>
+                    </Block>
+                    <Block width={screenWidth / 1.55}>
+                      <Text>{dataPTDetail.gender}</Text>
+                    </Block>
+                  </Block>
+                  <Block
+                    alignCenter
+                    paddingVertical={5}
+                    borderTopWidth={0.3}
+                    row
+                    borderColor={theme.colors.gray}>
+                    <Block width={screenWidth / 3.6}>
+                      <Text fontType="bold">Email</Text>
+                    </Block>
+                    <Block width={screenWidth / 1.55}>
+                      <Text>{dataPTDetail.email}</Text>
+                    </Block>
+                  </Block>
+                  <Block
+                    alignCenter
+                    paddingVertical={5}
+                    borderTopWidth={0.3}
+                    row
+                    borderColor={theme.colors.gray}>
+                    <Block width={screenWidth / 3.6}>
+                      <Text fontType="bold">{t('mobile')}</Text>
+                    </Block>
+                    <Block width={screenWidth / 1.55}>
+                      <Text>{dataPTDetail.mobile}</Text>
+                    </Block>
+                  </Block>
+                  <Block
+                    alignCenter
+                    paddingVertical={5}
+                    borderTopWidth={0.3}
+                    row
+                    borderColor={theme.colors.gray}>
+                    <Block width={screenWidth / 3.6}>
+                      <Text fontType="bold">{t('birthday')}</Text>
+                    </Block>
+                    <Block width={screenWidth / 1.55}>
+                      <Text>{dataPTDetail.birthday}</Text>
+                    </Block>
+                  </Block>
+                  <Block
+                    alignCenter
+                    paddingVertical={5}
+                    borderTopWidth={0.3}
+                    paddingBottom={20}
+                    row
+                    borderColor={theme.colors.gray}>
+                    <Block width={screenWidth / 3.6}>
+                      <Text fontType="bold">{t('price')}</Text>
+                    </Block>
+                    <Block width={screenWidth / 1.55}>
+                      <Text>${dataPTDetail.price}</Text>
+                    </Block>
                   </Block>
                 </Block>
-                <Block
-                  alignCenter
-                  paddingVertical={5}
-                  borderTopWidth={0.3}
-                  row
-                  borderColor={theme.colors.gray}>
-                  <Block width={screenWidth / 3.6}>
-                    <Text fontType="bold">Email</Text>
-                  </Block>
-                  <Block width={screenWidth / 1.55}>
-                    <Text>{dataPTDetail.email}</Text>
-                  </Block>
-                </Block>
-                <Block
-                  alignCenter
-                  paddingVertical={5}
-                  borderTopWidth={0.3}
-                  row
-                  borderColor={theme.colors.gray}>
-                  <Block width={screenWidth / 3.6}>
-                    <Text fontType="bold">{t('mobile')}</Text>
-                  </Block>
-                  <Block width={screenWidth / 1.55}>
-                    <Text>{dataPTDetail.mobile}</Text>
-                  </Block>
-                </Block>
-                <Block
-                  alignCenter
-                  paddingVertical={5}
-                  borderTopWidth={0.3}
-                  row
-                  borderColor={theme.colors.gray}>
-                  <Block width={screenWidth / 3.6}>
-                    <Text fontType="bold">{t('birthday')}</Text>
-                  </Block>
-                  <Block width={screenWidth / 1.55}>
-                    <Text>{dataPTDetail.birthday}</Text>
-                  </Block>
-                </Block>
-                <Block
-                  alignCenter
-                  paddingVertical={5}
-                  borderTopWidth={0.3}
-                  row
-                  borderColor={theme.colors.gray}>
-                  <Block width={screenWidth / 3.6}>
-                    <Text fontType="bold">{t('price')}</Text>
-                  </Block>
-                  <Block width={screenWidth / 1.55}>
-                    <Text>${dataPTDetail.price}</Text>
-                  </Block>
-                </Block>
-              </Block>
-              <Button title={t('choose')} onPress={handleChoosePT} />
-            </KeyboardAvoidingView>
-          </BottomSheet>
-        </Block>
-      </ScrollView>
-      {JSON.stringify(user) !== '{}' ? (
-        <Button
-          title={t('addToCart')}
-          onPress={() => {
-            dispatch(addCartItem({addItem: dataDetail, quantity: 1}));
-          }}
-        />
-      ) : (
-        <InviteLogin
-          navigate={routes.LOGIN_SCREEN}
-          routes={routes.TAB_DETAILS}
-        />
-      )}
-    </Block>
+                <Button title={t('choose')} onPress={handleChoosePT} />
+              </KeyboardAvoidingView>
+            </BottomSheet>
+          </Block>
+        </ScrollView>
+        {JSON.stringify(user) !== '{}' ? (
+          <Button
+            title={t('addToCart')}
+            onPress={() => {
+              dispatch(addCartItem({addItem: dataDetail, quantity: 1}));
+            }}
+          />
+        ) : (
+          <InviteLogin
+            navigate={routes.LOGIN_SCREEN}
+            routes={routes.TAB_DETAILS}
+          />
+        )}
+      </Block>
+    </SafeAreaView>
   );
 };
 

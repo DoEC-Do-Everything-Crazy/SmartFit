@@ -9,6 +9,7 @@ import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {width} from 'utils/responsive';
 import {useTranslation} from 'react-i18next';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 const LoginScreen = ({navigation, props}) => {
   const {
@@ -21,7 +22,9 @@ const LoginScreen = ({navigation, props}) => {
   const theme = useTheme(themeStore);
 
   return (
-    <Block flex>
+    <SafeAreaView
+      edges={['bottom', 'left', 'right']}
+      style={styles.sendControlContainerOuter}>
       <ImageBackground
         style={styles.container}
         source={{
@@ -104,7 +107,7 @@ const LoginScreen = ({navigation, props}) => {
           </Block>
         </Block>
       </ImageBackground>
-    </Block>
+    </SafeAreaView>
   );
 };
 
