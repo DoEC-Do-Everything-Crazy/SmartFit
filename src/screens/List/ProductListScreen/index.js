@@ -1,48 +1,38 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import * as Animatable from 'react-native-animatable';
 
-import {FlatList, ScrollView, Pressable} from 'react-native';
-import React, {useEffect, useState} from 'react';
-
-import {Block} from '@components';
-import ItemCarousel from '@components/ItemList/ItemCarousel';
-import {productApi} from 'api/productApi';
-import {useSelector} from 'react-redux';
-import {useStyles} from './styles';
-import {useTheme} from '@theme';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withSpring,
 } from 'react-native-reanimated';
-import LinearGradient from 'react-native-linear-gradient';
+import {FlatList, Pressable, ScrollView} from 'react-native';
+import React, {useEffect, useState} from 'react';
+
+import {Block} from '@components';
 import {Cart} from '@assets/icons';
-import {useNavigation} from '@react-navigation/core';
-import {routes} from '@navigation/routes';
+import ItemCarousel from '@components/ItemList/ItemCarousel';
+import LinearGradient from 'react-native-linear-gradient';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import {productApi} from 'api/productApi';
+import {routes} from '@navigation/routes';
+import {useNavigation} from '@react-navigation/core';
+import {useSelector} from 'react-redux';
+import {useStyles} from './styles';
+import {useTheme} from '@theme';
 
 const ProductListScreen = ({props, navigation, route}) => {
+  const navigations = useNavigation();
+  const {type} = route.params;
   const [products, setProducts] = useState([]);
   const viewRef = React.useRef(null);
-  const {type} = route.params;
 
   const {
     theme: {theme: themeStore},
   } = useSelector(stateRoot => stateRoot.root);
   const theme = useTheme(themeStore);
   const styles = useStyles(props, themeStore);
-  const fetchData = async () => {
-    try {
-      const resData = await productApi.getProductByType(type);
-      setProducts(resData);
-    } catch (error) {
-      console.error(error.message);
-    }
-  };
 
-  useEffect(() => {
-    fetchData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
   const offset = useSharedValue(0);
 
   const animatedStyles = useAnimatedStyle(() => {
@@ -57,14 +47,22 @@ const ProductListScreen = ({props, navigation, route}) => {
       ],
     };
   });
-  const onScroll = event => {
-    // Check if the user is scrolling up or down by confronting the new scroll position with your own one
 
+  const onScroll = event => {
     const offsetList = event.nativeEvent.contentOffset.y;
 
     offsetList > 0 ? (offset.value = 1) : (offset.value = 0);
   };
-  const navigations = useNavigation();
+
+  const fetchData = async () => {
+    try {
+      const resData = await productApi.getProductByType(type);
+      setProducts(resData);
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
   useEffect(() => {
     const unsubscribe = navigations.addListener('focus', () => {
       viewRef.current.animate({0: {opacity: 0}, 1: {opacity: 1}});
@@ -74,6 +72,10 @@ const ProductListScreen = ({props, navigation, route}) => {
   const _renderItemCarousel = ({item, index}) => (
     <ItemCarousel item={item} key={index} />
   );
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <SafeAreaView

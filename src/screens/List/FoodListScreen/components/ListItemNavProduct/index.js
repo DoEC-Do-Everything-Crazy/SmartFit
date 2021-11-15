@@ -4,6 +4,7 @@ import {Block} from '@components';
 import Carousel from 'react-native-snap-carousel';
 import ItemNavProduct from '@components/ItemList/ItemNavProduct';
 import {foodApi} from 'api/foodApi';
+import {keyExtractor} from 'utils/keyExtractor';
 import {width} from '@utils/responsive';
 
 const ListItemNavProduct = () => {
@@ -21,9 +22,9 @@ const ListItemNavProduct = () => {
     getProduct();
   }, []);
 
-  const _renderItem = ({item, index}) => (
-    <ItemNavProduct item={item} key={index} />
-  );
+  const _renderItem = ({item, index}) => {
+    return <ItemNavProduct item={item} />;
+  };
 
   return (
     <Block marginHorizontal={8} paddingBottom={15} paddingTop={20}>
@@ -36,6 +37,7 @@ const ListItemNavProduct = () => {
           data={foods}
           hasParallaxImages={true}
           renderItem={_renderItem}
+          keyExtractor={keyExtractor}
         />
       </Block>
     </Block>

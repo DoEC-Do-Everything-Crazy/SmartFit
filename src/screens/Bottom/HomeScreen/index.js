@@ -1,44 +1,50 @@
-import {Block, Header} from '@components';
-import Carousel, {Pagination} from 'react-native-snap-carousel';
-import {Image, ScrollView, Pressable} from 'react-native';
-import React, {useEffect, useRef, useState} from 'react';
-
-import ListHotCourse from './components/ListHotCourse';
-import ListHotFood from './components/ListHotFood';
-import ListMenu from './components/ListMenu';
-import ListProduct from './components/ListProduct';
-import ListRecommended from './components/ListRecommended';
-import {courseApi} from 'api/courseApi';
-import {recommendedApi} from 'api/recommendedApi';
-import {bmiApi} from 'api/bmiApi';
-import {images} from '@assets';
-import {useSelector} from 'react-redux';
-import {useStyles} from './styles';
-import {useTheme} from '@theme';
-import {useTranslation} from 'react-i18next';
-import {width} from '@utils/responsive';
+/* eslint-disable react-hooks/exhaustive-deps */
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withSpring,
 } from 'react-native-reanimated';
-import LinearGradient from 'react-native-linear-gradient';
+import {Block, Header} from '@components';
+import Carousel, {Pagination} from 'react-native-snap-carousel';
+import {Image, Pressable, ScrollView} from 'react-native';
+import React, {useEffect, useRef, useState} from 'react';
+
 import {Cart} from '@assets/icons';
-import {useNavigation} from '@react-navigation/native';
-import {routes} from '@navigation/routes';
+import LinearGradient from 'react-native-linear-gradient';
+import ListHotCourse from './components/ListHotCourse';
+import ListHotFood from './components/ListHotFood';
+import ListMenu from './components/ListMenu';
+import ListProduct from './components/ListProduct';
+import ListRecommended from './components/ListRecommended';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import {bmiApi} from 'api/bmiApi';
+import {courseApi} from 'api/courseApi';
+import {images} from '@assets';
+import {recommendedApi} from 'api/recommendedApi';
+import {routes} from '@navigation/routes';
+import {useNavigation} from '@react-navigation/native';
+import {useSelector} from 'react-redux';
+import {useStyles} from './styles';
+import {useTheme} from '@theme';
+import {useTranslation} from 'react-i18next';
+import {width} from '@utils/responsive';
+
 const HomeScreen = props => {
-  const {
-    user: {user},
-  } = useSelector(state => state.root);
-  const [data, setData] = useState([]);
-  const [dataRecommended, setDataRecommended] = useState([]);
+  const navigation = useNavigation();
   const {t} = useTranslation();
-  const [activeIndex, setActivateIndex] = useState(0);
-  const carouselRef = useRef(null);
-  const themeStore = useSelector(state => state.root.theme.theme);
+  const offset = useSharedValue(0);
+  const {
+    theme: {theme: themeStore},
+    user: {user},
+  } = useSelector(stateRoot => stateRoot.root);
   const theme = useTheme(themeStore);
   const styles = useStyles(props, themeStore);
+  const carouselRef = useRef(null);
+
+  const [data, setData] = useState([]);
+  const [dataRecommended, setDataRecommended] = useState([]);
+  const [activeIndex, setActivateIndex] = useState(0);
+
   const dataBanner = [
     {
       img: images.banner1,
@@ -53,6 +59,19 @@ const HomeScreen = props => {
       img: images.banner4,
     },
   ];
+
+  const animatedStyles = useAnimatedStyle(() => {
+    return {
+      transform: [
+        {
+          translateY: withSpring(offset.value * 255, {
+            damping: 20,
+            stiffness: 200,
+          }),
+        },
+      ],
+    };
+  });
 
   const _renderItemCarousel = ({item, index}) => (
     <Image source={item.img} style={styles.image} />
@@ -82,32 +101,15 @@ const HomeScreen = props => {
       console.log('error', error.message);
     }
   };
-  const offset = useSharedValue(0);
-
-  const animatedStyles = useAnimatedStyle(() => {
-    return {
-      transform: [
-        {
-          translateY: withSpring(offset.value * 255, {
-            damping: 20,
-            stiffness: 200,
-          }),
-        },
-      ],
-    };
-  });
   const onScroll = event => {
-    // Check if the user is scrolling up or down by confronting the new scroll position with your own one
-
     const offsetList = event.nativeEvent.contentOffset.y;
 
     offsetList > 0 ? (offset.value = 1) : (offset.value = 0);
   };
-  const navigation = useNavigation();
+
   useEffect(() => {
     fetchData();
     fetchRecommendedByBMI();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

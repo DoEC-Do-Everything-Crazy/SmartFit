@@ -4,6 +4,7 @@ import React, {useEffect, useState} from 'react';
 import {FlatList} from 'react-native';
 import ItemPopular from '@components/ItemList/ItemPopular';
 import {foodApi} from 'api/foodApi';
+import {keyExtractor} from 'utils/keyExtractor';
 import {useTranslation} from 'react-i18next';
 
 const ListItemPopular = () => {
@@ -40,7 +41,7 @@ const ListItemPopular = () => {
         nestedScrollEnabled
         data={foods}
         numColumns={2}
-        keyExtractor={item => item.id}
+        keyExtractor={keyExtractor}
         renderItem={_renderItem}
       />
     </Block>

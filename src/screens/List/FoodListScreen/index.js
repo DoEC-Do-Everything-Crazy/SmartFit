@@ -1,23 +1,26 @@
-import {Block, Header} from '@components';
-import {useSelector} from 'react-redux';
-import {useTheme} from '@theme';
-import React from 'react';
-import {ScrollView, Pressable} from 'react-native';
-import ListItemNavProduct from './components/ListItemNavProduct';
-import ListItemPopular from './components/ListItemPopular';
-import {useTranslation} from 'react-i18next';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withSpring,
 } from 'react-native-reanimated';
-import LinearGradient from 'react-native-linear-gradient';
+import {Block, Header} from '@components';
+import {Pressable, ScrollView} from 'react-native';
+
 import {Cart} from '@assets/icons';
-import {useNavigation} from '@react-navigation/core';
-import {routes} from '@navigation/routes';
-import {useStyles} from './styles';
+import LinearGradient from 'react-native-linear-gradient';
+import ListItemNavProduct from './components/ListItemNavProduct';
+import ListItemPopular from './components/ListItemPopular';
+import React from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import {routes} from '@navigation/routes';
+import {useNavigation} from '@react-navigation/core';
+import {useSelector} from 'react-redux';
+import {useStyles} from './styles';
+import {useTheme} from '@theme';
+import {useTranslation} from 'react-i18next';
+
 const FoodListScreen = props => {
+  const navigation = useNavigation();
   const {
     theme: {theme: themeStore},
   } = useSelector(stateRoot => stateRoot.root);
@@ -38,14 +41,13 @@ const FoodListScreen = props => {
       ],
     };
   });
-  const onScroll = event => {
-    // Check if the user is scrolling up or down by confronting the new scroll position with your own one
 
+  const onScroll = event => {
     const offsetList = event.nativeEvent.contentOffset.y;
 
     offsetList > 0 ? (offset.value = 1) : (offset.value = 0);
   };
-  const navigation = useNavigation();
+
   return (
     <Block flex backgroundColor={theme.colors.backgroundSetting}>
       <Header

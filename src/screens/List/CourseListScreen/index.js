@@ -1,32 +1,36 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import {Block, Header} from '@components';
-import React, {useEffect, useState} from 'react';
-
-import {FlatList, Pressable} from 'react-native';
-import ItemCourse from '@components/ItemList/ItemCourse';
-import {courseApi} from 'api/courseApi';
-import {courseType} from 'data/courseType';
-import {useSelector} from 'react-redux';
-import {useTheme} from '@theme';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withSpring,
 } from 'react-native-reanimated';
-import LinearGradient from 'react-native-linear-gradient';
+/* eslint-disable react-hooks/exhaustive-deps */
+import {Block, Header} from '@components';
+import {FlatList, Pressable} from 'react-native';
+import React, {useEffect, useState} from 'react';
+
 import {Cart} from '@assets/icons';
-import {useNavigation} from '@react-navigation/core';
+import ItemCourse from '@components/ItemList/ItemCourse';
+import LinearGradient from 'react-native-linear-gradient';
+import {courseApi} from 'api/courseApi';
+import {courseType} from 'data/courseType';
 import {routes} from '@navigation/routes';
+import {useNavigation} from '@react-navigation/core';
+import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
+import {useTheme} from '@theme';
 
 const CourseListScreen = ({route, props}) => {
+  const navigation = useNavigation();
   const {type} = route.params;
-  const styles = useStyles(props, themeStore);
-  const [data, setData] = useState([]);
+
   const {
     theme: {theme: themeStore},
   } = useSelector(stateRoot => stateRoot.root);
   const theme = useTheme(themeStore);
+  const styles = useStyles(props, themeStore);
+  const offset = useSharedValue(0);
+
+  const [data, setData] = useState([]);
 
   const fetchData = async () => {
     try {
@@ -36,11 +40,6 @@ const CourseListScreen = ({route, props}) => {
       console.log('error', error.message);
     }
   };
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  const offset = useSharedValue(0);
 
   const animatedStyles = useAnimatedStyle(() => {
     return {
@@ -54,14 +53,13 @@ const CourseListScreen = ({route, props}) => {
       ],
     };
   });
-  const onScroll = event => {
-    // Check if the user is scrolling up or down by confronting the new scroll position with your own one
 
+  const onScroll = event => {
     const offsetList = event.nativeEvent.contentOffset.y;
 
     offsetList > 0 ? (offset.value = 1) : (offset.value = 0);
   };
-  const navigation = useNavigation();
+
   const _renderItem = ({item, index}) => {
     return (
       <Block
@@ -71,6 +69,10 @@ const CourseListScreen = ({route, props}) => {
       </Block>
     );
   };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <Block flex backgroundColor={theme.colors.backgroundSetting}>
