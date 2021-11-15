@@ -11,7 +11,6 @@ export const useStyles = makeStyles()(({colors}) => ({
     marginRight: getSize.s(20),
   },
   textInput: {
-    height: getSize.s(150),
     paddingHorizontal: getSize.m(16),
   },
   item: {
