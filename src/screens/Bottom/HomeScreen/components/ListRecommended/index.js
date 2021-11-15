@@ -32,7 +32,12 @@ const ListRecommended = ({data, props}) => {
             {t('recommended')}
           </Text>
         </Block>
-        <Pressable onPress={() => navigation.navigate(routes.FOOD_LIST_SCREEN)}>
+        <Pressable
+          onPress={() =>
+            navigation.navigate(routes.FOOD_LIST_SCREEN, {
+              title: t('healthyFood'),
+            })
+          }>
           <Text size={17} style={styles.link}>
             {t('seeAll')}
           </Text>

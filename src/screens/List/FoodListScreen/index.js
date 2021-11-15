@@ -1,7 +1,6 @@
 import {Block, Header} from '@components';
 import {useSelector} from 'react-redux';
 import {useTheme} from '@theme';
-import React from 'react';
 import {ScrollView, Pressable} from 'react-native';
 import ListItemNavProduct from './components/ListItemNavProduct';
 import ListItemPopular from './components/ListItemPopular';
@@ -17,7 +16,15 @@ import {useNavigation} from '@react-navigation/core';
 import {routes} from '@navigation/routes';
 import {useStyles} from './styles';
 import {SafeAreaView} from 'react-native-safe-area-context';
-const FoodListScreen = props => {
+import React, {useEffect, useState} from 'react';
+import {recommendedApi} from 'api/recommendedApi';
+import {bmiApi} from 'api/bmiApi';
+
+const FoodListScreen = ({route, props}) => {
+  const navigation = useNavigation();
+  const {
+    user: {user},
+  } = useSelector(state => state.root);
   const {
     theme: {theme: themeStore},
   } = useSelector(stateRoot => stateRoot.root);
@@ -25,6 +32,28 @@ const FoodListScreen = props => {
   const {t} = useTranslation();
   const styles = useStyles(props, themeStore);
   const offset = useSharedValue(0);
+  const {title} = route.params;
+  const [foodsBMI, setFoodsBMI] = useState([]);
+
+  const fetchFoodsByBMI = async () => {
+    try {
+      const response = await bmiApi.getBMI(user.uid, {
+        validateStatus: false,
+      });
+      if (response) {
+        const resData = await recommendedApi.getFoodsByBMI(
+          response.bmi,
+          'food',
+          {
+            validateStatus: false,
+          },
+        );
+        setFoodsBMI(resData);
+      }
+    } catch (error) {
+      console.log('error', error.message);
+    }
+  };
 
   const animatedStyles = useAnimatedStyle(() => {
     return {
@@ -45,18 +74,24 @@ const FoodListScreen = props => {
 
     offsetList > 0 ? (offset.value = 1) : (offset.value = 0);
   };
-  const navigation = useNavigation();
+
+  useEffect(() => {
+    fetchFoodsByBMI();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <Block flex backgroundColor={theme.colors.backgroundSetting}>
-      <Header
-        canGoBack
-        search
-        title={t('healthyFood')}
-        colorTheme={theme.colors.blue}
-      />
+      <Header canGoBack search title={title} colorTheme={theme.colors.blue} />
       <ScrollView onScroll={onScroll} showsVerticalScrollIndicator={false}>
-        <ListItemNavProduct />
-        <ListItemPopular />
+        {title === t('dailyMeals') ? (
+          <ListItemPopular foodsBMI={foodsBMI} />
+        ) : (
+          <>
+            <ListItemNavProduct />
+            <ListItemPopular />
+          </>
+        )}
       </ScrollView>
       <Animated.View style={[styles.groupButton, animatedStyles]}>
         <Pressable

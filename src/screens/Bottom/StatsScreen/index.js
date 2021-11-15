@@ -18,14 +18,15 @@ import {getSize, width} from '@utils/responsive';
 import {bmiApi} from 'api/bmiApi';
 import React, {useCallback, useRef, useState, useEffect} from 'react';
 import {useTranslation} from 'react-i18next';
-import {Platform, ScrollView} from 'react-native';
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
+import {useNavigation} from '@react-navigation/core';
+import {Platform, ScrollView, Pressable} from 'react-native';
 import {useSelector} from 'react-redux';
-import DateCategory from './components/DateCategory';
 import StatsBlock from './components/StatsBlock';
 import {useStyles} from './styles';
 
 const StatsScreen = props => {
+  const navigation = useNavigation();
   const [weight, setWeight] = useState(0);
   const [height, setHeight] = useState(0);
   const [bmi, setBMI] = useState({
@@ -172,9 +173,16 @@ const StatsScreen = props => {
         paddingTop={10}
         backgroundColor={theme.colors.backgroundSetting}>
         <Block paddingHorizontal={16}>
-          <ItemFeature shadow height={50} title={t('dailyMeals')}>
-            <Order color={theme.colors.iconInf} />
-          </ItemFeature>
+          <Pressable
+            onPress={() =>
+              navigation.navigate(routes.FOOD_LIST_SCREEN, {
+                title: t('dailyMeals'),
+              })
+            }>
+            <ItemFeature shadow height={50} title={t('dailyMeals')}>
+              <Order color={theme.colors.iconInf} />
+            </ItemFeature>
+          </Pressable>
         </Block>
         <Block flex style={styles.button}>
           <Button

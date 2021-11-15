@@ -49,7 +49,12 @@ const ListHotFood = props => {
         <Text size={20} fontType="bold" color={theme.colors.iconInf}>
           {t('hotFood')}
         </Text>
-        <Pressable onPress={() => navigation.navigate(routes.FOOD_LIST_SCREEN)}>
+        <Pressable
+          onPress={() =>
+            navigation.navigate(routes.FOOD_LIST_SCREEN, {
+              title: t('healthyFood'),
+            })
+          }>
           <Text size={17} style={styles.link}>
             {t('seeAll')}
           </Text>
