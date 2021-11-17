@@ -8,6 +8,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {Camera} from '@assets/icons';
 import ImagePicker from 'react-native-image-crop-picker';
 import {Rating} from 'react-native-ratings';
+import {SafeAreaView} from 'react-native-safe-area-context';
 import {icons} from '@assets';
 import {rateApi} from 'api/rateApi';
 import {routes} from '@navigation/routes';
@@ -15,7 +16,6 @@ import {useNavigation} from '@react-navigation/core';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {useTranslation} from 'react-i18next';
-import {SafeAreaView} from 'react-native-safe-area-context';
 
 const RateScreen = ({route, props}) => {
   const {item} = route.params;
@@ -24,17 +24,16 @@ const RateScreen = ({route, props}) => {
   const {
     theme: {theme: themeStore},
     image: {image},
-    user: {user},
   } = useSelector(stateRoot => stateRoot.root);
   const styles = useStyles(props, themeStore);
   const theme = useTheme(themeStore);
 
   const navigation = useNavigation();
-  const [content, setContent] = useState('');
+  const [content, setContent] = useState('a');
   const [rate, setRate] = useState(5);
-  const courseId = item.courseId || null;
-  const productId = item.productId || null;
-  const foodId = item.foodId || null;
+  const courseId = item.courseId || undefined;
+  const productId = item.productId || undefined;
+  const foodId = item.foodId || undefined;
 
   const handleCamera = async () => {
     const resultSP = await checkPermission(PERMISSION_TYPE.camera);
@@ -60,6 +59,7 @@ const RateScreen = ({route, props}) => {
   };
 
   const addRate = async formData => {
+    console.log({formData});
     const res = await rateApi.addRateReview(formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
@@ -79,10 +79,9 @@ const RateScreen = ({route, props}) => {
 
   const handleFormSubmit = () => {
     const formData = new FormData();
-    formData.append('userId', user.uid);
-    formData.append('productId', productId);
-    formData.append('courseId', courseId);
-    formData.append('foodId', foodId);
+    courseId && formData.append('courseId', courseId);
+    productId && formData.append('productId', productId);
+    foodId && formData.append('foodId', foodId);
     formData.append('rate', rate);
     formData.append('content', content);
 

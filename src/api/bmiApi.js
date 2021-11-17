@@ -18,9 +18,9 @@ const getBMI = async (userId, options) => {
   }
 };
 
-const addUpdateBMI = async (data, options) => {
+const addBMI = async (data, options) => {
   try {
-    const response = await axios.post(`${apiUrl}/bmi/addUpdateBMI`, data, {
+    const response = await axios.post(`${apiUrl}/bmi`, data, {
       ...options,
       validateStatus: false,
     });
@@ -29,7 +29,24 @@ const addUpdateBMI = async (data, options) => {
       throw response.data;
     }
 
-    return;
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+const updateBMI = async (data, options) => {
+  try {
+    const response = await axios.put(`${apiUrl}/bmi`, data, {
+      ...options,
+      validateStatus: false,
+    });
+
+    if (response.status === 404 || response.status === 500) {
+      throw response.data;
+    }
+
+    return response.data;
   } catch (error) {
     throw error;
   }
@@ -37,5 +54,6 @@ const addUpdateBMI = async (data, options) => {
 
 export const bmiApi = {
   getBMI,
-  addUpdateBMI,
+  addBMI,
+  updateBMI,
 };

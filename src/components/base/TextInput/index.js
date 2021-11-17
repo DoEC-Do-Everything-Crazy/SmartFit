@@ -1,11 +1,12 @@
-import {getSize} from '@utils/responsive';
-import {isEmpty} from 'lodash';
-import React, {useState, useMemo} from 'react';
+import React, {useMemo, useState} from 'react';
 import {StyleSheet, TextInput, TouchableOpacity} from 'react-native';
+
+import Block from '../Block';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import Block from '../Block';
 import Text from '../Text';
+import {getSize} from '@utils/responsive';
+import {isEmpty} from 'lodash';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';

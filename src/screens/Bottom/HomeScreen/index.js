@@ -82,7 +82,7 @@ const HomeScreen = props => {
       const resData = await courseApi.getCourses();
       setData(resData);
     } catch (error) {
-      console.log('error', error.message);
+      console.error('error', error.message);
     }
   };
 
@@ -98,9 +98,10 @@ const HomeScreen = props => {
         setDataRecommended(resData);
       }
     } catch (error) {
-      console.log('error', error.message);
+      console.error('error', error.message);
     }
   };
+
   const onScroll = event => {
     const offsetList = event.nativeEvent.contentOffset.y;
 
@@ -109,7 +110,7 @@ const HomeScreen = props => {
 
   useEffect(() => {
     fetchData();
-    fetchRecommendedByBMI();
+    // fetchRecommendedByBMI();
   }, []);
 
   return (

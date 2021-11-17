@@ -30,8 +30,4 @@ export const useStyles = makeStyles()(({colors}) => ({
     position: 'absolute',
     zIndex: 100,
   },
-  googleSigninButton: {
-    width: 192,
-    height: 48,
-  },
 }));

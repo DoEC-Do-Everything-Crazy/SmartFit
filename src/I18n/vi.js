@@ -5,6 +5,7 @@ export default {
   stats: 'Chỉ số',
   notification: 'Thông báo',
   information: 'Thông tin',
+
   //Setting Screen
   setting: 'Cài đặt',
   english: 'Tiếng Anh',
@@ -24,6 +25,7 @@ export default {
   enterCurrentCode: 'Nhập mã pin hiện tại',
   enterConfimPassword: 'Nhập mật khẩu confim',
   create: 'Tạo',
+
   //Information Screen
   yourFavorite: 'Danh sách yêu thích',
   payment: 'Thanh toán',
@@ -31,26 +33,50 @@ export default {
   order: 'Đơn hàng',
   logout: 'Đăng xuất',
   notUpdateYet: 'Chưa cập nhật',
+
+  //Login Screen , Register Screen
+  pleaseLogin: 'Đăng nhập để kết nối và trải nghiệm SmartFit tốt hơn',
+  requiresLogin: 'Yêu cầu đăng nhập',
+  login: 'Đăng nhập',
+  signInWithYourEmail: 'Đăng nhập bằng email của bạn',
+  enterYourName: 'Nhập họ tên',
+  enterYourEmail: 'Nhập email',
+  enterYourPassword: 'Nhập mật khẩu',
+  confirmPassword: 'Xác nhận mật khẩu',
+  register: 'Đăng ký',
+  createAccount: 'Chưa có tài khoản? Đăng ký ngay',
+
   //Notification Screen
   all: 'Tất cả',
   system: 'Hệ thống',
+
   //Stats Screen
   height: 'Chiều cao',
   weight: 'Cân nặng',
   bodyShape: 'Ngoại hình',
+  underweight: 'Thiếu cân',
+  overweight: 'Thừa cân',
+  ordinary: 'Bình thường',
+  fat: 'Béo',
+  veryFat: 'Rất béo',
+  noData: 'Không có dữ liệu',
   dailyMeals: 'Bữa ăn hàng ngày',
   createStats: 'Nhập chỉ số cơ thể',
+  updateStats: 'Cập nhật chỉ số cơ thể',
   confirm: 'Xác nhận',
   yourStats: 'Chỉ số của bạn',
+  updateYourStats: 'Cập nhật chỉ số',
   enterYourHeight: 'Nhập chiều cao của bạn',
   enterYourWeight: 'Nhập cân nặng của bạn',
   weekly: 'Tuần',
   monthly: 'Tháng',
   yearly: 'Năm',
+
   //Search Screen
   history: 'Lịch sử',
   recentSearch: 'Tìm kiếm gần đây ',
   clearAll: ' Xóa tất cả',
+
   //Home Screen
   course: 'Khoá học',
   product: 'Sản phẩm',
@@ -61,17 +87,21 @@ export default {
   hotFood: 'Đồ ăn ưa thích',
   hotCourse: 'Khoá học phổ biến',
   hotProduct: 'Sản phẩm mua nhiều',
+
   //Cart Screen
   orderCart: 'Đơn hàng',
   delivery: 'Vận chuyển',
   discount: 'Giảm giá',
   total: 'Tổng',
   cart: 'Giỏ hàng',
+
   //Course Type Screen
   courseCategory: 'Các hạng mục khóa học',
+
   //Course list
   detail: 'Chi tiết',
   lessons: 'Buổi học',
+
   //Course Detail Screen
   courseDetail: 'Chi tiết khoá học',
   completed: ' Hoàn thành',
@@ -100,14 +130,18 @@ export default {
   productDetail: 'Chi tiết sản phẩm',
   brand: 'Thương hiệu',
   review: 'Đánh giá',
+
   //Food List Screen
   healthyFood: 'Đồ ăn tốt cho sức khỏe',
   menu: 'Thực đơn',
+
   //Food Detail Screen
   foodDetails: 'Chi tiết đồ ăn',
   buyNow: 'Mua ngay',
+
   //Camera Screen
   camera: 'Máy ảnh',
+
   //Order Screen
   status: 'Trạng thái',
   received: 'Đã nhận',
@@ -121,11 +155,13 @@ export default {
   favorite: 'Yêu thích',
   orderDetail: 'Chi tiết đơn hàng',
   choosePhoto: 'Chọn ảnh',
+
   //Request OTP
   signInWithPhoneNumber: 'Đăng nhập bằng số điện thoại',
   codeIsSendTo: 'Mã được gửi tới',
   receiveCode: 'Không nhận được mã ?',
   requestAgain: 'Gửi lại mã',
+
   //Update profile
   male: 'Nam',
   female: 'Nữ',
@@ -136,6 +172,7 @@ export default {
   selectAGender: 'Chọn giới tính',
   selectDate: 'Chọn ngày',
   update: 'Cập nhật',
+
   //Vertify Email Screen
   vertifyEmail: 'Xác nhận Email',
   confitmEmail: 'XÁC NHẬN ĐỊA CHỈ EMAIL CỦA BẠN',
@@ -143,10 +180,12 @@ export default {
   checkEmail: 'Kiểm tra email của bạn và nhấp vào',
   confirmation: 'liên kết xác nhận để tiếp tục.',
   resendEmail: 'Gửi lại email',
+
   //Password Screen
   errPassword: 'Bạn đã nhập sai mật khẩu',
   enterPassword: 'Nhập mật khẩu',
   pleaseEnter: 'Vui lòng nhập mật khẩu của bạn để truy cập ứng dụng',
+
   //Onboard Screen
   learnAnywhere: 'Học mọi lúc mọi nơi',
   quarantine:
@@ -161,6 +200,7 @@ export default {
   or: 'HOẶC',
   enterOTP: 'Nhập số điện thoại của bạn để nhận OTP',
   send: 'Gửi',
+
   //Notification Screen
   warningOFD: 'HSD sẽ hết trong hôm nay',
   expiry: 'HSD',

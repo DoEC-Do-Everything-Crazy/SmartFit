@@ -1,3 +1,4 @@
+import {Block, Button, Header, InviteLogin, Text, TextInput} from '@components';
 /* eslint-disable react-hooks/exhaustive-deps */
 import {
   Body,
@@ -8,29 +9,29 @@ import {
   Underweight,
   Weight,
 } from '@assets/icons';
-import {Overweight} from '@assets/icons/Overweight';
-import {Block, Button, Header, InviteLogin, Text, TextInput} from '@components';
+import {Platform, ScrollView} from 'react-native';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
+import {getSize, width} from '@utils/responsive';
+
 import {BottomSheet} from '@components/BottomSheet';
 import ItemFeature from '@components/ItemList/ItemFeature';
-import {routes} from '@navigation/routes';
-import {useTheme} from '@theme';
-import {getSize, width} from '@utils/responsive';
-import {bmiApi} from 'api/bmiApi';
-import React, {useCallback, useRef, useState, useEffect} from 'react';
-import {useTranslation} from 'react-i18next';
-import {Platform, ScrollView} from 'react-native';
-import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
-import {useSelector} from 'react-redux';
-import DateCategory from './components/DateCategory';
+import {Overweight} from '@assets/icons/Overweight';
 import StatsBlock from './components/StatsBlock';
+import {bmiApi} from 'api/bmiApi';
+import {routes} from '@navigation/routes';
+import {setWith} from 'lodash';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
+import {useTheme} from '@theme';
+import {useTranslation} from 'react-i18next';
 
 const StatsScreen = props => {
   const [weight, setWeight] = useState(0);
   const [height, setHeight] = useState(0);
   const [bmi, setBMI] = useState({
-    id: '',
-    type: '',
+    id: undefined,
+    type: undefined,
     height: 0,
     weight: 0,
     bmi: 0,
@@ -48,7 +49,7 @@ const StatsScreen = props => {
     return (
       <Block style={styles.headerWrapper}>
         <Text fontType="bold" style={styles.title}>
-          {t('yourStats')}
+          {bmi.id ? t('updateYourStats') : t('yourStats')}
         </Text>
       </Block>
     );
@@ -61,43 +62,66 @@ const StatsScreen = props => {
     }
   }, [insets.bottom, styles.floatComponent]);
 
-  const fetchBMIData = async () => {
+  const getBMI = async () => {
     try {
-      const response = await bmiApi.getBMI(user.uid, {
+      const response = await bmiApi.getBMI(user._id, {
         validateStatus: false,
       });
-      if (response) {
-        setBMI({
-          id: response._id,
-          type: response.type,
-          height: response.height,
-          weight: response.weight,
-          bmi: response.bmi,
-        });
-        setHeight(response.height);
-        setWeight(response.weight);
-      }
+
+      setBMI({
+        id: response._id,
+        type: response.type,
+        height: response.height,
+        weight: response.weight,
+        bmi: response.bmi,
+      });
+
+      setHeight(response.height);
+      setWeight(response.weight);
     } catch (error) {
-      console.log('error', error.message);
+      console.error(error.message);
     }
   };
 
   useEffect(() => {
-    fetchBMIData();
-  }, []);
+    user && getBMI();
+  }, [user]);
 
   const handleBMI = async () => {
-    const data = {
-      userID: user.uid,
+    const newBMI = {
+      id: bmi.id || undefined,
+      userId: user._id,
       height: height,
       weight: weight,
     };
 
     try {
-      await bmiApi.addUpdateBMI(data, {validateStatus: false});
-      fetchBMIData();
+      const {data} = bmi.id
+        ? await bmiApi.updateBMI(newBMI, {validateStatus: false})
+        : await bmiApi.addBMI(newBMI, {validateStatus: false});
+
+      console.log(data);
+
+      setBMI({
+        id: data._id,
+        type: data.type,
+        height: data.height,
+        weight: data.weight,
+        bmi: data.bmi,
+      });
+
+      setHeight(Number(data.height));
+      setWeight(Number(data.weight));
     } catch (error) {
-      console.log('error', error.message);
+      if (bmi.id) {
+        setHeight(bmi.height);
+        setWeight(bmi.weight);
+      } else {
+        setHeight(0);
+        setHeight(0);
+      }
+
+      console.error('error', error.message);
     }
   };
 
@@ -107,7 +131,7 @@ const StatsScreen = props => {
     handleBMI();
   };
 
-  return (
+  return user ? (
     <Block flex backgroundColor={theme.colors.blue}>
       <Header
         type={'Bottom'}
@@ -151,19 +175,21 @@ const StatsScreen = props => {
             heightComponent="50%"
             title={t('bodyShape')}
             icon={
-              bmi.type === 'Underweight' ? (
-                <Underweight color={theme.colors.iconInf} />
-              ) : bmi.type === 'Overweight' ? (
-                <Overweight color={theme.colors.iconInf} />
-              ) : bmi.type === 'Ordinary' ? (
-                <Ordinary color={theme.colors.iconInf} />
-              ) : bmi.type === '' ? (
-                <Body color={theme.colors.iconInf} />
+              bmi.type ? (
+                bmi.type === 'underweight' ? (
+                  <Underweight color={theme.colors.iconInf} />
+                ) : bmi.type === 'overweight' ? (
+                  <Overweight color={theme.colors.iconInf} />
+                ) : bmi.type === 'ordinary' ? (
+                  <Ordinary color={theme.colors.iconInf} />
+                ) : (
+                  <Fat color={theme.colors.iconInf} />
+                )
               ) : (
-                <Fat color={theme.colors.iconInf} />
+                <Body color={theme.colors.iconInf} />
               )
             }
-            bmp={bmi.type === '' ? 'Do not have' : bmi.type}
+            bmp={bmi.type ? t(bmi.type) : t('noData')}
           />
         </Block>
       </Block>
@@ -178,8 +204,15 @@ const StatsScreen = props => {
         </Block>
         <Block flex style={styles.button}>
           <Button
-            onPress={() => modalizRef.current?.open()}
-            title={t('createStats')}
+            onPress={() => {
+              if (bmi.height !== height || bmi.weight !== weight) {
+                setWith(bmi.weight);
+                setHeight(bmi.height);
+              }
+
+              modalizRef.current?.open();
+            }}
+            title={bmi.id ? t('updateStats') : t('createStats')}
           />
         </Block>
         <BottomSheet
@@ -233,16 +266,15 @@ const StatsScreen = props => {
         </BottomSheet>
       </Block>
     </Block>
-
-    // ) : (
-    //   <>
-    //     <Header
-    //       title="Stats"
-    //       colorTheme={theme.colors.blue}
-    //       backgroundColor={theme.colors.white}
-    //     />
-    //     <InviteLogin navigate={routes.LOGIN_SCREEN} routes={routes.INFO_SCREEN} />
-    //   </>
+  ) : (
+    <>
+      <Header
+        title={t('stats')}
+        colorTheme={theme.colors.blue}
+        backgroundColor={theme.colors.white}
+      />
+      <InviteLogin navigate={routes.LOGIN_SCREEN} routes={routes.INFO_SCREEN} />
+    </>
   );
 };
 

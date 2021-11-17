@@ -1,9 +1,9 @@
 import {apiUrl} from '@config/api';
 import axios from 'axios';
 
-const getUser = async options => {
+const login = async (data, options) => {
   try {
-    const response = await axios.get(`${apiUrl}/users`, {
+    const response = await axios.post(`${apiUrl}/auth/login`, data, {
       ...options,
       validateStatus: false,
     });
@@ -18,9 +18,9 @@ const getUser = async options => {
   }
 };
 
-const updateUser = async (data, options) => {
+const register = async (data, options) => {
   try {
-    const response = await axios.put(`${apiUrl}/users`, data, {
+    const response = await axios.post(`${apiUrl}/auth/register`, data, {
       ...options,
       validateStatus: false,
     });
@@ -35,4 +35,4 @@ const updateUser = async (data, options) => {
   }
 };
 
-export const userApi = {getUser, updateUser};
+export const authApi = {login, register};

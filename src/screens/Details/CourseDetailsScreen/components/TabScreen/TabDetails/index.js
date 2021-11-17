@@ -22,8 +22,8 @@ import RatingValue from '@components/RatingValue';
 import Review from '@components/Review';
 import {addCartItem} from 'reduxs/reducers';
 import {courseApi} from 'api/courseApi';
-import {rateApi} from 'api/rateApi';
 import {ptApi} from 'api/ptApi';
+import {rateApi} from 'api/rateApi';
 import {routes} from '@navigation/routes';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useStyles} from './styles';
@@ -54,7 +54,7 @@ const TabDetails = ({route, props}) => {
       const resData = await ptApi.getPT(_id, {validateStatus: false});
       setDataPTDetail(resData);
     } catch (error) {
-      console.log('error', error.message);
+      console.error('error', error.message);
     }
   };
 
@@ -112,7 +112,7 @@ const TabDetails = ({route, props}) => {
       const resData = await ptApi.getPTs();
       setDataPT(resData);
     } catch (error) {
-      console.log('error', error.message);
+      console.error('error', error.message);
     }
   };
 

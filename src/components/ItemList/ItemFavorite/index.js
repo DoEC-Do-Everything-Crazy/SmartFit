@@ -1,14 +1,16 @@
-import {HeartPf} from '@assets/icons';
 import {Block, Text} from '@components';
-import {width} from '@utils/responsive';
-import React, {useEffect, useState} from 'react';
 import {Image, Pressable} from 'react-native';
-import {useSelector, useDispatch} from 'react-redux';
-import {useStyles} from './styles';
-import {useNavigation} from '@react-navigation/core';
-import {useTheme} from '@theme';
-import {routes} from '@navigation/routes';
+import React, {useEffect, useState} from 'react';
 import {addWishListItem, removeWishListItem} from 'reduxs/reducers';
+import {useDispatch, useSelector} from 'react-redux';
+
+/* eslint-disable react-hooks/exhaustive-deps */
+import {HeartPf} from '@assets/icons';
+import {routes} from '@navigation/routes';
+import {useNavigation} from '@react-navigation/core';
+import {useStyles} from './styles';
+import {useTheme} from '@theme';
+import {width} from '@utils/responsive';
 
 const ItemFavorite = ({item, marginTop, props}) => {
   const dispatch = useDispatch();
@@ -24,7 +26,6 @@ const ItemFavorite = ({item, marginTop, props}) => {
   const [favoriteColor, setFavoriteColor] = useState(null);
 
   const handleNavigate = () => {
-    console.log('key ' + item.key);
     if (item.key.includes('C')) {
       navigation.navigate(routes.TAB_DETAILS, {id: item._id});
       return;

@@ -2,27 +2,18 @@ import * as yup from 'yup';
 
 /* eslint-disable react-hooks/exhaustive-deps */
 import {Block, Button, Header, Text, TextInput} from '@components';
-import {
-  GoogleSignin,
-  GoogleSigninButton,
-  statusCodes,
-} from '@react-native-google-signin/google-signin';
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
 import {Formik} from 'formik';
-import {TouchableOpacity} from 'react-native-gesture-handler';
 import {authApi} from 'api/authApi';
-import {routes} from '@navigation/routes';
 import setAuthToken from 'utils/setAuthToken';
 import {setUser} from 'reduxs/reducers';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {useTranslation} from 'react-i18next';
-import {userApi} from 'api/userApi';
-import {width} from 'utils/responsive';
 
-const LoginScreen = ({navigation, props}) => {
+const RegisterScreen = ({navigation, props}) => {
   const {
     theme: {theme: themeStore},
     user: {user},
@@ -35,40 +26,8 @@ const LoginScreen = ({navigation, props}) => {
 
   const [isProcessing, setIsProcessing] = useState(false);
 
-  useEffect(() => {
-    GoogleSignin.configure({
-      androidClientId:
-        '927927486039-0m1dpqbd9cbd94rst8p1d2b7ldo48lbo.apps.googleusercontent.com',
-      iosClientId:
-        '927927486039-06hpueocjokal608b7lp47uhl3gdf425.apps.googleusercontent.com',
-      forceCodeForRefreshToken: true,
-    });
-  }, []);
-
-  const signIn = async () => {
-    try {
-      await GoogleSignin.hasPlayServices();
-      await GoogleSignin.signIn();
-      const token = await GoogleSignin.getTokens();
-      if (token.idToken) {
-        setAuthToken(token.idToken);
-        let resUser = await userApi.getUser();
-        dispatch(setUser(resUser));
-      }
-    } catch (error) {
-      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-        console.error('User Cancelled the Login Flow');
-      } else if (error.code === statusCodes.IN_PROGRESS) {
-        console.error('Signing In');
-      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-        console.error('Play Services Not Available or Outdated');
-      } else {
-        console.error(error.message);
-      }
-    }
-  };
-
   const validationSchema = yup.object().shape({
+    fullName: yup.string().required('Full name is Required'),
     email: yup
       .string()
       .matches(
@@ -80,18 +39,25 @@ const LoginScreen = ({navigation, props}) => {
       .string()
       .min(8, 'Password is too short - should be 8 chars minimum.')
       .required('Password is Required'),
+    confirmPassword: yup
+      .string()
+      .oneOf([yup.ref('password'), null], 'Passwords must match')
+      .min(8, 'Password is too short - should be 8 chars minimum.')
+      .required('Password is Required'),
   });
 
   const handleOnSubmit = async values => {
     setIsProcessing(true);
 
-    let userCredentials = {
+    const userCredentials = {
+      fullName: values.fullName,
       email: values.email,
       password: values.password,
+      confirmPassword: values.confirmPassword,
     };
 
     try {
-      const resData = await authApi.login(userCredentials);
+      const resData = await authApi.register(userCredentials);
       setAuthToken(resData.token);
       dispatch(setUser(resData.user));
     } catch (error) {
@@ -111,8 +77,10 @@ const LoginScreen = ({navigation, props}) => {
     <Formik
       validationSchema={validationSchema}
       initialValues={{
+        fullName: '',
         email: '',
         password: '',
+        confirmPassword: '',
       }}
       onSubmit={handleOnSubmit}>
       {({
@@ -125,7 +93,11 @@ const LoginScreen = ({navigation, props}) => {
         isValid,
       }) => (
         <Block flex backgroundColor={theme.colors.backgroundSetting}>
-          <Header canGoBack colorTheme={theme.colors.blue} title={t('login')} />
+          <Header
+            canGoBack
+            colorTheme={theme.colors.blue}
+            title={t('register')}
+          />
           <Block flex>
             {isProcessing && (
               <Block
@@ -140,9 +112,19 @@ const LoginScreen = ({navigation, props}) => {
               </Block>
             )}
             <Block flex justifyCenter>
-              <Text center fontType={'bold'} marginBottom={30}>
-                {t('signInWithYourEmail')}
-              </Text>
+              <Block marginBottom={10} paddingHorizontal={16}>
+                <TextInput
+                  onChangeText={handleChange('fullName')}
+                  value={values.fullName}
+                  inputStyle={styles.inputStyle}
+                  keyboardType="default"
+                  label={t('enterYourName')}
+                  onBlur={handleBlur('fullName')}
+                />
+                {errors.fullName && touched.fullName && (
+                  <Text style={styles.text}>{errors.fullName}</Text>
+                )}
+              </Block>
               <Block marginBottom={10} paddingHorizontal={16}>
                 <TextInput
                   onChangeText={handleChange('email')}
@@ -170,51 +152,26 @@ const LoginScreen = ({navigation, props}) => {
                   <Text style={styles.text}>{errors.password}</Text>
                 )}
               </Block>
+              <Block marginBottom={10} paddingHorizontal={16}>
+                <TextInput
+                  onChangeText={handleChange('confirmPassword')}
+                  value={values.confirmPassword}
+                  inputStyle={styles.inputStyle}
+                  keyboardType="default"
+                  label={t('confirmPassword')}
+                  onBlur={handleBlur('confirmPassword')}
+                  isSecure
+                />
+                {errors.confirmPassword && touched.confirmPassword && (
+                  <Text style={styles.text}>{errors.confirmPassword}</Text>
+                )}
+              </Block>
               <Block marginBottom={10}>
                 <Button
                   disabled={!isValid}
                   // disabled={isValid ? isSubmitting : false}
                   onPress={handleSubmit}
-                  title={t('login')}
-                />
-              </Block>
-              <Block>
-                <TouchableOpacity
-                  onPress={() => {
-                    navigation.navigate(routes.REGISTER_SCREEN);
-                  }}>
-                  <Text center marginBottom={30}>
-                    {t('createAccount')}
-                  </Text>
-                </TouchableOpacity>
-              </Block>
-            </Block>
-            <Block width={width} marginBottom={50}>
-              <Block row alignCenter justifyCenter margin={16}>
-                <Block
-                  width={150}
-                  borderWidth={0.7}
-                  borderColor={theme.colors.black}
-                />
-                <Text
-                  size={18}
-                  color={theme.colors.black}
-                  marginHorizontal={16}
-                  fontType="bold">
-                  {t('or')}
-                </Text>
-                <Block
-                  borderWidth={0.7}
-                  borderColor={theme.colors.black}
-                  width={150}
-                />
-              </Block>
-              <Block row alignCenter justifyCenter>
-                <GoogleSigninButton
-                  style={styles.googleSigninButton}
-                  size={GoogleSigninButton.Size.Wide}
-                  color={GoogleSigninButton.Color.Dark}
-                  onPress={signIn}
+                  title={t('register')}
                 />
               </Block>
             </Block>
@@ -225,4 +182,4 @@ const LoginScreen = ({navigation, props}) => {
   );
 };
 
-export default LoginScreen;
+export default RegisterScreen;

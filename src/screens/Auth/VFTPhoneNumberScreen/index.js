@@ -93,7 +93,7 @@ const VFTPhoneNumberScreen = ({route, props}) => {
       let user = resData.user;
 
       dispatch(addUser(user));
-      if (user.displayname !== '') {
+      if (user.fullName !== '') {
         console.log('exist');
         navigation.navigate(routes.BOTTOM_TAB);
       } else {

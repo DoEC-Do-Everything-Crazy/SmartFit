@@ -1,7 +1,8 @@
+import React, {useEffect, useState} from 'react';
+
 import {Block} from '@components';
-import ItemNotification from '@components/ItemList/ItemNotification';
-import React, {useState, useEffect} from 'react';
 import {FlatList} from 'react-native';
+import ItemNotification from '@components/ItemList/ItemNotification';
 import {promotionApi} from 'api/promotionApi.js';
 import {useSelector} from 'react-redux';
 import {useTheme} from '@theme';
@@ -27,7 +28,7 @@ const ListNotification = props => {
         setNotification(response);
       }
     } catch (error) {
-      console.log('error', error.message);
+      console.error('error', error.message);
     }
   };
 

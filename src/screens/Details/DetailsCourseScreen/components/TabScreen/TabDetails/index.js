@@ -10,12 +10,12 @@ import {
   ScrollView,
 } from 'react-native';
 import React, {useCallback, useEffect, useRef, useState} from 'react';
+import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useDispatch, useSelector} from 'react-redux';
 
 /* eslint-disable react-hooks/exhaustive-deps */
 import {Back} from '@assets/icons';
 import {BottomSheet} from '@components/BottomSheet';
-
 import ItemPT from '@components/ItemList/ItemPT';
 import LinearGradient from 'react-native-linear-gradient';
 import {Rating} from 'react-native-ratings';
@@ -26,7 +26,6 @@ import {courseApi} from 'api/courseApi';
 import {ptApi} from 'api/ptApi';
 import {rateApi} from 'api/rateApi';
 import {routes} from '@navigation/routes';
-import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {useTranslation} from 'react-i18next';
@@ -55,7 +54,7 @@ const TabDetails = ({route, props}) => {
       const resData = await ptApi.getPT(_id, {validateStatus: false});
       setDataPTDetail(resData);
     } catch (error) {
-      console.log('error', error.message);
+      console.error('error', error.message);
     }
   };
 
@@ -113,7 +112,7 @@ const TabDetails = ({route, props}) => {
       const resData = await ptApi.getPTs();
       setDataPT(resData);
     } catch (error) {
-      console.log('error', error.message);
+      console.error('error', error.message);
     }
   };
 

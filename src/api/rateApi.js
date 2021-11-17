@@ -53,7 +53,7 @@ const getRateById = async (type, id, options) => {
 };
 const addRateReview = async (data, options) => {
   try {
-    const response = await axios.post(`${apiUrl}/rates/addWithImage`, data, {
+    const response = await axios.post(`${apiUrl}/rates/WithImage`, data, {
       ...options,
       validateStatus: false,
     });

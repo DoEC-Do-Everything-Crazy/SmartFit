@@ -1,21 +1,23 @@
 import {Block, Text} from '@components';
-import React from 'react';
+
 import {FlatList} from 'react-native';
 import ItemReview from '@components/ItemList/ItemReview';
+import React from 'react';
 import {useTranslation} from 'react-i18next';
 
 const Review = ({rate}) => {
   const {t} = useTranslation();
-  const _renderItem = ({item}) => (
-    <ItemReview
-      name={item.displayName}
-      userImage={item.photoURL}
-      content={item.content}
-      date={item.createdAt}
-      image={item.image}
-      rating={item.rate}
-    />
-  );
+  const _renderItem = ({item}) => {
+    return (
+      <ItemReview
+        user={item.user}
+        content={item.content}
+        date={item.updatedAt}
+        image={item.image}
+        rating={item.rate}
+      />
+    );
+  };
 
   return (
     <Block flex marginTop={10} marginHorizontal={16}>

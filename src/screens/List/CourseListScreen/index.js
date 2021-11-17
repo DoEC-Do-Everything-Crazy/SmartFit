@@ -37,7 +37,7 @@ const CourseListScreen = ({route, props}) => {
       const resData = await courseApi.getCoursesByType(type);
       setData(resData);
     } catch (error) {
-      console.log('error', error.message);
+      console.error('error', error.message);
     }
   };
 
