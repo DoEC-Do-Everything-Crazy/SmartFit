@@ -123,6 +123,14 @@ export default {
   favorite: 'Favorite',
   orderDetail: 'Order detail',
   choosePhoto: 'Choose Photo',
+  cancelOrder: 'Canceled',
+  pendingOrder: 'Pending',
+  totalAmount: 'Total Amount',
+  promotion: 'Promotion',
+  addressShip: 'Shipping Adress',
+  orderInformation: 'Order information',
+  reOrder: 'Reorder',
+  leaveFeedback: 'Close',
   //Request OTP
   signInWithPhoneNumber: 'Sign in with phone number',
   codeIsSendTo: 'Code is send to',
@@ -168,4 +176,5 @@ export default {
   getCode: 'Get the code',
   //Payment Screen
   payment: 'Payment',
+  enterAddress: 'Enter your address',
 };

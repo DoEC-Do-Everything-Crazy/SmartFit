@@ -28,7 +28,7 @@ const Payment = ({props, route}) => {
   const theme = useTheme(themeStore);
   const styles = useStyles(props, themeStore);
   const renderItem = ({item, index}) => <ItemCart notQuantity item={item} />;
-  const [isDiscount, setIsDiscount] = useState(true);
+  const [isAddress, setAddress] = useState(false);
   const [promotion, setPromotion] = useState('');
   const [valueDiscount, setValueDiscount] = useState(0);
   const totalPriceCart = cart.reduce(
@@ -42,6 +42,7 @@ const Payment = ({props, route}) => {
   const total = totalPriceCart + delivery - valueDiscount;
 
   const handleAddress = () => {
+    setAddress(true);
     navigation.navigate(routes.DELIVERY_INFORMATION_SCREEN);
   };
 
@@ -86,12 +87,17 @@ const Payment = ({props, route}) => {
         <Pressable onPress={handleAddress} style={styles.address}>
           <Address />
           <Block width="90%" marginHorizontal={5} marginVertical={5}>
-            <Text size={18}>Địa chỉ nhận hàng</Text>
-            <Text>{name + ' - ' + phone || 'Hồ Công Khanh - 0344108493'}</Text>
-            <Text>
-              {address ||
-                'Ấp Mỹ Phú xã Mỹ Hạnh Đông thị xã Cai Lậy tỉnh Tiền Giang '}
-            </Text>
+            <Text size={18}>{t('addressShip')}</Text>
+            {isAddress ? (
+              <>
+                <Text>{name + ' - ' + phone}</Text>
+                <Text>{address}</Text>
+              </>
+            ) : (
+              <>
+                <Text>{t('enterAddress')}</Text>
+              </>
+            )}
           </Block>
         </Pressable>
         <Block>
@@ -102,8 +108,9 @@ const Payment = ({props, route}) => {
           />
         </Block>
         <Block marginHorizontal={16}>
-          <Text marginVertical={5}>Mã giảm giá</Text>
+          <Text marginVertical={5}>{t('promotion')}</Text>
           <TextInput
+            inputStyle={{flex: 1}}
             paddingHorizontal={10}
             value={promotion}
             onChangeText={text => setPromotion(text)}
@@ -117,7 +124,7 @@ const Payment = ({props, route}) => {
             titlePrice2={delivery}
             title3={t('discount')}
             titlePrice3={valueDiscount || 0}
-            isDiscount={isDiscount}
+            isDiscount={true}
           />
         </Block>
 

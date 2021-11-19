@@ -34,12 +34,31 @@ const addOrder = async (data, options) => {
   }
 };
 
-const getOrders = async (id, options) => {
+const getOrders = async (userId, options) => {
   try {
-    const response = await axios.get(`${apiUrl}/orders`, {
+    const response = await axios.get(`${apiUrl}/orders?userId=${userId}`, {
       ...options,
       validateStatus: false,
     });
+
+    if (response.status === 404 || response.status === 500) {
+      throw response.data;
+    }
+
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+const getOrdersByStatus = async (userId, status, options) => {
+  try {
+    const response = await axios.get(
+      `${apiUrl}/orders?userId=${userId}&&status=${status}`,
+      {
+        ...options,
+        validateStatus: false,
+      },
+    );
 
     if (response.status === 404 || response.status === 500) {
       throw response.data;
@@ -73,4 +92,5 @@ export const orderApi = {
   addOrder,
   getOrders,
   updateOrder,
+  getOrdersByStatus,
 };

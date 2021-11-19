@@ -15,24 +15,26 @@ import {orderApi} from 'api/orderApi';
 const OrderScreen = props => {
   const {
     theme: {theme: themeStore},
+    user: {user},
   } = useSelector(stateRoot => stateRoot.root);
   const styles = useStyles(props, themeStore);
   const theme = useTheme(themeStore);
   const [order, setOrder] = useState([]);
+  const [status, setStatus] = useState('All');
   const {t} = useTranslation();
   const [something, setSomething] = useState('');
   const DATA_HEADER = [
     {
       id: 1,
-      title: t('status'),
+      title: 'All',
     },
     {
       id: 2,
-      title: t('received'),
+      title: 'Received',
     },
     {
       id: 3,
-      title: t('cancelled'),
+      title: 'Cancel',
     },
   ];
 
@@ -78,7 +80,10 @@ const OrderScreen = props => {
     return (
       <Item
         item={item}
-        onPress={() => setSelectedId(item.id)}
+        onPress={() => {
+          setSelectedId(item.id);
+          setStatus(item.title);
+        }}
         backgroundColor={
           themeStore === 'dark' ? backgroundColor : {backgroundColor}
         }
@@ -89,7 +94,8 @@ const OrderScreen = props => {
 
   const getAllOrder = async () => {
     try {
-      const data = await orderApi.getOrders();
+      const data = await orderApi.getOrders(user.uid);
+      console.log('bbbb', data);
       setOrder(data);
     } catch (error) {
       console.error(error.message);
@@ -111,7 +117,6 @@ const OrderScreen = props => {
             colorTheme={theme.colors.black}
           />
           <Block
-            flex
             paddingHorizontal={16}
             backgroundColor={theme.colors.backgroundSetting}>
             <ScrollView
@@ -124,13 +129,33 @@ const OrderScreen = props => {
                 <_renderItemHeader key={i} item={item} />
               ))}
             </ScrollView>
-            <FlatList
-              showsVerticalScrollIndicator={false}
-              inverted={true}
-              data={order}
-              renderItem={_renderItem}
-              keyExtractor={item => item._id}
-            />
+            {status === 'Cancel' && (
+              <FlatList
+                showsVerticalScrollIndicator={false}
+                inverted={true}
+                data={order.filter(item => item.status === 'Cancel')}
+                renderItem={_renderItem}
+                keyExtractor={item => item._id}
+              />
+            )}
+            {status === 'Received' && (
+              <FlatList
+                showsVerticalScrollIndicator={false}
+                inverted={true}
+                data={order.filter(item => item.status === 'Received')}
+                renderItem={_renderItem}
+                keyExtractor={item => item._id}
+              />
+            )}
+            {status === 'All' && (
+              <FlatList
+                showsVerticalScrollIndicator={false}
+                inverted={true}
+                data={order}
+                renderItem={_renderItem}
+                keyExtractor={item => item._id}
+              />
+            )}
           </Block>
         </>
       </Block>

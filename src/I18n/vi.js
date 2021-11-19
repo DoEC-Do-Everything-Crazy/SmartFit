@@ -121,6 +121,14 @@ export default {
   favorite: 'Yêu thích',
   orderDetail: 'Chi tiết đơn hàng',
   choosePhoto: 'Chọn ảnh',
+  cancelOrder: 'Đã hủy',
+  pendingOrder: 'Đang chờ xử lý',
+  totalAmount: 'Tổng cộng',
+  promotion: 'Mã giảm giá',
+  addressShip: 'Địa chỉ giao hàng',
+  orderInformation: 'Thông tin đơn hàng',
+  reOrder: 'Mua lại',
+  leaveFeedback: 'Đóng',
   //Request OTP
   signInWithPhoneNumber: 'Đăng nhập bằng số điện thoại',
   codeIsSendTo: 'Mã được gửi tới',
@@ -168,4 +176,5 @@ export default {
   getCode: 'Lấy mã',
   //Payment Screen
   payment: 'Thanh toán',
+  enterAddress: 'Nhấn vào đây để nhập địa chỉ của bạn',
 };

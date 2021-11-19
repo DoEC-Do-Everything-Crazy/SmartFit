@@ -62,11 +62,19 @@ const ItemOrder = ({item, onPress, index, props}) => {
   const FooterComponent = useCallback(() => {
     return (
       <Block marginBottom={20} row alignCenter justifyCenter>
-        <Pressable style={styles.itemReorder} borderColor={theme.colors.text}>
-          <Text>Reorder</Text>
+        <Pressable
+          onPress={() => {
+            modalizRef?.current.close();
+            navigation.navigate(routes.FOOD_LIST_SCREEN);
+          }}
+          style={styles.itemReorder}
+          borderColor={theme.colors.text}>
+          <Text>{t('reOrder')}</Text>
         </Pressable>
-        <Pressable style={styles.itemLeave} onPress={handleOpenConfirm}>
-          <Text color={theme.colors.white}>Leave feedback</Text>
+        <Pressable
+          onPress={() => modalizRef?.current.close()}
+          style={styles.itemLeave}>
+          <Text color={theme.colors.white}>{t('leaveFeedback')}</Text>
         </Pressable>
       </Block>
     );
@@ -107,13 +115,13 @@ const ItemOrder = ({item, onPress, index, props}) => {
 
           <Block row flex={1}>
             <Block row flex={1}>
-              <Text>Promotion:</Text>
+              <Text>{t('promotion')}:</Text>
               <Text marginLeft={10} fontType="bold">
                 {item.promotion}
               </Text>
             </Block>
             <Block row flex={1} justifyEnd>
-              <Text>Total Amount:</Text>
+              <Text>{t('totalAmount')}:</Text>
               <Text marginLeft={10} fontType="bold">
                 {item.total}$
               </Text>
@@ -129,7 +137,7 @@ const ItemOrder = ({item, onPress, index, props}) => {
                 <Text>{t('detail')}</Text>
               </Pressable>
             </Block>
-            {status === 'received' && (
+            {status === 'Received' && (
               <Block row flex={1} justifyEnd alignCenter>
                 <Pressable
                   onPress={handleOpenConfirm}
@@ -144,17 +152,17 @@ const ItemOrder = ({item, onPress, index, props}) => {
                   marginRight={10}
                   fontType="bold"
                   color={theme.colors.green}>
-                  Cancel
+                  {t('cancelOrder')}
                 </Text>
               </Block>
             )}
-            {status === 'pending' && (
+            {status === 'Pending' && (
               <Block row flex={1} justifyEnd alignCenter>
                 <Text
                   marginRight={10}
                   fontType="bold"
                   color={theme.colors.green}>
-                  {item.status} aaaa
+                  {t('pendingOrder')}
                 </Text>
                 <Pressable onPress={handleCancelBill} style={styles.itemCancel}>
                   <Text color={theme.colors.white}>{t('cancel')}</Text>
@@ -193,12 +201,8 @@ const ItemOrder = ({item, onPress, index, props}) => {
                     </Block>
                   </Block>
                   <Block row justifyStart>
-                    <Text>Tracking number:</Text>
-                    <Text marginLeft={10} fontType="bold">
-                      IW3475453455
-                    </Text>
                     <Block row flex={1} justifyEnd>
-                      <Text color={theme.colors.green}>Delivered</Text>
+                      <Text color={theme.colors.green}>{item.status}</Text>
                     </Block>
                   </Block>
                   <Block marginTop={5} row flex={1}>
@@ -220,11 +224,11 @@ const ItemOrder = ({item, onPress, index, props}) => {
                 </Block>
                 <Block height="27%" marginTop={20}>
                   <Text size={16} fontType="bold">
-                    Order information
+                    {t('orderInformation')}
                   </Text>
                   <Block row marginTop={15}>
                     <Block width="40%">
-                      <Text>Shipping Address:</Text>
+                      <Text>{t('addressShip')}:</Text>
                     </Block>
                     <Block width="60%">
                       <Text fontType="bold">{item.address}</Text>
@@ -232,15 +236,15 @@ const ItemOrder = ({item, onPress, index, props}) => {
                   </Block>
                   <Block row marginTop={10}>
                     <Block width="40%">
-                      <Text>Discount:</Text>
+                      <Text>{t('discount')}:</Text>
                     </Block>
                     <Block width="60%">
-                      <Text fontType="bold">10%, Personal promo code</Text>
+                      <Text fontType="bold">{item.discount * 100}%</Text>
                     </Block>
                   </Block>
                   <Block row marginTop={10}>
                     <Block width="40%">
-                      <Text>Total Amount:</Text>
+                      <Text>{t('totalAmount')}:</Text>
                     </Block>
                     <Block width="60%">
                       <Text fontType="bold">{item.total}$</Text>
