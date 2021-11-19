@@ -12,6 +12,7 @@ import {useTheme} from '@theme';
 import {useNavigation} from '@react-navigation/core';
 import {useTranslation} from 'react-i18next';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import {orderApi} from 'api/orderApi';
 
 const CartScreen = props => {
   const navigation = useNavigation();
@@ -25,6 +26,17 @@ const CartScreen = props => {
   const {t} = useTranslation();
 
   const [isDiscount, setIsDiscount] = useState(false);
+
+  const checkCart = async formData => {
+    const res = await orderApi.checkCardList({cartList: formData});
+    console.log('check....', res);
+    if (res) {
+      navigation.navigate(routes.PAYMENT_SCREEN);
+    }
+  };
+  const handleConfirm = () => {
+    checkCart(cart);
+  };
 
   const Cart = () => {
     return (
@@ -56,10 +68,7 @@ const CartScreen = props => {
                 isDiscount={isDiscount}
               />
             </Block>
-            <Button
-              title={t('confirm')}
-              onPress={() => navigation.navigate(routes.PAYMENT_SCREEN)}
-            />
+            <Button title={t('confirm')} onPress={handleConfirm} />
           </Block>
         ) : (
           <NotData />

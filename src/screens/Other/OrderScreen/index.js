@@ -1,7 +1,7 @@
 import {Block, Header as HeaderComponent, Text} from '@components';
 import {FlatList, Pressable, ScrollView} from 'react-native';
 
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 
 import ItemOrder from '@components/ItemList/ItemOrder';
 import LinearGradient from 'react-native-linear-gradient';
@@ -10,6 +10,7 @@ import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {useTranslation} from 'react-i18next';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import {orderApi} from 'api/orderApi';
 
 const OrderScreen = props => {
   const {
@@ -17,8 +18,9 @@ const OrderScreen = props => {
   } = useSelector(stateRoot => stateRoot.root);
   const styles = useStyles(props, themeStore);
   const theme = useTheme(themeStore);
-  const [isCamera, setCamera] = useState(false);
+  const [order, setOrder] = useState([]);
   const {t} = useTranslation();
+  const [something, setSomething] = useState('');
   const DATA_HEADER = [
     {
       id: 1,
@@ -34,11 +36,10 @@ const OrderScreen = props => {
     },
   ];
 
-  const onSuccess = e => {
-    console.log('click');
+  const _renderItem = ({item, index}) => {
+    setSomething(item.status);
+    return <ItemOrder item={item} index={index} />;
   };
-
-  const _renderItem = (item, index) => <ItemOrder index={index} />;
   const [selectedId, setSelectedId] = useState(1);
   const Item = ({item, onPress, backgroundColor, textColor}) => (
     <Pressable onPress={onPress}>
@@ -85,6 +86,19 @@ const OrderScreen = props => {
       />
     );
   };
+
+  const getAllOrder = async () => {
+    try {
+      const data = await orderApi.getOrders();
+      setOrder(data);
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
+  useEffect(() => {
+    getAllOrder();
+  }, [something]);
   return (
     <SafeAreaView
       edges={['bottom', 'left', 'right']}
@@ -98,7 +112,6 @@ const OrderScreen = props => {
           />
           <Block
             flex
-            marginTop={20}
             paddingHorizontal={16}
             backgroundColor={theme.colors.backgroundSetting}>
             <ScrollView
@@ -113,9 +126,10 @@ const OrderScreen = props => {
             </ScrollView>
             <FlatList
               showsVerticalScrollIndicator={false}
-              data={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
+              inverted={true}
+              data={order}
               renderItem={_renderItem}
-              keyExtractor={item => item.item_id}
+              keyExtractor={item => item._id}
             />
           </Block>
         </>

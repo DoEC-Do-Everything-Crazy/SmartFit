@@ -1,17 +1,24 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Block, Text, Header, TextInput, PayInfo, Button} from '@components';
 import {FlatList, Pressable, ScrollView} from 'react-native';
 import ItemCart from '@components/ItemList/ItemCart';
 import {useTranslation} from 'react-i18next';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
+import {clearCart} from 'reduxs/reducers';
 import {Address} from '@assets/icons';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {useNavigation} from '@react-navigation/core';
+import {orderApi} from 'api/orderApi';
+import {promotionApi} from 'api/promotionApi';
 import {routes} from '@navigation/routes';
 
-const Payment = ({props}) => {
+const Payment = ({props, route}) => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const name = route.params?.name;
+  const address = route.params?.address;
+  const phone = route.params?.phone;
   const {t} = useTranslation();
   const {
     theme: {theme: themeStore},
@@ -20,12 +27,57 @@ const Payment = ({props}) => {
   } = useSelector(stateRoot => stateRoot.root);
   const theme = useTheme(themeStore);
   const styles = useStyles(props, themeStore);
-  const renderItem = ({item, index}) => <ItemCart item={item} />;
-  const [isDiscount, setIsDiscount] = useState(false);
+  const renderItem = ({item, index}) => <ItemCart notQuantity item={item} />;
+  const [isDiscount, setIsDiscount] = useState(true);
+  const [promotion, setPromotion] = useState('');
+  const [valueDiscount, setValueDiscount] = useState(0);
+  const totalPriceCart = cart.reduce(
+    (total, item) =>
+      item.quantity * item.lastPrice +
+      (item.pt?.price ? item.pt.price : 0) +
+      total,
+    0,
+  );
+  const delivery = 20000;
+  const total = totalPriceCart + delivery - valueDiscount;
 
   const handleAddress = () => {
     navigation.navigate(routes.DELIVERY_INFORMATION_SCREEN);
   };
+
+  const addOrder = async formData => {
+    const res = await orderApi.addOrder(formData);
+
+    if (res.status === 200) {
+      console.log('add success');
+      dispatch(clearCart());
+      navigation.navigate(routes.ORDER_SCREEN);
+    }
+  };
+
+  const handlePromotion = async () => {
+    const res = await promotionApi.getPromotionByKey(promotion);
+    if (res.status === 200) {
+      setValueDiscount(totalPriceCart * res.data);
+      console.log('promotion = ', res.data);
+    }
+  };
+
+  const handleOrder = () => {
+    addOrder({
+      userId: user.uid,
+      address: address,
+      total: total,
+      delivery: delivery,
+      promotion: promotion,
+      discount: valueDiscount,
+      cart: cart,
+    });
+  };
+
+  useEffect(() => {
+    handlePromotion();
+  }, [promotion]);
 
   return (
     <Block flex>
@@ -35,9 +87,10 @@ const Payment = ({props}) => {
           <Address />
           <Block width="90%" marginHorizontal={5} marginVertical={5}>
             <Text size={18}>Địa chỉ nhận hàng</Text>
-            <Text>Hồ Công Khanh - 0344108493</Text>
+            <Text>{name + ' - ' + phone || 'Hồ Công Khanh - 0344108493'}</Text>
             <Text>
-              Ấp Mỹ Phú xã Mỹ Hạnh Đông thị xã Cai Lậy tỉnh Tiền Giang
+              {address ||
+                'Ấp Mỹ Phú xã Mỹ Hạnh Đông thị xã Cai Lậy tỉnh Tiền Giang '}
             </Text>
           </Block>
         </Pressable>
@@ -50,27 +103,25 @@ const Payment = ({props}) => {
         </Block>
         <Block marginHorizontal={16}>
           <Text marginVertical={5}>Mã giảm giá</Text>
-          <TextInput paddingHorizontal={10} placeholder="ádaaaaaaaaaa" />
+          <TextInput
+            paddingHorizontal={10}
+            value={promotion}
+            onChangeText={text => setPromotion(text)}
+          />
         </Block>
         <Block marginHorizontal={16}>
           <PayInfo
             title1={t('orderCart')}
-            titlePrice1={cart.reduce(
-              (total, item) =>
-                item.quantity * item.lastPrice +
-                (item.pt?.price ? item.pt.price : 0) +
-                total,
-              0,
-            )}
+            titlePrice1={totalPriceCart}
             title2={t('delivery')}
-            titlePrice2={20000}
+            titlePrice2={delivery}
             title3={t('discount')}
-            titlePrice3={4000}
+            titlePrice3={valueDiscount || 0}
             isDiscount={isDiscount}
           />
         </Block>
 
-        <Button title={t('ORDER')} />
+        <Button onPress={handleOrder} title={t('ORDER')} />
       </ScrollView>
     </Block>
   );

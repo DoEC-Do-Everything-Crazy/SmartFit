@@ -8,7 +8,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
 
-const ItemCart = ({item, props}) => {
+const ItemCart = ({item, notQuantity, props}) => {
   const dispatch = useDispatch();
   const {
     theme: {theme: themeStore},
@@ -41,47 +41,57 @@ const ItemCart = ({item, props}) => {
             </Text>
             <Block flex justifyCenter alignCenter row space="between">
               <Text color={theme.colors.inconInf}>{item.lastPrice}</Text>
-              <Block row justifyCenter alignCenter marginRight={10}>
-                <Pressable onPress={handleSub}>
-                  {themeStore === 'dark' ? (
-                    <LinearGradient
-                      start={{x: 0, y: 0}}
-                      end={{x: 1, y: 0}}
-                      colors={['#70A2FF', '#54F0D1']}
-                      style={styles.item}>
-                      <Text style={styles.text}>-</Text>
-                    </LinearGradient>
-                  ) : (
-                    <Block style={[styles.item, {backgroundColor: '#045694'}]}>
-                      <Text center size={10} style={styles.text}>
-                        -
-                      </Text>
-                    </Block>
-                  )}
-                </Pressable>
+              {notQuantity ? (
                 <Block justifyCenter alignCenter marginHorizontal={15}>
                   <Text fontType="bold" size={15} center>
                     {item.quantity}
                   </Text>
                 </Block>
-                <Pressable onPress={handleSum}>
-                  {themeStore === 'dark' ? (
-                    <LinearGradient
-                      start={{x: 0, y: 0}}
-                      end={{x: 1, y: 0}}
-                      colors={['#70A2FF', '#54F0D1']}
-                      style={styles.item}>
-                      <Text style={styles.text}>+</Text>
-                    </LinearGradient>
-                  ) : (
-                    <Block style={[styles.item, {backgroundColor: '#045694'}]}>
-                      <Text center size={10} style={styles.text}>
-                        +
-                      </Text>
-                    </Block>
-                  )}
-                </Pressable>
-              </Block>
+              ) : (
+                <Block row justifyCenter alignCenter marginRight={10}>
+                  <Pressable onPress={handleSub}>
+                    {themeStore === 'dark' ? (
+                      <LinearGradient
+                        start={{x: 0, y: 0}}
+                        end={{x: 1, y: 0}}
+                        colors={['#70A2FF', '#54F0D1']}
+                        style={styles.item}>
+                        <Text style={styles.text}>-</Text>
+                      </LinearGradient>
+                    ) : (
+                      <Block
+                        style={[styles.item, {backgroundColor: '#045694'}]}>
+                        <Text center size={10} style={styles.text}>
+                          -
+                        </Text>
+                      </Block>
+                    )}
+                  </Pressable>
+                  <Block justifyCenter alignCenter marginHorizontal={15}>
+                    <Text fontType="bold" size={15} center>
+                      {item.quantity}
+                    </Text>
+                  </Block>
+                  <Pressable onPress={handleSum}>
+                    {themeStore === 'dark' ? (
+                      <LinearGradient
+                        start={{x: 0, y: 0}}
+                        end={{x: 1, y: 0}}
+                        colors={['#70A2FF', '#54F0D1']}
+                        style={styles.item}>
+                        <Text style={styles.text}>+</Text>
+                      </LinearGradient>
+                    ) : (
+                      <Block
+                        style={[styles.item, {backgroundColor: '#045694'}]}>
+                        <Text center size={10} style={styles.text}>
+                          +
+                        </Text>
+                      </Block>
+                    )}
+                  </Pressable>
+                </Block>
+              )}
             </Block>
           </Block>
         </Block>

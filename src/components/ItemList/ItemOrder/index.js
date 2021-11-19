@@ -4,21 +4,20 @@ import React, {useCallback, useRef, useState} from 'react';
 
 import {BottomSheet} from '@components/BottomSheet';
 /* eslint-disable react-hooks/exhaustive-deps */
-import {Camera} from '@assets/icons';
-import {Rating} from 'react-native-ratings';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
+import ItemCart from '@components/ItemList/ItemCart';
 import {useTranslation} from 'react-i18next';
 import {routes} from '@navigation/routes';
 import {useNavigation} from '@react-navigation/core';
+import {FlatList} from 'react-native';
+import {orderApi} from 'api/orderApi';
 
-const ItemOrder = ({picture, title, group_id, onPress, index, props}) => {
+const ItemOrder = ({item, onPress, index, props}) => {
   const modalizRef = useRef(null);
-
-  const [isReceived, setReceived] = useState(true);
-  const [comment, setComment] = useState('');
+  const [status, setStatus] = useState(item.status);
   const {t} = useTranslation();
   const insets = useSafeAreaInsets();
   const [showDetail, setShowDetail] = useState(false);
@@ -29,6 +28,8 @@ const ItemOrder = ({picture, title, group_id, onPress, index, props}) => {
   } = useSelector(stateRoot => stateRoot.root);
   const styles = useStyles(props, themeStore);
   const theme = useTheme(themeStore);
+
+  const renderItem = ({item, index}) => <ItemCart notQuantity item={item} />;
 
   const handleToOrderDetail = useCallback(() => {
     modalizRef?.current.open();
@@ -76,6 +77,13 @@ const ItemOrder = ({picture, title, group_id, onPress, index, props}) => {
     theme.colors.border,
     showDetail,
   ]);
+  const handleCancelBill = async () => {
+    const res = await orderApi.updateOrder({id: item._id, status: 'Cancel'});
+    if (res.status === 200) {
+      setStatus('Cancel');
+      console.log('update status success');
+    }
+  };
   return (
     <>
       <Block
@@ -89,30 +97,25 @@ const ItemOrder = ({picture, title, group_id, onPress, index, props}) => {
           <Block row flex={1}>
             <Block row flex={1}>
               <Text size={16} fontType="bold" marginBottom={5}>
-                Order N0.1947034
+                {item._id.substring(8)}
               </Text>
             </Block>
             <Block row flex={1} justifyEnd>
-              <Text>05-12-2019</Text>
+              <Text>{item.createdAt.substring(0, 10)}</Text>
             </Block>
           </Block>
-          <Block row>
-            <Text>Tracking number:</Text>
-            <Text marginLeft={10} fontType="bold">
-              IW3475453455
-            </Text>
-          </Block>
+
           <Block row flex={1}>
             <Block row flex={1}>
-              <Text>Quantity:</Text>
+              <Text>Promotion:</Text>
               <Text marginLeft={10} fontType="bold">
-                3
+                {item.promotion}
               </Text>
             </Block>
             <Block row flex={1} justifyEnd>
               <Text>Total Amount:</Text>
               <Text marginLeft={10} fontType="bold">
-                112$
+                {item.total}$
               </Text>
             </Block>
           </Block>
@@ -126,7 +129,7 @@ const ItemOrder = ({picture, title, group_id, onPress, index, props}) => {
                 <Text>{t('detail')}</Text>
               </Pressable>
             </Block>
-            {isReceived ? (
+            {status === 'received' && (
               <Block row flex={1} justifyEnd alignCenter>
                 <Pressable
                   onPress={handleOpenConfirm}
@@ -134,15 +137,26 @@ const ItemOrder = ({picture, title, group_id, onPress, index, props}) => {
                   <Text color={theme.colors.white}>{t('confirm')}</Text>
                 </Pressable>
               </Block>
-            ) : (
+            )}
+            {status === 'Cancel' && (
               <Block row flex={1} justifyEnd alignCenter>
                 <Text
                   marginRight={10}
                   fontType="bold"
                   color={theme.colors.green}>
-                  {t('delivering')}
+                  Cancel
                 </Text>
-                <Pressable style={styles.itemCancel}>
+              </Block>
+            )}
+            {status === 'pending' && (
+              <Block row flex={1} justifyEnd alignCenter>
+                <Text
+                  marginRight={10}
+                  fontType="bold"
+                  color={theme.colors.green}>
+                  {item.status} aaaa
+                </Text>
+                <Pressable onPress={handleCancelBill} style={styles.itemCancel}>
                   <Text color={theme.colors.white}>{t('cancel')}</Text>
                 </Pressable>
               </Block>
@@ -171,11 +185,11 @@ const ItemOrder = ({picture, title, group_id, onPress, index, props}) => {
                   <Block row flex={1}>
                     <Block row flex={1}>
                       <Text size={16} fontType="bold" marginBottom={5}>
-                        Order N0.1947034
+                        {item._id.substring(0, 18)}
                       </Text>
                     </Block>
                     <Block row flex={1} justifyEnd>
-                      <Text>05-12-2019</Text>
+                      <Text>{item.createdAt.substring(0, 10)}</Text>
                     </Block>
                   </Block>
                   <Block row justifyStart>
@@ -189,7 +203,7 @@ const ItemOrder = ({picture, title, group_id, onPress, index, props}) => {
                   </Block>
                   <Block marginTop={5} row flex={1}>
                     <Block row flex={1}>
-                      <Text fontType="bold">10 items</Text>
+                      <Text fontType="bold">{item.cart.length} Item</Text>
                     </Block>
                   </Block>
                 </Block>
@@ -198,43 +212,11 @@ const ItemOrder = ({picture, title, group_id, onPress, index, props}) => {
                   radius={8}
                   marginTop={16}
                   backgroundColor={theme.colors.border}>
-                  <Block height="100%">
-                    <Image
-                      source={{
-                        uri: 'https://i.pinimg.com/564x/5a/93/ce/5a93ceca8cf5277d2fc552ad4092a571.jpg',
-                      }}
-                      height="100%"
-                      style={styles.imageItem}
-                    />
-                  </Block>
-                  <Block width="100%" padding={16}>
-                    <Text size={16} fontType="bold" marginBottom={5}>
-                      Pullover
-                    </Text>
-                    <Block marginLeft={10} row>
-                      <Text>Mango</Text>
-                    </Block>
-                    <Block row>
-                      <Block row>
-                        <Text>Color:</Text>
-                        <Text marginLeft={10} fontType="bold">
-                          Gray
-                        </Text>
-                      </Block>
-                      <Block row marginLeft={40}>
-                        <Text>Size:</Text>
-                        <Text marginLeft={10} fontType="bold">
-                          L
-                        </Text>
-                      </Block>
-
-                      <Block row flex={1} paddingTop={5}>
-                        <Block row flex={1} justifyEnd alignCenter>
-                          <Text fontType="bold">51$</Text>
-                        </Block>
-                      </Block>
-                    </Block>
-                  </Block>
+                  <FlatList
+                    data={item.cart}
+                    renderItem={renderItem}
+                    keyExtractor={item => item.id}
+                  />
                 </Block>
                 <Block height="27%" marginTop={20}>
                   <Text size={16} fontType="bold">
@@ -245,9 +227,7 @@ const ItemOrder = ({picture, title, group_id, onPress, index, props}) => {
                       <Text>Shipping Address:</Text>
                     </Block>
                     <Block width="60%">
-                      <Text fontType="bold">
-                        3 Newbridge Court ,Chino Hills, CA 91709, United States
-                      </Text>
+                      <Text fontType="bold">{item.address}</Text>
                     </Block>
                   </Block>
                   <Block row marginTop={10}>
@@ -263,7 +243,7 @@ const ItemOrder = ({picture, title, group_id, onPress, index, props}) => {
                       <Text>Total Amount:</Text>
                     </Block>
                     <Block width="60%">
-                      <Text fontType="bold">133$</Text>
+                      <Text fontType="bold">{item.total}$</Text>
                     </Block>
                   </Block>
                 </Block>

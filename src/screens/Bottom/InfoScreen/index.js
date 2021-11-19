@@ -10,18 +10,18 @@ const InfoScreen = () => {
 
   return (
     <>
-      {/* {user ? ( */}
-      <Information />
-      {/* // ) : (
-      //   <>
-      //     <Header title="Infomation" />
-      //     <InviteLogin
-      //       // navigate={routes.LOGIN_SCREEN}
-      //       navigate={routes.ENTER_PHONE_NUMBER_SCREEN}
-      //       routes={routes.INFO_SCREEN}
-      //     />
-      //   </>
-      // )} */}
+      {user ? (
+        <Information />
+      ) : (
+        <>
+          <Header title="Infomation" />
+          <InviteLogin
+            // navigate={routes.LOGIN_SCREEN}
+            navigate={routes.ENTER_PHONE_NUMBER_SCREEN}
+            routes={routes.INFO_SCREEN}
+          />
+        </>
+      )}
     </>
   );
 };

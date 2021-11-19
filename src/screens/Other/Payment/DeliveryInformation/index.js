@@ -1,54 +1,67 @@
 import React, {useState} from 'react';
 import {Block, Text, Header, TextInput, DropDown} from '@components';
-import {getSize, width} from '@utils/responsive';
 import {useStyles} from './styles';
 import {useTranslation} from 'react-i18next';
 import {useSelector} from 'react-redux';
 
+import {Pressable} from 'react-native';
+import {useNavigation} from '@react-navigation/core';
+
 const DeliveryInformation = ({props}) => {
+  const navigation = useNavigation();
   const {t} = useTranslation();
   const styles = useStyles(props, themeStore);
   const {
     theme: {theme: themeStore},
   } = useSelector(state => state.root);
 
-  const [openProvince, setOpenProvince] = useState(false);
-  const [valueProvince, setValueProvince] = useState('');
+  const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
+  const [address, setAddress] = useState('');
 
-  const [province, setProvince] = useState([
-    {label: 'Tiền Giang', value: 'Tiền Giang'},
-    {label: 'Long An', value: 'Long An'},
-    {label: 'Bến Tre', value: 'Bến Tre'},
-  ]);
   return (
     <Block flex>
       <Header canGoBack title="Thêm địa chỉ" />
-      <Block padding={10}>
+      <Block flex padding={10}>
         <Text marginHorizontal={16} size={20} fontType="bold">
           Liên hệ
         </Text>
         <Block marginHorizontal={25} marginVertical={10}>
-          <TextInput paddingHorizontal={10} placeholder="Họ và tên" />
-          <Block marginVertical={5} />
-          <TextInput paddingHorizontal={10} placeholder="Số điện thoại" />
+          <TextInput
+            inputStyle={{flex: 1}}
+            paddingHorizontal={10}
+            placeholder="Họ và tên"
+            onChangeText={text => setName(text)}
+          />
+          <Block marginVertical={15} />
+          <TextInput
+            inputStyle={{flex: 1}}
+            paddingHorizontal={10}
+            placeholder="Số điện thoại"
+            keyboardType="numeric"
+            onChangeText={text => setPhone(text)}
+          />
+          <Block marginVertical={15} />
+          <TextInput
+            inputStyle={{flex: 1}}
+            paddingHorizontal={10}
+            placeholder="Địa chỉ"
+            onChangeText={text => setAddress(text)}
+          />
         </Block>
-      </Block>
-      <Block flex padding={10} backgroundColor="red">
-        <Text marginHorizontal={16} size={20} fontType="bold">
-          Liên hệ
-        </Text>
-        <DropDown
-          open={openProvince}
-          value={valueProvince}
-          items={province}
-          setOpen={setOpenProvince}
-          setValue={setValueProvince}
-          setItems={setProvince}
-          containerStyle={styles.containerDropdown}
-          boxStyle={styles.pickerBox}
-          onChangeValue={setValueProvince}
-          placeholder={'Tỉnh, thành phố'}
-        />
+        <Pressable
+          onPress={() =>
+            navigation.navigate({
+              name: 'PAYMENT_SCREEN',
+              params: {name: name, phone: phone, address: address},
+              merge: true,
+            })
+          }
+          style={styles.button}>
+          <Text color="white" fontType="bold">
+            Hoàn thành
+          </Text>
+        </Pressable>
       </Block>
     </Block>
   );
