@@ -110,12 +110,12 @@ const OrderScreen = props => {
       edges={['bottom', 'left', 'right']}
       style={styles.sendControlContainerOuter}>
       <Block flex backgroundColor={theme.colors.backgroundSetting}>
-        <>
-          <HeaderComponent
-            canGoBack
-            title={t('orderCart')}
-            colorTheme={theme.colors.black}
-          />
+        <HeaderComponent
+          canGoBack
+          title={t('orderCart')}
+          colorTheme={theme.colors.black}
+        />
+        <ScrollView>
           <Block
             paddingHorizontal={16}
             backgroundColor={theme.colors.backgroundSetting}>
@@ -129,6 +129,8 @@ const OrderScreen = props => {
                 <_renderItemHeader key={i} item={item} />
               ))}
             </ScrollView>
+          </Block>
+          <Block paddingHorizontal={16}>
             {status === 'Cancel' && (
               <FlatList
                 showsVerticalScrollIndicator={false}
@@ -157,7 +159,7 @@ const OrderScreen = props => {
               />
             )}
           </Block>
-        </>
+        </ScrollView>
       </Block>
     </SafeAreaView>
   );

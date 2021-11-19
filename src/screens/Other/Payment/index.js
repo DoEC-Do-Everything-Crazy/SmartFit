@@ -116,20 +116,20 @@ const Payment = ({props, route}) => {
             onChangeText={text => setPromotion(text)}
           />
         </Block>
-        <Block marginHorizontal={16}>
-          <PayInfo
-            title1={t('orderCart')}
-            titlePrice1={totalPriceCart}
-            title2={t('delivery')}
-            titlePrice2={delivery}
-            title3={t('discount')}
-            titlePrice3={valueDiscount || 0}
-            isDiscount={true}
-          />
-        </Block>
-
-        <Button onPress={handleOrder} title={t('ORDER')} />
       </ScrollView>
+      <Block marginHorizontal={16}>
+        <PayInfo
+          title1={t('orderCart')}
+          titlePrice1={totalPriceCart}
+          title2={t('delivery')}
+          titlePrice2={delivery}
+          title3={t('discount')}
+          titlePrice3={valueDiscount || 0}
+          isDiscount={true}
+        />
+      </Block>
+
+      <Button onPress={handleOrder} title={t('ORDER')} />
     </Block>
   );
 };
