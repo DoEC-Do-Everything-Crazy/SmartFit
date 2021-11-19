@@ -8,16 +8,32 @@ import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {width} from '@utils/responsive';
+import {foodApi} from 'api/foodApi';
+import {routes} from '@navigation/routes';
+import {useNavigation} from '@react-navigation/core';
 
 const ItemPopular = ({item, props}) => {
+  const navigation = useNavigation();
   const {
     theme: {theme: themeStore},
     cart: {wishList},
   } = useSelector(stateRoot => stateRoot.root);
   const styles = useStyles(props, themeStore);
   const theme = useTheme(themeStore);
+
+  const updateViewFood = async item => {
+    await foodApi.updateViewFood(item, {
+      validateStatus: false,
+    });
+  };
+
   return (
-    <Pressable style={styles.press}>
+    <Pressable
+      style={styles.press}
+      onPress={() => {
+        navigation.navigate(routes.FOOD_DETAILS_SCREEN, {id: item._id});
+        updateViewFood(item._id);
+      }}>
       <Block
         shadow
         height={150}

@@ -39,4 +39,10 @@ export const useStyles = makeStyles()(({colors}) => ({
     borderBottomLeftRadius: getSize.m(10),
     borderBottomRightRadius: getSize.m(10),
   },
+  iconViewer: {
+    marginLeft: 10,
+    marginTop: 1,
+    width: getSize.s(25),
+    height: getSize.s(20),
+  },
 }));

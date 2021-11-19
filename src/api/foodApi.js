@@ -69,6 +69,23 @@ const updateFood = async (data, options) => {
   }
 };
 
+const updateViewFood = async (id, options) => {
+  try {
+    const response = await axios.post(`${apiUrl}/foods/updateViewFood/${id}`, {
+      ...options,
+      validateStatus: false,
+    });
+
+    if (response.status === 404 || response.status === 500) {
+      throw response.data;
+    }
+
+    return;
+  } catch (error) {
+    throw error;
+  }
+};
+
 const deleteFood = async (id, options) => {
   try {
     const response = await axios.post(
@@ -95,5 +112,6 @@ export const foodApi = {
   getFood,
   addFood,
   updateFood,
+  updateViewFood,
   deleteFood,
 };

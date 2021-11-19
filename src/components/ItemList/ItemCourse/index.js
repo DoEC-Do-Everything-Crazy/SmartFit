@@ -10,6 +10,7 @@ import {useNavigation} from '@react-navigation/core';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {useTranslation} from 'react-i18next';
+import {courseApi} from 'api/courseApi';
 
 const ItemCourse = ({course, props}) => {
   const navigation = useNavigation();
@@ -26,6 +27,12 @@ const ItemCourse = ({course, props}) => {
     dispatch(changeScreen('CourseDetail'));
     navigation.navigate(routes.TAB_DETAILS, {id: course._id});
   }, [course._id, dispatch, navigation]);
+
+  const updateViewCourse = async item => {
+    await courseApi.updateViewCourse(item, {
+      validateStatus: false,
+    });
+  };
 
   return (
     <Block style={styles.container}>
@@ -85,7 +92,12 @@ const ItemCourse = ({course, props}) => {
               </Text>
             </Block>
           </Block>
-          <Pressable onPress={handleOpenCourseDetail} key={course.key}>
+          <Pressable
+            onPress={() => {
+              handleOpenCourseDetail();
+              updateViewCourse(course._id);
+            }}
+            key={course.key}>
             <Block alignEnd width={'103%'}>
               <Block
                 bottom={3}

@@ -35,6 +35,8 @@ const FoodListScreen = ({route, props}) => {
   const {title} = route.params;
   const [foodsBMI, setFoodsBMI] = useState([]);
 
+  console.log(title);
+
   const fetchFoodsByBMI = async () => {
     try {
       const response = await bmiApi.getBMI(user.uid, {
@@ -82,7 +84,12 @@ const FoodListScreen = ({route, props}) => {
 
   return (
     <Block flex backgroundColor={theme.colors.backgroundSetting}>
-      <Header canGoBack search title={title} colorTheme={theme.colors.blue} />
+      <Header
+        canGoBack
+        search
+        title={title === t('dailyMeals') ? title : t('healthyFood')}
+        colorTheme={theme.colors.blue}
+      />
       <ScrollView onScroll={onScroll} showsVerticalScrollIndicator={false}>
         {title === t('dailyMeals') ? (
           <ListItemPopular foodsBMI={foodsBMI} />

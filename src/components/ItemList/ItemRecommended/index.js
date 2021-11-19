@@ -10,6 +10,7 @@ import {routes} from '@navigation/routes';
 import {useNavigation} from '@react-navigation/core';
 import {HeartPf, Ratting} from '@assets/icons';
 import {recommendedApi} from 'api/recommendedApi.js';
+import {icons} from '@assets';
 
 const ItemRecommended = ({item, index, props}) => {
   const {
@@ -103,6 +104,12 @@ const ItemRecommended = ({item, index, props}) => {
         <Block height={width / 12} />
         <Block row flex>
           <Block style={styles.space} />
+          <Block row style={styles.view}>
+            <Image style={styles.iconViewer} source={icons.viewer} />
+            <Text color={theme.colors.black} fontType="bold" marginLeft={5}>
+              {item.view}
+            </Text>
+          </Block>
           <Block flex backgroundColor={'#045694'} alignCenter radius={5}>
             <Text
               margin={2}

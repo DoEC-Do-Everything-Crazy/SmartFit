@@ -8,6 +8,8 @@ import {useNavigation} from '@react-navigation/core';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
+import {foodApi} from 'api/foodApi';
+import {icons} from '@assets';
 
 const ItemHotFood = ({item, index, props}) => {
   const {
@@ -18,11 +20,19 @@ const ItemHotFood = ({item, index, props}) => {
   const theme = useTheme(themeStore);
 
   const navigation = useNavigation();
+
+  const updateViewFood = async item => {
+    await foodApi.updateViewFood(item, {
+      validateStatus: false,
+    });
+  };
+
   return (
     <Pressable
-      onPress={() =>
-        navigation.navigate(routes.FOOD_DETAILS_SCREEN, {id: item._id})
-      }>
+      onPress={() => {
+        navigation.navigate(routes.FOOD_DETAILS_SCREEN, {id: item._id});
+        updateViewFood(item._id);
+      }}>
       <Block
         key={index}
         style={{marginLeft: index === 0 ? 16 : 0}}
@@ -46,9 +56,19 @@ const ItemHotFood = ({item, index, props}) => {
             <Text numberOfLines={1} color={theme.colors.black} fontType="bold">
               {item.name}
             </Text>
-            <Text numberOfLines={1} color={theme.colors.black}>
-              {item.description}
-            </Text>
+            <Block row>
+              <Text numberOfLines={1} color={theme.colors.black}>
+                {item.description}
+              </Text>
+              <Image style={styles.iconViewer} source={icons.viewer} />
+              <Text
+                marginLeft={5}
+                color={theme.colors.black}
+                fontType="bold"
+                numberOfLines={1}>
+                {item.view}
+              </Text>
+            </Block>
           </Block>
         </Block>
       </Block>

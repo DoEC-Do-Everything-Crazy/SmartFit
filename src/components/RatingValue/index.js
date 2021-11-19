@@ -8,7 +8,7 @@ import {Rating} from 'react-native-ratings';
 const data_ratings = [5, 4, 3, 2, 1];
 const data_line = [80, 60, 40, 20, 10];
 const data_value = [12, 5, 4, 2, 0];
-const RatingValue = () => {
+const RatingValue = props => {
   const {
     theme: {theme: themeStore},
   } = useSelector(stateRoot => stateRoot.root);
@@ -48,7 +48,7 @@ const RatingValue = () => {
       <Block row space="between">
         <Block>
           <Text size={40} fontType="bold">
-            4.3
+            {props.rate}
           </Text>
           <Text>23 ratings</Text>
         </Block>

@@ -23,4 +23,17 @@ export const useStyles = makeStyles()(({colors}) => ({
     borderBottomLeftRadius: getSize.m(10),
     borderBottomRightRadius: getSize.m(10),
   },
+  view: {
+    width: getSize.s(20),
+    height: getSize.s(18),
+    position: 'absolute',
+    top: getSize.s(1),
+    left: getSize.s(0),
+  },
+  iconViewer: {
+    marginLeft: 10,
+    marginTop: 1,
+    width: getSize.s(25),
+    height: getSize.s(20),
+  },
 }));

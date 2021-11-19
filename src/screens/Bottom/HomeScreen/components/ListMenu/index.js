@@ -50,7 +50,7 @@ const ListMenu = () => {
       navigation.navigate(
         item.navigation,
         {valuePromotion: item.value},
-        {title: t('healthyFood')},
+        {title: item.title},
       );
     };
     return (

@@ -86,6 +86,26 @@ const updateCourse = async (data, options) => {
   }
 };
 
+const updateViewCourse = async (id, options) => {
+  try {
+    const response = await axios.post(
+      `${apiUrl}/courses/updateViewCourse/${id}`,
+      {
+        ...options,
+        validateStatus: false,
+      },
+    );
+
+    if (response.status === 404 || response.status === 500) {
+      throw response.data;
+    }
+
+    return;
+  } catch (error) {
+    throw error;
+  }
+};
+
 const deleteCourse = async (id, options) => {
   try {
     const response = await axios.post(
@@ -113,5 +133,6 @@ export const courseApi = {
   getCourse,
   addCourse,
   updateCourse,
+  updateViewCourse,
   deleteCourse,
 };
