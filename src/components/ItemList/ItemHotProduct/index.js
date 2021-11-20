@@ -9,7 +9,6 @@ import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {productApi} from 'api/productApi';
-import {icons} from '@assets';
 
 const ItemHotProduct = ({item, index, props}) => {
   const [isTouch, setTouch] = useState(true);
@@ -55,15 +54,6 @@ const ItemHotProduct = ({item, index, props}) => {
             <Text color={theme.colors.white} numberOfLines={1}>
               {item.description}
             </Text>
-            <Block row style={styles.view}>
-              <Image style={styles.iconViewer} source={icons.viewer} />
-              <Text
-                fontType="bold"
-                color={theme.colors.white}
-                numberOfLines={1}>
-                {item.view}
-              </Text>
-            </Block>
           </Block>
         </Block>
       </Block>

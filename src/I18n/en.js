@@ -164,6 +164,9 @@ export default {
   //PhoneNumber Screen
   enterOTP: 'Enter your phone number to receive OTP',
   send: 'Send',
-
   getCode: 'Get the code',
+  //ListSimilar
+  similarFood: 'Similar Food',
+  similarCourse: 'Similar Course',
+  similarProduct: 'Similar Product',
 };

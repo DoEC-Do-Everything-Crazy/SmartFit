@@ -52,6 +52,23 @@ const getCourse = async (id, options) => {
   }
 };
 
+const getCourseByView = async (view, options) => {
+  try {
+    const response = await axios.get(`${apiUrl}/courses/views`, {
+      ...options,
+      validateStatus: false,
+    });
+
+    if (response.status === 404 || response.status === 500) {
+      throw response.data;
+    }
+
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 const addCourse = async (data, options) => {
   try {
     const response = await axios.post(`${apiUrl}/courses/add`, data, {
@@ -131,6 +148,7 @@ export const courseApi = {
   getCourses,
   getCoursesByType,
   getCourse,
+  getCourseByView,
   addCourse,
   updateCourse,
   updateViewCourse,

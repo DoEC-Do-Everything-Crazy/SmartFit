@@ -10,7 +10,8 @@ import {routes} from '@navigation/routes';
 import {useNavigation} from '@react-navigation/core';
 import {HeartPf, Ratting} from '@assets/icons';
 import {recommendedApi} from 'api/recommendedApi.js';
-import {icons} from '@assets';
+import {courseApi} from 'api/courseApi';
+import {foodApi} from 'api/foodApi';
 
 const ItemRecommended = ({item, index, props}) => {
   const {
@@ -26,11 +27,25 @@ const ItemRecommended = ({item, index, props}) => {
     setRate(data);
   };
 
+  const updateViewFood = async item => {
+    await foodApi.updateViewFood(item, {
+      validateStatus: false,
+    });
+  };
+
+  const updateViewCourse = async item => {
+    await courseApi.updateViewCourse(item, {
+      validateStatus: false,
+    });
+  };
+
   const navigationWithId = async (key, id) => {
     if (key === 'F') {
       navigation.navigate(routes.FOOD_DETAILS_SCREEN, {id: id});
+      updateViewFood(id);
     } else {
       navigation.navigate(routes.TAB_DETAILS, {id: id});
+      updateViewCourse(id);
     }
   };
 
@@ -104,12 +119,6 @@ const ItemRecommended = ({item, index, props}) => {
         <Block height={width / 12} />
         <Block row flex>
           <Block style={styles.space} />
-          <Block row style={styles.view}>
-            <Image style={styles.iconViewer} source={icons.viewer} />
-            <Text color={theme.colors.black} fontType="bold" marginLeft={5}>
-              {item.view}
-            </Text>
-          </Block>
           <Block flex backgroundColor={'#045694'} alignCenter radius={5}>
             <Text
               margin={2}
@@ -118,7 +127,7 @@ const ItemRecommended = ({item, index, props}) => {
               fontType="bold"
               color={theme.colors.white}
               key={index}>
-              {item.price + ' ' + '$'}
+              {item.lastPrice + ' ' + '$'}
             </Text>
           </Block>
         </Block>

@@ -65,13 +65,6 @@ const ItemHotCourse = ({item, props}) => {
           fontType="bold">
           {item.name}
         </Text>
-
-        <Block row style={styles.view}>
-          <Image style={styles.iconViewer} source={icons.viewer} />
-          <Text color={theme.colors.white} fontType="bold" marginLeft={5}>
-            {item.view}
-          </Text>
-        </Block>
       </Block>
     </Pressable>
   );

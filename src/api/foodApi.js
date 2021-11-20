@@ -35,6 +35,23 @@ const getFood = async (id, options) => {
   }
 };
 
+const getFoodByView = async options => {
+  try {
+    const response = await axios.get(`${apiUrl}/foods/views`, {
+      ...options,
+      validateStatus: false,
+    });
+
+    if (response.status === 404 || response.status === 500) {
+      throw response.data;
+    }
+
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 const addFood = async (data, options) => {
   try {
     const response = await axios.post(`${apiUrl}/foods/add`, data, {
@@ -110,6 +127,7 @@ const deleteFood = async (id, options) => {
 export const foodApi = {
   getFoods,
   getFood,
+  getFoodByView,
   addFood,
   updateFood,
   updateViewFood,

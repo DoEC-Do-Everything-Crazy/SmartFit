@@ -18,6 +18,24 @@ const getPromotionByUserID = async (userID, value, options) => {
   }
 };
 
+const getPromotionByKey = async (key, options) => {
+  try {
+    const response = await axios.get(`${apiUrl}/promotion/${key}`, {
+      ...options,
+      validateStatus: false,
+    });
+
+    if (response.status === 404 || response.status === 500) {
+      throw response.data;
+    }
+
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const promotionApi = {
   getPromotionByUserID,
+  getPromotionByKey,
 };

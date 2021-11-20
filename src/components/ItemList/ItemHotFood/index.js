@@ -2,14 +2,13 @@ import {Block, Text} from '@components';
 import {HeartPf, Layout} from '@assets/icons';
 import {Image, Pressable} from 'react-native';
 
-import React from 'react';
+import React, {use} from 'react';
 import {routes} from '@navigation/routes';
 import {useNavigation} from '@react-navigation/core';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {foodApi} from 'api/foodApi';
-import {icons} from '@assets';
 
 const ItemHotFood = ({item, index, props}) => {
   const {
@@ -18,7 +17,6 @@ const ItemHotFood = ({item, index, props}) => {
   } = useSelector(stateRoot => stateRoot.root);
   const styles = useStyles(props, themeStore);
   const theme = useTheme(themeStore);
-
   const navigation = useNavigation();
 
   const updateViewFood = async item => {
@@ -56,19 +54,9 @@ const ItemHotFood = ({item, index, props}) => {
             <Text numberOfLines={1} color={theme.colors.black} fontType="bold">
               {item.name}
             </Text>
-            <Block row>
-              <Text numberOfLines={1} color={theme.colors.black}>
-                {item.description}
-              </Text>
-              <Image style={styles.iconViewer} source={icons.viewer} />
-              <Text
-                marginLeft={5}
-                color={theme.colors.black}
-                fontType="bold"
-                numberOfLines={1}>
-                {item.view}
-              </Text>
-            </Block>
+            <Text numberOfLines={1} color={theme.colors.black}>
+              {item.description}
+            </Text>
           </Block>
         </Block>
       </Block>

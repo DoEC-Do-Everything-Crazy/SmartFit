@@ -100,7 +100,7 @@ const ItemNotification = ({item, props}) => {
                 </Text>
               </Block>
               <Block justifyCenter style={styles.code}>
-                <Pressable onPress={() => handleCopyToClipBoard('')}>
+                <Pressable onPress={() => handleCopyToClipBoard(item.key)}>
                   <Text fontType="bold" color={theme.colors.link}>
                     {t('getCode')}
                   </Text>

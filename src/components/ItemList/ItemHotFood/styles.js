@@ -4,7 +4,7 @@ import {makeStyles} from '@theme';
 export const useStyles = makeStyles()(({colors}) => ({
   image: {
     height: getSize.s(200),
-    width: width / 2,
+    width: width / 2.1,
     borderRadius: getSize.s(8),
   },
   space: {
@@ -38,11 +38,5 @@ export const useStyles = makeStyles()(({colors}) => ({
     paddingLeft: getSize.m(60),
     borderBottomLeftRadius: getSize.m(10),
     borderBottomRightRadius: getSize.m(10),
-  },
-  iconViewer: {
-    marginLeft: 10,
-    marginTop: 1,
-    width: getSize.s(25),
-    height: getSize.s(20),
   },
 }));

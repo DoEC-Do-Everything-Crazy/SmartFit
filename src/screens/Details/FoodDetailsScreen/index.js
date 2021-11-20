@@ -4,6 +4,7 @@ import {Pressable, ScrollView} from 'react-native';
 import React, {useCallback, useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
+import ListSimilar from '../../Bottom/HomeScreen/components/ListSimilar/index';
 import DescriptionDetail from './components/DescriptionDetail';
 import ProductContent from './components/ProductContent';
 import RatingValue from '@components/RatingValue';
@@ -58,7 +59,7 @@ const FoodDetailsScreen = ({route, props}) => {
   useEffect(() => {
     getFoodDetail(id);
     getFoodRating(id);
-  }, []);
+  }, [id]);
 
   return (
     <SafeAreaView
@@ -84,6 +85,7 @@ const FoodDetailsScreen = ({route, props}) => {
                 </Text>
               </Pressable>
             </Block>
+            <ListSimilar title={t('similarFood')} />
             {isShowReview ? (
               <>
                 <RatingValue />

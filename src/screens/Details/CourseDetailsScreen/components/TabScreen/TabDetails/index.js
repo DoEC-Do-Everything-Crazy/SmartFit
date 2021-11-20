@@ -129,7 +129,7 @@ const TabDetails = ({route, props}) => {
     getCourseRating(id);
     getCourseDetails(id);
     getPt();
-  }, []);
+  }, [id]);
 
   const sessions = dataDetail?.session;
 
@@ -300,6 +300,7 @@ const TabDetails = ({route, props}) => {
                 </Block>
               </Block>
             </Block>
+
             {transferCourseScreen === 'CourseDetail' ? (
               <>
                 <Block paddingHorizontal={16}>
@@ -325,6 +326,7 @@ const TabDetails = ({route, props}) => {
                     </Text>
                   </Pressable>
                 </Block>
+
                 {isShowReview ? (
                   <>
                     <RatingValue />

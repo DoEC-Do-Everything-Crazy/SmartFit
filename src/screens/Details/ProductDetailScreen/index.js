@@ -20,10 +20,15 @@ import {
 import {productApi} from 'api/productApi';
 import {rateApi} from 'api/rateApi';
 import {useStyles} from './styles';
+
 import {useTheme} from '@theme';
 import {useTranslation} from 'react-i18next';
+import ListSimilar from '../../Bottom/HomeScreen/components/ListSimilar/index';
+import {routes} from '@navigation/routes';
+import {useNavigation} from '@react-navigation/core';
 
 const ProductDetailScreen = ({props, route}) => {
+  const navigation = useNavigation();
   const dispatch = useDispatch();
   const {t} = useTranslation();
   const [quali, setQuali] = useState(1);
@@ -81,12 +86,12 @@ const ProductDetailScreen = ({props, route}) => {
   useEffect(() => {
     getProductRating(id);
     getProductDetail(id);
-  }, []);
+  }, [id]);
 
   return (
     <>
       {product && (
-        <Block backgroundColor={theme.colors.white} flex>
+        <Block flex>
           <Block style={styles.header}>
             <Header />
           </Block>
@@ -97,6 +102,10 @@ const ProductDetailScreen = ({props, route}) => {
               onPress={() => modalizRef?.current.open()}
             />
           </Block>
+          <Block flex={1}>
+            <ListSimilar title={t('similarProduct')} />
+          </Block>
+
           <BottomSheet
             ref={modalizRef}
             overlayStyle={styles.root}
@@ -167,6 +176,7 @@ const ProductDetailScreen = ({props, route}) => {
                         {quali}
                       </Text>
                     </Block>
+
                     <Pressable onPress={handleSum}>
                       {themeStore === 'dark' ? (
                         <LinearGradient
@@ -219,6 +229,7 @@ const ProductDetailScreen = ({props, route}) => {
                   </Text>
                   <Text paddingHorizontal={16}>{product.description}</Text>
                 </Block>
+
                 <Block row paddingBottom={20} paddingHorizontal={16}>
                   <Text fontType="bold" size={17}>
                     {t('review')}:
@@ -229,6 +240,7 @@ const ProductDetailScreen = ({props, route}) => {
                     </Text>
                   </Pressable>
                 </Block>
+
                 {isShowReview ? (
                   <>
                     <RatingValue />
