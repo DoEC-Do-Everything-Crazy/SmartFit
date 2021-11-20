@@ -172,18 +172,20 @@ const StatsScreen = props => {
         height="30%"
         paddingTop={10}
         backgroundColor={theme.colors.backgroundSetting}>
-        <Block paddingHorizontal={16}>
-          <Pressable
-            onPress={() =>
-              navigation.navigate(routes.FOOD_LIST_SCREEN, {
-                title: t('dailyMeals'),
-              })
-            }>
+        <Pressable
+          onPress={() =>
+            navigation.navigate(routes.FOOD_LIST_SCREEN, {
+              title: t('dailyMeals'),
+            })
+          }>
+          <Block
+            paddingHorizontal={16}
+            backgroundColor={theme.colors.backgroreundSetting}>
             <ItemFeature shadow height={50} title={t('dailyMeals')}>
               <Order color={theme.colors.iconInf} />
             </ItemFeature>
-          </Pressable>
-        </Block>
+          </Block>
+        </Pressable>
         <Block flex style={styles.button}>
           <Button
             onPress={() => modalizRef.current?.open()}

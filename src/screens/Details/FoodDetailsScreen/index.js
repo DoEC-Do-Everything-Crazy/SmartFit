@@ -85,13 +85,13 @@ const FoodDetailsScreen = ({route, props}) => {
                 </Text>
               </Pressable>
             </Block>
-            <ListSimilar title={t('similarFood')} />
             {isShowReview ? (
               <>
                 <RatingValue />
                 <Review rate={rate} />
               </>
             ) : null}
+            <ListSimilar title={t('similarFood')} />
           </ScrollView>
           <Button
             onPress={addToCart}
