@@ -16,6 +16,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {Back} from '@assets/icons';
 import {BottomSheet} from '@components/BottomSheet';
 
+import ListSimilar from '../../../../../Bottom/HomeScreen/components/ListSimilar/index';
 import ItemPT from '@components/ItemList/ItemPT';
 import LinearGradient from 'react-native-linear-gradient';
 import {Rating} from 'react-native-ratings';
@@ -130,7 +131,7 @@ const TabDetails = ({route, props}) => {
     getFoodRating(id);
     getCourseDetails(id);
     getPt();
-  }, []);
+  }, [id]);
 
   const sessions = dataDetail?.session;
 
@@ -305,6 +306,7 @@ const TabDetails = ({route, props}) => {
                   </Block>
                 </Block>
               </Block>
+
               {transferCourseScreen === 'CourseDetail' ? (
                 <>
                   <Block paddingHorizontal={16}>
@@ -316,6 +318,7 @@ const TabDetails = ({route, props}) => {
                       total={totalPrice}
                     />
                   </Block>
+
                   <Block
                     row
                     marginTop={20}
@@ -339,6 +342,7 @@ const TabDetails = ({route, props}) => {
                 </>
               ) : null}
             </Block>
+            <ListSimilar title={t('similarCourse')} />
             {/* BOTTOM SHEET PT */}
             <BottomSheet
               ref={modalizPTList}

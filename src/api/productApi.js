@@ -52,6 +52,23 @@ const getProductByType = async (type, options) => {
   }
 };
 
+const getProductByView = async options => {
+  try {
+    const response = await axios.get(`${apiUrl}/products/views`, {
+      ...options,
+      validateStatus: false,
+    });
+
+    if (response.status === 404 || response.status === 500) {
+      throw response.data;
+    }
+
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 const addProduct = async (data, options) => {
   try {
     const response = await axios.post(`${apiUrl}/products/add`, data, {
@@ -75,6 +92,26 @@ const updateProduct = async (data, options) => {
       ...options,
       validateStatus: false,
     });
+
+    if (response.status === 404 || response.status === 500) {
+      throw response.data;
+    }
+
+    return;
+  } catch (error) {
+    throw error;
+  }
+};
+
+const updateViewProduct = async (id, options) => {
+  try {
+    const response = await axios.post(
+      `${apiUrl}/products/updateViewProduct/${id}`,
+      {
+        ...options,
+        validateStatus: false,
+      },
+    );
 
     if (response.status === 404 || response.status === 500) {
       throw response.data;
@@ -110,8 +147,10 @@ const deleteProduct = async (id, options) => {
 export const productApi = {
   getProducts,
   getProduct,
+  getProductByView,
   addProduct,
   updateProduct,
+  updateViewProduct,
   deleteProduct,
   getProductByType,
 };

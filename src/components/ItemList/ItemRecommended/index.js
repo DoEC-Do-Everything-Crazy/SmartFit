@@ -10,6 +10,8 @@ import {routes} from '@navigation/routes';
 import {useNavigation} from '@react-navigation/core';
 import {HeartPf, Ratting} from '@assets/icons';
 import {recommendedApi} from 'api/recommendedApi.js';
+import {courseApi} from 'api/courseApi';
+import {foodApi} from 'api/foodApi';
 
 const ItemRecommended = ({item, index, props}) => {
   const {
@@ -25,11 +27,25 @@ const ItemRecommended = ({item, index, props}) => {
     setRate(data);
   };
 
+  const updateViewFood = async item => {
+    await foodApi.updateViewFood(item, {
+      validateStatus: false,
+    });
+  };
+
+  const updateViewCourse = async item => {
+    await courseApi.updateViewCourse(item, {
+      validateStatus: false,
+    });
+  };
+
   const navigationWithId = async (key, id) => {
     if (key === 'F') {
       navigation.navigate(routes.FOOD_DETAILS_SCREEN, {id: id});
+      updateViewFood(id);
     } else {
       navigation.navigate(routes.TAB_DETAILS, {id: id});
+      updateViewCourse(id);
     }
   };
 
@@ -111,7 +127,7 @@ const ItemRecommended = ({item, index, props}) => {
               fontType="bold"
               color={theme.colors.white}
               key={index}>
-              {item.price + ' ' + '$'}
+              {item.lastPrice + ' ' + '$'}
             </Text>
           </Block>
         </Block>

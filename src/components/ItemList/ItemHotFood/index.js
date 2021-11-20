@@ -2,12 +2,13 @@ import {Block, Text} from '@components';
 import {HeartPf, Layout} from '@assets/icons';
 import {Image, Pressable} from 'react-native';
 
-import React from 'react';
+import React, {use} from 'react';
 import {routes} from '@navigation/routes';
 import {useNavigation} from '@react-navigation/core';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
+import {foodApi} from 'api/foodApi';
 
 const ItemHotFood = ({item, index, props}) => {
   const {
@@ -16,13 +17,20 @@ const ItemHotFood = ({item, index, props}) => {
   } = useSelector(stateRoot => stateRoot.root);
   const styles = useStyles(props, themeStore);
   const theme = useTheme(themeStore);
-
   const navigation = useNavigation();
+
+  const updateViewFood = async item => {
+    await foodApi.updateViewFood(item, {
+      validateStatus: false,
+    });
+  };
+
   return (
     <Pressable
-      onPress={() =>
-        navigation.navigate(routes.FOOD_DETAILS_SCREEN, {id: item._id})
-      }>
+      onPress={() => {
+        navigation.navigate(routes.FOOD_DETAILS_SCREEN, {id: item._id});
+        updateViewFood(item._id);
+      }}>
       <Block
         key={index}
         style={{marginLeft: index === 0 ? 16 : 0}}

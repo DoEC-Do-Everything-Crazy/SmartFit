@@ -166,4 +166,8 @@ export default {
   expiry: 'HSD',
   promotionDay: 'Ngày khuyến mãi',
   getCode: 'Lấy mã',
+  //ListSimilar
+  similarFood: 'Đồ ăn Tương tự',
+  similarCourse: 'Khóa học tương tự',
+  similarProduct: 'Sản phẩm tương tự',
 };

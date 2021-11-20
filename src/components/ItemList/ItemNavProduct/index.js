@@ -10,6 +10,7 @@ import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {width} from '@utils/responsive';
+import {foodApi} from 'api/foodApi';
 
 const ItemNavProduct = ({item, props}) => {
   const navigation = useNavigation();
@@ -20,12 +21,19 @@ const ItemNavProduct = ({item, props}) => {
   const styles = useStyles(props, themeStore);
   const theme = useTheme(themeStore);
 
+  const updateViewFood = async item => {
+    await foodApi.updateViewFood(item, {
+      validateStatus: false,
+    });
+  };
+
   return (
     <Pressable
       style={styles.press}
-      onPress={() =>
-        navigation.navigate(routes.FOOD_DETAILS_SCREEN, {id: item._id})
-      }>
+      onPress={() => {
+        navigation.navigate(routes.FOOD_DETAILS_SCREEN, {id: item._id});
+        updateViewFood(item._id);
+      }}>
       <Block
         shadow
         width={width / 2 - 20}
@@ -68,7 +76,9 @@ const ItemNavProduct = ({item, props}) => {
             ratingBackgroundColor="#c8c7c8"
             tintColor={theme.colors.border}
           />
-          <Text size={12}>123 Reviewed</Text>
+          <Text size={12}>
+            {item.view ? item.view + ' ' + 'Reviewed' : 0 + ' ' + 'Reviewed'}
+          </Text>
         </Block>
         <Text
           right

@@ -12,6 +12,7 @@ export const useStyles = makeStyles()(({colors}) => ({
     borderRadius: getSize.s(10),
   },
   title: {
+    flexDirection: 'row',
     width: '100%',
     backgroundColor: `${colors.black}60`,
     position: 'absolute',
@@ -21,11 +22,15 @@ export const useStyles = makeStyles()(({colors}) => ({
     borderBottomRightRadius: getSize.s(10),
     borderBottomLeftRadius: getSize.s(10),
   },
-  // iconHeart: {
-  //   width: getSize.s(16),
-  //   height: getSize.s(16),
-  //   position: 'absolute',
-  //   top: getSize.s(8),
-  //   right: getSize.s(32),
-  // },
+  view: {
+    width: getSize.s(16),
+    height: getSize.s(16),
+    position: 'absolute',
+    top: getSize.s(8),
+    right: getSize.s(32),
+  },
+  iconViewer: {
+    width: getSize.s(28),
+    height: getSize.s(25),
+  },
 }));

@@ -8,6 +8,7 @@ import {useNavigation} from '@react-navigation/core';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
+import {productApi} from 'api/productApi';
 
 const ItemHotProduct = ({item, index, props}) => {
   const [isTouch, setTouch] = useState(true);
@@ -23,12 +24,19 @@ const ItemHotProduct = ({item, index, props}) => {
     isTouch ? setColor(theme.colors.red) : setColor(theme.colors.gray);
   }, [isTouch, theme.colors.gray, theme.colors.red]);
 
+  const updateViewProduct = async item => {
+    await productApi.updateViewProduct(item, {
+      validateStatus: false,
+    });
+  };
+
   return (
     <Pressable
       key={index}
-      onPress={() =>
-        navigation.navigate(routes.PRODUCT_DETAIL_SCREEN, {id: item._id})
-      }>
+      onPress={() => {
+        navigation.navigate(routes.PRODUCT_DETAIL_SCREEN, {id: item._id});
+        updateViewProduct(item._id);
+      }}>
       <Block style={{marginLeft: index === 0 ? 16 : 0}} marginRight={16}>
         <Image style={styles.image} source={{uri: item.image[0]}} />
         <Pressable
@@ -42,9 +50,11 @@ const ItemHotProduct = ({item, index, props}) => {
           <Text color={theme.colors.white} numberOfLines={1} fontType="bold">
             {item.name}
           </Text>
-          <Text color={theme.colors.white} numberOfLines={1}>
-            {item.description}
-          </Text>
+          <Block row>
+            <Text color={theme.colors.white} numberOfLines={1}>
+              {item.description}
+            </Text>
+          </Block>
         </Block>
       </Block>
     </Pressable>
