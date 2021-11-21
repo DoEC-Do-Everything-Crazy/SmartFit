@@ -31,6 +31,7 @@ export default {
   order: 'Đơn hàng',
   logout: 'Đăng xuất',
   notUpdateYet: 'Chưa cập nhật',
+  myCourse: 'Khóa học của tôi',
   //Notification Screen
   all: 'Tất cả',
   system: 'Hệ thống',

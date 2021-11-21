@@ -1,14 +1,13 @@
-import {HeartPf, Order, Payment, Promotion, Setting} from '@assets/icons';
-
+import {Course, HeartPf, Order, Promotion, Setting} from '@assets/icons';
 import {Block} from '@components';
-import {FlatList} from 'react-native';
 import ItemFeature from '@components/ItemList/ItemFeature';
-import React from 'react';
 import {routes} from '@navigation/routes';
 import {useNavigation} from '@react-navigation/core';
-import {useSelector} from 'react-redux';
 import {useTheme} from '@theme';
+import React from 'react';
 import {useTranslation} from 'react-i18next';
+import {FlatList} from 'react-native';
+import {useSelector} from 'react-redux';
 
 const ListItemFeature = () => {
   const {t} = useTranslation();
@@ -29,19 +28,26 @@ const ListItemFeature = () => {
     },
     {
       id: 2,
+      title: t('myCourse'),
+      image: <Course color={theme.colors.iconInf} />,
+      navigation: routes.COURSE_LIST_TYPE_SCREEN,
+      value: 'myCourse',
+    },
+    {
+      id: 3,
       title: t('promotion'),
       image: <Promotion color={theme.colors.iconInf} />,
       navigation: routes.NOTIFICATION_SCREEN,
       value: 0,
     },
     {
-      id: 3,
+      id: 4,
       title: t('order'),
       image: <Order color={theme.colors.iconInf} />,
       navigation: routes.ORDER_SCREEN,
     },
     {
-      id: 4,
+      id: 5,
       title: t('setting'),
       image: <Setting color={theme.colors.iconInf} />,
       navigation: routes.SETTING_SCREEN,

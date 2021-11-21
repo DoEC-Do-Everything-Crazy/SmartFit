@@ -10,12 +10,16 @@ import {useStyles} from './styles';
 
 const dataTitle = ['GYM', 'YOGA', 'BELLY DANCE', 'BOXING', 'DANCE SPORT'];
 
-const ItemCourseBig = ({title, url, props}) => {
+const ItemCourseBig = ({nameScreen, props}) => {
   const navigation = useNavigation();
   const onPress = type => {
-    navigation.navigate(routes.COURSE_LIST_SCREEN, {type});
+    navigation.navigate(routes.COURSE_LIST_SCREEN, {
+      type,
+      nameScreen: nameScreen,
+    });
   };
 
+  console.log('aaaaaaaaa', nameScreen);
   const {
     theme: {theme: themeStore},
   } = useSelector(stateRoot => stateRoot.root);

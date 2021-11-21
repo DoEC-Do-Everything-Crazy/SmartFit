@@ -8,7 +8,8 @@ import {useTranslation} from 'react-i18next';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useStyles} from './styles';
 
-const CourseListTypeScreen = props => {
+const CourseListTypeScreen = ({props, route}) => {
+  const {valuePromotion} = route.params;
   const {
     theme: {theme: themeStore},
   } = useSelector(stateRoot => stateRoot.root);
@@ -17,7 +18,11 @@ const CourseListTypeScreen = props => {
   const styles = useStyles(props, themeStore);
 
   const _renderItem = item => (
-    <ItemCourseBig title={item.title} url={item.url} />
+    <ItemCourseBig
+      nameScreen={valuePromotion}
+      title={item.title}
+      url={item.url}
+    />
   );
   return (
     <SafeAreaView

@@ -21,7 +21,7 @@ import {useTheme} from '@theme';
 
 const CourseListScreen = ({route, props}) => {
   const navigation = useNavigation();
-  const {type} = route.params;
+  const {type, nameScreen} = route.params;
 
   const {
     theme: {theme: themeStore},
@@ -40,7 +40,6 @@ const CourseListScreen = ({route, props}) => {
       console.log('error', error.message);
     }
   };
-
   const animatedStyles = useAnimatedStyle(() => {
     return {
       transform: [
@@ -71,7 +70,11 @@ const CourseListScreen = ({route, props}) => {
   };
 
   useEffect(() => {
-    fetchData();
+    if (nameScreen === 'course') {
+      fetchData();
+    } else {
+      null;
+    }
   }, []);
 
   return (

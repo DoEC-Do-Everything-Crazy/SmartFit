@@ -31,6 +31,7 @@ export default {
   order: 'Order List',
   logout: 'Logout',
   notUpdateYet: 'not update yet',
+  myCourse: 'My course',
   //Notification Screen
   warningOFD: 'Expires today',
   expiry: 'Expiry',
