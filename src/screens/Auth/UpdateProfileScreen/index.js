@@ -1,6 +1,6 @@
-import {Block, Button, DropDown, Header, TextInput} from '@components';
+import {Block, Button, DropDown, Header, Text, TextInput} from '@components';
 import {Email, Fullname, List, Phone} from '@assets/icons';
-import {Platform, TouchableOpacity} from 'react-native';
+import {Platform, TouchableOpacity, Pressable} from 'react-native';
 import React, {useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
@@ -12,6 +12,7 @@ import {useTheme} from '@theme';
 import {useTranslation} from 'react-i18next';
 import {userApi} from 'api/userApi';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import {ScrollView} from 'react-native-gesture-handler';
 
 const UpdateProfileScreen = ({route, props}) => {
   const navigation = useNavigation();
@@ -46,7 +47,7 @@ const UpdateProfileScreen = ({route, props}) => {
   const [openGender, setOpenGender] = useState(false);
 
   const showMode = currentMode => {
-    setShow(true);
+    setShow(!show);
     setMode(currentMode);
   };
 
@@ -93,117 +94,140 @@ const UpdateProfileScreen = ({route, props}) => {
           title={t('updateProfile')}
           colorTheme={theme.colors.blue}
         />
-        <Block flex paddingTop={20}>
-          <Block style={styles.group}>
-            <TextInput
-              label={t('enterFullName')}
-              inputStyle={styles.input}
-              leftIcon={true}
-              value={userProfile.displayName}
-              containerStyle={styles.holderInput}
-              onChangeText={text => {
-                setUserProfile({
-                  ...userProfile,
-                  displayName: text,
-                });
-              }}>
-              <Fullname color={theme.colors.text} />
-            </TextInput>
-            <Block marginTop={8} marginBottom={24}>
-              {/* {error.displayName && (
+        <ScrollView>
+          <Block flex paddingTop={20}>
+            <Block style={styles.group}>
+              <TextInput
+                label={t('enterFullName')}
+                inputStyle={styles.input}
+                leftIcon={true}
+                value={userProfile.displayName}
+                containerStyle={styles.holderInput}
+                onChangeText={text => {
+                  setUserProfile({
+                    ...userProfile,
+                    displayName: text,
+                  });
+                }}>
+                <Fullname color={theme.colors.text} />
+              </TextInput>
+              <Block marginTop={8} marginBottom={24}>
+                {/* {error.displayName && (
               <Text style={styles.text}>{error.displayName}</Text>
             )} */}
-            </Block>
-            <TextInput
-              label={t('enterEmail')}
-              inputStyle={styles.input}
-              value={userProfile.email}
-              leftIcon={true}
-              onChangeText={text => {
-                setUserProfile({
-                  ...userProfile,
-                  email: text,
-                });
-              }}
-              disabled={userProfile.email && true}>
-              <Email color={theme.colors.text} />
-            </TextInput>
-            <Block marginTop={8} marginBottom={24}>
-              {/* {error.phoneNumber && (
-              <Text style={styles.text}>{error.phoneNumber}</Text>
-            )} */}
-            </Block>
-            <TextInput
-              label={t('enterPhoneNumber')}
-              inputStyle={styles.input}
-              leftIcon={true}
-              value={user.phoneNumber}
-              onChangeText={text => {
-                setUserProfile({
-                  ...userProfile,
-                  phoneNumber: text,
-                });
-              }}
-              disabled={userProfile.phoneNumber && true}>
-              <Phone color={theme.colors.text} />
-            </TextInput>
-            <Block marginTop={8} marginBottom={24}>
-              {/* {error.phoneNumber && (
-              <Text style={styles.text}>{error.phoneNumber}</Text>
-            )} */}
-            </Block>
-            <DropDown
-              open={openGender}
-              value={valueGender}
-              items={gender}
-              setOpen={setOpenGender}
-              setValue={setValueGender}
-              setItems={setGender}
-              containerStyle={styles.gender}
-              boxStyle={styles.pickerBox}
-              onChangeValue={setValueGender}
-              label={t('selectAGender')}
-            />
-            <TouchableOpacity
-              style={{marginTop: 8, marginBottom: 24}}
-              onPress={showDatepicker}>
+              </Block>
               <TextInput
-                disabled={true}
-                label={t('selectDate')}
-                value={dateFormat(userProfile.birthday, 'dd/mm/yyyy')}
+                label={t('enterEmail')}
                 inputStyle={styles.input}
-                leftIcon={true}>
-                <List color={theme.colors.text} />
+                value={userProfile.email}
+                leftIcon={true}
+                onChangeText={text => {
+                  setUserProfile({
+                    ...userProfile,
+                    email: text,
+                  });
+                }}
+                disabled={userProfile.email && true}>
+                <Email color={theme.colors.text} />
               </TextInput>
+              <Block marginTop={8} marginBottom={24}>
+                {/* {error.phoneNumber && (
+              <Text style={styles.text}>{error.phoneNumber}</Text>
+            )} */}
+              </Block>
+              <TextInput
+                label={t('enterPhoneNumber')}
+                inputStyle={styles.input}
+                leftIcon={true}
+                value={user.phoneNumber}
+                onChangeText={text => {
+                  setUserProfile({
+                    ...userProfile,
+                    phoneNumber: text,
+                  });
+                }}
+                disabled={userProfile.phoneNumber && true}>
+                <Phone color={theme.colors.text} />
+              </TextInput>
+              <Block marginTop={8} marginBottom={24}>
+                {/* {error.phoneNumber && (
+              <Text style={styles.text}>{error.phoneNumber}</Text>
+            )} */}
+              </Block>
+
+              <DropDown
+                open={openGender}
+                value={valueGender}
+                items={gender}
+                setOpen={setOpenGender}
+                setValue={setValueGender}
+                setItems={setGender}
+                containerStyle={styles.gender}
+                boxStyle={styles.pickerBox}
+                onChangeValue={setValueGender}
+                label={t('selectAGender')}
+              />
+
+              <TouchableOpacity
+                style={{marginTop: 8, marginBottom: 24}}
+                onPress={showDatepicker}>
+                <Block
+                  column
+                  paddingLeft={10}
+                  radius={8}
+                  backgroundColor={'white'}>
+                  <Text paddingTop={5}>{t('selectDate')}</Text>
+                  <Block paddingTop={5} paddingBottom={10} row alignCenter>
+                    <List color={theme.colors.text} />
+                    <Text paddingLeft={10}>
+                      {userProfile.birthday
+                        ? dateFormat(userProfile.birthday, 'dd/mm/yyyy')
+                        : 'dd/mm/yyyy'}
+                    </Text>
+                  </Block>
+                </Block>
+              </TouchableOpacity>
               {show && (
-                <DateTimePicker
-                  testID="dateTimePicker"
-                  value={new Date(userProfile.birthday)}
-                  mode={mode}
-                  is24Hour={true}
-                  display="spinner"
-                  onChange={(event, selectedDay) => {
-                    setShow(Platform.OS === 'ios');
-                    if (event.type === 'set') {
-                      setUserProfile({
-                        ...userProfile,
-                        birthday: new Date(selectedDay),
-                      });
-                    }
-                  }}
-                />
+                <>
+                  <Pressable onPress={showDatepicker}>
+                    <Block width={80} radius={8} backgroundColor={'#045694'}>
+                      <Text
+                        center
+                        paddingVertical={5}
+                        fontType="bold"
+                        color="white">
+                        {t('choose')}
+                      </Text>
+                    </Block>
+                  </Pressable>
+                  <DateTimePicker
+                    testID="dateTimePicker"
+                    value={new Date(userProfile.birthday)}
+                    mode={mode}
+                    is24Hour={true}
+                    display="spinner"
+                    onChange={(event, selectedDay) => {
+                      if (event.type !== 'set') {
+                        setUserProfile({
+                          ...userProfile,
+                          birthday: new Date(selectedDay),
+                        });
+                      }
+                    }}
+                  />
+                </>
               )}
-            </TouchableOpacity>
+            </Block>
+            <Block flex justifyEnd>
+              <Button
+                // containerStyle={{justifyContent: 'flex-end'}}
+                title={t('update')}
+                style={styles.button}
+                onPress={handleOnSubmit}
+              />
+            </Block>
           </Block>
-          <Block flex justifyEnd>
-            <Button
-              // containerStyle={{justifyContent: 'flex-end'}}
-              title={t('update')}
-              style={styles.button}
-              onPress={handleOnSubmit}
-            />
-          </Block>
-        </Block>
+        </ScrollView>
       </Block>
     </SafeAreaView>
   );

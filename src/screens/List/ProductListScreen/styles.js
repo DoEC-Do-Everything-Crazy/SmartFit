@@ -5,10 +5,7 @@ export const useStyles = makeStyles()(({colors}) => ({
     width: getSize.m(200),
     height: getSize.m(260),
   },
-  imageContainer: {
-    backgroundColor: 'white',
-    borderRadius: getSize.s(8),
-  },
+
   image: {
     width: getSize.m(200),
     height: getSize.m(260),
@@ -73,5 +70,6 @@ export const useStyles = makeStyles()(({colors}) => ({
   },
   sendControlContainerOuter: {
     flex: 1,
+    backgroundColor: colors.backgroundSetting,
   },
 }));
