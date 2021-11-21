@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {Block, Button, InviteLogin, PayInfo, Text} from '@components';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import CartList from './components/CartList';
 import {Cart_data} from '@assets/icons';
@@ -8,6 +9,7 @@ import {Pressable} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {orderApi} from 'api/orderApi';
 import {routes} from '@navigation/routes';
+import setAuthToken from 'utils/setAuthToken';
 import {useNavigation} from '@react-navigation/core';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
@@ -18,9 +20,12 @@ const CartScreen = props => {
   const navigation = useNavigation();
   const {
     theme: {theme: themeStore},
-    user: {user},
+    user: {user, token},
     cart: {cart},
   } = useSelector(stateRoot => stateRoot.root);
+
+  console.log(token);
+
   const styles = useStyles(props, themeStore);
   const theme = useTheme(themeStore);
   const {t} = useTranslation();
@@ -96,6 +101,10 @@ const CartScreen = props => {
       </Pressable>
     </Block>
   );
+
+  useEffect(() => {
+    user && setAuthToken(token);
+  }, []);
 
   return user ? (
     <Cart color={theme.colors.white} />

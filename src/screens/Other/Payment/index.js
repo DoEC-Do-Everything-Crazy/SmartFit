@@ -1,9 +1,9 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import {Block, Button, Header, PayInfo, Text, TextInput} from '@components';
 import {FlatList, Pressable, ScrollView} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
+/* eslint-disable react-hooks/exhaustive-deps */
 import {Address} from '@assets/icons';
 import ItemCart from '@components/ItemList/ItemCart';
 import {clearCart} from 'reduxs/reducers';
@@ -50,20 +50,27 @@ const Payment = ({props, route}) => {
   };
 
   const addOrder = async formData => {
-    const res = await orderApi.addOrder(formData);
+    try {
+      const res = await orderApi.addOrder(formData);
 
-    if (res.status === 200) {
-      console.log('add success');
-      dispatch(clearCart());
-      navigation.navigate(routes.ORDER_SCREEN);
+      if (res.status === 200) {
+        dispatch(clearCart());
+        navigation.navigate(routes.ORDER_SCREEN);
+      }
+    } catch (error) {
+      console.error(error.message);
     }
   };
 
   const handlePromotion = async () => {
-    const res = await promotionApi.getPromotionByKey(promotion);
-    if (res.status === 200) {
-      setValueDiscount(totalPriceCart * res.data);
-      console.log('promotion = ', res.data);
+    try {
+      const res = await promotionApi.getPromotionByKey(promotion);
+      if (res.status === 200) {
+        setValueDiscount(totalPriceCart * res.data);
+      }
+    } catch (error) {
+      console.error(error.message);
+      setValueDiscount(0);
     }
   };
 

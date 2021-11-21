@@ -90,6 +90,7 @@ export default {
   discount: 'Giảm giá',
   total: 'Tổng',
   cart: 'Giỏ hàng',
+  addedToCart: 'Đã thêm vào giỏ hàng',
 
   //Course Type Screen
   courseCategory: 'Các hạng mục khóa học',
@@ -127,8 +128,8 @@ export default {
   //Product Detail
   productDetail: 'Chi tiết sản phẩm',
   brand: 'Thương hiệu',
-  review: 'Đánh giá',
-  reviews: 'đánh giá',
+  Review: 'Đánh giá',
+  review: 'đánh giá',
 
   //Food List Screen
   healthyFood: 'Đồ ăn tốt cho sức khỏe',
@@ -166,6 +167,11 @@ export default {
   orderInformation: 'Thông tin đơn hàng',
   reOrder: 'Mua lại',
   leaveFeedback: 'Đóng',
+  addAddress: 'Thêm địa chỉ',
+  contact: 'Liên hệ',
+  fullName: 'Họ tên',
+  phoneNumber: 'Số điện thoại',
+  address: 'Địa chỉ',
 
   //Request OTP
   signInWithPhoneNumber: 'Đăng nhập bằng số điện thoại',
@@ -226,4 +232,8 @@ export default {
   similarFood: 'Đồ ăn Tương tự',
   similarCourse: 'Khóa học tương tự',
   similarProduct: 'Sản phẩm tương tự',
+
+  //Footer
+  LoadMore: 'Xem thêm',
+  loadMore: 'Xem thêm',
 };

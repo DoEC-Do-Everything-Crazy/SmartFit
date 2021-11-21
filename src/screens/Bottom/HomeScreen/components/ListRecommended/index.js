@@ -1,10 +1,11 @@
 import {Block, Text} from '@components';
-import React, {useRef} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {height, width} from '@utils/responsive';
 
 import Carousel from 'react-native-snap-carousel';
 import ItemRecommended from '@components/ItemList/ItemRecommended';
 import {Pressable} from 'react-native';
+import {recommendedApi} from 'api/recommendedApi';
 import {routes} from '@navigation/routes';
 import {useNavigation} from '@react-navigation/core';
 import {useSelector} from 'react-redux';
@@ -12,7 +13,7 @@ import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {useTranslation} from 'react-i18next';
 
-const ListRecommended = ({data, props}) => {
+const ListRecommended = ({props}) => {
   const {t} = useTranslation();
   const themeStore = useSelector(state => state.root.theme.theme);
   const theme = useTheme(themeStore);
@@ -20,9 +21,27 @@ const ListRecommended = ({data, props}) => {
   const navigation = useNavigation();
   const styles = useStyles(props, themeStore);
 
+  const [data, setData] = useState([]);
+
+  const initData = async () => {
+    try {
+      const response = await recommendedApi.getRecommend({
+        validateStatus: false,
+      });
+
+      setData(response.recommends);
+    } catch (error) {
+      console.error('error', error.message);
+    }
+  };
+
   const _renderItem = ({item, index}) => (
     <ItemRecommended item={item} index={index} />
   );
+
+  useEffect(() => {
+    initData();
+  }, []);
 
   return (
     <Block space="between" marginTop={20}>
@@ -35,7 +54,8 @@ const ListRecommended = ({data, props}) => {
         <Pressable
           onPress={() =>
             navigation.navigate(routes.FOOD_LIST_SCREEN, {
-              title: t('healthyFood'),
+              title: t('recommended'),
+              recommendData: data,
             })
           }>
           <Text size={17} style={styles.link}>
@@ -47,7 +67,7 @@ const ListRecommended = ({data, props}) => {
         <Carousel
           ref={carouselRef}
           hasParallaxImages={true}
-          data={data.slice(0, 5)}
+          data={data}
           sliderWidth={width + 140}
           itemWidth={width / 2}
           sliderHeight={height / 2}

@@ -21,15 +21,15 @@ const ListHotCourse = ({props}) => {
   const styles = useStyles(props, themeStore);
 
   const [data, setData] = useState([]);
-  const [pageNumber, setPageNumber] = useState(1);
 
   const _renderItem = ({item, index}) => (
     <ItemHotCourse item={item} key={index} />
   );
 
-  const fetchData = async () => {
+  const initData = async () => {
     const params = {
-      pageNumber,
+      pageNumber: 1,
+      orderBy: 'rate',
     };
 
     try {
@@ -41,7 +41,7 @@ const ListHotCourse = ({props}) => {
   };
 
   useEffect(() => {
-    // fetchData();
+    initData();
   }, []);
 
   return (

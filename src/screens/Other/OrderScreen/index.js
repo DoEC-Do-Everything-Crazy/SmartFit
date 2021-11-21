@@ -43,16 +43,11 @@ const OrderScreen = props => {
     },
     {
       id: 4,
-      title: t('processing'),
-      status: 'processing',
-    },
-    {
-      id: 5,
       title: t('delivering'),
       status: 'delivering',
     },
     {
-      id: 6,
+      id: 5,
       title: t('delivered'),
       status: 'delivered',
     },

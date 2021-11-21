@@ -18,6 +18,7 @@ import ListSimilar from '../../Bottom/HomeScreen/components/ListSimilar/index';
 import {Rating} from 'react-native-ratings';
 import RatingValue from '@components/RatingValue';
 import Review from '@components/Review';
+import Snackbar from 'react-native-snackbar';
 import {productApi} from 'api/productApi';
 import {rateApi} from 'api/rateApi';
 import {routes} from '@navigation/routes';
@@ -195,6 +196,12 @@ const ProductDetailScreen = ({props, route}) => {
                     title={t('addToCart')}
                     onPress={() => {
                       dispatch(addCartItem({addItem: product, quantity: 1}));
+
+                      Snackbar.show({
+                        text: t('addedToCart'),
+                        duration: Snackbar.LENGTH_SHORT,
+                      });
+
                       modalizRef?.current.close();
                     }}
                   />
@@ -217,7 +224,7 @@ const ProductDetailScreen = ({props, route}) => {
                 </Block>
                 <Block row paddingBottom={20} paddingHorizontal={16}>
                   <Text fontType="bold" size={17}>
-                    {t('review')}:
+                    {t('Review')}:
                   </Text>
                   <Pressable onPress={handleShowReview}>
                     <Text style={styles.link} marginLeft={15} size={17}>

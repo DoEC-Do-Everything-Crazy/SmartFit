@@ -3,10 +3,13 @@ import axios from 'axios';
 
 const getPromotionByUserID = async (userID, value, options) => {
   try {
-    const response = await axios.get(`${apiUrl}/promotion/${userID}/${value}`, {
-      ...options,
-      validateStatus: false,
-    });
+    const response = await axios.get(
+      `${apiUrl}/promotions/${userID}/${value}`,
+      {
+        ...options,
+        validateStatus: false,
+      },
+    );
 
     if (response.status === 404 || response.status === 500) {
       throw response.data;
@@ -20,7 +23,7 @@ const getPromotionByUserID = async (userID, value, options) => {
 
 const getPromotionByKey = async (key, options) => {
   try {
-    const response = await axios.get(`${apiUrl}/promotion/${key}`, {
+    const response = await axios.get(`${apiUrl}/promotions/${key}`, {
       ...options,
       validateStatus: false,
     });

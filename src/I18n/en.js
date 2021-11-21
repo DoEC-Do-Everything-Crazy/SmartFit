@@ -90,6 +90,7 @@ export default {
   discount: 'Discount',
   total: 'Total',
   cart: 'Cart',
+  addedToCart: 'Added to cart',
 
   //Course Type Screen
   courseCategory: 'Course Category',
@@ -127,8 +128,8 @@ export default {
   //Product Detail
   productDetail: 'Product Detail',
   brand: 'Brand',
-  review: 'Reviews',
-  reviews: 'reviews',
+  Review: 'Review(s)',
+  review: 'review(s)',
 
   //Food List Screen
   healthyFood: 'Healthy Food',
@@ -166,6 +167,11 @@ export default {
   orderInformation: 'Order information',
   reOrder: 'Reorder',
   leaveFeedback: 'Close',
+  addAddress: 'Add address',
+  contact: 'Contact',
+  fullName: 'Full name',
+  phoneNumber: 'Phone number',
+  address: 'Address',
 
   //Request OTP
   signInWithPhoneNumber: 'Sign in with phone number',
@@ -226,4 +232,8 @@ export default {
   similarFood: 'Similar Food',
   similarCourse: 'Similar Course',
   similarProduct: 'Similar Product',
+
+  //Footer
+  LoadMore: 'Load more',
+  loadMore: 'load more',
 };

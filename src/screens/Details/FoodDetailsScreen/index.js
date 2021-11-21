@@ -8,6 +8,7 @@ import DescriptionDetail from './components/DescriptionDetail';
 import ProductContent from './components/ProductContent';
 import Review from '@components/Review';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import Snackbar from 'react-native-snackbar';
 import {addCartItem} from 'reduxs/reducers';
 import {foodApi} from 'api/foodApi';
 import {useStyles} from './styles';
@@ -41,6 +42,11 @@ const FoodDetailsScreen = ({route, props}) => {
 
   const addToCart = () => {
     dispatch(addCartItem({addItem: food, quantity: 1}));
+
+    Snackbar.show({
+      text: t('addedToCart'),
+      duration: Snackbar.LENGTH_SHORT,
+    });
   };
 
   useEffect(() => {
@@ -63,7 +69,7 @@ const FoodDetailsScreen = ({route, props}) => {
             <DescriptionDetail desc={food.description} />
             <Block marginTop={20} paddingBottom={20} row paddingHorizontal={16}>
               <Text fontType="bold" size={17}>
-                {t('review')}:
+                {t('Review')}:
               </Text>
               <Pressable onPress={handleShowReview}>
                 <Text style={styles.link} marginLeft={15} size={17}>
@@ -75,13 +81,13 @@ const FoodDetailsScreen = ({route, props}) => {
               <Review
                 averageRating={food.averageRating}
                 totalReviews={food.totalReviews}
-                courseId={food._id}
+                foodId={food._id}
               />
             ) : null}
           </ScrollView>
           <Button
             onPress={addToCart}
-            title={t('buyNow')}
+            title={t('addToCart')}
             containerStyle={{backgroundColor: theme.colors.blue}}
             titleStyle={styles.btn}
           />

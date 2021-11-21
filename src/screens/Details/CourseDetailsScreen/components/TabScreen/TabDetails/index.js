@@ -20,6 +20,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import {Rating} from 'react-native-ratings';
 import RatingValue from '@components/RatingValue';
 import Review from '@components/Review';
+import Snackbar from 'react-native-snackbar';
 import {addCartItem} from 'reduxs/reducers';
 import {courseApi} from 'api/courseApi';
 import {keyExtractor} from 'utils/keyExtractor';
@@ -297,7 +298,8 @@ const TabDetails = ({route, props}) => {
                     titlePrice1={dataDetail.price}
                     title2={t('PT')}
                     titlePrice2={infoPT?.price || 0}
-                    total={totalPrice}
+                    title3={t('total')}
+                    titlePrice3={dataDetail.price + infoPT?.price || 0}
                   />
                 </Block>
                 <Block
@@ -306,7 +308,7 @@ const TabDetails = ({route, props}) => {
                   paddingBottom={20}
                   paddingHorizontal={16}>
                   <Text fontType="bold" size={17}>
-                    {t('review')}:
+                    {t('Review')}:
                   </Text>
                   <Pressable onPress={handleShowReview}>
                     <Text style={styles.link} marginLeft={15} size={17}>
@@ -474,6 +476,10 @@ const TabDetails = ({route, props}) => {
                 quantity: 1,
               }),
             );
+            Snackbar.show({
+              text: t('addedToCart'),
+              duration: Snackbar.LENGTH_SHORT,
+            });
             modalizInf?.current.close();
           }}
         />

@@ -10,6 +10,7 @@ import {useNavigation} from '@react-navigation/core';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
+import {useTranslation} from 'react-i18next';
 import {width} from '@utils/responsive';
 
 const ItemNavProduct = ({item, props}) => {
@@ -20,6 +21,8 @@ const ItemNavProduct = ({item, props}) => {
   } = useSelector(stateRoot => stateRoot.root);
   const styles = useStyles(props, themeStore);
   const theme = useTheme(themeStore);
+
+  const {t} = useTranslation();
 
   const updateViewFood = async item => {
     await foodApi.updateViewFood(item, {
@@ -70,6 +73,7 @@ const ItemNavProduct = ({item, props}) => {
             style={styles.rating}
             ratingCount={5}
             readonly={true}
+            startingValue={item.averageRating}
             imageSize={15}
             type="custom"
             ratingColor="#FF7F50"
@@ -77,7 +81,7 @@ const ItemNavProduct = ({item, props}) => {
             tintColor={theme.colors.border}
           />
           <Text size={12}>
-            {item.view ? item.view + ' ' + 'Reviewed' : 0 + ' ' + 'Reviewed'}
+            {item.totalReviews} {t('review')}
           </Text>
         </Block>
         <Text

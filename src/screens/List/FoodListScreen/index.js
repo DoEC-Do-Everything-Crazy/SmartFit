@@ -1,13 +1,13 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withSpring,
 } from 'react-native-reanimated';
-import {Block, Header} from '@components';
+import {Block, Header, Text} from '@components';
 import {Pressable, ScrollView} from 'react-native';
-import {useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
+/* eslint-disable react-hooks/exhaustive-deps */
 import {Cart} from '@assets/icons';
 import LinearGradient from 'react-native-linear-gradient';
 import ListItemNavProduct from './components/ListItemNavProduct';
@@ -32,10 +32,8 @@ const FoodListScreen = ({route, props}) => {
   const styles = useStyles(props, themeStore);
   const offset = useSharedValue(0);
 
-  const {title} = route.params;
+  const {title, recommendData} = route.params;
   const [foodsBMI, setFoodsBMI] = useState([]);
-
-  console.log(title);
 
   const fetchFoodsByBMI = async () => {
     try {
@@ -85,12 +83,16 @@ const FoodListScreen = ({route, props}) => {
       <Header
         canGoBack
         search
-        title={t('healthyFood')}
+        title={title ? title : t('healthyFood')}
         colorTheme={theme.colors.blue}
       />
       <ScrollView onScroll={onScroll} showsVerticalScrollIndicator={false}>
-        {title === t('dailyMeals') ? (
-          <ListItemPopular foodsBMI={foodsBMI} />
+        {recommendData ? (
+          <>
+            <ListItemPopular recommendData={recommendData} />
+          </>
+        ) : title === t('dailyMeals') ? (
+          <ListItemPopular />
         ) : (
           <>
             <ListItemNavProduct />

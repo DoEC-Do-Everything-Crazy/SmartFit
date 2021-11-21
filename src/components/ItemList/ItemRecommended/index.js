@@ -1,11 +1,10 @@
 import {Block, Text} from '@components';
 import {HeartPf, Rating} from '@assets/icons';
 import {Image, Pressable} from 'react-native';
-import React, {useEffect, useState} from 'react';
 
+import React from 'react';
 import {courseApi} from 'api/courseApi';
 import {foodApi} from 'api/foodApi';
-import {recommendedApi} from 'api/recommendedApi.js';
 import {routes} from '@navigation/routes';
 import {useNavigation} from '@react-navigation/core';
 import {useSelector} from 'react-redux';
@@ -17,15 +16,9 @@ const ItemRecommended = ({item, index, props}) => {
   const {
     theme: {theme: themeStore},
   } = useSelector(stateRoot => stateRoot.root);
-  const [rate, setRate] = useState([]);
   const styles = useStyles(props, themeStore);
   const theme = useTheme(themeStore);
   const navigation = useNavigation();
-
-  const fetchRateData = async () => {
-    const data = await recommendedApi.getAvgRate();
-    setRate(data);
-  };
 
   const updateViewFood = async item => {
     await foodApi.updateViewFood(item, {
@@ -48,10 +41,6 @@ const ItemRecommended = ({item, index, props}) => {
       updateViewCourse(id);
     }
   };
-
-  useEffect(() => {
-    fetchRateData();
-  }, []);
 
   return (
     <Pressable
@@ -76,20 +65,15 @@ const ItemRecommended = ({item, index, props}) => {
               radius={5}>
               <Rating />
               <Text fontType="bold" color={theme.colors.white} marginLeft={5}>
-                {rate
-                  .slice(0, 5)
-                  .map(itemRate =>
-                    itemRate.foodId === item._id ||
-                    itemRate.courseId === item._id
-                      ? Math.round(itemRate.rate * 10) / 10
-                      : null,
-                  )}
+                {item.averageRating}
               </Text>
             </Block>
           </Block>
-          <Block justifyEnd>
-            <HeartPf color={theme.colors.lightGray} />
-          </Block>
+          {!item.key.includes('C') && (
+            <Block justifyEnd>
+              <HeartPf color={theme.colors.lightGray} />
+            </Block>
+          )}
         </Block>
         <Block flex>
           <Text

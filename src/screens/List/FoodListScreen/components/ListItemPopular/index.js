@@ -8,8 +8,9 @@ import {keyExtractor} from 'utils/keyExtractor';
 /* eslint-disable react-hooks/exhaustive-deps */
 import {lotties} from '@assets';
 
-const ListItemPopular = props => {
-  const [data, setData] = useState([]);
+const ListItemPopular = ({...props}) => {
+  const {recommendData} = props;
+  const [data, setData] = useState(recommendData ? recommendData : []);
   const [pageNumber, setPageNumber] = useState(1);
   const [allLoaded, setAllLoaded] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -77,7 +78,7 @@ const ListItemPopular = props => {
   );
 
   useEffect(() => {
-    initData();
+    !recommendData && initData();
   }, []);
 
   return (
@@ -93,7 +94,7 @@ const ListItemPopular = props => {
           numColumns={2}
           keyExtractor={keyExtractor}
           renderItem={_renderItem}
-          ListFooterComponent={_footerComponent}
+          ListFooterComponent={!recommendData ? _footerComponent : null}
         />
       )}
     </Block>

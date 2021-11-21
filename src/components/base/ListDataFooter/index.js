@@ -3,11 +3,14 @@ import {Block, LoadMore, Loading, Text} from '@components';
 import {Platform} from 'react-native';
 import React from 'react';
 import {useSelector} from 'react-redux';
+import {useTranslation} from 'react-i18next';
 
 const ListDataFooter = ({...props}) => {
   const {
     theme: {theme: themeStore},
   } = useSelector(stateRoot => stateRoot.root);
+
+  const {t} = useTranslation();
 
   const {
     allLoaded,
@@ -15,7 +18,7 @@ const ListDataFooter = ({...props}) => {
     loadingSize = 'small',
     loadingHeight = 60,
     loadingColor = themeStore === 'dark' ? 'white' : 'black',
-    loadTitle = 'Load more',
+    loadTitle = t('loadMore'),
     loadHeight = 60,
     loadTextColor = themeStore === 'dark' ? 'white' : 'black',
     onPress,

@@ -8,6 +8,7 @@ import {
   statusCodes,
 } from '@react-native-google-signin/google-signin';
 import React, {useEffect, useState} from 'react';
+import {setToken, setUser} from 'reduxs/reducers';
 import {useDispatch, useSelector} from 'react-redux';
 
 import {Formik} from 'formik';
@@ -15,7 +16,6 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 import {authApi} from 'api/authApi';
 import {routes} from '@navigation/routes';
 import setAuthToken from 'utils/setAuthToken';
-import {setUser} from 'reduxs/reducers';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {useTranslation} from 'react-i18next';
@@ -53,7 +53,9 @@ const LoginScreen = ({navigation, props}) => {
       if (token.idToken) {
         setAuthToken(token.idToken);
         let resUser = await userApi.getUser();
+
         dispatch(setUser(resUser));
+        dispatch(setToken(token.idToken));
       }
     } catch (error) {
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
@@ -93,6 +95,7 @@ const LoginScreen = ({navigation, props}) => {
     try {
       const resData = await authApi.login(userCredentials);
       setAuthToken(resData.token);
+      dispatch(setToken(resData.token));
       dispatch(setUser(resData.user));
     } catch (error) {
       console.error(error);

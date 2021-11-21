@@ -21,6 +21,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import ListSimilar from '../../../../../Bottom/HomeScreen/components/ListSimilar/index';
 import {Rating} from 'react-native-ratings';
 import Review from '@components/Review';
+import Snackbar from 'react-native-snackbar';
 import {addCartItem} from 'reduxs/reducers';
 import {courseApi} from 'api/courseApi';
 import {keyExtractor} from 'utils/keyExtractor';
@@ -132,7 +133,6 @@ const TabDetails = ({route, props}) => {
   const day = sessions <= 50 ? 3 : 5;
   const weeks =
     sessions <= 50 ? Math.round(sessions / 3) : Math.round(sessions / 5);
-  const totalPrice = dataDetail?.price || 0 + dataPTDetail.price;
   const HeaderComponent = useCallback(
     props => {
       const {title, inf} = props;
@@ -309,7 +309,8 @@ const TabDetails = ({route, props}) => {
                       titlePrice1={dataDetail.price}
                       title2={t('PT')}
                       titlePrice2={infoPT?.price || 0}
-                      total={totalPrice}
+                      title3={t('total')}
+                      titlePrice3={dataDetail.price + infoPT?.price || 0}
                     />
                   </Block>
                   <Block
@@ -318,7 +319,7 @@ const TabDetails = ({route, props}) => {
                     paddingBottom={20}
                     paddingHorizontal={16}>
                     <Text fontType="bold" size={17}>
-                      {t('review')}:
+                      {t('Review')}:
                     </Text>
                     <Pressable onPress={handleShowReview}>
                       <Text style={styles.link} marginLeft={15} size={17}>
@@ -483,6 +484,11 @@ const TabDetails = ({route, props}) => {
             title={t('addToCart')}
             onPress={() => {
               dispatch(addCartItem({addItem: dataDetail, quantity: 1}));
+
+              Snackbar.show({
+                text: t('addedToCart'),
+                duration: Snackbar.LENGTH_SHORT,
+              });
             }}
           />
         ) : (

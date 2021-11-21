@@ -117,7 +117,7 @@ const ItemOrder = ({item, onPress, index, props}) => {
             <Block row flex={1}>
               <Text>{t('promotion')}:</Text>
               <Text marginLeft={10} fontType="bold">
-                {item.promotion} asdasdasdasdasdasd
+                {item.promotion}
               </Text>
             </Block>
             <Block row flex={1} justifyEnd>

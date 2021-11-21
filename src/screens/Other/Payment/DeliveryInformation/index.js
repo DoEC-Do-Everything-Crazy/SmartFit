@@ -13,39 +13,43 @@ const DeliveryInformation = ({props}) => {
   const styles = useStyles(props, themeStore);
   const {
     theme: {theme: themeStore},
+    user: {user},
   } = useSelector(state => state.root);
 
-  const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
-  const [address, setAddress] = useState('');
+  const [name, setName] = useState(user.fullName);
+  const [phone, setPhone] = useState(user.phoneNumber);
+  const [address, setAddress] = useState(user.address);
 
   return (
     <Block flex>
-      <Header canGoBack title="Thêm địa chỉ" />
+      <Header canGoBack title={t('addAddress')} />
       <Block flex padding={10}>
         <Text marginHorizontal={16} size={20} fontType="bold">
-          Liên hệ
+          {t('contact')}
         </Text>
         <Block marginHorizontal={25} marginVertical={10}>
           <TextInput
             inputStyle={{flex: 1}}
             paddingHorizontal={10}
-            placeholder="Họ và tên"
+            placeholder={t('fullName')}
+            value={name}
             onChangeText={text => setName(text)}
           />
           <Block marginVertical={15} />
           <TextInput
+            value={phone}
             inputStyle={{flex: 1}}
             paddingHorizontal={10}
-            placeholder="Số điện thoại"
+            placeholder={t('phoneNumber')}
             keyboardType="numeric"
             onChangeText={text => setPhone(text)}
           />
           <Block marginVertical={15} />
           <TextInput
+            value={address}
             inputStyle={{flex: 1}}
             paddingHorizontal={10}
-            placeholder="Địa chỉ"
+            placeholder={t('address')}
             onChangeText={text => setAddress(text)}
           />
         </Block>

@@ -14,8 +14,7 @@ import {useTheme} from '@theme';
 const ItemHotCourse = ({item, props}) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  // const [isTouch, setTouch] = useState(true);
-  // const [color, setColor] = useState();
+
   const {
     theme: {theme: themeStore},
   } = useSelector(stateRoot => stateRoot.root);
@@ -33,9 +32,6 @@ const ItemHotCourse = ({item, props}) => {
     });
   };
 
-  // useEffect(() => {
-  //   isTouch ? setColor(theme.colors.red) : setColor(theme.colors.gray);
-  // }, [isTouch, theme.colors.gray, theme.colors.red]);
   return (
     <Pressable
       onPress={() => {
@@ -49,13 +45,6 @@ const ItemHotCourse = ({item, props}) => {
           uri: item.image[0],
         }}
       />
-      {/* <Pressable
-        style={styles.iconHeart}
-        onPress={() => {
-          setTouch(!isTouch);
-        }}>
-        <HeartPf color={color} />
-      </Pressable> */}
       <Block style={styles.title}>
         <Text
           size={20}

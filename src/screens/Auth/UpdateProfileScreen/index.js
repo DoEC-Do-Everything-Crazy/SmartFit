@@ -6,6 +6,7 @@ import {useDispatch, useSelector} from 'react-redux';
 
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import {ScrollView} from 'react-native-gesture-handler';
 import {setUser} from 'reduxs/reducers';
 import {useNavigation} from '@react-navigation/core';
 import {useStyles} from './styles';
@@ -104,8 +105,8 @@ const UpdateProfileScreen = ({route, props}) => {
             </TextInput>
             <Block marginTop={8} marginBottom={24}>
               {/* {error.fullName && (
-              <Text style={styles.text}>{error.fullName}</Text>
-            )} */}
+                <Text style={styles.text}>{error.fullName}</Text>
+              )} */}
             </Block>
             <TextInput
               label={t('enterEmail')}
@@ -123,8 +124,8 @@ const UpdateProfileScreen = ({route, props}) => {
             </TextInput>
             <Block marginTop={8} marginBottom={24}>
               {/* {error.phoneNumber && (
-              <Text style={styles.text}>{error.phoneNumber}</Text>
-            )} */}
+                <Text style={styles.text}>{error.phoneNumber}</Text>
+              )} */}
             </Block>
             <TextInput
               label={t('enterPhoneNumber')}
@@ -141,8 +142,8 @@ const UpdateProfileScreen = ({route, props}) => {
             </TextInput>
             <Block marginTop={8} marginBottom={24}>
               {/* {error.phoneNumber && (
-              <Text style={styles.text}>{error.phoneNumber}</Text>
-            )} */}
+                <Text style={styles.text}>{error.phoneNumber}</Text>
+              )} */}
             </Block>
             <DropDown
               open={openGender}

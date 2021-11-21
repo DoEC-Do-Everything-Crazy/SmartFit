@@ -18,9 +18,9 @@ const getAvgRate = async options => {
   }
 };
 
-const getRecommendedByBMI = async (bmi, options) => {
+const getRecommend = async options => {
   try {
-    const response = await axios.get(`${apiUrl}/recommended/${bmi}`, {
+    const response = await axios.get(`${apiUrl}/recommended/myRecommend`, {
       ...options,
       validateStatus: false,
     });
@@ -53,7 +53,7 @@ const getFoodsByBMI = async (bmi, food, options) => {
 };
 
 export const recommendedApi = {
-  getRecommendedByBMI,
+  getRecommend,
   getAvgRate,
   getFoodsByBMI,
 };

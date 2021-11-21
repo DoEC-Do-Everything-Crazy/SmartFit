@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, {useEffect, useState} from 'react';
 
 import {Block} from '@components';
@@ -35,7 +36,6 @@ const ListNotification = props => {
 
   useEffect(() => {
     fetchPromotion();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const _renderItem = ({item}) => <ItemNotification item={item} />;

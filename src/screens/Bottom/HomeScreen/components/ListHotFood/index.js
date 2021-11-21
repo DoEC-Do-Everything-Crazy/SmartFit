@@ -21,53 +21,20 @@ const ListHotFood = props => {
   const styles = useStyles(props, themeStore);
 
   const [data, setData] = useState([]);
-  const [pageNumber, setPageNumber] = useState(1);
-  const [allLoaded, setAllLoaded] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-
-  const handleLoadMore = async () => {
-    if (allLoaded || isLoading) {
-      return;
-    }
-
-    setIsLoading(true);
-
-    try {
-      const response = await foodApi.getFoods({
-        pageNumber,
-      });
-
-      const {foods, page, pages} = response;
-
-      if (page >= pages) {
-        setAllLoaded(true);
-      }
-
-      setData(data.concat(foods));
-      setPageNumber(pageNumber + 1);
-    } catch (e) {
-      console.error(e.message);
-    }
-
-    setIsLoading(false);
-  };
 
   const initData = async () => {
     setIsLoading(true);
 
     try {
       const response = await foodApi.getFoods({
-        pageNumber,
+        pageNumber: 1,
+        orderBy: 'type',
       });
 
-      const {foods, page, pages} = response;
+      const {foods} = response;
 
-      if (page >= pages) {
-        setAllLoaded(true);
-      }
-
-      setData(data.concat(foods));
-      setPageNumber(pageNumber + 1);
+      setData(foods);
     } catch (e) {
       console.error(e.message);
     }
@@ -75,23 +42,12 @@ const ListHotFood = props => {
     setIsLoading(false);
   };
 
-  const _footerComponent = (
-    <Block>
-      <ListDataFooter
-        onPress={handleLoadMore}
-        allLoaded={allLoaded}
-        isLoading={isLoading}
-        horizontal
-      />
-    </Block>
-  );
-
   const _renderItem = ({item, index}) => (
     <ItemHotFood item={item} index={index} />
   );
 
   useEffect(() => {
-    // initData();
+    initData();
   }, []);
 
   return (
@@ -116,15 +72,16 @@ const ListHotFood = props => {
           </Text>
         </Pressable>
       </Block>
-      <FlatList
-        showsHorizontalScrollIndicator={false}
-        horizontal
-        nestedScrollEnabled
-        data={data}
-        keyExtractor={keyExtractor}
-        renderItem={_renderItem}
-        ListFooterComponent={_footerComponent}
-      />
+      {!isLoading && data.length !== 0 ? (
+        <FlatList
+          showsHorizontalScrollIndicator={false}
+          horizontal
+          nestedScrollEnabled
+          data={data}
+          keyExtractor={keyExtractor}
+          renderItem={_renderItem}
+        />
+      ) : null}
     </Block>
   );
 };

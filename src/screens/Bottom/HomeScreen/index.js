@@ -6,7 +6,7 @@ import Animated, {
 import {Block, Header} from '@components';
 import Carousel, {Pagination} from 'react-native-snap-carousel';
 import {Image, Pressable, ScrollView} from 'react-native';
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useRef, useState} from 'react';
 
 import {Cart} from '@assets/icons';
 import LinearGradient from 'react-native-linear-gradient';
@@ -15,10 +15,8 @@ import ListHotFood from './components/ListHotFood';
 import ListMenu from './components/ListMenu';
 import ListProduct from './components/ListProduct';
 import ListRecommended from './components/ListRecommended';
-import {bmiApi} from 'api/bmiApi';
-/* eslint-disable react-hooks/exhaustive-deps */
+import Snackbar from 'react-native-snackbar';
 import {images} from '@assets';
-import {recommendedApi} from 'api/recommendedApi';
 import {routes} from '@navigation/routes';
 import {useNavigation} from '@react-navigation/native';
 import {useSelector} from 'react-redux';
@@ -39,8 +37,6 @@ const HomeScreen = props => {
   const styles = useStyles(props, themeStore);
   const carouselRef = useRef(null);
 
-  const [data, setData] = useState([]);
-  const [dataRecommended, setDataRecommended] = useState([]);
   const [activeIndex, setActivateIndex] = useState(0);
 
   const dataBanner = [
@@ -75,31 +71,11 @@ const HomeScreen = props => {
     <Image source={item.img} style={styles.image} />
   );
 
-  const fetchRecommendedByBMI = async () => {
-    try {
-      const response = await bmiApi.getBMI(user.uid, {
-        validateStatus: false,
-      });
-      if (response) {
-        const resData = await recommendedApi.getRecommendedByBMI(response.bmi, {
-          validateStatus: false,
-        });
-        setDataRecommended(resData);
-      }
-    } catch (error) {
-      console.error('error', error.message);
-    }
-  };
-
   const onScroll = event => {
     const offsetList = event.nativeEvent.contentOffset.y;
 
     offsetList > 0 ? (offset.value = 1) : (offset.value = 0);
   };
-
-  useEffect(() => {
-    // fetchRecommendedByBMI();
-  }, []);
 
   return (
     <Block flex backgroundColor={theme.colors.blue}>
@@ -109,9 +85,7 @@ const HomeScreen = props => {
         alignCenter
         backgroundColor={theme.colors.backgroundSetting}
         style={styles.container}>
-        <ScrollView
-          // onScroll={onScroll}
-          showsVerticalScrollIndicator={false}>
+        <ScrollView onScroll={onScroll} showsVerticalScrollIndicator={false}>
           <Block alignCenter marginTop={20}>
             <Carousel
               loop
@@ -142,9 +116,9 @@ const HomeScreen = props => {
             }
           </Block>
           <ListMenu />
-          <ListRecommended data={dataRecommended} />
+          {user && <ListRecommended />}
           <ListHotFood />
-          <ListHotCourse data={data} />
+          <ListHotCourse />
           <ListProduct />
         </ScrollView>
         <Animated.View style={[styles.groupButton, animatedStyles]}>
