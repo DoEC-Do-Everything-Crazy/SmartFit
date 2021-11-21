@@ -143,6 +143,14 @@ const RootStack = () => {
       <Stack.Screen name={routes.ORDER_SCREEN} component={other.ORDER_SCREEN} />
       <Stack.Screen name={routes.RATE_SCREEN} component={other.RATE_SCREEN} />
       <Stack.Screen name={routes.TAKE_PICTURE} component={other.TAKE_PICTURE} />
+      <Stack.Screen
+        name={routes.PAYMENT_SCREEN}
+        component={other.PAYMENT_SCREEN}
+      />
+      <Stack.Screen
+        name={routes.DELIVERY_INFORMATION_SCREEN}
+        component={other.DELIVERY_INFORMATION_SCREEN}
+      />
     </Stack.Navigator>
   );
 };

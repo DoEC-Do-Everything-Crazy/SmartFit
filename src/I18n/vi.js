@@ -27,8 +27,8 @@ export default {
   create: 'Tạo',
 
   //Information Screen
+  yourCourse: 'Khoá học',
   yourFavorite: 'Danh sách yêu thích',
-  payment: 'Thanh toán',
   promotion: 'Khuyến mãi',
   order: 'Đơn hàng',
   logout: 'Đăng xuất',
@@ -45,10 +45,6 @@ export default {
   confirmPassword: 'Xác nhận mật khẩu',
   register: 'Đăng ký',
   createAccount: 'Chưa có tài khoản? Đăng ký ngay',
-
-  //Notification Screen
-  all: 'Tất cả',
-  system: 'Hệ thống',
 
   //Stats Screen
   height: 'Chiều cao',
@@ -81,7 +77,7 @@ export default {
   course: 'Khoá học',
   product: 'Sản phẩm',
   food: 'Đồ ăn',
-  social: 'Mạng   xã hội',
+  social: 'Mạng xã hội',
   recommended: 'Dành cho bạn',
   seeAll: 'Tất cả',
   hotFood: 'Đồ ăn ưa thích',
@@ -118,7 +114,7 @@ export default {
   personalTrainerList: 'Danh sách huấn luyện viên',
   gender: 'Giới tính',
   mobile: 'Điện thoại',
-  ratting: 'Đánh giá',
+  rating: 'Đánh giá',
   description: 'Mô tả',
   birthday: 'Ngày sinh',
   price: 'Giá',
@@ -127,9 +123,12 @@ export default {
   equip: 'Dụng cụ',
   supple: 'Thực phẩm chức năng',
   clothing: 'Quần áo & Phụ kiện',
+
+  //Product Detail
   productDetail: 'Chi tiết sản phẩm',
   brand: 'Thương hiệu',
   review: 'Đánh giá',
+  reviews: 'đánh giá',
 
   //Food List Screen
   healthyFood: 'Đồ ăn tốt cho sức khỏe',
@@ -138,15 +137,19 @@ export default {
   //Food Detail Screen
   foodDetails: 'Chi tiết đồ ăn',
   buyNow: 'Mua ngay',
+  collapse: 'Thu gọn',
+  seeMore: 'Xem thêm',
 
   //Camera Screen
   camera: 'Máy ảnh',
 
   //Order Screen
   status: 'Trạng thái',
-  received: 'Đã nhận',
-  cancelled: 'Đã Huỷ',
-  delivering: 'Đang vận chuyển',
+  pending: 'Đang chờ',
+  processing: 'Đang xử lí',
+  delivering: 'Đang giao',
+  delivered: 'Đã nhận',
+  cancelled: 'Đã huỷ',
   cancel: 'Huỷ',
   whatIsYouRate: 'Bạn đánh giá thế nào ?',
   pleaseShare: 'Hãy chia sẻ ý kiến ​​của bạn về sản phẩm',
@@ -155,6 +158,14 @@ export default {
   favorite: 'Yêu thích',
   orderDetail: 'Chi tiết đơn hàng',
   choosePhoto: 'Chọn ảnh',
+  cancelOrder: 'Đã hủy',
+  pendingOrder: 'Đang chờ xử lý',
+  totalAmount: 'Tổng cộng',
+  promotionCode: 'Mã giảm giá',
+  addressShip: 'Địa chỉ giao hàng',
+  orderInformation: 'Thông tin đơn hàng',
+  reOrder: 'Mua lại',
+  leaveFeedback: 'Đóng',
 
   //Request OTP
   signInWithPhoneNumber: 'Đăng nhập bằng số điện thoại',
@@ -198,12 +209,21 @@ export default {
     'Chất lượng và uy tín của dịch vụ là giá trị cốt lõi của chúng tôi, vì vậy khách hàng sẽ luôn an tâm khi sử dụng dịch vụ.',
   gotIt: 'Tôi hiểu rồi',
   or: 'HOẶC',
-  enterOTP: 'Nhập số điện thoại của bạn để nhận OTP',
-  send: 'Gửi',
 
   //Notification Screen
   warningOFD: 'HSD sẽ hết trong hôm nay',
   expiry: 'HSD',
   promotionDay: 'Ngày khuyến mãi',
   getCode: 'Lấy mã',
+  all: 'Tất cả',
+  system: 'Hệ thống',
+
+  //Payment Screen
+  payment: 'Thanh toán',
+  enterAddress: 'Nhấn vào đây để nhập địa chỉ của bạn',
+
+  //ListSimilar
+  similarFood: 'Đồ ăn Tương tự',
+  similarCourse: 'Khóa học tương tự',
+  similarProduct: 'Sản phẩm tương tự',
 };

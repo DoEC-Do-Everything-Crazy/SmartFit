@@ -14,6 +14,7 @@ import {Cart} from '@assets/icons';
 import ItemCarousel from '@components/ItemList/ItemCarousel';
 import LinearGradient from 'react-native-linear-gradient';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import {keyExtractor} from 'utils/keyExtractor';
 import {productApi} from 'api/productApi';
 import {routes} from '@navigation/routes';
 import {useNavigation} from '@react-navigation/core';
@@ -83,7 +84,7 @@ const ProductListScreen = ({props, navigation, route}) => {
       style={styles.sendControlContainerOuter}>
       <Block flex backgroundColor={theme.colors.backgroundSetting}>
         <ScrollView
-          onScroll={onScroll}
+          // onScroll={onScroll}
           showsVerticalScrollIndicator={false}
           showsHorizontalScrollIndicator={false}>
           <Animatable.View
@@ -98,7 +99,7 @@ const ProductListScreen = ({props, navigation, route}) => {
                 numColumns={1}
                 data={products}
                 renderItem={_renderItemCarousel}
-                keyExtractor={(item, index) => index}
+                keyExtractor={keyExtractor}
               />
             </Block>
           </Animatable.View>

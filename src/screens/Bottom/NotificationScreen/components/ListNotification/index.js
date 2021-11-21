@@ -3,6 +3,7 @@ import React, {useEffect, useState} from 'react';
 import {Block} from '@components';
 import {FlatList} from 'react-native';
 import ItemNotification from '@components/ItemList/ItemNotification';
+import {keyExtractor} from 'utils/keyExtractor';
 import {promotionApi} from 'api/promotionApi.js';
 import {useSelector} from 'react-redux';
 import {useTheme} from '@theme';
@@ -45,7 +46,7 @@ const ListNotification = props => {
         showsVerticalScrollIndicator={false}
         nestedScrollEnabled
         data={notification}
-        keyExtractor={item => item._id}
+        keyExtractor={keyExtractor}
         renderItem={_renderItem}
       />
     </Block>

@@ -1,12 +1,16 @@
 import {apiUrl} from '@config/api';
 import axios from 'axios';
 
-const getRates = async options => {
+const getRates = async (queries, options) => {
   try {
-    const response = await axios.get(`${apiUrl}/rates`, {
-      ...options,
-      validateStatus: false,
-    });
+    const response = await axios.get(
+      `${apiUrl}/rates`,
+      {params: queries},
+      {
+        ...options,
+        validateStatus: false,
+      },
+    );
 
     if (response.status === 404 || response.status === 500) {
       throw response.data;

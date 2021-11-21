@@ -96,11 +96,7 @@ const RateScreen = ({route, props}) => {
       edges={['bottom', 'left', 'right']}
       style={styles.sendControlContainerOuter}>
       <Block flex backgroundColor={theme.colors.backgroundSetting}>
-        <Header
-          canGoBack
-          title={t('ratting')}
-          colorTheme={theme.colors.black}
-        />
+        <Header canGoBack title={t('rating')} colorTheme={theme.colors.black} />
         <ScrollView showsVerticalScrollIndicator={false}>
           <Block paddingVertical={15} marginTop={5}>
             <Text center fontType="bold" size={16}>

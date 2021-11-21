@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
@@ -5,13 +6,14 @@ import Animated, {
 } from 'react-native-reanimated';
 import {Block, Header} from '@components';
 import {Pressable, ScrollView} from 'react-native';
+import {useEffect, useState} from 'react';
 
 import {Cart} from '@assets/icons';
 import LinearGradient from 'react-native-linear-gradient';
 import ListItemNavProduct from './components/ListItemNavProduct';
 import ListItemPopular from './components/ListItemPopular';
-import React from 'react';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import {bmiApi} from 'api/bmiApi';
+import {recommendedApi} from 'api/recommendedApi';
 import {routes} from '@navigation/routes';
 import {useNavigation} from '@react-navigation/core';
 import {useSelector} from 'react-redux';
@@ -19,15 +21,41 @@ import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {useTranslation} from 'react-i18next';
 
-const FoodListScreen = props => {
+const FoodListScreen = ({route, props}) => {
   const navigation = useNavigation();
   const {
     theme: {theme: themeStore},
+    user: {user},
   } = useSelector(stateRoot => stateRoot.root);
   const theme = useTheme(themeStore);
   const {t} = useTranslation();
   const styles = useStyles(props, themeStore);
   const offset = useSharedValue(0);
+
+  const {title} = route.params;
+  const [foodsBMI, setFoodsBMI] = useState([]);
+
+  console.log(title);
+
+  const fetchFoodsByBMI = async () => {
+    try {
+      const response = await bmiApi.getBMI(user.uid, {
+        validateStatus: false,
+      });
+      if (response) {
+        const resData = await recommendedApi.getFoodsByBMI(
+          response.bmi,
+          'food',
+          {
+            validateStatus: false,
+          },
+        );
+        setFoodsBMI(resData);
+      }
+    } catch (error) {
+      console.log('error', error.message);
+    }
+  };
 
   const animatedStyles = useAnimatedStyle(() => {
     return {
@@ -48,6 +76,10 @@ const FoodListScreen = props => {
     offsetList > 0 ? (offset.value = 1) : (offset.value = 0);
   };
 
+  useEffect(() => {
+    fetchFoodsByBMI();
+  }, []);
+
   return (
     <Block flex backgroundColor={theme.colors.backgroundSetting}>
       <Header
@@ -57,8 +89,14 @@ const FoodListScreen = props => {
         colorTheme={theme.colors.blue}
       />
       <ScrollView onScroll={onScroll} showsVerticalScrollIndicator={false}>
-        <ListItemNavProduct />
-        <ListItemPopular />
+        {title === t('dailyMeals') ? (
+          <ListItemPopular foodsBMI={foodsBMI} />
+        ) : (
+          <>
+            <ListItemNavProduct />
+            <ListItemPopular />
+          </>
+        )}
       </ScrollView>
       <Animated.View style={[styles.groupButton, animatedStyles]}>
         <Pressable

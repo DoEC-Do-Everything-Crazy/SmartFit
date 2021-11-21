@@ -1,8 +1,11 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {Block, Text} from '@components';
 import {FlatList, Pressable} from 'react-native';
+import React, {useEffect, useState} from 'react';
 
 import ItemHotCourse from '@components/ItemList/ItemHotCourse';
-import React from 'react';
+import {courseApi} from 'api/courseApi';
+import {keyExtractor} from 'utils/keyExtractor';
 import {routes} from '@navigation/routes';
 import {useNavigation} from '@react-navigation/core';
 import {useSelector} from 'react-redux';
@@ -10,16 +13,36 @@ import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {useTranslation} from 'react-i18next';
 
-const ListHotCourse = ({data, props}) => {
+const ListHotCourse = ({props}) => {
   const navigation = useNavigation();
   const {t} = useTranslation();
   const themeStore = useSelector(state => state.root.theme.theme);
   const theme = useTheme(themeStore);
   const styles = useStyles(props, themeStore);
 
+  const [data, setData] = useState([]);
+  const [pageNumber, setPageNumber] = useState(1);
+
   const _renderItem = ({item, index}) => (
     <ItemHotCourse item={item} key={index} />
   );
+
+  const fetchData = async () => {
+    const params = {
+      pageNumber,
+    };
+
+    try {
+      const response = await courseApi.getCourses(params);
+      setData(response.courses);
+    } catch (error) {
+      console.error('error', error.message);
+    }
+  };
+
+  useEffect(() => {
+    // fetchData();
+  }, []);
 
   return (
     <Block flex marginTop={32}>
@@ -38,7 +61,7 @@ const ListHotCourse = ({data, props}) => {
         <FlatList
           showsVerticalScrollIndicator={false}
           data={data.slice(0, 3)}
-          keyExtractor={(item, index) => index}
+          keyExtractor={keyExtractor}
           renderItem={_renderItem}
         />
       </Block>

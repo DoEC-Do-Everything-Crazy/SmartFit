@@ -22,8 +22,8 @@ import RatingValue from '@components/RatingValue';
 import Review from '@components/Review';
 import {addCartItem} from 'reduxs/reducers';
 import {courseApi} from 'api/courseApi';
+import {keyExtractor} from 'utils/keyExtractor';
 import {ptApi} from 'api/ptApi';
-import {rateApi} from 'api/rateApi';
 import {routes} from '@navigation/routes';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useStyles} from './styles';
@@ -44,7 +44,6 @@ const TabDetails = ({route, props}) => {
   const [dataPT, setDataPT] = useState([]);
   const [dataPTDetail, setDataPTDetail] = useState([]);
   const [infoPT, setInfoPT] = useState([]);
-  const [rate, setRate] = useState(1);
   const [isShowReview, setShowReview] = useState();
   const {bottom} = useSafeAreaInsets();
   const keyboardVerticalOffset = Platform.OS === 'ios' ? 'padding' : 'height';
@@ -116,17 +115,7 @@ const TabDetails = ({route, props}) => {
     }
   };
 
-  const getCourseRating = async courseId => {
-    try {
-      const data = await rateApi.getRateById('courseId', courseId);
-      setRate(data);
-    } catch (error) {
-      console.error(error.message);
-    }
-  };
-
   useEffect(() => {
-    getCourseRating(id);
     getCourseDetails(id);
     getPt();
   }, []);
@@ -235,7 +224,7 @@ const TabDetails = ({route, props}) => {
               tintColor={theme.colors.lightBlue}
             />
             <Text marginLeft={100} color={theme.colors.iconInf}>
-              6,3k {t('completed')}
+              6,5k {t('completed')}
             </Text>
           </Block>
           <Block marginTop={10}>
@@ -326,10 +315,11 @@ const TabDetails = ({route, props}) => {
                   </Pressable>
                 </Block>
                 {isShowReview ? (
-                  <>
-                    <RatingValue />
-                    <Review rate={rate} />
-                  </>
+                  <Review
+                    averageRating={dataDetail.averageRating}
+                    totalReviews={dataDetail.totalReviews}
+                    courseId={dataDetail._id}
+                  />
                 ) : null}
               </>
             ) : null}
@@ -350,7 +340,7 @@ const TabDetails = ({route, props}) => {
                 <FlatList
                   showsVerticalScrollIndicator={false}
                   data={dataPT}
-                  keyExtractor={(item, index) => index.toString()}
+                  keyExtractor={keyExtractor}
                   renderItem={_renderItemPT}
                 />
               </Block>
@@ -390,7 +380,7 @@ const TabDetails = ({route, props}) => {
                   borderColor={theme.colors.gray}
                   row>
                   <Block width={screenWidth / 3.6}>
-                    <Text fontType="bold">{t('ratting')}</Text>
+                    <Text fontType="bold">{t('rating')}</Text>
                   </Block>
                   <Block width={screenWidth / 1.55} alignStart>
                     <Rating

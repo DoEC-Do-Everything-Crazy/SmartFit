@@ -1,12 +1,16 @@
 import {apiUrl} from '@config/api';
 import axios from 'axios';
 
-const getFoods = async options => {
+const getFoods = async (params, options) => {
   try {
-    const response = await axios.get(`${apiUrl}/foods`, {
-      ...options,
-      validateStatus: false,
-    });
+    const response = await axios.get(
+      `${apiUrl}/foods`,
+      {params},
+      {
+        ...options,
+        validateStatus: false,
+      },
+    );
 
     if (response.status === 404 || response.status === 500) {
       throw response.data;
@@ -90,10 +94,46 @@ const deleteFood = async (id, options) => {
   }
 };
 
+const getFoodByView = async options => {
+  try {
+    const response = await axios.get(`${apiUrl}/foods/views`, {
+      ...options,
+      validateStatus: false,
+    });
+
+    if (response.status === 404 || response.status === 500) {
+      throw response.data;
+    }
+
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+const updateViewFood = async (id, options) => {
+  try {
+    const response = await axios.post(`${apiUrl}/foods/updateViewFood/${id}`, {
+      ...options,
+      validateStatus: false,
+    });
+
+    if (response.status === 404 || response.status === 500) {
+      throw response.data;
+    }
+
+    return;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const foodApi = {
   getFoods,
   getFood,
   addFood,
   updateFood,
   deleteFood,
+  getFoodByView,
+  updateViewFood,
 };

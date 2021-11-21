@@ -2,28 +2,32 @@
 import {Block, Button, Text} from '@components';
 import {Dimensions, Image, Platform, Pressable, ScrollView} from 'react-native';
 import React, {useCallback, useEffect, useRef, useState} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-
-import {HeartPf} from '@assets/icons';
-import {BottomSheet} from '@components/BottomSheet';
-import Header from './Header';
-import LinearGradient from 'react-native-linear-gradient';
-import {Rating} from 'react-native-ratings';
-import RatingValue from '@components/RatingValue';
-import Review from '@components/Review';
 import {
   addCartItem,
   addWishListItem,
   clearWishList,
   removeWishListItem,
 } from 'reduxs/reducers';
+import {useDispatch, useSelector} from 'react-redux';
+
+import {BottomSheet} from '@components/BottomSheet';
+import Header from './Header';
+import {HeartPf} from '@assets/icons';
+import LinearGradient from 'react-native-linear-gradient';
+import ListSimilar from '../../Bottom/HomeScreen/components/ListSimilar/index';
+import {Rating} from 'react-native-ratings';
+import RatingValue from '@components/RatingValue';
+import Review from '@components/Review';
 import {productApi} from 'api/productApi';
 import {rateApi} from 'api/rateApi';
+import {routes} from '@navigation/routes';
+import {useNavigation} from '@react-navigation/core';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {useTranslation} from 'react-i18next';
 
 const ProductDetailScreen = ({props, route}) => {
+  const navigation = useNavigation();
   const dispatch = useDispatch();
   const {t} = useTranslation();
   const [quali, setQuali] = useState(1);
@@ -31,7 +35,6 @@ const ProductDetailScreen = ({props, route}) => {
   const {id} = route.params;
   const {height: MAX_HEIGHT} = Dimensions.get('screen');
   const [product, setProduct] = useState(undefined);
-  const [rate, setRate] = useState(1);
   const {
     theme: {theme: themeStore},
     cart: {wishList},
@@ -61,15 +64,6 @@ const ProductDetailScreen = ({props, route}) => {
     }
   };
 
-  const getProductRating = async productId => {
-    try {
-      const data = await rateApi.getRateById('productId', productId);
-      setRate(data);
-    } catch (error) {
-      console.error(error.message);
-    }
-  };
-
   const handleFavorite = () => {
     if (wishList.includes(product.key)) {
       dispatch(removeWishListItem(product.key));
@@ -79,7 +73,6 @@ const ProductDetailScreen = ({props, route}) => {
   };
 
   useEffect(() => {
-    getProductRating(id);
     getProductDetail(id);
   }, []);
 
@@ -96,6 +89,9 @@ const ProductDetailScreen = ({props, route}) => {
               title="Details"
               onPress={() => modalizRef?.current.open()}
             />
+          </Block>
+          <Block flex={1}>
+            <ListSimilar title={t('similarProduct')} />
           </Block>
           <BottomSheet
             ref={modalizRef}
@@ -230,10 +226,11 @@ const ProductDetailScreen = ({props, route}) => {
                   </Pressable>
                 </Block>
                 {isShowReview ? (
-                  <>
-                    <RatingValue />
-                    <Review rate={rate} />
-                  </>
+                  <Review
+                    averageRating={product.averageRating}
+                    totalReviews={product.totalReviews}
+                    courseId={product._id}
+                  />
                 ) : null}
               </Block>
             </ScrollView>

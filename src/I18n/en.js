@@ -27,8 +27,8 @@ export default {
   create: 'create',
 
   //Information Screen
+  yourCourse: 'Your course',
   yourFavorite: 'Your favorite',
-  payment: 'Payment',
   promotion: 'Promotion',
   order: 'Order List',
   logout: 'Logout',
@@ -45,11 +45,6 @@ export default {
   confirmPassword: 'Confirm password',
   register: 'Register',
   createAccount: "Don't have an account yet? Sign up",
-
-  //Notification Screen
-  warningOFD: 'Expires today',
-  expiry: 'Expiry',
-  promotionDay: 'Promotion day',
 
   //Stats Screen
   height: 'Height',
@@ -83,7 +78,6 @@ export default {
   product: 'Product',
   food: 'Food',
   social: 'Social Network',
-  discount: 'Discount',
   recommended: 'Recommended',
   seeAll: 'See all',
   hotFood: 'Hot Food',
@@ -93,6 +87,7 @@ export default {
   //Cart Screen
   orderCart: 'Order',
   delivery: 'Delivery',
+  discount: 'Discount',
   total: 'Total',
   cart: 'Cart',
 
@@ -119,7 +114,7 @@ export default {
   personalTrainerList: 'Personal Trainer List',
   gender: 'Gender',
   mobile: 'Mobile',
-  ratting: 'Ratting',
+  rating: 'Rating',
   description: 'Description',
   birthday: 'Birthday',
   price: 'Price',
@@ -133,6 +128,7 @@ export default {
   productDetail: 'Product Detail',
   brand: 'Brand',
   review: 'Reviews',
+  reviews: 'reviews',
 
   //Food List Screen
   healthyFood: 'Healthy Food',
@@ -141,15 +137,19 @@ export default {
   //Food Detail Screen
   foodDetails: 'Food Details',
   buyNow: 'Buy Now',
+  collapse: 'Collapse',
+  seeMore: 'See more',
 
   //Camera Screen
   camera: 'Camera',
 
   //Order Screen
   status: 'Status',
-  received: 'Received',
-  cancelled: 'Cancelled',
+  pending: 'Pending',
+  processing: 'Processing',
   delivering: 'Delivering',
+  delivered: 'Delivered',
+  cancelled: 'Cancelled',
   cancel: 'Cancel',
   whatIsYouRate: 'what is you rate ?',
   pleaseShare: 'Please share your opinion about the product',
@@ -158,6 +158,14 @@ export default {
   favorite: 'Favorite',
   orderDetail: 'Order detail',
   choosePhoto: 'Choose Photo',
+  cancelOrder: 'Canceled',
+  pendingOrder: 'Pending',
+  totalAmount: 'Total Amount',
+  promotionCode: 'Promotion code',
+  addressShip: 'Shipping Adress',
+  orderInformation: 'Order information',
+  reOrder: 'Reorder',
+  leaveFeedback: 'Close',
 
   //Request OTP
   signInWithPhoneNumber: 'Sign in with phone number',
@@ -202,9 +210,20 @@ export default {
   gotIt: 'I got it',
   or: 'OR',
 
-  //PhoneNumber Screen
-  enterOTP: 'Enter your phone number to receive OTP',
-  send: 'Send',
+  //Notification Screen
+  warningOFD: 'Expires today',
+  expiry: 'Expiry',
+  promotionDay: 'Promotion day',
+  getCode: 'Get code',
+  all: 'Tất cả',
+  system: 'Hệ thống',
 
-  getCode: 'Get the code',
+  //Payment Screen
+  payment: 'Payment',
+  enterAddress: 'Enter your address',
+
+  //ListSimilar
+  similarFood: 'Similar Food',
+  similarCourse: 'Similar Course',
+  similarProduct: 'Similar Product',
 };

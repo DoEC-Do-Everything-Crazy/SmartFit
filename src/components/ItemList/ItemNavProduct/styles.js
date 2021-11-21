@@ -1,6 +1,6 @@
-import {width} from '@utils/responsive';
 import {getSize} from 'utils/responsive';
 import {makeStyles} from '@theme';
+import {width} from '@utils/responsive';
 
 export const useStyles = makeStyles()(({colors}) => ({
   image: {
@@ -24,7 +24,7 @@ export const useStyles = makeStyles()(({colors}) => ({
     borderRadius: getSize.s(25),
     backgroundColor: colors.border,
   },
-  ratting: {
+  rating: {
     flexDirection: 'row',
     marginTop: getSize.m(5),
   },

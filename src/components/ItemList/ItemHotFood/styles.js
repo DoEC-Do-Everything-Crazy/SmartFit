@@ -1,10 +1,11 @@
 import {getSize, width} from '@utils/responsive';
+
 import {makeStyles} from '@theme';
 
 export const useStyles = makeStyles()(({colors}) => ({
   image: {
     height: getSize.s(200),
-    width: width / 2,
+    width: width / 2.1,
     borderRadius: getSize.s(8),
   },
   space: {

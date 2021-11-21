@@ -1,9 +1,11 @@
 import {Block, Text} from '@components';
-import ItemLesson from '@components/ItemList/ItemLesson';
-import {useTheme} from '@theme';
-import {useSelector} from 'react-redux';
-import React from 'react';
+
 import {FlatList} from 'react-native';
+import ItemLesson from '@components/ItemList/ItemLesson';
+import React from 'react';
+import {keyExtractor} from 'utils/keyExtractor';
+import {useSelector} from 'react-redux';
+import {useTheme} from '@theme';
 
 const ListStep = () => {
   const {
@@ -24,7 +26,7 @@ const ListStep = () => {
         showsVerticalScrollIndicator={false}
         data={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
         renderItem={_renderItem}
-        keyExtractor={item => item.item_id}
+        keyExtractor={keyExtractor}
       />
     </Block>
   );

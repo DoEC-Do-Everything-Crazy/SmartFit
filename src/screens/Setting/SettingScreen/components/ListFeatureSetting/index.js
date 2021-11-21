@@ -1,13 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import {Block, DropDown, Text} from '@components';
 import React, {useEffect, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+
 import {FlatList} from 'react-native';
 import ItemSetting from '@components/ItemList/ItemSetting';
-import {useSelector, useDispatch} from 'react-redux';
-import {useTheme} from '@theme';
 import {changeLanguage} from 'reduxs/reducers';
-import {useTranslation} from 'react-i18next';
+import {keyExtractor} from 'utils/keyExtractor';
 import {useStyles} from './styles';
+import {useTheme} from '@theme';
+import {useTranslation} from 'react-i18next';
 
 const ListFeatureSetting = ({data, props}) => {
   const {
@@ -69,7 +71,7 @@ const ListFeatureSetting = ({data, props}) => {
         <FlatList
           data={data}
           renderItem={_renderItem}
-          keyExtractor={item => item.id}
+          keyExtractor={keyExtractor}
         />
       </Block>
     </Block>

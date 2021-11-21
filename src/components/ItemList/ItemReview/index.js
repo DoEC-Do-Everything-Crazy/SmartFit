@@ -8,7 +8,7 @@ import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
 
-const ItemReview = ({user, image, content, date, rating, props}) => {
+const ItemReview = ({author, image, content, date, rating, props}) => {
   const {
     theme: {theme: themeStore},
   } = useSelector(stateRoot => stateRoot.root);
@@ -20,7 +20,7 @@ const ItemReview = ({user, image, content, date, rating, props}) => {
         style={styles.userImage}
         source={{
           uri:
-            user.photoURL ||
+            author.photoURL ||
             'https://pbs.twimg.com/media/EYVxlOSXsAExOpX?format=jpg&name=small',
         }}
       />
@@ -32,7 +32,7 @@ const ItemReview = ({user, image, content, date, rating, props}) => {
         borderRadius={8}
         backgroundColor={theme.colors.border}>
         <Text size={18} fontType="bold">
-          {user.fullName}
+          {author.fullName}
         </Text>
         <Block row space="between" alignCenter>
           <Rating

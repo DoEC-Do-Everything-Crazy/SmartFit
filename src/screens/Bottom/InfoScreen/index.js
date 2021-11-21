@@ -19,7 +19,6 @@ const InfoScreen = () => {
           <Header title={t('information')} />
           <InviteLogin
             navigate={routes.LOGIN_SCREEN}
-            // navigate={routes.REGISTER_SCREEN}
             routes={routes.INFO_SCREEN}
           />
         </>

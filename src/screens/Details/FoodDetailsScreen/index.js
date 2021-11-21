@@ -6,21 +6,18 @@ import {useDispatch, useSelector} from 'react-redux';
 
 import DescriptionDetail from './components/DescriptionDetail';
 import ProductContent from './components/ProductContent';
-import RatingValue from '@components/RatingValue';
 import Review from '@components/Review';
+import {SafeAreaView} from 'react-native-safe-area-context';
 import {addCartItem} from 'reduxs/reducers';
 import {foodApi} from 'api/foodApi';
-import {rateApi} from 'api/rateApi';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {useTranslation} from 'react-i18next';
-import {SafeAreaView} from 'react-native-safe-area-context';
 
 const FoodDetailsScreen = ({route, props}) => {
   const dispatch = useDispatch();
   const {id} = route.params;
   const [food, setFood] = useState(undefined);
-  const [rate, setRate] = useState(1);
   const [isShowReview, setShowReview] = useState();
   const {t} = useTranslation();
   const {
@@ -35,17 +32,8 @@ const FoodDetailsScreen = ({route, props}) => {
 
   const getFoodDetail = async foodId => {
     try {
-      const data = await foodApi.getFood(foodId);
-      setFood(data);
-    } catch (error) {
-      console.error(error.message);
-    }
-  };
-
-  const getFoodRating = async foodId => {
-    try {
-      const data = await rateApi.getRateById('foodId', foodId);
-      setRate(data);
+      const response = await foodApi.getFood(foodId);
+      setFood(response);
     } catch (error) {
       console.error(error.message);
     }
@@ -57,7 +45,6 @@ const FoodDetailsScreen = ({route, props}) => {
 
   useEffect(() => {
     getFoodDetail(id);
-    getFoodRating(id);
   }, []);
 
   return (
@@ -85,10 +72,11 @@ const FoodDetailsScreen = ({route, props}) => {
               </Pressable>
             </Block>
             {isShowReview ? (
-              <>
-                <RatingValue />
-                <Review rate={rate} />
-              </>
+              <Review
+                averageRating={food.averageRating}
+                totalReviews={food.totalReviews}
+                courseId={food._id}
+              />
             ) : null}
           </ScrollView>
           <Button

@@ -4,12 +4,12 @@ import React, {useCallback} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
 import {changeScreen} from 'reduxs/reducers';
+import {courseApi} from 'api/courseApi';
+import {icons} from '@assets';
 import {routes} from '@navigation/routes';
 import {useNavigation} from '@react-navigation/core';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
-
-// import {HeartPf} from '@assets/icons';
 
 const ItemHotCourse = ({item, props}) => {
   const navigation = useNavigation();
@@ -27,11 +27,22 @@ const ItemHotCourse = ({item, props}) => {
     navigation.navigate(routes.TAB_DETAILS, {id: item._id});
   }, [item._id, dispatch, navigation]);
 
+  const updateViewCourse = async item => {
+    await courseApi.updateViewCourse(item, {
+      validateStatus: false,
+    });
+  };
+
   // useEffect(() => {
   //   isTouch ? setColor(theme.colors.red) : setColor(theme.colors.gray);
   // }, [isTouch, theme.colors.gray, theme.colors.red]);
   return (
-    <Pressable onPress={handleOpenCourseDetail} style={styles.container}>
+    <Pressable
+      onPress={() => {
+        handleOpenCourseDetail();
+        updateViewCourse(item._id);
+      }}
+      style={styles.container}>
       <Image
         style={styles.image}
         source={{

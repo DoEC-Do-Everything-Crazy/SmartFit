@@ -3,8 +3,9 @@ import {Image, Pressable} from 'react-native';
 import React, {useCallback} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
-import {Ratting} from '@assets/icons';
+import {Rating} from '@assets/icons';
 import {changeScreen} from 'reduxs/reducers';
+import {courseApi} from 'api/courseApi';
 import {routes} from '@navigation/routes';
 import {useNavigation} from '@react-navigation/core';
 import {useStyles} from './styles';
@@ -27,6 +28,11 @@ const ItemCourse = ({course, props}) => {
     navigation.navigate(routes.TAB_DETAILS, {id: course._id});
   }, [course._id, dispatch, navigation]);
 
+  const updateViewCourse = async item => {
+    await courseApi.updateViewCourse(item, {
+      validateStatus: false,
+    });
+  };
   return (
     <Block style={styles.container}>
       <Block
@@ -59,15 +65,15 @@ const ItemCourse = ({course, props}) => {
         </Block>
         <Block marginLeft={10} height={98} width="73%">
           <Block>
-            <Text size={18} fontType="bold">
+            <Text size={18} fontType="bold" numberOfLines={2}>
               {course.name}
             </Text>
           </Block>
           <Text numberOfLines={1}>{course.description}</Text>
           <Block row alignCenter marginTop={5}>
-            <Ratting />
+            <Rating />
             <Text size={15} marginLeft={5}>
-              {course.ratting}
+              {course.averageRating}
             </Text>
             <Block
               height={15}
@@ -85,7 +91,12 @@ const ItemCourse = ({course, props}) => {
               </Text>
             </Block>
           </Block>
-          <Pressable onPress={handleOpenCourseDetail} key={course.key}>
+          <Pressable
+            onPress={() => {
+              handleOpenCourseDetail();
+              updateViewCourse(course._id);
+            }}
+            key={course.key}>
             <Block alignEnd width={'103%'}>
               <Block
                 bottom={3}

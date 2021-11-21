@@ -1,5 +1,5 @@
 import {AddToWishList, CartDelete} from '@assets/icons';
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {addWishListItem, removeCartItem} from 'reduxs/reducers';
 import {useDispatch, useSelector} from 'react-redux';
 
@@ -7,6 +7,7 @@ import {Block} from '@components';
 import {FlatList} from 'react-native';
 import ItemCart from '@components/ItemList/ItemCart';
 import Swipeout from 'react-native-swipeout';
+import {keyExtractor} from 'utils/keyExtractor';
 import {useStyles} from './styles';
 
 const CartList = ({...props}) => {
@@ -70,7 +71,7 @@ const CartList = ({...props}) => {
       <FlatList
         data={cart}
         renderItem={renderItem}
-        keyExtractor={item => item.id}
+        keyExtractor={keyExtractor}
         extraData={row}
       />
     </Block>

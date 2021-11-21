@@ -18,13 +18,13 @@ import {Back} from '@assets/icons';
 import {BottomSheet} from '@components/BottomSheet';
 import ItemPT from '@components/ItemList/ItemPT';
 import LinearGradient from 'react-native-linear-gradient';
+import ListSimilar from '../../../../../Bottom/HomeScreen/components/ListSimilar/index';
 import {Rating} from 'react-native-ratings';
-import RatingValue from '@components/RatingValue';
 import Review from '@components/Review';
 import {addCartItem} from 'reduxs/reducers';
 import {courseApi} from 'api/courseApi';
+import {keyExtractor} from 'utils/keyExtractor';
 import {ptApi} from 'api/ptApi';
-import {rateApi} from 'api/rateApi';
 import {routes} from '@navigation/routes';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
@@ -45,7 +45,6 @@ const TabDetails = ({route, props}) => {
   const [dataPTDetail, setDataPTDetail] = useState([]);
   const [infoPT, setInfoPT] = useState([]);
   const [isShowReview, setShowReview] = useState();
-  const [rate, setRate] = useState(1);
   const {bottom} = useSafeAreaInsets();
   const keyboardVerticalOffset = Platform.OS === 'ios' ? 'padding' : 'height';
 
@@ -116,17 +115,7 @@ const TabDetails = ({route, props}) => {
     }
   };
 
-  const getFoodRating = async courseId => {
-    try {
-      const data = await rateApi.getRateById('courseId', courseId);
-      setRate(data);
-    } catch (error) {
-      console.error(error.message);
-    }
-  };
-
   useEffect(() => {
-    getFoodRating(id);
     getCourseDetails(id);
     getPt();
   }, []);
@@ -189,7 +178,7 @@ const TabDetails = ({route, props}) => {
 
   return (
     <SafeAreaView
-      edges={['bottom', 'left', 'right']}
+      edges={['left', 'right']}
       style={styles.sendControlContainerOuter}>
       <Block flex backgroundColor={theme.colors.backgroundSetting}>
         {transferCourseScreen === 'CourseDetail' ? (
@@ -230,17 +219,25 @@ const TabDetails = ({route, props}) => {
               paddingVertical={10}
               paddingHorizontal={16}
               backgroundColor={theme.colors.lightBlue}>
-              <Rating
-                readonly={true}
-                type="custom"
-                ratingColor="#045694"
-                ratingCount={5}
-                imageSize={18}
-                tintColor={theme.colors.lightBlue}
-              />
-              <Text marginLeft={100} color={theme.colors.iconInf}>
-                6,3k {t('completed')}
-              </Text>
+              <Block flex row>
+                <Rating
+                  readonly={true}
+                  type="custom"
+                  ratingColor="#045694"
+                  ratingCount={5}
+                  startingValue={dataDetail.averageRating}
+                  imageSize={18}
+                  tintColor={theme.colors.lightBlue}
+                />
+                <Block marginLeft={10}>
+                  <Text color={theme.colors.iconInf}>
+                    ({dataDetail.averageRating})
+                  </Text>
+                </Block>
+              </Block>
+              <Block flex>
+                <Text color={theme.colors.iconInf}>6,3k {t('completed')}</Text>
+              </Block>
             </Block>
             <Block marginTop={10}>
               <Text paddingHorizontal={16} fontType="bold">
@@ -330,14 +327,16 @@ const TabDetails = ({route, props}) => {
                     </Pressable>
                   </Block>
                   {isShowReview ? (
-                    <>
-                      <RatingValue />
-                      <Review rate={rate} />
-                    </>
+                    <Review
+                      averageRating={dataDetail.averageRating}
+                      totalReviews={dataDetail.totalReviews}
+                      courseId={dataDetail._id}
+                    />
                   ) : null}
                 </>
               ) : null}
             </Block>
+            <ListSimilar title={t('similarCourse')} />
             {/* BOTTOM SHEET PT */}
             <BottomSheet
               ref={modalizPTList}
@@ -354,7 +353,7 @@ const TabDetails = ({route, props}) => {
                   <FlatList
                     showsVerticalScrollIndicator={false}
                     data={dataPT}
-                    keyExtractor={(item, index) => index.toString()}
+                    keyExtractor={keyExtractor}
                     renderItem={_renderItemPT}
                   />
                 </Block>
@@ -394,7 +393,7 @@ const TabDetails = ({route, props}) => {
                     borderColor={theme.colors.gray}
                     row>
                     <Block width={screenWidth / 3.6}>
-                      <Text fontType="bold">{t('ratting')}</Text>
+                      <Text fontType="bold">{t('rating')}</Text>
                     </Block>
                     <Block width={screenWidth / 1.55} alignStart>
                       <Rating

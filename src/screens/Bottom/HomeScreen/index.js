@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
@@ -16,9 +15,8 @@ import ListHotFood from './components/ListHotFood';
 import ListMenu from './components/ListMenu';
 import ListProduct from './components/ListProduct';
 import ListRecommended from './components/ListRecommended';
-import {SafeAreaView} from 'react-native-safe-area-context';
 import {bmiApi} from 'api/bmiApi';
-import {courseApi} from 'api/courseApi';
+/* eslint-disable react-hooks/exhaustive-deps */
 import {images} from '@assets';
 import {recommendedApi} from 'api/recommendedApi';
 import {routes} from '@navigation/routes';
@@ -77,15 +75,6 @@ const HomeScreen = props => {
     <Image source={item.img} style={styles.image} />
   );
 
-  const fetchData = async () => {
-    try {
-      const resData = await courseApi.getCourses();
-      setData(resData);
-    } catch (error) {
-      console.error('error', error.message);
-    }
-  };
-
   const fetchRecommendedByBMI = async () => {
     try {
       const response = await bmiApi.getBMI(user.uid, {
@@ -109,7 +98,6 @@ const HomeScreen = props => {
   };
 
   useEffect(() => {
-    fetchData();
     // fetchRecommendedByBMI();
   }, []);
 
@@ -121,7 +109,9 @@ const HomeScreen = props => {
         alignCenter
         backgroundColor={theme.colors.backgroundSetting}
         style={styles.container}>
-        <ScrollView onScroll={onScroll} showsVerticalScrollIndicator={false}>
+        <ScrollView
+          // onScroll={onScroll}
+          showsVerticalScrollIndicator={false}>
           <Block alignCenter marginTop={20}>
             <Carousel
               loop

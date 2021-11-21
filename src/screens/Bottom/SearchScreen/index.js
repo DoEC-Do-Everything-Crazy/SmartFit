@@ -1,19 +1,21 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import {Block, Header, Text, TextInput} from '@components';
-import ItemSearch from '@components/ItemList/ItemSearch';
-import {useTheme} from '@theme';
-import {searchApi} from 'api/searchApi.js';
-import {debounce} from 'lodash';
 import React, {useEffect, useState} from 'react';
-import {useTranslation} from 'react-i18next';
-import {FlatList} from 'react-native';
 import {addHistoryItem, clearHistory, removeHistoryItem} from 'reduxs/reducers';
-import {useSelector, useDispatch} from 'react-redux';
-import {useStyles} from './styles';
-import {TouchableOpacity} from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
+
 import {Empty} from '@components';
+import {FlatList} from 'react-native';
+import ItemSearch from '@components/ItemList/ItemSearch';
+import {TouchableOpacity} from 'react-native';
+import {debounce} from 'lodash';
+import {keyExtractor} from 'utils/keyExtractor';
 import {lotties} from '@assets';
+import {searchApi} from 'api/searchApi.js';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {useStyles} from './styles';
+import {useTheme} from '@theme';
+import {useTranslation} from 'react-i18next';
 
 const SearchScreen = ({props, route, match}) => {
   const {top} = useSafeAreaInsets();
@@ -108,7 +110,7 @@ const SearchScreen = ({props, route, match}) => {
           <FlatList
             showsVerticalScrollIndicator={false}
             data={dataSearch}
-            keyExtractor={(item, index) => String(index)}
+            keyExtractor={keyExtractor}
             renderItem={_renderItem}
             onEndReached={loadMore}
             onEndReachedThreshold={0.5}
@@ -144,7 +146,7 @@ const SearchScreen = ({props, route, match}) => {
                 <FlatList
                   showsVerticalScrollIndicator={false}
                   data={history}
-                  keyExtractor={item => item.id}
+                  keyExtractor={keyExtractor}
                   renderItem={_renderItemSearch}
                 />
               </Block>

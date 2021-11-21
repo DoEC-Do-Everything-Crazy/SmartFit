@@ -1,45 +1,63 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {Block, Header as HeaderComponent, Text} from '@components';
 import {FlatList, Pressable, ScrollView} from 'react-native';
-
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import ItemOrder from '@components/ItemList/ItemOrder';
 import LinearGradient from 'react-native-linear-gradient';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import {keyExtractor} from 'utils/keyExtractor';
+import {orderApi} from 'api/orderApi';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {useTranslation} from 'react-i18next';
-import {SafeAreaView} from 'react-native-safe-area-context';
 
 const OrderScreen = props => {
+  const [selectedId, setSelectedId] = useState(1);
+  const [order, setOrder] = useState([]);
+  const [status, setStatus] = useState(undefined);
+  const {t} = useTranslation();
+
   const {
     theme: {theme: themeStore},
   } = useSelector(stateRoot => stateRoot.root);
-  const styles = useStyles(props, themeStore);
   const theme = useTheme(themeStore);
-  const [isCamera, setCamera] = useState(false);
-  const {t} = useTranslation();
+  const styles = useStyles(props, themeStore);
+
   const DATA_HEADER = [
     {
       id: 1,
-      title: t('status'),
+      title: t('all'),
+      status: undefined,
     },
     {
       id: 2,
-      title: t('received'),
+      title: t('pending'),
+      status: 'pending',
     },
     {
       id: 3,
-      title: t('cancelled'),
+      title: t('processing'),
+      status: 'processing',
+    },
+    {
+      id: 4,
+      title: t('processing'),
+      status: 'processing',
+    },
+    {
+      id: 5,
+      title: t('delivering'),
+      status: 'delivering',
+    },
+    {
+      id: 6,
+      title: t('delivered'),
+      status: 'delivered',
     },
   ];
 
-  const onSuccess = e => {
-    console.log('click');
-  };
-
-  const _renderItem = (item, index) => <ItemOrder index={index} />;
-  const [selectedId, setSelectedId] = useState(1);
   const Item = ({item, onPress, backgroundColor, textColor}) => (
     <Pressable onPress={onPress}>
       {themeStore === 'dark' ? (
@@ -57,6 +75,18 @@ const OrderScreen = props => {
       )}
     </Pressable>
   );
+
+  const initData = async () => {
+    try {
+      const response = await orderApi.getOrders({
+        pageNumber: 1,
+      });
+      console.log(response.orders);
+      setOrder(response.orders);
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
 
   const _renderItemHeader = ({item}) => {
     const backgroundColor =
@@ -77,7 +107,11 @@ const OrderScreen = props => {
     return (
       <Item
         item={item}
-        onPress={() => setSelectedId(item.id)}
+        onPress={() => {
+          console.log(item.status);
+          setSelectedId(item.id);
+          setStatus(item.status);
+        }}
         backgroundColor={
           themeStore === 'dark' ? backgroundColor : {backgroundColor}
         }
@@ -85,40 +119,49 @@ const OrderScreen = props => {
       />
     );
   };
+
+  const _renderItem = ({item, index}) => {
+    return <ItemOrder item={item} index={index} />;
+  };
+
+  useEffect(() => {
+    initData();
+  }, []);
+
   return (
     <SafeAreaView
       edges={['bottom', 'left', 'right']}
       style={styles.sendControlContainerOuter}>
       <Block flex backgroundColor={theme.colors.backgroundSetting}>
-        <>
-          <HeaderComponent
-            canGoBack
-            title={t('orderCart')}
-            colorTheme={theme.colors.black}
-          />
+        <HeaderComponent
+          canGoBack
+          title={t('orderCart')}
+          colorTheme={theme.colors.black}
+        />
+        <ScrollView>
           <Block
-            flex
-            marginTop={20}
             paddingHorizontal={16}
             backgroundColor={theme.colors.backgroundSetting}>
-            <ScrollView
-              horizontal
-              scrollEnabled={false}
-              showsHorizontalScrollIndicator={false}
-              justifyContent="center"
-              alignItems="center">
-              {DATA_HEADER.map((item, i) => (
-                <_renderItemHeader key={i} item={item} />
-              ))}
-            </ScrollView>
             <FlatList
-              showsVerticalScrollIndicator={false}
-              data={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
-              renderItem={_renderItem}
-              keyExtractor={item => item.item_id}
+              data={DATA_HEADER}
+              showsHorizontalScrollIndicator={false}
+              horizontal
+              keyExtractor={keyExtractor}
+              renderItem={_renderItemHeader}
             />
           </Block>
-        </>
+          <Block paddingHorizontal={16}>
+            <FlatList
+              showsVerticalScrollIndicator={false}
+              inverted={true}
+              data={
+                status ? order.filter(item => item.status === status) : order
+              }
+              renderItem={_renderItem}
+              keyExtractor={keyExtractor}
+            />
+          </Block>
+        </ScrollView>
       </Block>
     </SafeAreaView>
   );
