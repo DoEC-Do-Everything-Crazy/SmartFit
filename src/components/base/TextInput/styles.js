@@ -37,4 +37,7 @@ export const useStyles = makeStyles()(({colors, fonts}) => ({
     position: 'absolute',
     right: getSize.m(12),
   },
+  inputStyle: {
+    marginRight: getSize.m(16),
+  },
 }));

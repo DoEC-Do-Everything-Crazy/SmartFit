@@ -30,4 +30,7 @@ export const useStyles = makeStyles()(({colors}) => ({
     alignItems: 'center',
     backgroundColor: colors.blue,
   },
+  sendControlContainerOuter: {
+    flex: 1,
+  },
 }));

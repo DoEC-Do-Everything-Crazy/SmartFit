@@ -49,34 +49,38 @@ const FoodListScreen = props => {
   };
 
   return (
-    <Block flex backgroundColor={theme.colors.backgroundSetting}>
-      <Header
-        canGoBack
-        search
-        title={t('healthyFood')}
-        colorTheme={theme.colors.blue}
-      />
-      <ScrollView onScroll={onScroll} showsVerticalScrollIndicator={false}>
-        <ListItemNavProduct />
-        <ListItemPopular />
-      </ScrollView>
-      <Animated.View style={[styles.groupButton, animatedStyles]}>
-        <Pressable
-          onPress={() => {
-            navigation.navigate(routes.CART_SCREEN);
-          }}>
-          {themeStore === 'dark' ? (
-            <LinearGradient
-              start={{x: 0, y: 0}}
-              end={{x: 1, y: 0}}
-              colors={['#70A2FF', '#54F0D1']}
-              style={styles.layout}
-            />
-          ) : null}
-          <Cart color={theme.colors.white} />
-        </Pressable>
-      </Animated.View>
-    </Block>
+    <SafeAreaView
+      edges={['bottom', 'left', 'right']}
+      style={styles.sendControlContainerOuter}>
+      <Block flex backgroundColor={theme.colors.backgroundSetting}>
+        <Header
+          canGoBack
+          search
+          title={t('healthyFood')}
+          colorTheme={theme.colors.blue}
+        />
+        <ScrollView onScroll={onScroll} showsVerticalScrollIndicator={false}>
+          <ListItemNavProduct />
+          <ListItemPopular />
+        </ScrollView>
+        <Animated.View style={[styles.groupButton, animatedStyles]}>
+          <Pressable
+            onPress={() => {
+              navigation.navigate(routes.CART_SCREEN);
+            }}>
+            {themeStore === 'dark' ? (
+              <LinearGradient
+                start={{x: 0, y: 0}}
+                end={{x: 1, y: 0}}
+                colors={['#70A2FF', '#54F0D1']}
+                style={styles.layout}
+              />
+            ) : null}
+            <Cart color={theme.colors.white} />
+          </Pressable>
+        </Animated.View>
+      </Block>
+    </SafeAreaView>
   );
 };
 

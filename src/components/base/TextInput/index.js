@@ -124,7 +124,7 @@ const InputText = ({...props}) => {
               autoCapitalize="none"
               secureTextEntry={secureEye && isSecure}
               maxLength={maxLength}
-              style={[textStyle, {color: theme.colors.text}]}
+              style={[styles.inputStyle, textStyle, {color: theme.colors.text}]}
               editable={!disabled}
               {...inputProps}
             />
@@ -146,7 +146,7 @@ const InputText = ({...props}) => {
             autoCapitalize="none"
             secureTextEntry={secureEye && isSecure}
             maxLength={maxLength}
-            style={[textStyle, {color: theme.colors.text}]}
+            style={[styles.inputStyle, textStyle, {color: theme.colors.text}]}
             editable={!disabled}
             {...inputProps}
           />
