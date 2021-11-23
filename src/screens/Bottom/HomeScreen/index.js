@@ -6,7 +6,7 @@ import Animated, {
 import {Block, Header} from '@components';
 import Carousel, {Pagination} from 'react-native-snap-carousel';
 import {Image, Pressable, ScrollView} from 'react-native';
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 
 import {Cart} from '@assets/icons';
 import LinearGradient from 'react-native-linear-gradient';
@@ -18,6 +18,7 @@ import ListRecommended from './components/ListRecommended';
 import Snackbar from 'react-native-snackbar';
 import {images} from '@assets';
 import {routes} from '@navigation/routes';
+import setAuthToken from 'utils/setAuthToken';
 import {useNavigation} from '@react-navigation/native';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
@@ -31,7 +32,7 @@ const HomeScreen = props => {
   const offset = useSharedValue(0);
   const {
     theme: {theme: themeStore},
-    user: {user},
+    user: {user, token},
   } = useSelector(stateRoot => stateRoot.root);
   const theme = useTheme(themeStore);
   const styles = useStyles(props, themeStore);

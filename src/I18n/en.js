@@ -130,6 +130,7 @@ export default {
   brand: 'Brand',
   Review: 'Review(s)',
   review: 'review(s)',
+  viewDetails: 'View detail',
 
   //Food List Screen
   healthyFood: 'Healthy Food',

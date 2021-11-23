@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const getUser = async options => {
   try {
-    const response = await axios.get(`${apiUrl}/users`, {
+    const response = await axios.get(`${apiUrl}/loadUser`, {
       ...options,
       validateStatus: false,
     });

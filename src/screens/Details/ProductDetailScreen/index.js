@@ -1,40 +1,35 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import {Block, Button, Text} from '@components';
 import {Dimensions, Image, Platform, Pressable, ScrollView} from 'react-native';
 import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {
   addCartItem,
   addWishListItem,
-  clearWishList,
   removeWishListItem,
 } from 'reduxs/reducers';
 import {useDispatch, useSelector} from 'react-redux';
 
 import {BottomSheet} from '@components/BottomSheet';
 import Header from './Header';
+/* eslint-disable react-hooks/exhaustive-deps */
 import {HeartPf} from '@assets/icons';
 import LinearGradient from 'react-native-linear-gradient';
 import ListSimilar from '../../Bottom/HomeScreen/components/ListSimilar/index';
 import {Rating} from 'react-native-ratings';
-import RatingValue from '@components/RatingValue';
 import Review from '@components/Review';
 import Snackbar from 'react-native-snackbar';
 import {productApi} from 'api/productApi';
-import {rateApi} from 'api/rateApi';
-import {routes} from '@navigation/routes';
-import {useNavigation} from '@react-navigation/core';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {useTranslation} from 'react-i18next';
 
 const ProductDetailScreen = ({props, route}) => {
-  const navigation = useNavigation();
   const dispatch = useDispatch();
   const {t} = useTranslation();
   const [quali, setQuali] = useState(1);
   const [isShowReview, setShowReview] = useState();
   const {id} = route.params;
   const {height: MAX_HEIGHT} = Dimensions.get('screen');
+
   const [product, setProduct] = useState(undefined);
   const {
     theme: {theme: themeStore},
@@ -58,8 +53,9 @@ const ProductDetailScreen = ({props, route}) => {
 
   const getProductDetail = async productId => {
     try {
-      const resData = await productApi.getProduct(productId);
-      setProduct(resData);
+      const response = await productApi.getProduct(productId);
+
+      setProduct(response);
     } catch (error) {
       console.error(error.message);
     }
@@ -87,12 +83,12 @@ const ProductDetailScreen = ({props, route}) => {
           <Image style={styles.image} source={{uri: product.image[0]}} />
           <Block style={styles.bottom}>
             <Button
-              title="Details"
+              title={t('viewDetails')}
               onPress={() => modalizRef?.current.open()}
             />
           </Block>
           <Block flex={1}>
-            <ListSimilar title={t('similarProduct')} />
+            <ListSimilar type={'product'} />
           </Block>
           <BottomSheet
             ref={modalizRef}
@@ -106,9 +102,7 @@ const ProductDetailScreen = ({props, route}) => {
             <ScrollView showsVerticalScrollIndicator={false}>
               <Block paddingBottom={50} flex>
                 <Block
-                  row
                   flex
-                  alignCenter
                   space={'between'}
                   paddingTop={20}
                   paddingHorizontal={16}>
@@ -116,7 +110,7 @@ const ProductDetailScreen = ({props, route}) => {
                     {product.name}
                   </Text>
 
-                  <Block row justifyCenter>
+                  <Block row marginTop={10}>
                     <Pressable onPress={handleFavorite} marginRight={10}>
                       <HeartPf
                         isActive={wishList.includes(product.key)}
@@ -125,12 +119,15 @@ const ProductDetailScreen = ({props, route}) => {
                       />
                     </Pressable>
                     <Rating
+                      readonly={true}
                       type="custom"
                       ratingColor={'#FFD700'}
                       ratingCount={5}
+                      startingValue={product.averageRating}
                       imageSize={18}
                       tintColor={theme.colors.backgroundSetting}
                     />
+                    <Text>({product.averageRating})</Text>
                   </Block>
                 </Block>
                 <Block
@@ -186,7 +183,7 @@ const ProductDetailScreen = ({props, route}) => {
                     </Pressable>
                     <Block justifyCenter flex alignEnd>
                       <Text center fontType="bold" size={20} color={'#FF7F50'}>
-                        {product.price}$
+                        {product.lastPrice}$
                       </Text>
                     </Block>
                   </Block>
@@ -240,6 +237,7 @@ const ProductDetailScreen = ({props, route}) => {
                   />
                 ) : null}
               </Block>
+              <Block />
             </ScrollView>
           </BottomSheet>
         </Block>

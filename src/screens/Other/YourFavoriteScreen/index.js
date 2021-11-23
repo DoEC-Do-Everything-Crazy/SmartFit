@@ -29,11 +29,11 @@ const YourFavoriteScreen = props => {
 
   const getFavorite = async wishList => {
     try {
-      console.log(wishList);
       const data = await favoriteApi.getFavorites({keyList: wishList});
+
       setFavorite(data);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 

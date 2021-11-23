@@ -25,6 +25,7 @@ import {useTheme} from '@theme';
 const ProductListScreen = ({props, navigation, route}) => {
   const navigations = useNavigation();
   const {type} = route.params;
+
   const [products, setProducts] = useState([]);
   const viewRef = React.useRef(null);
 
@@ -57,8 +58,11 @@ const ProductListScreen = ({props, navigation, route}) => {
 
   const fetchData = async () => {
     try {
-      const resData = await productApi.getProductByType(type);
-      setProducts(resData);
+      const response = await productApi.getProductByType(type);
+
+      const {products, page, pages} = response;
+
+      setProducts(products);
     } catch (error) {
       console.error(error.message);
     }

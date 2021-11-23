@@ -1,9 +1,6 @@
-import {useTheme, makeStyles} from '@theme';
-import {useSelector, useDispatch} from 'react-redux';
-import {getSize} from '@utils/responsive';
-import React, {useCallback, useEffect, useRef} from 'react';
-import {Animated, Pressable, View} from 'react-native';
 import * as Animatable from 'react-native-animatable';
+
+import {Animated, Pressable, View} from 'react-native';
 import {
   Clothing,
   EquipmentType,
@@ -11,9 +8,14 @@ import {
   Search,
   Supplements,
 } from '@assets/icons';
-import {routes} from '@navigation/routes';
-import {getProductType} from 'reduxs/reducers';
+import React, {useCallback, useEffect, useRef} from 'react';
+import {makeStyles, useTheme} from '@theme';
+import {useDispatch, useSelector} from 'react-redux';
+
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import {getProductType} from 'reduxs/reducers';
+import {getSize} from '@utils/responsive';
+import {routes} from '@navigation/routes';
 
 const CustomTabBar = ({state, descriptors, navigation, props}) => {
   const {
@@ -39,6 +41,7 @@ const CustomTabBar = ({state, descriptors, navigation, props}) => {
       inputRange: [0, 1],
       outputRange: [25, 0],
     });
+
     useEffect(() => {
       try {
         if (active) {
@@ -55,8 +58,8 @@ const CustomTabBar = ({state, descriptors, navigation, props}) => {
             });
           }
         }
-      } catch {
-        e => console.log(e);
+      } catch (error) {
+        console.error(error.message);
       }
     }, [active, index, keyItem]);
     Animated.spring(animation, {

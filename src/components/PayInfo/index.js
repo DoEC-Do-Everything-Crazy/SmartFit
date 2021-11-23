@@ -51,7 +51,7 @@ const PayInfo = ({
           />
           <Block row marginHorizontal={16} marginTop={5} space="between">
             <Text>{title3}:</Text>
-            <Text>{titlePrice3}$</Text>
+            <Text>{titlePrice3 || 0}$</Text>
           </Block>
         </Block>
       ) : (
@@ -66,7 +66,9 @@ const PayInfo = ({
       />
       <Block row marginHorizontal={16} marginTop={5} space="between">
         <Text fontType="bold">{t('total')}:</Text>
-        <Text fontType="bold">{titlePrice1 + titlePrice2 - titlePrice3}$</Text>
+        <Text fontType="bold">
+          {titlePrice1 + titlePrice2 - (titlePrice3 ? titlePrice3 : 0)}$
+        </Text>
       </Block>
     </Block>
   );

@@ -1,8 +1,8 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import {Block, Button, InviteLogin, PayInfo, Text} from '@components';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 
 import CartList from './components/CartList';
+/* eslint-disable react-hooks/exhaustive-deps */
 import {Cart_data} from '@assets/icons';
 import Header from '@components/Header';
 import {Pressable} from 'react-native';
@@ -24,21 +24,18 @@ const CartScreen = props => {
     cart: {cart},
   } = useSelector(stateRoot => stateRoot.root);
 
-  console.log(token);
-
   const styles = useStyles(props, themeStore);
   const theme = useTheme(themeStore);
   const {t} = useTranslation();
 
-  const [isDiscount, setIsDiscount] = useState(false);
-
   const checkCart = async formData => {
     const res = await orderApi.checkCardList({cartList: formData});
-    console.log('check....', res);
+
     if (res) {
       navigation.navigate(routes.PAYMENT_SCREEN);
     }
   };
+
   const handleConfirm = () => {
     checkCart(cart);
   };
@@ -68,9 +65,6 @@ const CartScreen = props => {
                 )}
                 title2={t('delivery')}
                 titlePrice2={20000}
-                title3={t('discount')}
-                titlePrice3={4000}
-                isDiscount={isDiscount}
               />
             </Block>
             <Button title={t('confirm')} onPress={handleConfirm} />
@@ -104,6 +98,7 @@ const CartScreen = props => {
 
   useEffect(() => {
     user && setAuthToken(token);
+    // dispatch(clearCart());
   }, []);
 
   return user ? (

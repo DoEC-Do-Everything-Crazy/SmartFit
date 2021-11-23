@@ -1,7 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {Block, Button, Header, Text, TextInput} from '@components';
 import {Image, Pressable, ScrollView} from 'react-native';
 import {PERMISSION_TYPE, checkPermission} from '../../../hook';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {addImage, removeImage} from 'reduxs/reducers';
 import {useDispatch, useSelector} from 'react-redux';
 
@@ -43,7 +44,6 @@ const RateScreen = ({route, props}) => {
   };
 
   const handleGallery = () => {
-    // dispatch(removeImage());
     ImagePicker.openPicker({
       width: 300,
       height: 400,
@@ -59,17 +59,13 @@ const RateScreen = ({route, props}) => {
   };
 
   const addRate = async formData => {
-    console.log({formData});
-    const res = await rateApi.addRateReview(formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    });
+    try {
+      await rateApi.addRateReview(formData);
 
-    if (res === 200) {
-      console.log('add rate success');
       dispatch(removeImage());
       navigation.navigate(routes.ORDER_SCREEN);
+    } catch (error) {
+      console.error(error.message);
     }
   };
 
@@ -90,6 +86,10 @@ const RateScreen = ({route, props}) => {
     }
     addRate(formData);
   };
+
+  useEffect(() => {
+    dispatch(removeImage());
+  }, []);
 
   return (
     <SafeAreaView

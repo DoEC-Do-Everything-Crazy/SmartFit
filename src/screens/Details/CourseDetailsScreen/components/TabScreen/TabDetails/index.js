@@ -17,6 +17,7 @@ import {Back} from '@assets/icons';
 import {BottomSheet} from '@components/BottomSheet';
 import ItemPT from '@components/ItemList/ItemPT';
 import LinearGradient from 'react-native-linear-gradient';
+import ListSimilar from '@screens/Bottom/HomeScreen/components/ListSimilar';
 import {Rating} from 'react-native-ratings';
 import RatingValue from '@components/RatingValue';
 import Review from '@components/Review';
@@ -295,7 +296,7 @@ const TabDetails = ({route, props}) => {
                 <Block paddingHorizontal={16}>
                   <PayInfo
                     title1={t('course')}
-                    titlePrice1={dataDetail.price}
+                    titlePrice1={dataDetail.lastPrice}
                     title2={t('PT')}
                     titlePrice2={infoPT?.price || 0}
                     title3={t('total')}
@@ -465,6 +466,7 @@ const TabDetails = ({route, props}) => {
             </KeyboardAvoidingView>
           </BottomSheet>
         </Block>
+        <ListSimilar type={'course'} />
       </ScrollView>
       {user ? (
         <Button

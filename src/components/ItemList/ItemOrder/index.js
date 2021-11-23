@@ -86,10 +86,11 @@ const ItemOrder = ({item, onPress, index, props}) => {
     showDetail,
   ]);
   const handleCancelBill = async () => {
-    const res = await orderApi.updateOrder({id: item._id, status: 'Cancel'});
-    if (res.status === 200) {
+    try {
+      await orderApi.updateOrder({id: item._id, status: 'Cancel'});
       setStatus('Cancel');
-      console.log('update status success');
+    } catch (error) {
+      console.error(error.message);
     }
   };
   return (

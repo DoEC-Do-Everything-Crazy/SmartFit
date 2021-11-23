@@ -6,6 +6,7 @@ import {useDispatch, useSelector} from 'react-redux';
 /* eslint-disable react-hooks/exhaustive-deps */
 import {Address} from '@assets/icons';
 import ItemCart from '@components/ItemList/ItemCart';
+import {StackActions} from '@react-navigation/native';
 import {clearCart} from 'reduxs/reducers';
 import {keyExtractor} from 'utils/keyExtractor';
 import {orderApi} from 'api/orderApi';
@@ -28,21 +29,22 @@ const Payment = ({props, route}) => {
     user: {user},
     cart: {cart},
   } = useSelector(stateRoot => stateRoot.root);
+
   const theme = useTheme(themeStore);
   const styles = useStyles(props, themeStore);
   const renderItem = ({item, index}) => <ItemCart notQuantity item={item} />;
   const [isAddress, setAddress] = useState(false);
-  const [promotion, setPromotion] = useState('');
-  const [valueDiscount, setValueDiscount] = useState(0);
-  const totalPriceCart = cart.reduce(
-    (total, item) =>
-      item.quantity * item.lastPrice +
-      (item.pt?.price ? item.pt.price : 0) +
-      total,
-    0,
+  const [promotionCode, setPromotionCode] = useState('');
+  const [totalPriceCart, setTotalPriceCart] = useState(
+    cart.reduce(
+      (total, item) =>
+        item.quantity * item.lastPrice +
+        (item.pt?.price ? item.pt.price : 0) +
+        total,
+      0,
+    ),
   );
-  const delivery = 20000;
-  const total = totalPriceCart + delivery - valueDiscount;
+  const [discount, setDiscount] = useState(0);
 
   const handleAddress = () => {
     setAddress(true);
@@ -51,12 +53,10 @@ const Payment = ({props, route}) => {
 
   const addOrder = async formData => {
     try {
-      const res = await orderApi.addOrder(formData);
+      await orderApi.addOrder(formData);
 
-      if (res.status === 200) {
-        dispatch(clearCart());
-        navigation.navigate(routes.ORDER_SCREEN);
-      }
+      dispatch(clearCart());
+      navigation.dispatch(StackActions.replace(routes.ORDER_SCREEN));
     } catch (error) {
       console.error(error.message);
     }
@@ -64,31 +64,34 @@ const Payment = ({props, route}) => {
 
   const handlePromotion = async () => {
     try {
-      const res = await promotionApi.getPromotionByKey(promotion);
-      if (res.status === 200) {
-        setValueDiscount(totalPriceCart * res.data);
-      }
+      const response = await promotionApi.getPromotionByKey(promotionCode);
+
+      setDiscount(totalPriceCart * response);
     } catch (error) {
       console.error(error.message);
-      setValueDiscount(0);
+      setDiscount(0);
     }
   };
 
   const handleOrder = () => {
     addOrder({
-      userId: user.uid,
-      address: address,
-      total: total,
-      delivery: delivery,
-      promotion: promotion,
-      discount: valueDiscount,
-      cart: cart,
+      cart,
+      shippingInfo: `${name}, ${phone}, ${address}`,
+      total: totalPriceCart,
+      delivery: 20000,
+      promotionCode: promotionCode,
+      discount: discount || 0,
+      subTotal: totalPriceCart + 20000 - (discount || 0),
     });
   };
 
   useEffect(() => {
-    handlePromotion();
-  }, [promotion]);
+    if (promotionCode === '') {
+      setDiscount(0);
+    } else {
+      handlePromotion();
+    }
+  }, [promotionCode]);
 
   return (
     <Block flex>
@@ -122,8 +125,8 @@ const Payment = ({props, route}) => {
           <TextInput
             inputStyle={{flex: 1}}
             paddingHorizontal={10}
-            value={promotion}
-            onChangeText={text => setPromotion(text)}
+            value={promotionCode}
+            onChangeText={text => setPromotionCode(text.toUpperCase())}
           />
         </Block>
       </ScrollView>
@@ -132,10 +135,10 @@ const Payment = ({props, route}) => {
           title1={t('orderCart')}
           titlePrice1={totalPriceCart}
           title2={t('delivery')}
-          titlePrice2={delivery}
+          titlePrice2={20000}
           title3={t('discount')}
-          titlePrice3={valueDiscount || 0}
-          isDiscount={true}
+          titlePrice3={discount}
+          isDiscount
         />
       </Block>
 

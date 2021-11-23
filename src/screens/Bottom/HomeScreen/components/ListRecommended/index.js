@@ -7,6 +7,7 @@ import ItemRecommended from '@components/ItemList/ItemRecommended';
 import {Pressable} from 'react-native';
 import {recommendedApi} from 'api/recommendedApi';
 import {routes} from '@navigation/routes';
+import setAuthToken from 'utils/setAuthToken';
 import {useNavigation} from '@react-navigation/core';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
@@ -15,7 +16,10 @@ import {useTranslation} from 'react-i18next';
 
 const ListRecommended = ({props}) => {
   const {t} = useTranslation();
-  const themeStore = useSelector(state => state.root.theme.theme);
+  const {
+    theme: {theme: themeStore},
+    user: {token},
+  } = useSelector(stateRoot => stateRoot.root);
   const theme = useTheme(themeStore);
   const carouselRef = useRef(null);
   const navigation = useNavigation();
@@ -40,8 +44,9 @@ const ListRecommended = ({props}) => {
   );
 
   useEffect(() => {
+    setAuthToken(token);
     initData();
-  }, []);
+  }, [token]);
 
   return (
     <Block space="between" marginTop={20}>

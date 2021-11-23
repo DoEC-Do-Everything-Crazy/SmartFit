@@ -19,7 +19,7 @@ const checkCardList = async (data, options) => {
 
 const addOrder = async (data, options) => {
   try {
-    const response = await axios.post(`${apiUrl}/orders/createOrder`, data, {
+    const response = await axios.post(`${apiUrl}/orders`, data, {
       ...options,
       validateStatus: false,
     });
@@ -64,7 +64,7 @@ const getOrdersByStatus = async (userId, status, options) => {
       },
     );
 
-    if (response.status === 404 || response.status === 500) {
+    if (response.status !== 200) {
       throw response.data;
     }
 
@@ -81,11 +81,11 @@ const updateOrder = async (data, options) => {
       validateStatus: false,
     });
 
-    if (response.status === 404 || response.status === 500) {
+    if (response.status !== 200) {
       throw response.data;
     }
 
-    return response;
+    return response.data;
   } catch (error) {
     throw error;
   }

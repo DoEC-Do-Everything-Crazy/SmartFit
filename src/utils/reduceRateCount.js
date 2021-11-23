@@ -20,7 +20,5 @@ export const reduceRateCount = eachRateCount => {
     };
   });
 
-  console.log({arrObject});
-
   return arrObject;
 };

@@ -51,7 +51,7 @@ const FoodListScreen = ({route, props}) => {
         setFoodsBMI(resData);
       }
     } catch (error) {
-      console.log('error', error.message);
+      console.error('error', error.message);
     }
   };
 

@@ -22,8 +22,15 @@ const ListProduct = props => {
   const navigation = useNavigation();
   const fetchData = async () => {
     try {
-      const resData = await productApi.getProducts();
-      setData(resData);
+      const response = await productApi.getProducts({
+        pageNumber: 1,
+        orderBy: 'buy',
+        desc: -1,
+      });
+
+      const {products} = response;
+
+      setData(products);
     } catch (error) {
       console.error(error.message);
     }

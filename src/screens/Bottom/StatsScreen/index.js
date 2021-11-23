@@ -102,8 +102,6 @@ const StatsScreen = props => {
         ? await bmiApi.updateBMI(newBMI, {validateStatus: false})
         : await bmiApi.addBMI(newBMI, {validateStatus: false});
 
-      console.log(data);
-
       setBMI({
         id: data._id,
         type: data.type,

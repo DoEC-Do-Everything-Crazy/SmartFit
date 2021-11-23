@@ -1,5 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import {Block, Header as HeaderComponent, Text} from '@components';
+import {
+  Block,
+  Header as HeaderComponent,
+  ListDataFooter,
+  Text,
+} from '@components';
 import {FlatList, Pressable, ScrollView} from 'react-native';
 import React, {useEffect, useState} from 'react';
 
@@ -14,9 +19,6 @@ import {useTheme} from '@theme';
 import {useTranslation} from 'react-i18next';
 
 const OrderScreen = props => {
-  const [selectedId, setSelectedId] = useState(1);
-  const [order, setOrder] = useState([]);
-  const [status, setStatus] = useState(undefined);
   const {t} = useTranslation();
 
   const {
@@ -24,6 +26,13 @@ const OrderScreen = props => {
   } = useSelector(stateRoot => stateRoot.root);
   const theme = useTheme(themeStore);
   const styles = useStyles(props, themeStore);
+
+  const [data, setData] = useState([]);
+  const [selectedId, setSelectedId] = useState(1);
+  const [status, setStatus] = useState(undefined);
+  const [pageNumber, setPageNumber] = useState(1);
+  const [allLoaded, setAllLoaded] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const DATA_HEADER = [
     {
@@ -51,6 +60,11 @@ const OrderScreen = props => {
       title: t('delivered'),
       status: 'delivered',
     },
+    {
+      id: 6,
+      title: t('cancelled'),
+      status: 'cancelled',
+    },
   ];
 
   const Item = ({item, onPress, backgroundColor, textColor}) => (
@@ -70,18 +84,6 @@ const OrderScreen = props => {
       )}
     </Pressable>
   );
-
-  const initData = async () => {
-    try {
-      const response = await orderApi.getOrders({
-        pageNumber: 1,
-      });
-      console.log(response.orders);
-      setOrder(response.orders);
-    } catch (error) {
-      console.error(error.message);
-    }
-  };
 
   const _renderItemHeader = ({item}) => {
     const backgroundColor =
@@ -103,7 +105,6 @@ const OrderScreen = props => {
       <Item
         item={item}
         onPress={() => {
-          console.log(item.status);
           setSelectedId(item.id);
           setStatus(item.status);
         }}
@@ -117,6 +118,70 @@ const OrderScreen = props => {
 
   const _renderItem = ({item, index}) => {
     return <ItemOrder item={item} index={index} />;
+  };
+
+  const handleLoadMore = async () => {
+    try {
+      if (allLoaded || isLoading) {
+        return;
+      }
+
+      setIsLoading(true);
+
+      const response = await orderApi.getOrders({pageNumber});
+
+      const {orders, page, pages} = response;
+
+      if (page >= pages) {
+        setAllLoaded(true);
+      }
+
+      if (orders.length === 0) {
+        return;
+      }
+
+      setData(data.concat(orders));
+      setPageNumber(pageNumber + 1);
+    } catch (e) {
+      console.error(e.message);
+    }
+
+    setIsLoading(false);
+  };
+
+  const initData = async () => {
+    try {
+      setIsLoading(true);
+
+      const response = await orderApi.getOrders({pageNumber});
+
+      const {orders, page, pages} = response;
+
+      if (page >= pages) {
+        setAllLoaded(true);
+      }
+
+      if (orders.length === 0) {
+        return;
+      }
+
+      setData(orders);
+      setPageNumber(pageNumber + 1);
+    } catch (e) {
+      console.error(e.message);
+    }
+
+    setIsLoading(false);
+  };
+
+  const _footerComponent = () => {
+    return (
+      <ListDataFooter
+        allLoaded={allLoaded}
+        isLoading={isLoading}
+        onPress={handleLoadMore}
+      />
+    );
   };
 
   useEffect(() => {
@@ -149,9 +214,7 @@ const OrderScreen = props => {
             <FlatList
               showsVerticalScrollIndicator={false}
               inverted={true}
-              data={
-                status ? order.filter(item => item.status === status) : order
-              }
+              data={status ? data.filter(item => item.status === status) : data}
               renderItem={_renderItem}
               keyExtractor={keyExtractor}
             />

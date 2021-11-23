@@ -89,7 +89,7 @@ const TabDetails = ({route, props}) => {
         name={item.name}
         gender={item.gender}
         birthday={item.birthday}
-        price={item.price}
+        price={item.lastPrice}
         image={item.image}
       />
     );
@@ -337,7 +337,7 @@ const TabDetails = ({route, props}) => {
                 </>
               ) : null}
             </Block>
-            <ListSimilar title={t('similarCourse')} />
+            <ListSimilar type={'course'} />
             {/* BOTTOM SHEET PT */}
             <BottomSheet
               ref={modalizPTList}
@@ -470,7 +470,7 @@ const TabDetails = ({route, props}) => {
                       <Text fontType="bold">{t('price')}</Text>
                     </Block>
                     <Block width={screenWidth / 1.55}>
-                      <Text>${dataPTDetail.price}</Text>
+                      <Text>{`$${dataPTDetail.price}`}</Text>
                     </Block>
                   </Block>
                 </Block>
@@ -478,6 +478,7 @@ const TabDetails = ({route, props}) => {
               </KeyboardAvoidingView>
             </BottomSheet>
           </Block>
+          <ListSimilar type={'course'} />
         </ScrollView>
         {JSON.stringify(user) !== '{}' ? (
           <Button

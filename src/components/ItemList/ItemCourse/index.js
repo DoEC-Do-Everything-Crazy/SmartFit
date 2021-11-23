@@ -59,7 +59,7 @@ const ItemCourse = ({course, props}) => {
               marginLeft={5}
               color={theme.colors.white}
               fontType="bold">
-              {course.price}$
+              {course.lastPrice}$
             </Text>
           </Block>
         </Block>

@@ -1,4 +1,4 @@
-import {Block, DropDown, Header, Text, TextInput} from '@components';
+import {Block, Header, Text, TextInput} from '@components';
 import React, {useState} from 'react';
 
 import {Pressable} from 'react-native';

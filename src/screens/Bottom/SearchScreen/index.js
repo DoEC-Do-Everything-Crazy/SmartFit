@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import {Block, Header, Text, TextInput} from '@components';
+import {Block, Header, ListDataFooter, Text, TextInput} from '@components';
 import React, {useEffect, useState} from 'react';
 import {addHistoryItem, clearHistory, removeHistoryItem} from 'reduxs/reducers';
 import {useDispatch, useSelector} from 'react-redux';
@@ -20,10 +20,6 @@ import {useTranslation} from 'react-i18next';
 const SearchScreen = ({props, route, match}) => {
   const {top} = useSafeAreaInsets();
   const [isSearch, setIsSearch] = useState(false);
-  const [page, setPage] = useState(1);
-  const [dataSearch, setDataSearch] = useState([]);
-  const [name, setName] = useState('');
-  const [loadingMore, setLoadingMore] = useState(false);
   const {screen} = route?.params;
   const {t} = useTranslation();
   const dispatch = useDispatch();
@@ -33,33 +29,73 @@ const SearchScreen = ({props, route, match}) => {
   } = useSelector(state => state.root);
   const styles = useStyles(props, themeStore);
   const theme = useTheme(themeStore);
-  let stopFetchMore = false;
-  const fetchData = async () => {
-    try {
-      setDataSearch([]);
-      setPage(1);
-      if (name) {
-        const resData = await searchApi.getDataSearch(name, page);
-        setDataSearch(resData.data);
-      }
-    } catch (error) {
-      console.log(error.message);
+
+  const [name, setName] = useState('');
+  const [data, setData] = useState([]);
+  const [pageNumber, setPageNumber] = useState(1);
+  const [allLoaded, setAllLoaded] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleLoadMore = async () => {
+    if (allLoaded || isLoading) {
+      return;
     }
+
+    setIsLoading(true);
+
+    try {
+      const response = await searchApi.getDataSearch({
+        pageNumber,
+        name,
+      });
+
+      const {searchs, page, pages} = response;
+
+      if (page >= pages) {
+        setAllLoaded(true);
+      }
+
+      setData(data.concat(searchs));
+      setPageNumber(pageNumber + 1);
+    } catch (e) {
+      console.error(e.message);
+    }
+
+    setIsLoading(false);
   };
 
-  const loadMore = async () => {
-    setLoadingMore(true);
+  const initData = async () => {
+    setIsLoading(true);
+
     try {
-      if (!stopFetchMore) {
-        const resData = await searchApi.getDataSearch(name, page + 1);
-        setPage(page + 1);
-        setDataSearch(dataSearch.concat(resData.data));
-        stopFetchMore = true;
+      const response = await searchApi.getDataSearch({
+        pageNumber: 1,
+        name,
+      });
+
+      const {searchs, page, pages} = response;
+
+      if (page >= pages) {
+        setAllLoaded(true);
       }
-      setLoadingMore(false);
-    } catch (error) {
-      console.log(error.message);
+
+      setData(searchs);
+      setPageNumber(pageNumber + 1);
+    } catch (e) {
+      console.error(e.message);
     }
+
+    setIsLoading(false);
+  };
+
+  const _footerComponent = () => {
+    return (
+      <ListDataFooter
+        allLoaded={allLoaded}
+        isLoading={isLoading}
+        onPress={handleLoadMore}
+      />
+    );
   };
 
   const _renderItem = ({item}) => {
@@ -86,7 +122,12 @@ const SearchScreen = ({props, route, match}) => {
   };
 
   useEffect(() => {
-    fetchData();
+    if (name !== '') {
+      initData();
+    } else {
+      setData([]);
+      setPageNumber(1);
+    }
   }, [name]);
 
   return (
@@ -106,17 +147,13 @@ const SearchScreen = ({props, route, match}) => {
             onChangeText={debounce(text => setName(text), 500)}
           />
         </Block>
-        {dataSearch.length > 0 ? (
+        {data.length > 0 ? (
           <FlatList
             showsVerticalScrollIndicator={false}
-            data={dataSearch}
+            data={data}
             keyExtractor={keyExtractor}
             renderItem={_renderItem}
-            onEndReached={loadMore}
-            onEndReachedThreshold={0.5}
-            onScrollBeginDrag={() => {
-              stopFetchMore = false;
-            }}
+            ListFooterComponent={_footerComponent}
           />
         ) : (
           <Block>
@@ -148,6 +185,7 @@ const SearchScreen = ({props, route, match}) => {
                   data={history}
                   keyExtractor={keyExtractor}
                   renderItem={_renderItemSearch}
+                  ListFooterComponent={_footerComponent}
                 />
               </Block>
             )}

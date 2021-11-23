@@ -130,6 +130,7 @@ export default {
   brand: 'Thương hiệu',
   Review: 'Đánh giá',
   review: 'đánh giá',
+  viewDetails: 'Xem chi tiết',
 
   //Food List Screen
   healthyFood: 'Đồ ăn tốt cho sức khỏe',
