@@ -86,10 +86,28 @@ const resetPassword = async (data, options) => {
   }
 };
 
+const changePassword = async (data, options) => {
+  try {
+    const response = await axios.post(`${apiUrl}/users/changePassword`, data, {
+      ...options,
+      validateStatus: false,
+    });
+
+    if (response.status === 404 || response.status === 500) {
+      throw response.data;
+    }
+
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const userApi = {
   getUser,
   updateUser,
   sendEmail,
   checkCode,
   resetPassword,
+  changePassword,
 };

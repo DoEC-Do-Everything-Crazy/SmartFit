@@ -43,9 +43,6 @@ const EnterPhoneNumberScreen = ({props, route}) => {
         newPasswordAgain: '',
       }}
       onSubmit={async props => {
-        console.log(
-          'code' + code + 'email' + email + 'newpass' + props.newPassword,
-        );
         const res = await userApi.resetPassword({
           code: code,
           email: email,

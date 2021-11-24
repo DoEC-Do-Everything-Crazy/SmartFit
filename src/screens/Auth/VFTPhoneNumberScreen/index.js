@@ -87,11 +87,7 @@ const VFTPhoneNumberScreen = ({route, props}) => {
 
   return (
     <Block flex backgroundColor={theme.colors.backgroundSetting}>
-      <Header
-        canGoBack
-        title={t('signInWithPhoneNumber')}
-        colorTheme={theme.colors.blue}
-      />
+      <Header canGoBack title={t('checkCode')} colorTheme={theme.colors.blue} />
       <Block flex justifyCenter>
         <Block>
           <Text
