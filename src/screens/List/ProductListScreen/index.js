@@ -6,10 +6,10 @@ import Animated, {
   useSharedValue,
   withSpring,
 } from 'react-native-reanimated';
+import {Block, ListDataFooter} from '@components';
 import {FlatList, Pressable, ScrollView} from 'react-native';
 import React, {useEffect, useState} from 'react';
 
-import {Block} from '@components';
 import {Cart} from '@assets/icons';
 import ItemCarousel from '@components/ItemList/ItemCarousel';
 import LinearGradient from 'react-native-linear-gradient';
@@ -26,7 +26,11 @@ const ProductListScreen = ({props, navigation, route}) => {
   const navigations = useNavigation();
   const {type} = route.params;
 
-  const [products, setProducts] = useState([]);
+  const [data, setData] = useState([]);
+  const [pageNumber, setPageNumber] = useState(1);
+  const [allLoaded, setAllLoaded] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
   const viewRef = React.useRef(null);
 
   const {
@@ -56,17 +60,73 @@ const ProductListScreen = ({props, navigation, route}) => {
     offsetList > 0 ? (offset.value = 1) : (offset.value = 0);
   };
 
-  const fetchData = async () => {
+  const handleLoadMore = async () => {
+    if (allLoaded || isLoading) {
+      return;
+    }
+
+    setIsLoading(true);
+
     try {
-      const response = await productApi.getProductByType(type);
+      const response = await productApi.getProducts({
+        pageNumber,
+        type,
+        active: true,
+      });
 
       const {products, page, pages} = response;
 
-      setProducts(products);
-    } catch (error) {
-      console.error(error.message);
+      if (page >= pages) {
+        setAllLoaded(true);
+      }
+
+      setData(data.concat(products));
+      setPageNumber(pageNumber + 1);
+    } catch (e) {
+      console.error(e.message);
     }
+
+    setIsLoading(false);
   };
+
+  const initData = async () => {
+    setIsLoading(true);
+
+    try {
+      const response = await productApi.getProducts({
+        pageNumber: 1,
+        type,
+        active: true,
+      });
+
+      const {products, page, pages} = response;
+
+      if (page >= pages) {
+        setAllLoaded(true);
+      }
+
+      setData(products);
+      setPageNumber(2);
+    } catch (e) {
+      console.error(e.message);
+    }
+
+    setIsLoading(false);
+  };
+
+  const _footerComponent = () => {
+    return (
+      <ListDataFooter
+        allLoaded={allLoaded}
+        isLoading={isLoading}
+        onPress={handleLoadMore}
+      />
+    );
+  };
+
+  const _renderItemCarousel = ({item, index}) => (
+    <ItemCarousel item={item} key={index} />
+  );
 
   useEffect(() => {
     const unsubscribe = navigations.addListener('focus', () => {
@@ -74,12 +134,9 @@ const ProductListScreen = ({props, navigation, route}) => {
     });
     return () => unsubscribe;
   }, [navigations]);
-  const _renderItemCarousel = ({item, index}) => (
-    <ItemCarousel item={item} key={index} />
-  );
 
   useEffect(() => {
-    fetchData();
+    initData();
   }, []);
 
   return (
@@ -101,9 +158,10 @@ const ProductListScreen = ({props, navigation, route}) => {
                 showsHorizontalScrollIndicator={false}
                 style={{marginTop: 16, marginLeft: 80}}
                 numColumns={1}
-                data={products}
+                data={data}
                 renderItem={_renderItemCarousel}
                 keyExtractor={keyExtractor}
+                ListFooterComponent={_footerComponent}
               />
             </Block>
           </Animatable.View>

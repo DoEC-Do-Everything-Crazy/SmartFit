@@ -29,10 +29,16 @@ const CartScreen = props => {
   const {t} = useTranslation();
 
   const checkCart = async formData => {
-    const res = await orderApi.checkCardList({cartList: formData});
+    try {
+      const res = await orderApi.checkCartList({cartList: formData});
 
-    if (res) {
-      navigation.navigate(routes.PAYMENT_SCREEN);
+      console.log(res);
+
+      if (res) {
+        navigation.navigate(routes.PAYMENT_SCREEN);
+      }
+    } catch (error) {
+      console.error(error.message);
     }
   };
 

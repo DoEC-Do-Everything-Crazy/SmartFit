@@ -17,6 +17,7 @@ const ListItemNavProduct = ({...props}) => {
       const response = await foodApi.getFoods({
         pageNumber,
         orderBy: 'rate',
+        active: true,
       });
 
       const {foods} = response;

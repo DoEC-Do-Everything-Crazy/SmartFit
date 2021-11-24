@@ -34,6 +34,7 @@ const ListItemPopular = ({...props}) => {
       if (!dailyMeals) {
         response = await foodApi.getFoods({
           pageNumber,
+          active: true,
         });
       } else {
         response = await foodApi.getUserDailyMeals({
@@ -65,6 +66,7 @@ const ListItemPopular = ({...props}) => {
       if (!dailyMeals) {
         response = await foodApi.getFoods({
           pageNumber,
+          active: true,
         });
       } else {
         response = await foodApi.getUserDailyMeals({

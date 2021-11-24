@@ -27,13 +27,13 @@ const ListHotCourse = ({props}) => {
   );
 
   const initData = async () => {
-    const params = {
-      pageNumber: 1,
-      orderBy: 'rate',
-    };
-
     try {
-      const response = await courseApi.getCourses(params);
+      const response = await courseApi.getCourses({
+        pageNumber: 1,
+        orderBy: 'rate',
+        active: true,
+      });
+
       setData(response.courses);
     } catch (error) {
       console.error('error', error.message);

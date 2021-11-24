@@ -29,6 +29,7 @@ const ListSimilar = ({...props}) => {
         const response = await courseApi.getCourses({
           pageNumber: 1,
           orderBy: 'view',
+          active: true,
         });
 
         const {courses} = response;
@@ -39,6 +40,7 @@ const ListSimilar = ({...props}) => {
         const response = await productApi.getProducts({
           pageNumber: 1,
           orderBy: 'view',
+          active: true,
         });
 
         const {products} = response;
@@ -49,6 +51,7 @@ const ListSimilar = ({...props}) => {
         const response = await foodApi.getFoods({
           pageNumber: 1,
           orderBy: 'view',
+          active: true,
         });
 
         const {foods} = response;
