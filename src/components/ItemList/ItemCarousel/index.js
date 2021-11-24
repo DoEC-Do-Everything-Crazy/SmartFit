@@ -34,6 +34,8 @@ const ItemCarousel = ({item, props}) => {
       row
       radius={8}
       width={width * 0.7}
+      borderBottomWidth={1}
+      borderColor={'white'}
       paddingBottom={16}
       marginBottom={16}>
       <Image source={{uri: item.image[0]}} style={styles.image} />
@@ -45,8 +47,6 @@ const ItemCarousel = ({item, props}) => {
         />
       </Block>
       <Block
-        radius={8}
-        backgroundColor={theme.colors.border}
         paddingLeft={16}
         paddingRight={2}
         width={width * 0.38}
@@ -67,12 +67,12 @@ const ItemCarousel = ({item, props}) => {
             (3)
           </Text>
         </Block>
-        <Text size={11} marginTop={8} numberOfLines={5}>
+        <Text size={12} marginTop={8} numberOfLines={5}>
           {item.description}
         </Text>
 
         <Block flex alignStart>
-          <Text size={14} marginTop={8} color={'#FF7F50'} fontType="bold">
+          <Text size={16} marginTop={8} color={'#FF7F50'} fontType="bold">
             {`$${item.lastPrice}`}
           </Text>
         </Block>
@@ -83,7 +83,7 @@ const ItemCarousel = ({item, props}) => {
           }}>
           <Block flex>
             <Text
-              size={14}
+              size={16}
               fontType="bold"
               color={theme.colors.link}
               marginTop={8}>
