@@ -1,31 +1,14 @@
 import {apiUrl} from '@config/api';
 import axios from 'axios';
 
-const getAvgRate = async options => {
+const getRecommend = async options => {
   try {
-    const response = await axios.get(`${apiUrl}/recommended/`, {
+    const response = await axios.get(`${apiUrl}/recommended/myRecommend`, {
       ...options,
       validateStatus: false,
     });
 
-    if (response.status === 404 || response.status === 500) {
-      throw response.data;
-    }
-
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
-};
-
-const getRecommendedByBMI = async (bmi, options) => {
-  try {
-    const response = await axios.get(`${apiUrl}/recommended/${bmi}`, {
-      ...options,
-      validateStatus: false,
-    });
-
-    if (response.status === 404 || response.status === 500) {
+    if (response.status !== 200) {
       throw response.data;
     }
 
@@ -36,6 +19,5 @@ const getRecommendedByBMI = async (bmi, options) => {
 };
 
 export const recommendedApi = {
-  getRecommendedByBMI,
-  getAvgRate,
+  getRecommend,
 };

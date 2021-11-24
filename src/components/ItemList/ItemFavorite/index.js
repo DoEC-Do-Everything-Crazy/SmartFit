@@ -1,14 +1,19 @@
-import {HeartPf} from '@assets/icons';
+/* eslint-disable react-hooks/exhaustive-deps */
 import {Block, Text} from '@components';
-import {width} from '@utils/responsive';
-import React, {useEffect, useState} from 'react';
 import {Image, Pressable} from 'react-native';
-import {useSelector, useDispatch} from 'react-redux';
-import {useStyles} from './styles';
-import {useNavigation} from '@react-navigation/core';
-import {useTheme} from '@theme';
-import {routes} from '@navigation/routes';
+import React, {useEffect, useState} from 'react';
 import {addWishListItem, removeWishListItem} from 'reduxs/reducers';
+import {useDispatch, useSelector} from 'react-redux';
+
+import {HeartPf} from '@assets/icons';
+import {courseApi} from 'api/courseApi';
+import {foodApi} from 'api/foodApi';
+import {productApi} from 'api/productApi';
+import {routes} from '@navigation/routes';
+import {useNavigation} from '@react-navigation/core';
+import {useStyles} from './styles';
+import {useTheme} from '@theme';
+import {width} from '@utils/responsive';
 
 const ItemFavorite = ({item, marginTop, props}) => {
   const dispatch = useDispatch();
@@ -24,17 +29,19 @@ const ItemFavorite = ({item, marginTop, props}) => {
   const [favoriteColor, setFavoriteColor] = useState(null);
 
   const handleNavigate = () => {
-    console.log('key ' + item.key);
     if (item.key.includes('C')) {
       navigation.navigate(routes.TAB_DETAILS, {id: item._id});
+      updateViewCourse(item._id);
       return;
     }
     if (item.key.includes('F')) {
       navigation.navigate(routes.FOOD_DETAILS_SCREEN, {id: item._id});
+      updateViewFood(item._id);
       return;
     }
     if (item.key.includes('P')) {
       navigation.navigate(routes.PRODUCT_DETAIL_SCREEN, {id: item._id});
+      updateViewProduct(item._id);
       return;
     }
   };
@@ -48,11 +55,30 @@ const ItemFavorite = ({item, marginTop, props}) => {
     }
   };
 
+  const updateViewCourse = async item => {
+    await courseApi.updateViewCourse(item, {
+      validateStatus: false,
+    });
+  };
+
+  const updateViewFood = async item => {
+    await foodApi.updateViewFood(item, {
+      validateStatus: false,
+    });
+  };
+
+  const updateViewProduct = async item => {
+    await productApi.updateViewProduct(item, {
+      validateStatus: false,
+    });
+  };
+
   useEffect(() => {
     isTouch
       ? setFavoriteColor(theme.colors.red)
       : setFavoriteColor(theme.colors.gray);
   }, [isTouch]);
+
   return (
     <Block
       alignCenter

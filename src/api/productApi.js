@@ -1,14 +1,18 @@
 import {apiUrl} from '@config/api';
 import axios from 'axios';
 
-const getProducts = async options => {
+const getProducts = async (params, options) => {
   try {
-    const response = await axios.get(`${apiUrl}/products`, {
-      ...options,
-      validateStatus: false,
-    });
+    const response = await axios.get(
+      `${apiUrl}/products`,
+      {params},
+      {
+        ...options,
+        validateStatus: false,
+      },
+    );
 
-    if (response.status === 404 || response.status === 500) {
+    if (response.status !== 200) {
       throw response.data;
     }
 
@@ -25,7 +29,7 @@ const getProduct = async (id, options) => {
       validateStatus: false,
     });
 
-    if (response.status === 404 || response.status === 500) {
+    if (response.status !== 200) {
       throw response.data;
     }
 
@@ -42,7 +46,7 @@ const getProductByType = async (type, options) => {
       validateStatus: false,
     });
 
-    if (response.status === 404 || response.status === 500) {
+    if (response.status !== 200) {
       throw response.data;
     }
 
@@ -59,7 +63,7 @@ const addProduct = async (data, options) => {
       validateStatus: false,
     });
 
-    if (response.status === 404 || response.status === 500) {
+    if (response.status !== 200) {
       throw response.data;
     }
 
@@ -76,7 +80,7 @@ const updateProduct = async (data, options) => {
       validateStatus: false,
     });
 
-    if (response.status === 404 || response.status === 500) {
+    if (response.status !== 200) {
       throw response.data;
     }
 
@@ -97,7 +101,43 @@ const deleteProduct = async (id, options) => {
       },
     );
 
-    if (response.status === 404 || response.status === 500) {
+    if (response.status !== 200) {
+      throw response.data;
+    }
+
+    return;
+  } catch (error) {
+    throw error;
+  }
+};
+const getProductByView = async options => {
+  try {
+    const response = await axios.get(`${apiUrl}/products/views`, {
+      ...options,
+      validateStatus: false,
+    });
+
+    if (response.status !== 200) {
+      throw response.data;
+    }
+
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+const updateViewProduct = async (id, options) => {
+  try {
+    const response = await axios.post(
+      `${apiUrl}/products/updateViewProduct/${id}`,
+      {
+        ...options,
+        validateStatus: false,
+      },
+    );
+
+    if (response.status !== 200) {
       throw response.data;
     }
 
@@ -114,4 +154,6 @@ export const productApi = {
   updateProduct,
   deleteProduct,
   getProductByType,
+  getProductByView,
+  updateViewProduct,
 };

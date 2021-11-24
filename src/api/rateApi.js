@@ -1,14 +1,18 @@
 import {apiUrl} from '@config/api';
 import axios from 'axios';
 
-const getRates = async options => {
+const getRates = async (queries, options) => {
   try {
-    const response = await axios.get(`${apiUrl}/rates`, {
-      ...options,
-      validateStatus: false,
-    });
+    const response = await axios.get(
+      `${apiUrl}/rates`,
+      {params: queries},
+      {
+        ...options,
+        validateStatus: false,
+      },
+    );
 
-    if (response.status === 404 || response.status === 500) {
+    if (response.status !== 200) {
       throw response.data;
     }
 
@@ -25,7 +29,7 @@ const getRecommendedWithRate = async options => {
       validateStatus: false,
     });
 
-    if (response.status === 404 || response.status === 500) {
+    if (response.status !== 200) {
       throw response.data;
     }
 
@@ -42,7 +46,7 @@ const getRateById = async (type, id, options) => {
       validateStatus: false,
     });
 
-    if (response.status === 404 || response.status === 500) {
+    if (response.status !== 200) {
       throw response.data;
     }
 
@@ -53,11 +57,11 @@ const getRateById = async (type, id, options) => {
 };
 const addRateReview = async (data, options) => {
   try {
-    const response = await axios.post(`${apiUrl}/rates/addWithImage`, data, {
+    const response = await axios.post(`${apiUrl}/rates/WithImage`, data, {
       ...options,
       validateStatus: false,
     });
-    if (response.status === 404 || response.status === 500) {
+    if (response.status !== 200) {
       throw response.data;
     }
 

@@ -1,49 +1,125 @@
-import {Block, Text} from '@components';
+import {Block, Empty, ListDataFooter} from '@components';
 import React, {useEffect, useState} from 'react';
 
 import {FlatList} from 'react-native';
 import ItemPopular from '@components/ItemList/ItemPopular';
 import {foodApi} from 'api/foodApi';
 import {keyExtractor} from 'utils/keyExtractor';
-import {useTranslation} from 'react-i18next';
+/* eslint-disable react-hooks/exhaustive-deps */
+import {lotties} from '@assets';
+import setAuthToken from 'utils/setAuthToken';
+import {useSelector} from 'react-redux';
 
-const ListItemPopular = () => {
-  const [foods, setFoods] = useState([]);
-  const {t} = useTranslation();
+const ListItemPopular = ({...props}) => {
+  const {
+    user: {token},
+  } = useSelector(stateRoot => stateRoot.root);
 
-  const getProduct = async () => {
-    try {
-      const data = await foodApi.getFoods();
-      setFoods(data);
-    } catch (error) {
-      console.error(error.message);
+  const {recommendData, dailyMeals} = props;
+  const [data, setData] = useState(recommendData ? recommendData : []);
+  const [pageNumber, setPageNumber] = useState(1);
+  const [allLoaded, setAllLoaded] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleLoadMore = async () => {
+    if (allLoaded || isLoading) {
+      return;
     }
+
+    setIsLoading(true);
+
+    try {
+      let response = {};
+
+      if (!dailyMeals) {
+        response = await foodApi.getFoods({
+          pageNumber,
+        });
+      } else {
+        response = await foodApi.getUserDailyMeals({
+          pageNumber,
+        });
+      }
+
+      const {foods, page, pages} = response;
+
+      if (page >= pages) {
+        setAllLoaded(true);
+      }
+
+      setData(data.concat(foods));
+      setPageNumber(pageNumber + 1);
+    } catch (e) {
+      console.error(e.message);
+    }
+
+    setIsLoading(false);
   };
 
-  useEffect(() => {
-    getProduct();
-  }, []);
+  const initData = async () => {
+    setIsLoading(true);
+
+    try {
+      let response = {};
+
+      if (!dailyMeals) {
+        response = await foodApi.getFoods({
+          pageNumber,
+        });
+      } else {
+        response = await foodApi.getUserDailyMeals({
+          pageNumber,
+        });
+      }
+
+      const {foods, page, pages} = response;
+
+      if (page >= pages) {
+        setAllLoaded(true);
+      }
+
+      setData(foods);
+      setPageNumber(2);
+    } catch (e) {
+      console.error(e.message);
+    }
+
+    setIsLoading(false);
+  };
+
+  const _footerComponent = (
+    <ListDataFooter
+      onPress={handleLoadMore}
+      allLoaded={allLoaded}
+      isLoading={isLoading}
+    />
+  );
 
   const _renderItem = ({item, index}) => (
     <ItemPopular item={item} key={index} />
   );
 
+  useEffect(() => {
+    setAuthToken(token);
+    !recommendData && initData();
+  }, []);
+
   return (
     <Block flex>
-      <Block row marginHorizontal={16} marginBottom={10} space="between">
-        <Text fontType="bold" size={18}>
-          {t('menu')}
-        </Text>
-      </Block>
-      <FlatList
-        contentContainerStyle={{alignSelf: 'center'}}
-        showsVerticalScrollIndicator={false}
-        nestedScrollEnabled
-        data={foods}
-        numColumns={2}
-        keyExtractor={keyExtractor}
-        renderItem={_renderItem}
-      />
+      {!isLoading && data.length === 0 ? (
+        <Empty lottie={lotties.emptySearch} />
+      ) : (
+        <FlatList
+          contentContainerStyle={{alignSelf: 'center'}}
+          showsVerticalScrollIndicator={false}
+          nestedScrollEnabled
+          data={data}
+          numColumns={2}
+          keyExtractor={keyExtractor}
+          renderItem={_renderItem}
+          ListFooterComponent={!recommendData ? _footerComponent : null}
+        />
+      )}
     </Block>
   );
 };

@@ -8,6 +8,7 @@ import React from 'react';
 import {useTranslation} from 'react-i18next';
 import {FlatList} from 'react-native';
 import {useSelector} from 'react-redux';
+import {keyExtractor} from 'utils/keyExtractor';
 
 const ListItemFeature = () => {
   const {t} = useTranslation();
@@ -22,7 +23,7 @@ const ListItemFeature = () => {
   const DATA_FEATURE = [
     {
       id: 1,
-      title: t('yourFavorite'),
+      title: t('yourCourse'),
       image: <HeartPf activeColor={theme.colors.iconInf} isActive={true} />,
       navigation: routes.YOUR_FAVORITE_SCREEN,
     },
@@ -70,7 +71,7 @@ const ListItemFeature = () => {
         showsVerticalScrollIndicator={false}
         nestedScrollEnabled
         data={DATA_FEATURE}
-        keyExtractor={item => item.id}
+        keyExtractor={keyExtractor}
         renderItem={_renderItem}
       />
     </Block>

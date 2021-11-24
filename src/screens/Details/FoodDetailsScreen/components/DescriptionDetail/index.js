@@ -4,6 +4,7 @@ import React, {useState} from 'react';
 import {Pressable} from 'react-native';
 import {useSelector} from 'react-redux';
 import {useTheme} from '@theme';
+import {useTranslation} from 'react-i18next';
 
 const DescriptionDetail = ({desc}) => {
   const [seeMore, setSeemore] = useState(true);
@@ -11,9 +12,11 @@ const DescriptionDetail = ({desc}) => {
     theme: {theme: themeStore},
   } = useSelector(stateRoot => stateRoot.root);
 
+  const {t} = useTranslation();
+
   const theme = useTheme(themeStore);
   const numberOfLines = seeMore ? 0 : 2;
-  const txtSeemore = seeMore ? 'Collapse' : 'See more';
+  const txtSeemore = seeMore ? t('collapse') : t('seeMore');
 
   const isSeemore = () => setSeemore(!seeMore);
   return (

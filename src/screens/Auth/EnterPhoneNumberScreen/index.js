@@ -37,7 +37,6 @@ const EnterPhoneNumberScreen = props => {
         phoneNumber: '+84',
       }}
       onSubmit={props => {
-        console.log(props.phoneNumber);
         navigation.navigate(routes.VFT_PHONE_NUMBER_SCREEN, {
           phone: props.phoneNumber,
         });

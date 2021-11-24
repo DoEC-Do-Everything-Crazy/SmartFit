@@ -1,15 +1,15 @@
 import {Block, Text} from '@components';
+import React, {useEffect} from 'react';
+import {addWishListItem, removeWishListItem} from 'reduxs/reducers';
+import {useDispatch, useSelector} from 'react-redux';
 
 import {HeartPf} from '@assets/icons';
 import {Image} from 'react-native';
 import ItemStats from '../ItemStats';
-import React, {useEffect} from 'react';
 import {Pressable} from 'react-native';
-import {useSelector, useDispatch} from 'react-redux';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {useTranslation} from 'react-i18next';
-import {addWishListItem, removeWishListItem} from 'reduxs/reducers';
 
 const ProductContent = ({food, props}) => {
   const dispatch = useDispatch();
@@ -38,9 +38,7 @@ const ProductContent = ({food, props}) => {
   const _renderItem = item => (
     <ItemStats title={item.title} stats={item.stats} />
   );
-  useEffect(() => {
-    console.log(wishList);
-  }, [wishList]);
+
   return (
     <Block row alignCenter space="between" paddingTop={20}>
       <Block alignCenter justifyCenter width="40%">

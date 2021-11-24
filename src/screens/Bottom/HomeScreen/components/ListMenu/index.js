@@ -1,12 +1,14 @@
 import {Course, Discount20, Discount50, Equipment, Food} from '@assets/icons';
+
 import {Block} from '@components';
+import {FlatList} from 'react-native';
 import ItemMenu from '@components/ItemList/ItemMenu';
 import React from 'react';
-import {FlatList} from 'react-native';
-import {useTheme} from '@theme';
-import {useSelector} from 'react-redux';
+import {keyExtractor} from 'utils/keyExtractor';
 import {routes} from '@navigation/routes';
 import {useNavigation} from '@react-navigation/core';
+import {useSelector} from 'react-redux';
+import {useTheme} from '@theme';
 import {useTranslation} from 'react-i18next';
 
 const ListMenu = () => {
@@ -48,7 +50,11 @@ const ListMenu = () => {
   ];
   const _renderItem = ({item, index}) => {
     const onPress = () => {
-      navigation.navigate(item.navigation, {valuePromotion: item.value});
+      navigation.navigate(
+        item.navigation,
+        {valuePromotion: item.value},
+        {title: item.title},
+      );
     };
     return (
       <ItemMenu
@@ -66,7 +72,7 @@ const ListMenu = () => {
         horizontal
         nestedScrollEnabled
         data={DATA}
-        keyExtractor={(item, index) => index}
+        keyExtractor={keyExtractor}
         renderItem={_renderItem}
       />
     </Block>

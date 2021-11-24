@@ -1,6 +1,6 @@
 import {Block, Text} from '@components';
-
 import {Image, ScrollView} from 'react-native';
+
 import {Rating} from 'react-native-ratings';
 import React from 'react';
 import {icons} from '@assets';
@@ -8,20 +8,19 @@ import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
 
-const ItemReview = ({name, userImage, image, content, date, rating, props}) => {
+const ItemReview = ({author, image, content, date, rating, props}) => {
   const {
     theme: {theme: themeStore},
   } = useSelector(stateRoot => stateRoot.root);
   const styles = useStyles(props, themeStore);
   const theme = useTheme(themeStore);
-  console.log('a', image);
   return (
     <Block marginBottom={15}>
       <Image
         style={styles.userImage}
         source={{
           uri:
-            userImage ||
+            author.photoURL ||
             'https://pbs.twimg.com/media/EYVxlOSXsAExOpX?format=jpg&name=small',
         }}
       />
@@ -33,7 +32,7 @@ const ItemReview = ({name, userImage, image, content, date, rating, props}) => {
         borderRadius={8}
         backgroundColor={theme.colors.border}>
         <Text size={18} fontType="bold">
-          {name || 'Default Name'}
+          {author.fullName}
         </Text>
         <Block row space="between" alignCenter>
           <Rating

@@ -1,12 +1,13 @@
-import {lotties} from '@assets';
 import {Block, Button, Empty, Text} from '@components';
-
-import {useNavigation} from '@react-navigation/core';
 import React, {useCallback} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
+
 import {changeRouteScreen} from 'reduxs/reducers';
+import {lotties} from '@assets';
+import {useNavigation} from '@react-navigation/core';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
+import {useTranslation} from 'react-i18next';
 
 const InviteLogin = ({navigate, routes, props}) => {
   const navigation = useNavigation();
@@ -20,6 +21,7 @@ const InviteLogin = ({navigate, routes, props}) => {
   } = useSelector(state => state.root);
   const styles = useStyles(props, themeStore);
   const theme = useTheme(themeStore);
+  const {t} = useTranslation();
 
   return (
     <Block flex backgroundColor={theme.colors.backgroundSetting}>
@@ -28,13 +30,11 @@ const InviteLogin = ({navigate, routes, props}) => {
           <Empty lottie={lotties.login} />
         </Block>
         <Block flex>
-          <Text style={styles.renderTitle}>Requires login</Text>
-          <Text style={styles.renderText}>
-            Please log in to connect and use SmartFit's services
-          </Text>
+          <Text style={styles.renderTitle}>{t('requiresLogin')}</Text>
+          <Text style={styles.renderText}>{t('pleaseLogin')}</Text>
         </Block>
       </Block>
-      <Button title="LOG IN" onPress={handleOpenLogIn} />
+      <Button title={t('login')} onPress={handleOpenLogIn} />
     </Block>
   );
 };

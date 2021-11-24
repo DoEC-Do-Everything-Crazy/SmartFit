@@ -1,14 +1,15 @@
+import {Animated, Dimensions, StatusBar, Text} from 'react-native';
+import React, {useEffect, useRef} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+
 /* eslint-disable react-hooks/exhaustive-deps */
 import {Block} from '@components';
-import {useTheme} from '@theme';
-import React, {useEffect, useRef} from 'react';
-import {StatusBar, Animated, Text, Dimensions} from 'react-native';
-import {useNavigation} from '@react-navigation/core';
-import {routes} from '@navigation/routes';
-import {useSelector, useDispatch} from 'react-redux';
 import {Logo} from '@assets/icons';
-import {useStyles} from './styles';
 import {changeLanguage} from 'reduxs/reducers';
+import {routes} from '@navigation/routes';
+import {useNavigation} from '@react-navigation/core';
+import {useStyles} from './styles';
+import {useTheme} from '@theme';
 
 const SplashScreen = props => {
   const {
@@ -28,11 +29,19 @@ const SplashScreen = props => {
   useEffect(() => {
     dispatch(changeLanguage(languageStore));
     setTimeout(() => {
-      first === false
-        ? navigation.navigate(routes.ONBOARD_SCREEN)
-        : isTurnPassword
-        ? navigation.navigate(routes.PASSWORD_SCREEN)
-        : navigation.navigate(routes.BOTTOM_TAB);
+      navigation.reset({
+        index: 0,
+        routes: [
+          {
+            name:
+              first === false
+                ? routes.ONBOARD_SCREEN
+                : isTurnPassword
+                ? routes.PASSWORD_SCREEN
+                : routes.BOTTOM_TAB,
+          },
+        ],
+      });
     }, 2200);
 
     Animated.sequence([

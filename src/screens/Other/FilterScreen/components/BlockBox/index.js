@@ -1,10 +1,12 @@
 import {Block, Text} from '@components';
-import React, {useState} from 'react';
 import {FlatList, Pressable} from 'react-native';
+import React, {useState} from 'react';
+
+import LinearGradient from 'react-native-linear-gradient';
+import {keyExtractor} from 'utils/keyExtractor';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
-import LinearGradient from 'react-native-linear-gradient';
 
 const BlockBox = ({category, data, props}) => {
   const {
@@ -85,7 +87,7 @@ const BlockBox = ({category, data, props}) => {
         contentContainerStyle={styles.list}
         data={data}
         renderItem={_renderItem}
-        keyExtractor={item => item.id}
+        keyExtractor={keyExtractor}
         extraData={selectedId}
       />
     </Block>

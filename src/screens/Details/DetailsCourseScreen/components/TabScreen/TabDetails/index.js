@@ -10,23 +10,23 @@ import {
   ScrollView,
 } from 'react-native';
 import React, {useCallback, useEffect, useRef, useState} from 'react';
+import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useDispatch, useSelector} from 'react-redux';
 
 /* eslint-disable react-hooks/exhaustive-deps */
 import {Back} from '@assets/icons';
 import {BottomSheet} from '@components/BottomSheet';
-
 import ItemPT from '@components/ItemList/ItemPT';
 import LinearGradient from 'react-native-linear-gradient';
+import ListSimilar from '../../../../../Bottom/HomeScreen/components/ListSimilar/index';
 import {Rating} from 'react-native-ratings';
-import RatingValue from '@components/RatingValue';
 import Review from '@components/Review';
+import Snackbar from 'react-native-snackbar';
 import {addCartItem} from 'reduxs/reducers';
 import {courseApi} from 'api/courseApi';
+import {keyExtractor} from 'utils/keyExtractor';
 import {ptApi} from 'api/ptApi';
-import {rateApi} from 'api/rateApi';
 import {routes} from '@navigation/routes';
-import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {useTranslation} from 'react-i18next';
@@ -46,7 +46,6 @@ const TabDetails = ({route, props}) => {
   const [dataPTDetail, setDataPTDetail] = useState([]);
   const [infoPT, setInfoPT] = useState([]);
   const [isShowReview, setShowReview] = useState();
-  const [rate, setRate] = useState(1);
   const {bottom} = useSafeAreaInsets();
   const keyboardVerticalOffset = Platform.OS === 'ios' ? 'padding' : 'height';
 
@@ -55,7 +54,7 @@ const TabDetails = ({route, props}) => {
       const resData = await ptApi.getPT(_id, {validateStatus: false});
       setDataPTDetail(resData);
     } catch (error) {
-      console.log('error', error.message);
+      console.error('error', error.message);
     }
   };
 
@@ -90,7 +89,7 @@ const TabDetails = ({route, props}) => {
         name={item.name}
         gender={item.gender}
         birthday={item.birthday}
-        price={item.price}
+        price={item.lastPrice}
         image={item.image}
       />
     );
@@ -113,21 +112,11 @@ const TabDetails = ({route, props}) => {
       const resData = await ptApi.getPTs();
       setDataPT(resData);
     } catch (error) {
-      console.log('error', error.message);
-    }
-  };
-
-  const getFoodRating = async courseId => {
-    try {
-      const data = await rateApi.getRateById('courseId', courseId);
-      setRate(data);
-    } catch (error) {
-      console.error(error.message);
+      console.error('error', error.message);
     }
   };
 
   useEffect(() => {
-    getFoodRating(id);
     getCourseDetails(id);
     getPt();
   }, []);
@@ -144,7 +133,6 @@ const TabDetails = ({route, props}) => {
   const day = sessions <= 50 ? 3 : 5;
   const weeks =
     sessions <= 50 ? Math.round(sessions / 3) : Math.round(sessions / 5);
-  const totalPrice = dataDetail?.price || 0 + dataPTDetail.price;
   const HeaderComponent = useCallback(
     props => {
       const {title, inf} = props;
@@ -190,7 +178,7 @@ const TabDetails = ({route, props}) => {
 
   return (
     <SafeAreaView
-      edges={['bottom', 'left', 'right']}
+      edges={['left', 'right']}
       style={styles.sendControlContainerOuter}>
       <Block flex backgroundColor={theme.colors.backgroundSetting}>
         {transferCourseScreen === 'CourseDetail' ? (
@@ -231,17 +219,25 @@ const TabDetails = ({route, props}) => {
               paddingVertical={10}
               paddingHorizontal={16}
               backgroundColor={theme.colors.lightBlue}>
-              <Rating
-                readonly={true}
-                type="custom"
-                ratingColor="#045694"
-                ratingCount={5}
-                imageSize={18}
-                tintColor={theme.colors.lightBlue}
-              />
-              <Text marginLeft={100} color={theme.colors.iconInf}>
-                6,3k {t('completed')}
-              </Text>
+              <Block flex row>
+                <Rating
+                  readonly={true}
+                  type="custom"
+                  ratingColor="#045694"
+                  ratingCount={5}
+                  startingValue={dataDetail.averageRating}
+                  imageSize={18}
+                  tintColor={theme.colors.lightBlue}
+                />
+                <Block marginLeft={10}>
+                  <Text color={theme.colors.iconInf}>
+                    ({dataDetail.averageRating})
+                  </Text>
+                </Block>
+              </Block>
+              <Block flex>
+                <Text color={theme.colors.iconInf}>6,3k {t('completed')}</Text>
+              </Block>
             </Block>
             <Block marginTop={10}>
               <Text paddingHorizontal={16} fontType="bold">
@@ -310,10 +306,11 @@ const TabDetails = ({route, props}) => {
                   <Block paddingHorizontal={16}>
                     <PayInfo
                       title1={t('course')}
-                      titlePrice1={dataDetail.price}
+                      titlePrice1={dataDetail.lastPrice}
                       title2={t('PT')}
                       titlePrice2={infoPT?.price || 0}
-                      total={totalPrice}
+                      title3={t('total')}
+                      titlePrice3={dataDetail.lastPrice + infoPT?.price || 0}
                     />
                   </Block>
                   <Block
@@ -322,7 +319,7 @@ const TabDetails = ({route, props}) => {
                     paddingBottom={20}
                     paddingHorizontal={16}>
                     <Text fontType="bold" size={17}>
-                      {t('review')}:
+                      {t('Review')}:
                     </Text>
                     <Pressable onPress={handleShowReview}>
                       <Text style={styles.link} marginLeft={15} size={17}>
@@ -331,14 +328,16 @@ const TabDetails = ({route, props}) => {
                     </Pressable>
                   </Block>
                   {isShowReview ? (
-                    <>
-                      <RatingValue />
-                      <Review rate={rate} />
-                    </>
+                    <Review
+                      averageRating={dataDetail.averageRating}
+                      totalReviews={dataDetail.totalReviews}
+                      courseId={dataDetail._id}
+                    />
                   ) : null}
                 </>
               ) : null}
             </Block>
+            <ListSimilar type={'course'} />
             {/* BOTTOM SHEET PT */}
             <BottomSheet
               ref={modalizPTList}
@@ -355,7 +354,7 @@ const TabDetails = ({route, props}) => {
                   <FlatList
                     showsVerticalScrollIndicator={false}
                     data={dataPT}
-                    keyExtractor={(item, index) => index.toString()}
+                    keyExtractor={keyExtractor}
                     renderItem={_renderItemPT}
                   />
                 </Block>
@@ -395,7 +394,7 @@ const TabDetails = ({route, props}) => {
                     borderColor={theme.colors.gray}
                     row>
                     <Block width={screenWidth / 3.6}>
-                      <Text fontType="bold">{t('ratting')}</Text>
+                      <Text fontType="bold">{t('rating')}</Text>
                     </Block>
                     <Block width={screenWidth / 1.55} alignStart>
                       <Rating
@@ -471,7 +470,7 @@ const TabDetails = ({route, props}) => {
                       <Text fontType="bold">{t('price')}</Text>
                     </Block>
                     <Block width={screenWidth / 1.55}>
-                      <Text>${dataPTDetail.price}</Text>
+                      <Text>{`$${dataPTDetail.price}`}</Text>
                     </Block>
                   </Block>
                 </Block>
@@ -479,12 +478,18 @@ const TabDetails = ({route, props}) => {
               </KeyboardAvoidingView>
             </BottomSheet>
           </Block>
+          <ListSimilar type={'course'} />
         </ScrollView>
         {JSON.stringify(user) !== '{}' ? (
           <Button
             title={t('addToCart')}
             onPress={() => {
               dispatch(addCartItem({addItem: dataDetail, quantity: 1}));
+
+              Snackbar.show({
+                text: t('addedToCart'),
+                duration: Snackbar.LENGTH_SHORT,
+              });
             }}
           />
         ) : (

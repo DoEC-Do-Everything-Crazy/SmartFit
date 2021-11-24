@@ -12,6 +12,10 @@ const AuthStack = () => {
       screenOptions={{headerShown: false}}>
       <Stack.Screen name={routes.LOGIN_SCREEN} component={auth.LOGIN_SCREEN} />
       <Stack.Screen
+        name={routes.REGISTER_SCREEN}
+        component={auth.REGISTER_SCREEN}
+      />
+      <Stack.Screen
         name={routes.ENTER_PHONE_NUMBER_SCREEN}
         component={auth.ENTER_PHONE_NUMBER_SCREEN}
       />
