@@ -112,12 +112,6 @@ const UpdateProfileScreen = ({route, props}) => {
   const handleFormSubmit = () => {
     const formData = new FormData();
 
-    userProfile.email && formData.append('email', userProfile.email);
-    userProfile.birthday && formData.append('birthday', userProfile.birthday);
-    userProfile.fullName && formData.append('fullName', userProfile.fullName);
-    valueGender && formData.append('gender', valueGender);
-    userProfile.phoneNumber &&
-      formData.append('phoneNumber', userProfile.phoneNumber);
     user._id && formData.append('userId', user._id);
     if (image.length !== 0) {
       for (let i = 0; i < image.length; i++) {
