@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import {Block, Button, DropDown, Header, TextInput} from '@components';
 import {Email, Fullname, List, Phone} from '@assets/icons';
-import {Platform, TouchableOpacity, Pressable, Image, Text} from 'react-native';
-import React, {useState, useEffect} from 'react';
+import {Platform, TouchableOpacity} from 'react-native';
+import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -14,9 +14,6 @@ import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {useTranslation} from 'react-i18next';
 import {userApi} from 'api/userApi';
-import {icons} from '@assets';
-import {addImage, removeImage} from 'reduxs/reducers';
-import ImagePicker from 'react-native-image-crop-picker';
 
 const UpdateProfileScreen = ({route, props}) => {
   const navigation = useNavigation();
@@ -26,7 +23,6 @@ const UpdateProfileScreen = ({route, props}) => {
   const {
     theme: {theme: themeStore},
     user: {user, token},
-    image: {image},
   } = useSelector(state => state.root);
 
   const styles = useStyles(props, themeStore);
@@ -38,7 +34,6 @@ const UpdateProfileScreen = ({route, props}) => {
     birthday: user.birthday,
     phoneNumber: user.phoneNumber || '',
     fullName: user.fullName,
-    photoURL: user.photoURL,
   });
 
   const [mode, setMode] = useState('date');
@@ -51,7 +46,7 @@ const UpdateProfileScreen = ({route, props}) => {
     {label: t('other'), value: 'other'},
   ]);
   const [openGender, setOpenGender] = useState(false);
-  const [imageUri, setImageUri] = useState('');
+
   const showMode = currentMode => {
     setShow(true);
     setMode(currentMode);
@@ -70,8 +65,6 @@ const UpdateProfileScreen = ({route, props}) => {
         gender: valueGender,
       };
 
-      dispatch(removeImage());
-
       const resData = await userApi.updateUser(newUser);
 
       dispatch(setUser(resData.data));
@@ -81,67 +74,12 @@ const UpdateProfileScreen = ({route, props}) => {
     }
   };
 
-  const addImageUser = async formData => {
-    console.log({formData});
-    const res = await userApi.uploadImage(formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    });
-
-    dispatch(removeImage());
-    dispatch(setUser(res.data));
-  };
-
-  const handleGallery = () => {
-    // dispatch(removeImage());
-    ImagePicker.openPicker({
-      width: 300,
-      height: 400,
-      cropping: true,
-    }).then(images => {
-      const newImage = {
-        uri: images.path,
-        name: new Date().getTime() + '.jpg',
-        type: 'image/jpg',
-      };
-
-      setImageUri(newImage.uri);
-      dispatch(addImage(newImage));
-    });
-  };
-
-  const handleFormSubmit = () => {
-    const formData = new FormData();
-
-    user._id && formData.append('userId', user._id);
-    if (image.length !== 0) {
-      for (let i = 0; i < image.length; i++) {
-        if (image.length - 1 === i) {
-          formData.append('images', image[i]);
-        }
-      }
-    } else {
-      const newImage = {
-        uri: user.photoURL,
-        name: new Date().getTime() + '.jpg',
-        type: 'image/jpg',
-      };
-      user.photoURL && formData.append('images', newImage);
-    }
-
-    addImageUser(formData);
-  };
-
   const handleOnSubmit = () => {
     updateProfile();
-    handleFormSubmit();
   };
 
   useEffect(() => {
     setAuthToken(token);
-    dispatch(removeImage());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -155,38 +93,7 @@ const UpdateProfileScreen = ({route, props}) => {
           colorTheme={theme.colors.blue}
         />
         <Block flex paddingTop={20}>
-          <Block alignCenter marginRight={16}>
-            <Pressable style={styles.camera} onPress={handleGallery}>
-              {user.photoURL ? (
-                <Image
-                  style={styles.image}
-                  source={{
-                    uri: imageUri ? imageUri : user.photoURL,
-                  }}
-                />
-              ) : (
-                <Image
-                  style={styles.image}
-                  source={{
-                    uri: imageUri
-                      ? imageUri
-                      : 'https://i.pinimg.com/originals/e6/c0/ba/e6c0ba2042e46628276fffc6d4eb26d6.jpg',
-                  }}
-                />
-              )}
-              <Block style={styles.title}>
-                <Text></Text>
-              </Block>
-              <Image
-                source={icons.camera}
-                style={styles.cameraImage}
-                ressource={'contain'}
-              />
-            </Pressable>
-          </Block>
-
           <Block style={styles.group}>
-            <Block marginTop={8} marginBottom={24} />
             <TextInput
               label={t('enterFullName')}
               inputStyle={styles.input}
