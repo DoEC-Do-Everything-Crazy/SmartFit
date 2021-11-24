@@ -25,12 +25,9 @@ const InfoProfile = ({user, props}) => {
         <Image
           style={styles.image}
           source={{
-            uri: user.photoURL
-              ? user.photoURL
-              : 'https://i.pinimg.com/originals/e6/c0/ba/e6c0ba2042e46628276fffc6d4eb26d6.jpg',
+            uri: user.photoURL,
           }}
         />
-
         <Block
           flex
           justifyCenter
