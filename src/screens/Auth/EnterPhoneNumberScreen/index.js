@@ -10,8 +10,11 @@ import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {useTranslation} from 'react-i18next';
+import {userApi} from 'api/userApi';
 
-const EnterPhoneNumberScreen = props => {
+const EnterPhoneNumberScreen = ({props, route}) => {
+  const email = route.params?.email;
+  const code = route.params?.code;
   const navigation = useNavigation();
   const {
     theme: {theme: themeStore},
@@ -21,48 +24,70 @@ const EnterPhoneNumberScreen = props => {
   const {t} = useTranslation();
 
   const validationSchema = yup.object().shape({
-    phoneNumber: yup
+    newPassword: yup
       .string()
-      .matches(
-        /([+84|0])+([3|5|7|8|9])+([0-9]{8})\b/g,
-        'Enter a valid phone number',
-      )
-      .required('Phone number is Required'),
+      .min(8, 'Password is too short - should be 8 chars minimum.')
+      .required('Password is Required'),
+    newPasswordAgain: yup
+      .string()
+      .oneOf([yup.ref('newPassword'), null], 'Passwords must match')
+      .min(8, 'Password is too short - should be 8 chars minimum.')
+      .required('Password is Required'),
   });
 
   return (
     <Formik
       validationSchema={validationSchema}
       initialValues={{
-        phoneNumber: '+84',
+        newPassword: '',
+        newPasswordAgain: '',
       }}
-      onSubmit={props => {
-        navigation.navigate(routes.VFT_PHONE_NUMBER_SCREEN, {
-          phone: props.phoneNumber,
+      onSubmit={async props => {
+        console.log(
+          'code' + code + 'email' + email + 'newpass' + props.newPassword,
+        );
+        const res = await userApi.resetPassword({
+          code: code,
+          email: email,
+          newPassword: props.newPassword,
         });
+
+        if (res.status === 200) {
+          navigation.navigate(routes.LOGIN_SCREEN);
+        }
       }}>
       {({handleChange, handleBlur, handleSubmit, touched, errors, values}) => (
         <Block flex backgroundColor={theme.colors.backgroundSetting}>
           <Header
             canGoBack
             colorTheme={theme.colors.blue}
-            title={t('signInWithPhoneNumber')}
+            title={t('reserPass')}
           />
           <Block flex justifyCenter paddingHorizontal={16}>
             <Text center fontType={'bold'} marginBottom={30}>
-              {t('enterOTP')}
+              {t('EnterNPass')}
             </Text>
             <Block marginBottom={10}>
               <TextInput
-                onChangeText={handleChange('phoneNumber')}
-                value={values.phoneNumber}
+                onChangeText={handleChange('newPassword')}
                 inputStyle={styles.textInput}
-                keyboardType="number-pad"
-                label="Enter phone number"
-                onBlur={handleBlur('phoneNumber')}
+                label={t('enterYourPassword')}
+                onBlur={handleBlur('newPassword')}
+                isSecure
               />
-              {errors.phoneNumber && touched.phoneNumber && (
-                <Text style={styles.text}>{errors.phoneNumber}</Text>
+              {errors.newPassword && touched.newPassword && (
+                <Text style={styles.text}>{errors.newPassword}</Text>
+              )}
+              <Block marginVertical={10} />
+              <TextInput
+                onChangeText={handleChange('newPasswordAgain')}
+                inputStyle={styles.textInput}
+                label={t('enterPassAgain')}
+                onBlur={handleBlur('newPasswordAgain')}
+                isSecure
+              />
+              {errors.newPasswordAgain && touched.newPasswordAgain && (
+                <Text style={styles.text}>{errors.newPasswordAgain}</Text>
               )}
             </Block>
           </Block>
