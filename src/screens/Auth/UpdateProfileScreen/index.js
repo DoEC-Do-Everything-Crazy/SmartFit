@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import {Block, Button, DropDown, Header, TextInput} from '@components';
 import {Email, Fullname, List, Phone} from '@assets/icons';
-import {Platform, TouchableOpacity} from 'react-native';
+import {Platform, TouchableOpacity, Image, Pressable, Text} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
@@ -14,6 +14,7 @@ import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {useTranslation} from 'react-i18next';
 import {userApi} from 'api/userApi';
+import {icons} from '@assets';
 
 const UpdateProfileScreen = ({route, props}) => {
   const navigation = useNavigation();
@@ -92,8 +93,27 @@ const UpdateProfileScreen = ({route, props}) => {
           title={t('updateProfile')}
           colorTheme={theme.colors.blue}
         />
-        <Block flex paddingTop={20}>
+        <Block flex alignCenter paddingTop={20}>
+          <Block alignCenter marginRight={16}>
+            <Image
+              style={styles.image}
+              source={{
+                uri: 'https://i.pinimg.com/originals/e6/c0/ba/e6c0ba2042e46628276fffc6d4eb26d6.jpg',
+              }}
+            />
+            <Block style={styles.title}>
+              <Text></Text>
+            </Block>
+            <Pressable style={styles.camera}>
+              <Image
+                source={icons.camera}
+                style={styles.cameraImage}
+                ressource={'contain'}
+              />
+            </Pressable>
+          </Block>
           <Block style={styles.group}>
+            <Block marginTop={8} marginBottom={24} />
             <TextInput
               label={t('enterFullName')}
               inputStyle={styles.input}
@@ -193,14 +213,14 @@ const UpdateProfileScreen = ({route, props}) => {
               )}
             </TouchableOpacity>
           </Block>
-          <Block flex justifyEnd>
+          {/* <Block flex justifyEnd>
             <Button
-              // containerStyle={{justifyContent: 'flex-end'}}
+              containerStyle={{justifyContent: 'flex-end'}}
               title={t('update')}
               style={styles.button}
               onPress={handleOnSubmit}
             />
-          </Block>
+          </Block> */}
         </Block>
       </Block>
     </SafeAreaView>
