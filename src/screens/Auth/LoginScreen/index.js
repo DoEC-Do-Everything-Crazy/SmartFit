@@ -126,7 +126,6 @@ const LoginScreen = ({navigation, props}) => {
         errors,
         values,
         isValid,
-        dirty,
       }) => (
         <Block flex backgroundColor={theme.colors.backgroundSetting}>
           <ScrollView>
