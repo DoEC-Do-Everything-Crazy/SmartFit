@@ -1,7 +1,6 @@
 import {Block, Button, Header, Text, TextInput} from '@components';
 import {routes} from '@navigation/routes';
 import {useNavigation} from '@react-navigation/core';
-import {width} from '@utils/responsive';
 import {Formik} from 'formik';
 import React from 'react';
 import * as yup from 'yup';
@@ -25,22 +24,17 @@ const ChangePassword = props => {
 
   const validationSchema = yup.object().shape({
     password: yup.string().required(t('errorPasswordRequired')),
-    newPassWord: yup
-      .string()
-      .min(8, 'Password is too short - should be 8 chars minimum.')
-      .required('Password is Required'),
     confirmPassword: yup
       .string()
-      .oneOf([yup.ref('newPassword'), null], 'Passwords must match')
-      .min(8, 'Password is too short - should be 8 chars minimum.')
-      .required('Password is Required'),
+      .min(6, () => t('errCharactersLeght'))
+      .required(t('errorPasswordRequired'))
+      .oneOf([yup.ref('password')], t('errNotMatch')),
   });
   return (
     <Formik
       validationSchema={validationSchema}
       initialValues={{
-        oldPassword: '',
-        newPassWord: '',
+        password: '',
         confirmPassword: '',
       }}
       onSubmit={subProps => {
@@ -88,7 +82,7 @@ const ChangePassword = props => {
               <TextInput
                 inputStyle={{paddingHorizontal: 16}}
                 onChangeText={handleChange('newPassWord')}
-                value={values.password}
+                value={values.newPassWord}
                 label={t('enterNewPassword')}
                 onBlur={handleBlur('newPassWord')}
                 isSecure
