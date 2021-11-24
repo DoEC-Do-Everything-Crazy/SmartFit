@@ -1,6 +1,7 @@
 import {Block, Button, Header, Text, TextInput} from '@components';
 import {routes} from '@navigation/routes';
 import {useNavigation} from '@react-navigation/core';
+import {width} from '@utils/responsive';
 import {Formik} from 'formik';
 import React from 'react';
 import * as yup from 'yup';
@@ -62,40 +63,32 @@ const ChangePassword = props => {
               colorTheme={theme.colors.blue}
             />
             <Block
+              flex
               justifyCenter
               paddingHorizontal={16}
               backgroundColor={theme.colors.backgroundSetting}>
+              <Text size={18} center fontType="bold" color={theme.colors.text}>
+                {t('enterNewPassword')}
+              </Text>
               <TextInput
                 inputStyle={{paddingHorizontal: 16}}
-                onChangeText={handleChange('oldPassword')}
-                value={values.oldPassword}
-                containerInputStyle={{marginTop: 16}}
-                label={t('enterOldPassword')}
-                onBlur={handleBlur('oldPassword')}
-                isSecure
-              />
-              <Block marginTop={8} marginBottom={24}>
-                {errors.oldPassword && touched.oldPassword && (
-                  <Text style={styles.text}>{errors.oldPassword}</Text>
-                )}
-              </Block>
-              <TextInput
-                inputStyle={{paddingHorizontal: 16}}
-                onChangeText={handleChange('newPassWord')}
-                value={values.newPassWord}
+                onChangeText={handleChange('password')}
+                value={values.password}
+                containerInputStyle={{width: width - 32, marginTop: 16}}
                 label={t('enterNewPassword')}
-                onBlur={handleBlur('newPassWord')}
+                onBlur={handleBlur('password')}
                 isSecure
               />
               <Block marginTop={8} marginBottom={24}>
-                {errors.newPassWord && touched.newPassWord && (
-                  <Text style={styles.text}>{errors.newPassWord}</Text>
+                {errors.password && touched.password && (
+                  <Text style={styles.text}>{errors.password}</Text>
                 )}
               </Block>
               <TextInput
                 inputStyle={{paddingHorizontal: 16}}
                 onChangeText={handleChange('confirmPassword')}
                 value={values.confirmPassword}
+                containerInputStyle={{width: width - 32, marginTop: 16}}
                 label={t('enterConfimPassword')}
                 onBlur={handleBlur('confirmPassword')}
                 isSecure
