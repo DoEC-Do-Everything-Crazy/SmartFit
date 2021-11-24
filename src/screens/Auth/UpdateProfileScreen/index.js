@@ -37,7 +37,6 @@ const UpdateProfileScreen = ({route, props}) => {
     birthday: user.birthday,
     phoneNumber: user.phoneNumber || '',
     fullName: user.fullName,
-    photoURL: user.photoURL,
   });
 
   const [mode, setMode] = useState('date');
@@ -69,8 +68,6 @@ const UpdateProfileScreen = ({route, props}) => {
         phoneNumber: userProfile.phoneNumber,
         gender: valueGender,
       };
-
-      dispatch(removeImage());
 
       const resData = await userApi.updateUser(newUser);
 
@@ -134,7 +131,6 @@ const UpdateProfileScreen = ({route, props}) => {
 
   const handleOnSubmit = () => {
     updateProfile();
-    handleFormSubmit();
   };
 
   useEffect(() => {

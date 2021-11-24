@@ -60,8 +60,8 @@ export const useStyles = makeStyles()(({colors}) => ({
     borderColor: colors.inputText,
   },
   img: {
-    height: getSize.m(100),
-    width: getSize.m(100),
+    height: getSize.m(20),
+    width: getSize.m(20),
   },
   sendControlContainerOuter: {
     flex: 1,
