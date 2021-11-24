@@ -1,7 +1,13 @@
+import {height, width} from 'utils/responsive';
+
+import {getSize} from '@utils/responsive';
 import {makeStyles} from '@theme';
 
 export const useStyles = makeStyles()(({colors}) => ({
-  container: {flex: 1, alignItems: 'center'},
+  container: {
+    flex: 1,
+    alignItems: 'center',
+  },
   button: {
     height: 60,
     backgroundColor: colors.blue,
@@ -12,5 +18,20 @@ export const useStyles = makeStyles()(({colors}) => ({
   },
   sendControlContainerOuter: {
     flex: 1,
+  },
+  inputStyle: {
+    height: getSize.m(48),
+    paddingLeft: getSize.m(16),
+    borderWidth: 0,
+  },
+  processing: {
+    width: width,
+    height: height,
+    position: 'absolute',
+    zIndex: 100,
+  },
+  googleSigninButton: {
+    width: 192,
+    height: 48,
   },
 }));

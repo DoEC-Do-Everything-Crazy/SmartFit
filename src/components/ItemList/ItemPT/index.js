@@ -1,11 +1,12 @@
-import LinearGradient from 'react-native-linear-gradient';
 import {Block, Text} from '@components';
-import React from 'react';
 import {Image, Pressable} from 'react-native';
+
+import LinearGradient from 'react-native-linear-gradient';
+import {Rating} from '@assets/icons';
+import React from 'react';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
-import {Ratting} from '@assets/icons';
 import {useTranslation} from 'react-i18next';
 
 const ItemPT = ({onPress, name, gender, price, image, index, props}) => {
@@ -37,12 +38,6 @@ const ItemPT = ({onPress, name, gender, price, image, index, props}) => {
             <Text size={20} fontType="bold">
               {name}
             </Text>
-            <Block marginLeft={15} alignCenter row>
-              <Ratting />
-              <Text size={15} marginLeft={5}>
-                0.0
-              </Text>
-            </Block>
           </Block>
           <Block row alignCenter>
             <Text size={15} fontType="bold">
@@ -50,7 +45,7 @@ const ItemPT = ({onPress, name, gender, price, image, index, props}) => {
             </Text>
             <Block marginLeft={5} alignCenter>
               <Text size={15} marginLeft={5}>
-                {gender}
+                {t(`${gender}`)}
               </Text>
             </Block>
           </Block>

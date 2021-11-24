@@ -3,6 +3,8 @@ const icons = {
   plus: require('./icons/plus.png'),
   like: require('./icons/like.png'),
   gallery: require('./icons/gallery.png'),
+  viewer: require('./icons/viewer.png'),
+  camera: require('./icons/camera.png'),
 };
 
 const lotties = {

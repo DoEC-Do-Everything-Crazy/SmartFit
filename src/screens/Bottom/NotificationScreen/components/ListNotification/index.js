@@ -1,7 +1,10 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, {useEffect, useState} from 'react';
+
 import {Block} from '@components';
-import ItemNotification from '@components/ItemList/ItemNotification';
-import React, {useState, useEffect} from 'react';
 import {FlatList} from 'react-native';
+import ItemNotification from '@components/ItemList/ItemNotification';
+import {keyExtractor} from 'utils/keyExtractor';
 import {promotionApi} from 'api/promotionApi.js';
 import {useSelector} from 'react-redux';
 import {useTheme} from '@theme';
@@ -27,13 +30,12 @@ const ListNotification = props => {
         setNotification(response);
       }
     } catch (error) {
-      console.log('error', error.message);
+      console.error('error', error.message);
     }
   };
 
   useEffect(() => {
     fetchPromotion();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const _renderItem = ({item}) => <ItemNotification item={item} />;
@@ -44,7 +46,7 @@ const ListNotification = props => {
         showsVerticalScrollIndicator={false}
         nestedScrollEnabled
         data={notification}
-        keyExtractor={item => item._id}
+        keyExtractor={keyExtractor}
         renderItem={_renderItem}
       />
     </Block>

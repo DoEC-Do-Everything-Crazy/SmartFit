@@ -1,14 +1,18 @@
 import {apiUrl} from '@config/api';
 import axios from 'axios';
 
-const getPTs = async options => {
+const getPTs = async (params, options) => {
   try {
-    const response = await axios.get(`${apiUrl}/courses/pt`, {
-      ...options,
-      validateStatus: false,
-    });
+    const response = await axios.get(
+      `${apiUrl}/pts`,
+      {params},
+      {
+        ...options,
+        validateStatus: false,
+      },
+    );
 
-    if (response.status === 404 || response.status === 500) {
+    if (response.status !== 200) {
       throw response.data;
     }
 
@@ -20,12 +24,12 @@ const getPTs = async options => {
 
 const getPT = async (id, options) => {
   try {
-    const response = await axios.get(`${apiUrl}/courses/pt/${id}`, {
+    const response = await axios.get(`${apiUrl}/pts/${id}`, {
       ...options,
       validateStatus: false,
     });
 
-    if (response.status === 404 || response.status === 500) {
+    if (response.status !== 200) {
       throw response.data;
     }
 
@@ -42,7 +46,7 @@ const addPT = async (data, options) => {
       validateStatus: false,
     });
 
-    if (response.status === 404 || response.status === 500) {
+    if (response.status !== 200) {
       throw response.data;
     }
 
@@ -59,7 +63,7 @@ const updatePT = async (data, options) => {
       validateStatus: false,
     });
 
-    if (response.status === 404 || response.status === 500) {
+    if (response.status !== 200) {
       throw response.data;
     }
 
@@ -80,7 +84,7 @@ const deletePT = async (id, options) => {
       },
     );
 
-    if (response.status === 404 || response.status === 500) {
+    if (response.status !== 200) {
       throw response.data;
     }
 

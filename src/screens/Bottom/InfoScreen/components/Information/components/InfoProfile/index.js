@@ -1,5 +1,5 @@
-import {Email, Gender, List, Phone} from '@assets/icons';
 import {Block, Text} from '@components';
+import {Email, Gender, List, Phone} from '@assets/icons';
 
 import {Image} from 'react-native';
 import React from 'react';
@@ -45,7 +45,7 @@ const InfoProfile = ({user, props}) => {
             marginTop={3}
             color={theme.colors.text}
             fontType="bold">
-            {user.displayName}
+            {user.fullName}
           </Text>
           <Block>
             <Block row marginTop={6} marginBottom={3}>
@@ -78,7 +78,7 @@ const InfoProfile = ({user, props}) => {
               </Block>
               <Block justifyCenter>
                 <Text size={14} marginLeft={10} color={theme.colors.text}>
-                  {user.gender}
+                  {t(user.gender)}
                 </Text>
               </Block>
             </Block>

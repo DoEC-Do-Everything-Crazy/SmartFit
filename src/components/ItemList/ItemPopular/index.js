@@ -4,20 +4,48 @@ import {Image, Pressable, TouchableOpacity} from 'react-native';
 import {HeartPf} from '@assets/icons';
 import LinearGradient from 'react-native-linear-gradient';
 import React from 'react';
+import {courseApi} from 'api/courseApi';
+import {foodApi} from 'api/foodApi';
+import {routes} from '@navigation/routes';
+import {useNavigation} from '@react-navigation/core';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {width} from '@utils/responsive';
 
 const ItemPopular = ({item, props}) => {
+  const navigation = useNavigation();
   const {
     theme: {theme: themeStore},
     cart: {wishList},
   } = useSelector(stateRoot => stateRoot.root);
   const styles = useStyles(props, themeStore);
   const theme = useTheme(themeStore);
+
+  const updateViewFood = async item => {
+    await foodApi.updateViewFood(item, {
+      validateStatus: false,
+    });
+  };
+
+  const updateViewCourse = async item => {
+    await courseApi.updateViewCourse(item, {
+      validateStatus: false,
+    });
+  };
+
   return (
-    <Pressable style={styles.press}>
+    <Pressable
+      style={styles.press}
+      onPress={() => {
+        if (item.key.includes('C')) {
+          navigation.navigate(routes.TAB_DETAILS, {id: item._id});
+          updateViewCourse(item._id);
+        } else {
+          navigation.navigate(routes.FOOD_DETAILS_SCREEN, {id: item._id});
+          updateViewFood(item._id);
+        }
+      }}>
       <Block
         shadow
         height={150}
@@ -33,11 +61,13 @@ const ItemPopular = ({item, props}) => {
             uri: item.image[0],
           }}
         />
-        <Block style={styles.icon}>
-          <HeartPf isActive={wishList.includes(item.key)} />
-        </Block>
+        {!item.key.includes('C') && (
+          <Block style={styles.icon}>
+            <HeartPf isActive={wishList.includes(item.key)} />
+          </Block>
+        )}
         <Block style={styles.text}>
-          <Text center fontType="bold">
+          <Text center fontType="bold" numberOfLines={2}>
             {item.name}
           </Text>
         </Block>

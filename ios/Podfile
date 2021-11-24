@@ -4,6 +4,8 @@ require_relative '../node_modules/@react-native-community/cli-platform-ios/nativ
 platform :ios, '11.0'
 
 target 'SmartFit' do
+  pod ‘GoogleSignIn’, ‘~> 6.0.0’
+
   config = use_native_modules!
 
   use_react_native!(
@@ -14,8 +16,6 @@ target 'SmartFit' do
   permissions_path = '../node_modules/react-native-permissions/ios'
   pod 'Permission-Camera', :path => "#{permissions_path}/Camera"
   
-  pod 'react-native-camera', :path => '../node_modules/react-native-camera'
-
 
   target 'SmartFitTests' do
     inherit! :complete

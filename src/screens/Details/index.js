@@ -1,13 +1,13 @@
-import DetailsCourseScreen from './DetailsCourseScreen';
+import CourseDetailsScreen from './CourseDetailsScreen';
 import FoodDetailsScreen from './FoodDetailsScreen';
 import OrderDetailScreen from './OrderDetailScreen';
 import ProductDetailScreen from './ProductDetailScreen';
+import TabDetails from './CourseDetailsScreen/components/TabScreen/TabDetails';
 // TABS
-import TabLesson from './DetailsCourseScreen/components/TabScreen/TabLesson';
-import TabDetails from './DetailsCourseScreen/components/TabScreen/TabDetails';
+import TabLesson from './CourseDetailsScreen/components/TabScreen/TabLesson';
 
 export const details = {
-  COURSE_DETAILS_SCREEN: DetailsCourseScreen,
+  COURSE_DETAILS_SCREEN: CourseDetailsScreen,
   FOOD_DETAILS_SCREEN: FoodDetailsScreen,
   ORDER_DETAIL_SCREEN: OrderDetailScreen,
   PRODUCT_DETAIL_SCREEN: ProductDetailScreen,

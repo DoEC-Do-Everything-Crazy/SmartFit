@@ -1,17 +1,18 @@
 import {apiUrl} from '@config/api';
 import axios from 'axios';
 
-const getDataSearch = async (name, page, options) => {
+const getDataSearch = async (params, options) => {
   try {
     const response = await axios.get(
-      `${apiUrl}/search?name=${name}&page=${page}`,
+      `${apiUrl}/search`,
+      {params},
       {
         ...options,
         validateStatus: false,
       },
     );
 
-    if (response.status === 404 || response.status === 500) {
+    if (response.status !== 200) {
       throw response.data;
     }
     return response.data;

@@ -1,8 +1,6 @@
 import I18n from 'i18next';
-import {initReactI18next} from 'react-i18next';
-import {useSelector} from 'react-redux';
-
 import en from './en';
+import {initReactI18next} from 'react-i18next';
 import vi from './vi';
 
 const resources = {

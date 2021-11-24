@@ -1,6 +1,8 @@
 import * as React from 'react';
-import Svg, {Path, Defs, Pattern, Image, Use} from 'react-native-svg';
-export const Ratting = props => {
+
+import Svg, {Defs, Image, Path, Pattern, Use} from 'react-native-svg';
+
+export const Rating = props => {
   return (
     <Svg
       width={15}

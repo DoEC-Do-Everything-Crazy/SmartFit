@@ -1,18 +1,27 @@
-import {Block, Button, DropDown, Header, Text, TextInput} from '@components';
+/* eslint-disable react-hooks/exhaustive-deps */
+import {
+  Block,
+  Button,
+  DropDown,
+  Header,
+  TextInput,
+  Text,
+  Pressable,
+} from '@components';
 import {Email, Fullname, List, Phone} from '@assets/icons';
-import {Platform, TouchableOpacity, Pressable} from 'react-native';
-import React, {useState} from 'react';
+import {ScrollView, TouchableOpacity} from 'react-native';
+import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
 import DateTimePicker from '@react-native-community/datetimepicker';
-import {addUser} from 'reduxs/reducers';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import setAuthToken from 'utils/setAuthToken';
+import {setUser} from 'reduxs/reducers';
 import {useNavigation} from '@react-navigation/core';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {useTranslation} from 'react-i18next';
 import {userApi} from 'api/userApi';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {ScrollView} from 'react-native-gesture-handler';
 
 const UpdateProfileScreen = ({route, props}) => {
   const navigation = useNavigation();
@@ -21,7 +30,7 @@ const UpdateProfileScreen = ({route, props}) => {
 
   const {
     theme: {theme: themeStore},
-    user: {user},
+    user: {user, token},
   } = useSelector(state => state.root);
 
   const styles = useStyles(props, themeStore);
@@ -29,10 +38,10 @@ const UpdateProfileScreen = ({route, props}) => {
   const dateFormat = require('dateformat');
 
   const [userProfile, setUserProfile] = useState({
-    birthday: user.birthday,
-    phoneNumber: user.phoneNumber,
-    displayName: user.displayName,
     email: user.email,
+    birthday: user.birthday,
+    phoneNumber: user.phoneNumber || '',
+    fullName: user.fullName,
   });
 
   const [mode, setMode] = useState('date');
@@ -57,23 +66,16 @@ const UpdateProfileScreen = ({route, props}) => {
 
   const updateProfile = async () => {
     try {
-      await userApi.getUser({
-        userProfile: {...userProfile, uid: user.uid, gender: valueGender},
-        changePrimary:
-          userProfile.email !== user.email ||
-          userProfile.phoneNumber !== user.phoneNumber,
-      });
-
       const newUser = {
-        ...user,
+        fullName: userProfile.fullName,
         birthday: userProfile.birthday,
-        displayName: userProfile.displayName,
-        email: userProfile.email,
-        gender: valueGender,
         phoneNumber: userProfile.phoneNumber,
+        gender: valueGender,
       };
 
-      dispatch(addUser(newUser));
+      const resData = await userApi.updateUser(newUser);
+
+      dispatch(setUser(resData.data));
       navigation.goBack();
     } catch (error) {
       console.error(error.message);
@@ -83,6 +85,10 @@ const UpdateProfileScreen = ({route, props}) => {
   const handleOnSubmit = () => {
     updateProfile();
   };
+
+  useEffect(() => {
+    setAuthToken(token);
+  }, []);
 
   return (
     <SafeAreaView

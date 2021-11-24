@@ -3,8 +3,10 @@ import {makeStyles} from '@theme';
 
 export const useStyles = makeStyles()(({colors}) => ({
   image: {
+    borderRadius: getSize.m(8),
+    marginTop: getSize.s(100),
     width: '100%',
-    height: '100%',
+    height: '40%',
     resizeMode: 'contain',
   },
   header: {
@@ -51,5 +53,8 @@ export const useStyles = makeStyles()(({colors}) => ({
   link: {
     color: colors.link,
     textDecorationLine: 'underline',
+  },
+  similar: {
+    flex: 1,
   },
 }));

@@ -1,10 +1,10 @@
 import {Block, Text} from '@components';
-import React, {useState} from 'react';
 import {Pressable, ScrollView} from 'react-native';
+import React, {useState} from 'react';
 
+import LinearGradient from 'react-native-linear-gradient';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
-import LinearGradient from 'react-native-linear-gradient';
 import {useTranslation} from 'react-i18next';
 
 const DateCategory = props => {

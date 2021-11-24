@@ -4,6 +4,7 @@ import {
   AppSettingReducer,
   CartReducer,
   ChangeScreenReducer,
+  HistoryReducer,
   IdReducer,
   ImageRateReducer,
   PasswordReducer,
@@ -11,7 +12,6 @@ import {
   ThemeReducer,
   TurnSwitchReducer,
   UserReducer,
-  HistoryReducer,
 } from '../reducers/';
 import {
   FLUSH,
@@ -39,6 +39,7 @@ const persistConfig = {
     'id',
     'image',
     'cart',
+    'theme',
   ],
   //whitelist
   //blacklist

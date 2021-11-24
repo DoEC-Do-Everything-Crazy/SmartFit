@@ -14,6 +14,7 @@ import {Cart} from '@assets/icons';
 import ItemCarousel from '@components/ItemList/ItemCarousel';
 import LinearGradient from 'react-native-linear-gradient';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import {keyExtractor} from 'utils/keyExtractor';
 import {productApi} from 'api/productApi';
 import {routes} from '@navigation/routes';
 import {useNavigation} from '@react-navigation/core';
@@ -24,6 +25,7 @@ import {useTheme} from '@theme';
 const ProductListScreen = ({props, navigation, route}) => {
   const navigations = useNavigation();
   const {type} = route.params;
+
   const [products, setProducts] = useState([]);
   const viewRef = React.useRef(null);
 
@@ -56,8 +58,11 @@ const ProductListScreen = ({props, navigation, route}) => {
 
   const fetchData = async () => {
     try {
-      const resData = await productApi.getProductByType(type);
-      setProducts(resData);
+      const response = await productApi.getProductByType(type);
+
+      const {products, page, pages} = response;
+
+      setProducts(products);
     } catch (error) {
       console.error(error.message);
     }
@@ -83,7 +88,7 @@ const ProductListScreen = ({props, navigation, route}) => {
       style={styles.sendControlContainerOuter}>
       <Block flex backgroundColor={theme.colors.backgroundSetting}>
         <ScrollView
-          onScroll={onScroll}
+          // onScroll={onScroll}
           showsVerticalScrollIndicator={false}
           showsHorizontalScrollIndicator={false}>
           <Animatable.View
@@ -98,7 +103,7 @@ const ProductListScreen = ({props, navigation, route}) => {
                 numColumns={1}
                 data={products}
                 renderItem={_renderItemCarousel}
-                keyExtractor={(item, index) => index}
+                keyExtractor={keyExtractor}
               />
             </Block>
           </Animatable.View>

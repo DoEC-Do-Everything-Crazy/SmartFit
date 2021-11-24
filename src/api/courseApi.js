@@ -1,31 +1,18 @@
 import {apiUrl} from '@config/api';
 import axios from 'axios';
 
-const getCourses = async options => {
+const getCourses = async (params, options) => {
   try {
-    const response = await axios.get(`${apiUrl}/courses`, {
-      ...options,
-      validateStatus: false,
-    });
+    const response = await axios.get(
+      `${apiUrl}/courses`,
+      {params},
+      {
+        ...options,
+        validateStatus: false,
+      },
+    );
 
-    if (response.status === 404 || response.status === 500) {
-      throw response.data;
-    }
-
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
-};
-
-const getCoursesByType = async (type, options) => {
-  try {
-    const response = await axios.get(`${apiUrl}/courses?type=${type}`, {
-      ...options,
-      validateStatus: false,
-    });
-
-    if (response.status === 404 || response.status === 500) {
+    if (response.status !== 200) {
       throw response.data;
     }
 
@@ -42,7 +29,7 @@ const getCourse = async (id, options) => {
       validateStatus: false,
     });
 
-    if (response.status === 404 || response.status === 500) {
+    if (response.status !== 200) {
       throw response.data;
     }
 
@@ -59,7 +46,7 @@ const addCourse = async (data, options) => {
       validateStatus: false,
     });
 
-    if (response.status === 404 || response.status === 500) {
+    if (response.status !== 200) {
       throw response.data;
     }
 
@@ -76,7 +63,7 @@ const updateCourse = async (data, options) => {
       validateStatus: false,
     });
 
-    if (response.status === 404 || response.status === 500) {
+    if (response.status !== 200) {
       throw response.data;
     }
 
@@ -97,7 +84,44 @@ const deleteCourse = async (id, options) => {
       },
     );
 
-    if (response.status === 404 || response.status === 500) {
+    if (response.status !== 200) {
+      throw response.data;
+    }
+
+    return;
+  } catch (error) {
+    throw error;
+  }
+};
+
+const getCourseByView = async (view, options) => {
+  try {
+    const response = await axios.get(`${apiUrl}/courses/views`, {
+      ...options,
+      validateStatus: false,
+    });
+
+    if (response.status !== 200) {
+      throw response.data;
+    }
+
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+const updateViewCourse = async (id, options) => {
+  try {
+    const response = await axios.post(
+      `${apiUrl}/courses/updateViewCourse/${id}`,
+      {
+        ...options,
+        validateStatus: false,
+      },
+    );
+
+    if (response.status !== 200) {
       throw response.data;
     }
 
@@ -109,9 +133,10 @@ const deleteCourse = async (id, options) => {
 
 export const courseApi = {
   getCourses,
-  getCoursesByType,
   getCourse,
   addCourse,
   updateCourse,
   deleteCourse,
+  getCourseByView,
+  updateViewCourse,
 };
