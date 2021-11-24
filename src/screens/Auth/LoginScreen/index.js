@@ -196,6 +196,14 @@ const LoginScreen = ({navigation, props}) => {
                       {t('createAccount')}
                     </Text>
                   </TouchableOpacity>
+                 <TouchableOpacity
+                  onPress={() => {
+                    navigation.navigate(routes.SEND_EMAIL_SCREEN);
+                  }}>
+                  <Text center marginBottom={30}>
+                    Quên mật khẩu
+                  </Text>
+                </TouchableOpacity>
                 </Block>
               </Block>
               <Block width={width} marginBottom={50}>

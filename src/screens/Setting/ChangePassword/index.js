@@ -25,17 +25,22 @@ const ChangePassword = props => {
 
   const validationSchema = yup.object().shape({
     password: yup.string().required(t('errorPasswordRequired')),
+    newPassWord: yup
+      .string()
+      .min(8, 'Password is too short - should be 8 chars minimum.')
+      .required('Password is Required'),
     confirmPassword: yup
       .string()
-      .min(6, () => t('errCharactersLeght'))
-      .required(t('errorPasswordRequired'))
-      .oneOf([yup.ref('password')], t('errNotMatch')),
+      .oneOf([yup.ref('newPassword'), null], 'Passwords must match')
+      .min(8, 'Password is too short - should be 8 chars minimum.')
+      .required('Password is Required'),
   });
   return (
     <Formik
       validationSchema={validationSchema}
       initialValues={{
-        password: '',
+        oldPassword: '',
+        newPassWord: '',
         confirmPassword: '',
       }}
       onSubmit={subProps => {
@@ -63,32 +68,40 @@ const ChangePassword = props => {
               colorTheme={theme.colors.blue}
             />
             <Block
-              flex
               justifyCenter
               paddingHorizontal={16}
               backgroundColor={theme.colors.backgroundSetting}>
-              <Text size={18} center fontType="bold" color={theme.colors.text}>
-                {t('enterNewPassword')}
-              </Text>
               <TextInput
                 inputStyle={{paddingHorizontal: 16}}
-                onChangeText={handleChange('password')}
-                value={values.password}
-                containerInputStyle={{width: width - 32, marginTop: 16}}
-                label={t('enterNewPassword')}
-                onBlur={handleBlur('password')}
+                onChangeText={handleChange('oldPassword')}
+                value={values.oldPassword}
+                containerInputStyle={{marginTop: 16}}
+                label={t('enterOldPassword')}
+                onBlur={handleBlur('oldPassword')}
                 isSecure
               />
               <Block marginTop={8} marginBottom={24}>
-                {errors.password && touched.password && (
-                  <Text style={styles.text}>{errors.password}</Text>
+                {errors.oldPassword && touched.oldPassword && (
+                  <Text style={styles.text}>{errors.oldPassword}</Text>
+                )}
+              </Block>
+              <TextInput
+                inputStyle={{paddingHorizontal: 16}}
+                onChangeText={handleChange('newPassWord')}
+                value={values.password}
+                label={t('enterNewPassword')}
+                onBlur={handleBlur('newPassWord')}
+                isSecure
+              />
+              <Block marginTop={8} marginBottom={24}>
+                {errors.newPassWord && touched.newPassWord && (
+                  <Text style={styles.text}>{errors.newPassWord}</Text>
                 )}
               </Block>
               <TextInput
                 inputStyle={{paddingHorizontal: 16}}
                 onChangeText={handleChange('confirmPassword')}
                 value={values.confirmPassword}
-                containerInputStyle={{width: width - 32, marginTop: 16}}
                 label={t('enterConfimPassword')}
                 onBlur={handleBlur('confirmPassword')}
                 isSecure

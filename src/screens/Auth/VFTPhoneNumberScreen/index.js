@@ -3,10 +3,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
 import {TextInput} from 'react-native';
-import {addUser} from 'reduxs/reducers';
-import firebase from '@config/firebase';
 import {routes} from '@navigation/routes';
-import setAuthToken from 'utils/setAuthToken';
 import {useNavigation} from '@react-navigation/core';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
@@ -14,13 +11,9 @@ import {useTranslation} from 'react-i18next';
 import {userApi} from 'api/userApi';
 
 const VFTPhoneNumberScreen = ({route, props}) => {
-  const navigation = useNavigation();
-  const dispatch = useDispatch();
   const {t} = useTranslation();
-
-  const {phone} = route.params;
-  const {auth} = firebase();
-  const [confirm, setConfirm] = useState(null);
+  const navigation = useNavigation();
+  const {email} = route.params;
   const [code, setCode] = useState('');
 
   const [number1, setNumber1] = useState('');
@@ -77,50 +70,16 @@ const VFTPhoneNumberScreen = ({route, props}) => {
     setCode(`${number1}${number2}${number3}${number4}${number5}${number6}`);
   }, [number1, number2, number3, number4, number5, number6, code]);
 
-  const phoneSignIn = async () => {
-    const confirmation = await auth().signInWithPhoneNumber(phone);
-    setConfirm(confirmation);
-  };
-
-  useEffect(() => {
-    phoneSignIn();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const loadUser = async () => {
-    try {
-      const resData = await userApi.getUser();
-      let user = resData.user;
-
-      dispatch(addUser(user));
-
-      if (user.fullName !== '') {
-        navigation.navigate(routes.BOTTOM_TAB);
-      } else {
-        navigation.navigate(routes.UPDATE_PROFILE_SCREEN);
-      }
-    } catch (error) {
-      console.error(error.message);
-    }
-  };
-
-  const getUser = async () => {
-    await auth()
-      .currentUser.getIdToken()
-      .then(token => {
-        setAuthToken(token);
-        loadUser(token);
-      })
-      .catch(error => {
-        console.error('auth error', error.message);
-      });
-  };
-
   const confirmCode = async () => {
     try {
-      await confirm.confirm(code);
-
-      getUser();
+      console.log(code);
+      const res = await userApi.checkCode({email: email, code: code});
+      if (res.status === 200) {
+        navigation.navigate(routes.ENTER_PHONE_NUMBER_SCREEN, {
+          email: email,
+          code: code,
+        });
+      }
     } catch (error) {
       console.error('confirm error', error.message);
     }
@@ -140,7 +99,7 @@ const VFTPhoneNumberScreen = ({route, props}) => {
             marginBottom={75}
             fontType="bold"
             style={{textAlign: 'center'}}>
-            {t('codeIsSendTo')} {phone}
+            {t('codeIsSendTo')} {email}
           </Text>
           <Block row flex justifyContent="space-evenly">
             <TextInput
@@ -225,7 +184,6 @@ const VFTPhoneNumberScreen = ({route, props}) => {
         </Block>
       </Block>
       <Button
-        disabled={!(code.length === 6) || !confirm}
         onPress={confirmCode}
         title="Verify"
         height={45}
