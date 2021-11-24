@@ -1,12 +1,14 @@
 import {Block, Header} from '@components';
-import ItemCourseBig from '@components/ItemList/ItemCourseBig';
-import {useSelector} from 'react-redux';
-import {useTheme} from '@theme';
-import React from 'react';
+
 import {FlatList} from 'react-native';
-import {useTranslation} from 'react-i18next';
+import ItemCourseBig from '@components/ItemList/ItemCourseBig';
+import React from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import {keyExtractor} from 'utils/keyExtractor';
+import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
+import {useTheme} from '@theme';
+import {useTranslation} from 'react-i18next';
 
 const CourseListTypeScreen = props => {
   const {
@@ -33,7 +35,7 @@ const CourseListTypeScreen = props => {
           <FlatList
             showsVerticalScrollIndicator={false}
             data={[1]}
-            keyExtractor={(item, index) => index.toString()}
+            keyExtractor={keyExtractor}
             renderItem={_renderItem}
           />
         </Block>

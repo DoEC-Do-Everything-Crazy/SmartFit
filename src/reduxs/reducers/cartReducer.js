@@ -31,7 +31,17 @@ const cartSlice = createSlice({
         return;
       }
 
-      state.cart = [...state.cart, {...addItem, quantity}];
+      const formattedAddItem = {
+        _id: addItem._id,
+        name: addItem.name,
+        image: addItem.image,
+        description: addItem.description,
+        lastPrice: addItem.lastPrice,
+        key: addItem.key,
+        quantity: addItem.quantity,
+      };
+
+      state.cart = [...state.cart, {...formattedAddItem, quantity}];
     },
     removeCartItem(state, action) {
       let {removeItem} = action.payload;

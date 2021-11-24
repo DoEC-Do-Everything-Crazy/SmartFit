@@ -5,7 +5,7 @@ const getImages = async options => {
   try {
     const response = await axios.get(`${apiUrl}/images`, options);
 
-    if (response.status === 404 || response.status === 500) {
+    if (response.status !== 200) {
       throw response.data;
     }
 
@@ -19,7 +19,7 @@ const getImage = async (id, options) => {
   try {
     const response = await axios.get(`${apiUrl}/images/${id}`, options);
 
-    if (response.status === 404 || response.status === 500) {
+    if (response.status !== 200) {
       throw response.data;
     }
 
@@ -33,7 +33,7 @@ const addImage = async (data, options) => {
   try {
     const response = await axios.post(`${apiUrl}/images/add`, data, options);
 
-    if (response.status === 404 || response.status === 500) {
+    if (response.status !== 200) {
       throw response.data;
     }
 
@@ -47,7 +47,7 @@ const deleteImage = async (id, options) => {
   try {
     const response = await axios.post(`${apiUrl}/images/delete`, {id}, options);
 
-    if (response.status === 404 || response.status === 500) {
+    if (response.status !== 200) {
       throw response.data;
     }
 

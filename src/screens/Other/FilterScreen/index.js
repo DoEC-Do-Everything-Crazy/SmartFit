@@ -1,12 +1,13 @@
-import {Cancel} from '@assets/icons';
 import {Block, Button, Text} from '@components';
-import {useNavigation} from '@react-navigation/core';
-import React from 'react';
 import {Pressable, ScrollView, TouchableOpacity} from 'react-native';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
+
 import BlockBox from './components/BlockBox';
-import data from './components/BlockBox/ListData';
+import {Cancel} from '@assets/icons';
 import PriceRange from './components/PriceRange';
+import React from 'react';
+import data from './components/BlockBox/ListData';
+import {useNavigation} from '@react-navigation/core';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';

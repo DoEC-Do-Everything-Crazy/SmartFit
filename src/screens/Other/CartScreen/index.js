@@ -1,28 +1,44 @@
 import {Block, Button, InviteLogin, PayInfo, Text} from '@components';
-import React, {useState} from 'react';
+import React, {useEffect} from 'react';
 
 import CartList from './components/CartList';
+/* eslint-disable react-hooks/exhaustive-deps */
 import {Cart_data} from '@assets/icons';
 import Header from '@components/Header';
 import {Pressable} from 'react-native';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import {orderApi} from 'api/orderApi';
 import {routes} from '@navigation/routes';
+import setAuthToken from 'utils/setAuthToken';
+import {useNavigation} from '@react-navigation/core';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {useTranslation} from 'react-i18next';
-import {SafeAreaView} from 'react-native-safe-area-context';
 
 const CartScreen = props => {
+  const navigation = useNavigation();
   const {
     theme: {theme: themeStore},
-    user: {user},
+    user: {user, token},
     cart: {cart},
   } = useSelector(stateRoot => stateRoot.root);
+
   const styles = useStyles(props, themeStore);
   const theme = useTheme(themeStore);
   const {t} = useTranslation();
 
-  const [isDiscount, setIsDiscount] = useState(false);
+  const checkCart = async formData => {
+    const res = await orderApi.checkCardList({cartList: formData});
+
+    if (res) {
+      navigation.navigate(routes.PAYMENT_SCREEN);
+    }
+  };
+
+  const handleConfirm = () => {
+    checkCart(cart);
+  };
 
   const Cart = () => {
     return (
@@ -49,17 +65,9 @@ const CartScreen = props => {
                 )}
                 title2={t('delivery')}
                 titlePrice2={20000}
-                title3={t('discount')}
-                titlePrice3={4000}
-                isDiscount={isDiscount}
               />
             </Block>
-            <Button
-              title={t('confirm')}
-              // onPress={() => {
-              //   something
-              // }}
-            />
+            <Button title={t('confirm')} onPress={handleConfirm} />
           </Block>
         ) : (
           <NotData />
@@ -87,6 +95,11 @@ const CartScreen = props => {
       </Pressable>
     </Block>
   );
+
+  useEffect(() => {
+    user && setAuthToken(token);
+    // dispatch(clearCart());
+  }, []);
 
   return user ? (
     <Cart color={theme.colors.white} />

@@ -2,10 +2,11 @@ import {
   CardStyleInterpolators,
   createStackNavigator,
 } from '@react-navigation/stack';
-import {auth, bottom, details, list, setting, other} from '@screens';
-import React from 'react';
+import {auth, bottom, details, list, other, setting} from '@screens';
+
 import BottomNavigation from './BottomNavigation';
 import BottomTab from './BottomTab/BottomTab';
+import React from 'react';
 import {routes} from './routes';
 
 const Stack = createStackNavigator();
@@ -66,6 +67,10 @@ const RootStack = () => {
         component={auth.VFT_PHONE_NUMBER_SCREEN}
       />
       <Stack.Screen name={routes.LOGIN_SCREEN} component={auth.LOGIN_SCREEN} />
+      <Stack.Screen
+        name={routes.REGISTER_SCREEN}
+        component={auth.REGISTER_SCREEN}
+      />
       <Stack.Screen
         name={routes.UPDATE_PROFILE_SCREEN}
         component={auth.UPDATE_PROFILE_SCREEN}
@@ -138,6 +143,14 @@ const RootStack = () => {
       <Stack.Screen name={routes.ORDER_SCREEN} component={other.ORDER_SCREEN} />
       <Stack.Screen name={routes.RATE_SCREEN} component={other.RATE_SCREEN} />
       <Stack.Screen name={routes.TAKE_PICTURE} component={other.TAKE_PICTURE} />
+      <Stack.Screen
+        name={routes.PAYMENT_SCREEN}
+        component={other.PAYMENT_SCREEN}
+      />
+      <Stack.Screen
+        name={routes.DELIVERY_INFORMATION_SCREEN}
+        component={other.DELIVERY_INFORMATION_SCREEN}
+      />
     </Stack.Navigator>
   );
 };

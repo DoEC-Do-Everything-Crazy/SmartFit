@@ -3,6 +3,7 @@ import {FlatList, Pressable} from 'react-native';
 import React, {useEffect, useState} from 'react';
 
 import ItemHotProduct from '@components/ItemList/ItemHotProduct';
+import {keyExtractor} from 'utils/keyExtractor';
 import {productApi} from 'api/productApi';
 import {routes} from '@navigation/routes';
 import {useNavigation} from '@react-navigation/core';
@@ -21,8 +22,15 @@ const ListProduct = props => {
   const navigation = useNavigation();
   const fetchData = async () => {
     try {
-      const resData = await productApi.getProducts();
-      setData(resData);
+      const response = await productApi.getProducts({
+        pageNumber: 1,
+        orderBy: 'buy',
+        desc: -1,
+      });
+
+      const {products} = response;
+
+      setData(products);
     } catch (error) {
       console.error(error.message);
     }
@@ -59,7 +67,7 @@ const ListProduct = props => {
         horizontal
         nestedScrollEnabled
         data={data}
-        keyExtractor={(item, index) => index}
+        keyExtractor={keyExtractor}
         renderItem={_renderItem}
       />
     </Block>

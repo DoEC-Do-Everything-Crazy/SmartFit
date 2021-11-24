@@ -1,9 +1,11 @@
-import {Block, Text} from '@components';
+/* eslint-disable react-hooks/exhaustive-deps */
+import {Block, ListDataFooter, Text} from '@components';
 import {FlatList, Pressable} from 'react-native';
 import React, {useEffect, useState} from 'react';
 
 import ItemHotFood from '@components/ItemList/ItemHotFood';
 import {foodApi} from 'api/foodApi';
+import {keyExtractor} from 'utils/keyExtractor';
 import {routes} from '@navigation/routes';
 import {useNavigation} from '@react-navigation/core';
 import {useSelector} from 'react-redux';
@@ -12,31 +14,41 @@ import {useTheme} from '@theme';
 import {useTranslation} from 'react-i18next';
 
 const ListHotFood = props => {
+  const navigation = useNavigation();
   const {t} = useTranslation();
   const themeStore = useSelector(state => state.root.theme.theme);
   const theme = useTheme(themeStore);
   const styles = useStyles(props, themeStore);
 
-  const [foods, setFoods] = useState([]);
+  const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const navigation = useNavigation();
+  const initData = async () => {
+    setIsLoading(true);
 
-  const getFoods = async () => {
     try {
-      const data = await foodApi.getFoods();
-      setFoods(data);
-    } catch (error) {
-      console.error(error.message);
-    }
-  };
+      const response = await foodApi.getFoods({
+        pageNumber: 1,
+        orderBy: 'type',
+      });
 
-  useEffect(() => {
-    getFoods();
-  }, []);
+      const {foods} = response;
+
+      setData(foods);
+    } catch (e) {
+      console.error(e.message);
+    }
+
+    setIsLoading(false);
+  };
 
   const _renderItem = ({item, index}) => (
     <ItemHotFood item={item} index={index} />
   );
+
+  useEffect(() => {
+    initData();
+  }, []);
 
   return (
     <Block flex marginTop={30} marginBottom={10}>
@@ -49,20 +61,27 @@ const ListHotFood = props => {
         <Text size={20} fontType="bold" color={theme.colors.iconInf}>
           {t('hotFood')}
         </Text>
-        <Pressable onPress={() => navigation.navigate(routes.FOOD_LIST_SCREEN)}>
+        <Pressable
+          onPress={() =>
+            navigation.navigate(routes.FOOD_LIST_SCREEN, {
+              title: t('healthyFood'),
+            })
+          }>
           <Text size={17} style={styles.link}>
             {t('seeAll')}
           </Text>
         </Pressable>
       </Block>
-      <FlatList
-        showsHorizontalScrollIndicator={false}
-        horizontal
-        nestedScrollEnabled
-        data={foods}
-        keyExtractor={(item, index) => index}
-        renderItem={_renderItem}
-      />
+      {!isLoading && data.length !== 0 ? (
+        <FlatList
+          showsHorizontalScrollIndicator={false}
+          horizontal
+          nestedScrollEnabled
+          data={data}
+          keyExtractor={keyExtractor}
+          renderItem={_renderItem}
+        />
+      ) : null}
     </Block>
   );
 };

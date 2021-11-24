@@ -3,16 +3,12 @@ import axios from 'axios';
 
 const getUser = async options => {
   try {
-    const response = await axios.post(
-      `${apiUrl}/users`,
-      {},
-      {
-        ...options,
-        validateStatus: false,
-      },
-    );
+    const response = await axios.get(`${apiUrl}/loadUser`, {
+      ...options,
+      validateStatus: false,
+    });
 
-    if (response.status === 404 || response.status === 500) {
+    if (response.status !== 200) {
       throw response.data;
     }
 
@@ -24,16 +20,16 @@ const getUser = async options => {
 
 const updateUser = async (data, options) => {
   try {
-    const response = await axios.post(`${apiUrl}/users/update`, data, {
+    const response = await axios.put(`${apiUrl}/users`, data, {
       ...options,
       validateStatus: false,
     });
 
-    if (response.status === 404 || response.status === 500) {
+    if (response.status !== 200) {
       throw response.data;
     }
 
-    return;
+    return response.data;
   } catch (error) {
     throw error;
   }

@@ -1,24 +1,23 @@
-import {Block, Button, Text, TextInput} from '@components';
-import {Image, Platform, Pressable, ScrollView} from 'react-native';
+/* eslint-disable react-hooks/exhaustive-deps */
+import {Block, Text} from '@components';
+import {FlatList, Platform, Pressable, ScrollView} from 'react-native';
 import React, {useCallback, useRef, useState} from 'react';
 
 import {BottomSheet} from '@components/BottomSheet';
-/* eslint-disable react-hooks/exhaustive-deps */
-import {Camera} from '@assets/icons';
-import {Rating} from 'react-native-ratings';
+import ItemCart from '@components/ItemList/ItemCart';
+import {keyExtractor} from 'utils/keyExtractor';
+import {orderApi} from 'api/orderApi';
+import {routes} from '@navigation/routes';
+import {useNavigation} from '@react-navigation/core';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {useTranslation} from 'react-i18next';
-import {routes} from '@navigation/routes';
-import {useNavigation} from '@react-navigation/core';
 
-const ItemOrder = ({picture, title, group_id, onPress, index, props}) => {
+const ItemOrder = ({item, onPress, index, props}) => {
   const modalizRef = useRef(null);
-
-  const [isReceived, setReceived] = useState(true);
-  const [comment, setComment] = useState('');
+  const [status, setStatus] = useState(item.status);
   const {t} = useTranslation();
   const insets = useSafeAreaInsets();
   const [showDetail, setShowDetail] = useState(false);
@@ -29,6 +28,8 @@ const ItemOrder = ({picture, title, group_id, onPress, index, props}) => {
   } = useSelector(stateRoot => stateRoot.root);
   const styles = useStyles(props, themeStore);
   const theme = useTheme(themeStore);
+
+  const renderItem = ({item}) => <ItemCart notQuantity item={item} />;
 
   const handleToOrderDetail = useCallback(() => {
     modalizRef?.current.open();
@@ -61,11 +62,19 @@ const ItemOrder = ({picture, title, group_id, onPress, index, props}) => {
   const FooterComponent = useCallback(() => {
     return (
       <Block marginBottom={20} row alignCenter justifyCenter>
-        <Pressable style={styles.itemReorder} borderColor={theme.colors.text}>
-          <Text>Reorder</Text>
+        <Pressable
+          onPress={() => {
+            modalizRef?.current.close();
+            navigation.navigate(routes.FOOD_LIST_SCREEN);
+          }}
+          style={styles.itemReorder}
+          borderColor={theme.colors.text}>
+          <Text>{t('reOrder')}</Text>
         </Pressable>
-        <Pressable style={styles.itemLeave} onPress={handleOpenConfirm}>
-          <Text color={theme.colors.white}>Leave feedback</Text>
+        <Pressable
+          onPress={() => modalizRef?.current.close()}
+          style={styles.itemLeave}>
+          <Text color={theme.colors.white}>{t('leaveFeedback')}</Text>
         </Pressable>
       </Block>
     );
@@ -76,6 +85,14 @@ const ItemOrder = ({picture, title, group_id, onPress, index, props}) => {
     theme.colors.border,
     showDetail,
   ]);
+  const handleCancelBill = async () => {
+    try {
+      await orderApi.updateOrder({id: item._id, status: 'Cancel'});
+      setStatus('Cancel');
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
   return (
     <>
       <Block
@@ -89,30 +106,25 @@ const ItemOrder = ({picture, title, group_id, onPress, index, props}) => {
           <Block row flex={1}>
             <Block row flex={1}>
               <Text size={16} fontType="bold" marginBottom={5}>
-                Order N0.1947034
+                {item._id.substring(8)}
               </Text>
             </Block>
             <Block row flex={1} justifyEnd>
-              <Text>05-12-2019</Text>
+              <Text>{item.createdAt.substring(0, 10)}</Text>
             </Block>
           </Block>
-          <Block row>
-            <Text>Tracking number:</Text>
-            <Text marginLeft={10} fontType="bold">
-              IW3475453455
-            </Text>
-          </Block>
+
           <Block row flex={1}>
             <Block row flex={1}>
-              <Text>Quantity:</Text>
+              <Text>{t('promotion')}:</Text>
               <Text marginLeft={10} fontType="bold">
-                3
+                {item.promotion}
               </Text>
             </Block>
             <Block row flex={1} justifyEnd>
-              <Text>Total Amount:</Text>
+              <Text>{t('totalAmount')}:</Text>
               <Text marginLeft={10} fontType="bold">
-                112$
+                {item.total}$
               </Text>
             </Block>
           </Block>
@@ -126,7 +138,7 @@ const ItemOrder = ({picture, title, group_id, onPress, index, props}) => {
                 <Text>{t('detail')}</Text>
               </Pressable>
             </Block>
-            {isReceived ? (
+            {status === 'Received' && (
               <Block row flex={1} justifyEnd alignCenter>
                 <Pressable
                   onPress={handleOpenConfirm}
@@ -134,15 +146,26 @@ const ItemOrder = ({picture, title, group_id, onPress, index, props}) => {
                   <Text color={theme.colors.white}>{t('confirm')}</Text>
                 </Pressable>
               </Block>
-            ) : (
+            )}
+            {status === 'Cancel' && (
               <Block row flex={1} justifyEnd alignCenter>
                 <Text
                   marginRight={10}
                   fontType="bold"
                   color={theme.colors.green}>
-                  {t('delivering')}
+                  {t('cancelOrder')}
                 </Text>
-                <Pressable style={styles.itemCancel}>
+              </Block>
+            )}
+            {status === 'Pending' && (
+              <Block row flex={1} justifyEnd alignCenter>
+                <Text
+                  marginRight={10}
+                  fontType="bold"
+                  color={theme.colors.green}>
+                  {t('pendingOrder')}
+                </Text>
+                <Pressable onPress={handleCancelBill} style={styles.itemCancel}>
                   <Text color={theme.colors.white}>{t('cancel')}</Text>
                 </Pressable>
               </Block>
@@ -171,99 +194,61 @@ const ItemOrder = ({picture, title, group_id, onPress, index, props}) => {
                   <Block row flex={1}>
                     <Block row flex={1}>
                       <Text size={16} fontType="bold" marginBottom={5}>
-                        Order N0.1947034
+                        {item._id.substring(0, 18)}
                       </Text>
                     </Block>
                     <Block row flex={1} justifyEnd>
-                      <Text>05-12-2019</Text>
+                      <Text>{item.createdAt.substring(0, 10)}</Text>
                     </Block>
                   </Block>
                   <Block row justifyStart>
-                    <Text>Tracking number:</Text>
-                    <Text marginLeft={10} fontType="bold">
-                      IW3475453455
-                    </Text>
                     <Block row flex={1} justifyEnd>
-                      <Text color={theme.colors.green}>Delivered</Text>
+                      <Text color={theme.colors.green}>{t(item.status)}</Text>
                     </Block>
                   </Block>
-                  <Block marginTop={5} row flex={1}>
+                  {/* <Block marginTop={5} row flex={1}>
                     <Block row flex={1}>
-                      <Text fontType="bold">10 items</Text>
+                      <Text fontType="bold">{item.cart.length} Item</Text>
                     </Block>
-                  </Block>
+                  </Block> */}
                 </Block>
                 <Block
                   row
                   radius={8}
                   marginTop={16}
                   backgroundColor={theme.colors.border}>
-                  <Block height="100%">
-                    <Image
-                      source={{
-                        uri: 'https://i.pinimg.com/564x/5a/93/ce/5a93ceca8cf5277d2fc552ad4092a571.jpg',
-                      }}
-                      height="100%"
-                      style={styles.imageItem}
-                    />
-                  </Block>
-                  <Block width="100%" padding={16}>
-                    <Text size={16} fontType="bold" marginBottom={5}>
-                      Pullover
-                    </Text>
-                    <Block marginLeft={10} row>
-                      <Text>Mango</Text>
-                    </Block>
-                    <Block row>
-                      <Block row>
-                        <Text>Color:</Text>
-                        <Text marginLeft={10} fontType="bold">
-                          Gray
-                        </Text>
-                      </Block>
-                      <Block row marginLeft={40}>
-                        <Text>Size:</Text>
-                        <Text marginLeft={10} fontType="bold">
-                          L
-                        </Text>
-                      </Block>
-
-                      <Block row flex={1} paddingTop={5}>
-                        <Block row flex={1} justifyEnd alignCenter>
-                          <Text fontType="bold">51$</Text>
-                        </Block>
-                      </Block>
-                    </Block>
-                  </Block>
+                  <FlatList
+                    data={item.cart}
+                    renderItem={renderItem}
+                    keyExtractor={keyExtractor}
+                  />
                 </Block>
                 <Block height="27%" marginTop={20}>
                   <Text size={16} fontType="bold">
-                    Order information
+                    {t('orderInformation')}
                   </Text>
                   <Block row marginTop={15}>
                     <Block width="40%">
-                      <Text>Shipping Address:</Text>
+                      <Text>{t('addressShip')}:</Text>
                     </Block>
                     <Block width="60%">
-                      <Text fontType="bold">
-                        3 Newbridge Court ,Chino Hills, CA 91709, United States
-                      </Text>
+                      <Text fontType="bold">{item.address}</Text>
                     </Block>
                   </Block>
                   <Block row marginTop={10}>
                     <Block width="40%">
-                      <Text>Discount:</Text>
+                      <Text>{t('discount')}:</Text>
                     </Block>
                     <Block width="60%">
-                      <Text fontType="bold">10%, Personal promo code</Text>
+                      <Text fontType="bold">{item.discount * 100}%</Text>
                     </Block>
                   </Block>
                   <Block row marginTop={10}>
                     <Block width="40%">
-                      <Text>Total Amount:</Text>
+                      <Text>{t('totalAmount')}:</Text>
                     </Block>
                     <Block width="60%">
-                      <Text fontType="bold">133$</Text>
+                      <Text fontType="bold">{item.total}$</Text>
                     </Block>
                   </Block>
                 </Block>

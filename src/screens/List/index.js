@@ -1,7 +1,7 @@
 import CourseListScreen from './CourseListScreen';
-import ProductListScreen from './ProductListScreen';
 import CourseListTypeScreen from './CourseListTypeScreen';
 import FoodListScreen from './FoodListScreen';
+import ProductListScreen from './ProductListScreen';
 
 export const list = {
   COURSE_LIST_SCREEN: CourseListScreen,

@@ -1,27 +1,23 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {Block, Button, Header, Text} from '@components';
+import {Modal, Platform, Pressable, TouchableOpacity, View} from 'react-native';
+import React, {useCallback, useEffect, useState} from 'react';
+import {removeUser, setUser} from 'reduxs/reducers';
 import {useDispatch, useSelector} from 'react-redux';
 
 import InfoProfile from './components/InfoProfile';
 import ListItemFeature from './components/ListItemFeature';
-import React, {useCallback, useState} from 'react';
-import {removeUser} from 'reduxs/reducers';
+import setAuthToken from 'utils/setAuthToken';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {useTranslation} from 'react-i18next';
-import {
-  View,
-  TouchableOpacity,
-  Dimensions,
-  Modal,
-  Pressable,
-  Platform,
-} from 'react-native';
+
 const Information = props => {
   const [modalVisible, setModalVisible] = useState(false);
   const dispatch = useDispatch();
   const {
     theme: {theme: themeStore},
-    user: {user},
+    user: {user, token},
   } = useSelector(state => state.root);
   const {t} = useTranslation();
   const theme = useTheme(themeStore);
@@ -30,6 +26,11 @@ const Information = props => {
     setModalVisible(false);
     dispatch(removeUser());
   }, [dispatch]);
+
+  useEffect(() => {
+    setAuthToken(token);
+  }, []);
+
   return (
     <Block flex backgroundColor={theme.colors.blue}>
       <Header
@@ -46,7 +47,8 @@ const Information = props => {
         <Button
           title={t('logout')}
           onPress={() => {
-            setModalVisible(true);
+            setAuthToken(undefined);
+            dispatch(setUser(undefined));
           }}
         />
       </Block>
