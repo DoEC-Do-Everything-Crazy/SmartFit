@@ -10,7 +10,38 @@ export const useStyles = makeStyles()(({colors}) => ({
   input: {
     width: '100%',
   },
+  avatar: {
+    height: getSize.s(70),
+    width: getSize.s(70),
+    marginRight: getSize.s(10),
+    borderRadius: getSize.s(70),
+  },
+  camera: {
+    alignItems: 'center',
+  },
+  cameraImage: {
+    padding: getSize.s(5),
+    position: 'absolute',
+    bottom: getSize.s(5),
+    height: getSize.s(15),
+    width: getSize.s(15),
+  },
 
+  image: {
+    height: getSize.s(70),
+    width: getSize.s(70),
+    borderRadius: getSize.s(70),
+    backgroundColor: colors.blue,
+  },
+  title: {
+    width: getSize.s(60),
+    backgroundColor: `${colors.white}80`,
+    position: 'absolute',
+    bottom: 0,
+    paddingVertical: getSize.m(2),
+    borderBottomLeftRadius: getSize.m(70),
+    borderBottomRightRadius: getSize.m(70),
+  },
   calendar: {
     flex: 1,
   },
@@ -30,8 +61,8 @@ export const useStyles = makeStyles()(({colors}) => ({
     borderColor: colors.inputText,
   },
   img: {
-    height: getSize.m(20),
-    width: getSize.m(20),
+    height: getSize.m(100),
+    width: getSize.m(100),
   },
   sendControlContainerOuter: {
     flex: 1,
