@@ -35,6 +35,7 @@ const FoodDetailsScreen = ({route, props}) => {
     try {
       const response = await foodApi.getFood(foodId);
       setFood(response);
+      await foodApi.updateViewFood(response._id);
     } catch (error) {
       console.error(error.message);
     }

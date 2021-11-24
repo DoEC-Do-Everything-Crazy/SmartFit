@@ -23,12 +23,6 @@ const ItemCarousel = ({item, props}) => {
   const navigation = useNavigation();
   const {t} = useTranslation();
 
-  const updateViewProduct = async item => {
-    await productApi.updateViewProduct(item, {
-      validateStatus: false,
-    });
-  };
-
   return (
     <Block
       row
@@ -79,7 +73,6 @@ const ItemCarousel = ({item, props}) => {
         <Pressable
           onPress={() => {
             navigation.navigate(routes.PRODUCT_DETAIL_SCREEN, {id: item._id});
-            updateViewProduct(item._id);
           }}>
           <Block flex>
             <Text

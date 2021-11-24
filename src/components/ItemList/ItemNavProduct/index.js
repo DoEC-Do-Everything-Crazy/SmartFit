@@ -24,18 +24,11 @@ const ItemNavProduct = ({item, props}) => {
 
   const {t} = useTranslation();
 
-  const updateViewFood = async item => {
-    await foodApi.updateViewFood(item, {
-      validateStatus: false,
-    });
-  };
-
   return (
     <Pressable
       style={styles.press}
       onPress={() => {
         navigation.navigate(routes.FOOD_DETAILS_SCREEN, {id: item._id});
-        updateViewFood(item._id);
       }}>
       <Block
         shadow
