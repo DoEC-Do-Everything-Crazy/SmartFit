@@ -55,7 +55,7 @@ const SettingScreen = () => {
         {
           name: t('changePassword'),
           isSwitch: false,
-          navigation: 'CHANGE_PASSWORD',
+          navigation: 'CHANGE_PASSWORD_AUTH',
         },
       ],
     },

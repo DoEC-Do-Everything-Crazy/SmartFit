@@ -180,6 +180,7 @@ export default {
   codeIsSendTo: 'Mã được gửi tới',
   receiveCode: 'Không nhận được mã ?',
   requestAgain: 'Gửi lại mã',
+  checkCode: 'Kiểm tra mã code',
 
   //Update profile
   male: 'Nam',
@@ -243,4 +244,5 @@ export default {
   EnterNPass: 'Nhập mật khẩu mới',
   enterEmail: 'Nhập email của bạn',
   enterPassAgain: 'Nhập lại mật khẩu',
+  enterOldPassword: 'Nhập mật khẩu cũ',
 };

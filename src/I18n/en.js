@@ -180,6 +180,7 @@ export default {
   codeIsSendTo: 'Code is send to',
   receiveCode: 'Didn’t receive code ?',
   requestAgain: 'Request again',
+  checkCode: 'Check code',
 
   //Update profile
   male: 'Male',
@@ -243,4 +244,5 @@ export default {
   EnterNPass: 'Enter new password',
   enterEmail: 'Enter your email',
   enterPassAgain: 'Enter New Password Again',
+  enterOldPassword: 'Enter old password',
 };

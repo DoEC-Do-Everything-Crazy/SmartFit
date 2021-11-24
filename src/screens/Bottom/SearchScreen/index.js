@@ -147,7 +147,7 @@ const SearchScreen = ({props, route, match}) => {
             onChangeText={debounce(text => setName(text), 500)}
           />
         </Block>
-        {data.length > 0 ? (
+        {data?.length > 0 ? (
           <FlatList
             showsVerticalScrollIndicator={false}
             data={data}
