@@ -20,25 +20,11 @@ const ItemRecommended = ({item, index, props}) => {
   const theme = useTheme(themeStore);
   const navigation = useNavigation();
 
-  const updateViewFood = async item => {
-    await foodApi.updateViewFood(item, {
-      validateStatus: false,
-    });
-  };
-
-  const updateViewCourse = async item => {
-    await courseApi.updateViewCourse(item, {
-      validateStatus: false,
-    });
-  };
-
   const navigationWithId = async (key, id) => {
     if (key === 'F') {
       navigation.navigate(routes.FOOD_DETAILS_SCREEN, {id: id});
-      updateViewFood(id);
     } else {
       navigation.navigate(routes.TAB_DETAILS, {id: id});
-      updateViewCourse(id);
     }
   };
 

@@ -115,6 +115,8 @@ const TabDetails = ({route, props}) => {
     try {
       const resData = await courseApi.getCourse(courseId);
       setDataDetail(resData);
+
+      await courseApi.updateViewCourse(resData._id);
     } catch (error) {
       console.error('error', error.message);
     }
