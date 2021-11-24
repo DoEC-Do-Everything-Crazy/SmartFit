@@ -12,7 +12,7 @@ import {setToken, setUser} from 'reduxs/reducers';
 import {useDispatch, useSelector} from 'react-redux';
 
 import {Formik} from 'formik';
-import {TouchableOpacity} from 'react-native-gesture-handler';
+import {TouchableOpacity, ScrollView} from 'react-native-gesture-handler';
 import {authApi} from 'api/authApi';
 import {routes} from '@navigation/routes';
 import setAuthToken from 'utils/setAuthToken';
@@ -129,7 +129,7 @@ const LoginScreen = ({navigation, props}) => {
       }) => (
         <Block flex backgroundColor={theme.colors.backgroundSetting}>
           <Header canGoBack colorTheme={theme.colors.blue} title={t('login')} />
-          <Block flex>
+          <ScrollView>
             {isProcessing && (
               <Block
                 backgroundColor={theme.colors.backgroundSetting + '95'}
@@ -229,7 +229,7 @@ const LoginScreen = ({navigation, props}) => {
                 />
               </Block>
             </Block>
-          </Block>
+          </ScrollView>
         </Block>
       )}
     </Formik>
