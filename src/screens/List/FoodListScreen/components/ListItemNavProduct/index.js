@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, {useEffect, useState} from 'react';
 
 import {Block} from '@components';
@@ -7,24 +8,33 @@ import {foodApi} from 'api/foodApi';
 import {keyExtractor} from 'utils/keyExtractor';
 import {width} from '@utils/responsive';
 
-const ListItemNavProduct = () => {
-  const [foods, setFoods] = useState([]);
+const ListItemNavProduct = ({...props}) => {
+  const [data, setData] = useState([]);
+  const [pageNumber, setPageNumber] = useState(1);
 
-  const getProduct = async () => {
+  const initData = async () => {
     try {
-      const data = await foodApi.getFoods();
-      setFoods(data);
-    } catch (error) {
-      console.error(error.message);
+      const response = await foodApi.getFoods({
+        pageNumber,
+        orderBy: 'rate',
+      });
+
+      const {foods} = response;
+
+      setData(foods);
+      setPageNumber(pageNumber + 1);
+    } catch (e) {
+      console.error(e.message);
     }
   };
-  useEffect(() => {
-    getProduct();
-  }, []);
 
   const _renderItem = ({item, index}) => {
     return <ItemNavProduct item={item} />;
   };
+
+  useEffect(() => {
+    initData();
+  }, []);
 
   return (
     <Block marginHorizontal={8} paddingBottom={15} paddingTop={20}>
@@ -34,7 +44,7 @@ const ListItemNavProduct = () => {
           sliderWidth={width}
           sliderHeight={width}
           itemWidth={width / 2}
-          data={foods}
+          data={data}
           hasParallaxImages={true}
           renderItem={_renderItem}
           keyExtractor={keyExtractor}

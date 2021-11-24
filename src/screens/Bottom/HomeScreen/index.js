@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
@@ -16,12 +15,10 @@ import ListHotFood from './components/ListHotFood';
 import ListMenu from './components/ListMenu';
 import ListProduct from './components/ListProduct';
 import ListRecommended from './components/ListRecommended';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {bmiApi} from 'api/bmiApi';
-import {courseApi} from 'api/courseApi';
+/* eslint-disable react-hooks/exhaustive-deps */
 import {images} from '@assets';
-import {recommendedApi} from 'api/recommendedApi';
 import {routes} from '@navigation/routes';
+import setAuthToken from 'utils/setAuthToken';
 import {useNavigation} from '@react-navigation/native';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
@@ -35,14 +32,12 @@ const HomeScreen = props => {
   const offset = useSharedValue(0);
   const {
     theme: {theme: themeStore},
-    user: {user},
+    user: {user, token},
   } = useSelector(stateRoot => stateRoot.root);
   const theme = useTheme(themeStore);
   const styles = useStyles(props, themeStore);
   const carouselRef = useRef(null);
 
-  const [data, setData] = useState([]);
-  const [dataRecommended, setDataRecommended] = useState([]);
   const [activeIndex, setActivateIndex] = useState(0);
 
   const dataBanner = [
@@ -77,30 +72,6 @@ const HomeScreen = props => {
     <Image source={item.img} style={styles.image} />
   );
 
-  const fetchData = async () => {
-    try {
-      const resData = await courseApi.getCourses();
-      setData(resData);
-    } catch (error) {
-      console.log('error', error.message);
-    }
-  };
-
-  const fetchRecommendedByBMI = async () => {
-    try {
-      const response = await bmiApi.getBMI(user.uid, {
-        validateStatus: false,
-      });
-      if (response) {
-        const resData = await recommendedApi.getRecommendedByBMI(response.bmi, {
-          validateStatus: false,
-        });
-        setDataRecommended(resData);
-      }
-    } catch (error) {
-      console.log('error', error.message);
-    }
-  };
   const onScroll = event => {
     const offsetList = event.nativeEvent.contentOffset.y;
 
@@ -108,8 +79,7 @@ const HomeScreen = props => {
   };
 
   useEffect(() => {
-    fetchData();
-    fetchRecommendedByBMI();
+    setAuthToken(token);
   }, []);
 
   return (
@@ -151,9 +121,9 @@ const HomeScreen = props => {
             }
           </Block>
           <ListMenu />
-          <ListRecommended data={dataRecommended} />
+          {user && <ListRecommended />}
           <ListHotFood />
-          <ListHotCourse data={data} />
+          <ListHotCourse />
           <ListProduct />
         </ScrollView>
         <Animated.View style={[styles.groupButton, animatedStyles]}>

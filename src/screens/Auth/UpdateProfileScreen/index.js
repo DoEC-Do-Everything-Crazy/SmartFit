@@ -1,17 +1,19 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {Block, Button, DropDown, Header, TextInput} from '@components';
 import {Email, Fullname, List, Phone} from '@assets/icons';
 import {Platform, TouchableOpacity} from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
 import DateTimePicker from '@react-native-community/datetimepicker';
-import {addUser} from 'reduxs/reducers';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import setAuthToken from 'utils/setAuthToken';
+import {setUser} from 'reduxs/reducers';
 import {useNavigation} from '@react-navigation/core';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {useTranslation} from 'react-i18next';
 import {userApi} from 'api/userApi';
-import {SafeAreaView} from 'react-native-safe-area-context';
 
 const UpdateProfileScreen = ({route, props}) => {
   const navigation = useNavigation();
@@ -20,7 +22,7 @@ const UpdateProfileScreen = ({route, props}) => {
 
   const {
     theme: {theme: themeStore},
-    user: {user},
+    user: {user, token},
   } = useSelector(state => state.root);
 
   const styles = useStyles(props, themeStore);
@@ -28,10 +30,10 @@ const UpdateProfileScreen = ({route, props}) => {
   const dateFormat = require('dateformat');
 
   const [userProfile, setUserProfile] = useState({
-    birthday: user.birthday,
-    phoneNumber: user.phoneNumber,
-    displayName: user.displayName,
     email: user.email,
+    birthday: user.birthday,
+    phoneNumber: user.phoneNumber || '',
+    fullName: user.fullName,
   });
 
   const [mode, setMode] = useState('date');
@@ -56,23 +58,16 @@ const UpdateProfileScreen = ({route, props}) => {
 
   const updateProfile = async () => {
     try {
-      await userApi.getUser({
-        userProfile: {...userProfile, uid: user.uid, gender: valueGender},
-        changePrimary:
-          userProfile.email !== user.email ||
-          userProfile.phoneNumber !== user.phoneNumber,
-      });
-
       const newUser = {
-        ...user,
+        fullName: userProfile.fullName,
         birthday: userProfile.birthday,
-        displayName: userProfile.displayName,
-        email: userProfile.email,
-        gender: valueGender,
         phoneNumber: userProfile.phoneNumber,
+        gender: valueGender,
       };
 
-      dispatch(addUser(newUser));
+      const resData = await userApi.updateUser(newUser);
+
+      dispatch(setUser(resData.data));
       navigation.goBack();
     } catch (error) {
       console.error(error.message);
@@ -82,6 +77,10 @@ const UpdateProfileScreen = ({route, props}) => {
   const handleOnSubmit = () => {
     updateProfile();
   };
+
+  useEffect(() => {
+    setAuthToken(token);
+  }, []);
 
   return (
     <SafeAreaView
@@ -99,20 +98,20 @@ const UpdateProfileScreen = ({route, props}) => {
               label={t('enterFullName')}
               inputStyle={styles.input}
               leftIcon={true}
-              value={userProfile.displayName}
+              value={userProfile.fullName}
               containerStyle={styles.holderInput}
               onChangeText={text => {
                 setUserProfile({
                   ...userProfile,
-                  displayName: text,
+                  fullName: text,
                 });
               }}>
               <Fullname color={theme.colors.text} />
             </TextInput>
             <Block marginTop={8} marginBottom={24}>
-              {/* {error.displayName && (
-              <Text style={styles.text}>{error.displayName}</Text>
-            )} */}
+              {/* {error.fullName && (
+                <Text style={styles.text}>{error.fullName}</Text>
+              )} */}
             </Block>
             <TextInput
               label={t('enterEmail')}
@@ -125,32 +124,31 @@ const UpdateProfileScreen = ({route, props}) => {
                   email: text,
                 });
               }}
-              disabled={userProfile.email && true}>
+              disabled={true}>
               <Email color={theme.colors.text} />
             </TextInput>
             <Block marginTop={8} marginBottom={24}>
               {/* {error.phoneNumber && (
-              <Text style={styles.text}>{error.phoneNumber}</Text>
-            )} */}
+                <Text style={styles.text}>{error.phoneNumber}</Text>
+              )} */}
             </Block>
             <TextInput
               label={t('enterPhoneNumber')}
               inputStyle={styles.input}
               leftIcon={true}
-              value={user.phoneNumber}
+              value={userProfile.phoneNumber}
               onChangeText={text => {
                 setUserProfile({
                   ...userProfile,
                   phoneNumber: text,
                 });
-              }}
-              disabled={userProfile.phoneNumber && true}>
+              }}>
               <Phone color={theme.colors.text} />
             </TextInput>
             <Block marginTop={8} marginBottom={24}>
               {/* {error.phoneNumber && (
-              <Text style={styles.text}>{error.phoneNumber}</Text>
-            )} */}
+                <Text style={styles.text}>{error.phoneNumber}</Text>
+              )} */}
             </Block>
             <DropDown
               open={openGender}

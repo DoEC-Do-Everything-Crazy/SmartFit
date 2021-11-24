@@ -1,15 +1,19 @@
-import {Block, Header, Button} from '@components';
-import ItemFavorite from '@components/ItemList/ItemFavorite';
-import {useSelector, useDispatch} from 'react-redux';
-import {useTheme} from '@theme';
-import {getSize} from '@utils/responsive';
-import React, {useState, useEffect} from 'react';
-import {FlatList} from 'react-native';
-import {useTranslation} from 'react-i18next';
-import {favoriteApi} from 'api/favoriteApi';
+/* eslint-disable react-hooks/exhaustive-deps */
+import {Block, Button, Empty, Header} from '@components';
+import React, {useEffect, useState} from 'react';
 import {clearWishList, removeWishListItem} from 'reduxs/reducers';
+import {useDispatch, useSelector} from 'react-redux';
+
+import {FlatList} from 'react-native';
+import ItemFavorite from '@components/ItemList/ItemFavorite';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import {favoriteApi} from 'api/favoriteApi';
+import {getSize} from '@utils/responsive';
+import {keyExtractor} from 'utils/keyExtractor';
+import {lotties} from '@assets';
 import {useStyles} from './styles';
+import {useTheme} from '@theme';
+import {useTranslation} from 'react-i18next';
 
 const YourFavoriteScreen = props => {
   const dispatch = useDispatch();
@@ -25,11 +29,11 @@ const YourFavoriteScreen = props => {
 
   const getFavorite = async wishList => {
     try {
-      console.log(wishList);
       const data = await favoriteApi.getFavorites({keyList: wishList});
+
       setFavorite(data);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -53,14 +57,18 @@ const YourFavoriteScreen = props => {
           colorTheme={theme.colors.black}
         />
         <Block flex paddingHorizontal={16}>
-          <FlatList
-            showsVerticalScrollIndicator={false}
-            style={{marginBottom: getSize.m(16)}}
-            numColumns={2}
-            data={favorite}
-            renderItem={_renderItemCarousel}
-            keyExtractor={(item, index) => index}
-          />
+          {wishList.length === 0 ? (
+            <Empty lottie={lotties.emptySearch} />
+          ) : (
+            <FlatList
+              showsVerticalScrollIndicator={false}
+              style={{marginBottom: getSize.m(16)}}
+              numColumns={2}
+              data={favorite}
+              renderItem={_renderItemCarousel}
+              keyExtractor={keyExtractor}
+            />
+          )}
         </Block>
       </Block>
     </SafeAreaView>

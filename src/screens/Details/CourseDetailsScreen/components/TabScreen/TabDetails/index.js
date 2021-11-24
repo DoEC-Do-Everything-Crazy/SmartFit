@@ -1,4 +1,12 @@
-import {Block, Button, Header, InviteLogin, PayInfo, Text} from '@components';
+import {
+  Block,
+  Button,
+  Header,
+  InviteLogin,
+  ListDataFooter,
+  PayInfo,
+  Text,
+} from '@components';
 import Carousel, {ParallaxImage} from 'react-native-snap-carousel';
 import {
   Dimensions,
@@ -17,12 +25,13 @@ import {Back} from '@assets/icons';
 import {BottomSheet} from '@components/BottomSheet';
 import ItemPT from '@components/ItemList/ItemPT';
 import LinearGradient from 'react-native-linear-gradient';
+import ListSimilar from '@screens/Bottom/HomeScreen/components/ListSimilar';
 import {Rating} from 'react-native-ratings';
-import RatingValue from '@components/RatingValue';
 import Review from '@components/Review';
+import Snackbar from 'react-native-snackbar';
 import {addCartItem} from 'reduxs/reducers';
 import {courseApi} from 'api/courseApi';
-import {rateApi} from 'api/rateApi';
+import {keyExtractor} from 'utils/keyExtractor';
 import {ptApi} from 'api/ptApi';
 import {routes} from '@navigation/routes';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
@@ -40,11 +49,15 @@ const TabDetails = ({route, props}) => {
   const {transferCourseScreen} = useSelector(state => state.root.screen);
   const modalizPTList = useRef(null);
   const modalizInf = useRef(null);
+
+  const [pageNumber, setPageNumber] = useState(1);
+  const [allLoaded, setAllLoaded] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
   const [dataDetail, setDataDetail] = useState([]);
   const [dataPT, setDataPT] = useState([]);
   const [dataPTDetail, setDataPTDetail] = useState([]);
   const [infoPT, setInfoPT] = useState([]);
-  const [rate, setRate] = useState(1);
   const [isShowReview, setShowReview] = useState();
   const {bottom} = useSafeAreaInsets();
   const keyboardVerticalOffset = Platform.OS === 'ios' ? 'padding' : 'height';
@@ -54,7 +67,7 @@ const TabDetails = ({route, props}) => {
       const resData = await ptApi.getPT(_id, {validateStatus: false});
       setDataPTDetail(resData);
     } catch (error) {
-      console.log('error', error.message);
+      console.error('error', error.message);
     }
   };
 
@@ -107,31 +120,84 @@ const TabDetails = ({route, props}) => {
     }
   };
 
-  const getPt = async () => {
+  const handleLoadMore = async () => {
     try {
-      const resData = await ptApi.getPTs();
-      setDataPT(resData);
-    } catch (error) {
-      console.log('error', error.message);
+      if (allLoaded || isLoading) {
+        return;
+      }
+
+      setIsLoading(true);
+
+      const response = await ptApi.getPTs({
+        pageNumber,
+        courseId: id,
+        active: true,
+      });
+
+      const {pts, page, pages} = response;
+
+      if (page >= pages) {
+        setAllLoaded(true);
+      }
+
+      if (pts.length === 0) {
+        return;
+      }
+
+      setDataPT(dataPT.concat(pts));
+      setPageNumber(pageNumber + 1);
+    } catch (e) {
+      console.error(e.message);
     }
+
+    setIsLoading(false);
   };
 
-  const getCourseRating = async courseId => {
+  const initPTData = async () => {
     try {
-      const data = await rateApi.getRateById('courseId', courseId);
-      setRate(data);
-    } catch (error) {
-      console.error(error.message);
+      setIsLoading(true);
+
+      const response = await ptApi.getPTs({
+        pageNumber: 1,
+        courseId: id,
+        active: true,
+      });
+
+      const {pts, page, pages} = response;
+
+      if (page >= pages) {
+        setAllLoaded(true);
+      }
+
+      if (pts.length === 0) {
+        return;
+      }
+
+      setDataPT(pts);
+      setPageNumber(pageNumber + 1);
+    } catch (e) {
+      console.error(e.message);
     }
+
+    setIsLoading(false);
+  };
+
+  const _footerComponent = () => {
+    return (
+      <ListDataFooter
+        allLoaded={allLoaded}
+        isLoading={isLoading}
+        onPress={handleLoadMore}
+      />
+    );
   };
 
   useEffect(() => {
-    getCourseRating(id);
     getCourseDetails(id);
-    getPt();
+    initPTData();
   }, []);
 
-  const sessions = dataDetail?.session;
+  const lessons = dataDetail.totalLessons;
 
   const {
     theme: {theme: themeStore},
@@ -139,11 +205,10 @@ const TabDetails = ({route, props}) => {
   const styles = useStyles(props, themeStore);
   const theme = useTheme(themeStore);
 
-  const randomMinute = sessions <= 50 ? 45 : 30;
-  const day = sessions <= 50 ? 3 : 5;
+  const randomMinute = lessons <= 50 ? 45 : 30;
+  const day = lessons <= 50 ? 3 : 5;
   const weeks =
-    sessions <= 50 ? Math.round(sessions / 3) : Math.round(sessions / 5);
-  const totalPrice = dataDetail?.price || 0 + dataPTDetail.price;
+    lessons <= 50 ? Math.round(lessons / 3) : Math.round(lessons / 5);
   const HeaderComponent = useCallback(
     props => {
       const {title, inf} = props;
@@ -235,7 +300,7 @@ const TabDetails = ({route, props}) => {
               tintColor={theme.colors.lightBlue}
             />
             <Text marginLeft={100} color={theme.colors.iconInf}>
-              6,3k {t('completed')}
+              {dataDetail.totalBuy} {t('bought')}
             </Text>
           </Block>
           <Block marginTop={10}>
@@ -305,10 +370,9 @@ const TabDetails = ({route, props}) => {
                 <Block paddingHorizontal={16}>
                   <PayInfo
                     title1={t('course')}
-                    titlePrice1={dataDetail.price}
+                    titlePrice1={dataDetail.lastPrice}
                     title2={t('PT')}
                     titlePrice2={infoPT?.price || 0}
-                    total={totalPrice}
                   />
                 </Block>
                 <Block
@@ -317,7 +381,7 @@ const TabDetails = ({route, props}) => {
                   paddingBottom={20}
                   paddingHorizontal={16}>
                   <Text fontType="bold" size={17}>
-                    {t('review')}:
+                    {t('Review')}:
                   </Text>
                   <Pressable onPress={handleShowReview}>
                     <Text style={styles.link} marginLeft={15} size={17}>
@@ -326,10 +390,11 @@ const TabDetails = ({route, props}) => {
                   </Pressable>
                 </Block>
                 {isShowReview ? (
-                  <>
-                    <RatingValue />
-                    <Review rate={rate} />
-                  </>
+                  <Review
+                    averageRating={dataDetail.averageRating}
+                    totalReviews={dataDetail.totalReviews}
+                    courseId={dataDetail._id}
+                  />
                 ) : null}
               </>
             ) : null}
@@ -350,8 +415,9 @@ const TabDetails = ({route, props}) => {
                 <FlatList
                   showsVerticalScrollIndicator={false}
                   data={dataPT}
-                  keyExtractor={(item, index) => index.toString()}
+                  keyExtractor={keyExtractor}
                   renderItem={_renderItemPT}
+                  ListFooterComponent={_footerComponent}
                 />
               </Block>
             </KeyboardAvoidingView>
@@ -381,7 +447,7 @@ const TabDetails = ({route, props}) => {
                 <Text marginTop={10} size={16} fontType="bold">
                   {t('description')}
                 </Text>
-                <Text>No something</Text>
+                <Text>{dataPTDetail.description}</Text>
                 <Block
                   marginTop={10}
                   paddingVertical={5}
@@ -390,12 +456,14 @@ const TabDetails = ({route, props}) => {
                   borderColor={theme.colors.gray}
                   row>
                   <Block width={screenWidth / 3.6}>
-                    <Text fontType="bold">{t('ratting')}</Text>
+                    <Text fontType="bold">{t('rating')}</Text>
                   </Block>
                   <Block width={screenWidth / 1.55} alignStart>
                     <Rating
+                      readonly={true}
                       type="custom"
                       ratingCount={5}
+                      startingValue={0}
                       ratingBackgroundColor="#c8c7c8"
                       imageSize={20}
                       ratingColor="#FFD700"
@@ -413,7 +481,7 @@ const TabDetails = ({route, props}) => {
                     <Text fontType="bold">{t('gender')}</Text>
                   </Block>
                   <Block width={screenWidth / 1.55}>
-                    <Text>{dataPTDetail.gender}</Text>
+                    <Text>{t(`${dataPTDetail.gender}`)}</Text>
                   </Block>
                 </Block>
                 <Block
@@ -449,19 +517,6 @@ const TabDetails = ({route, props}) => {
                   row
                   borderColor={theme.colors.gray}>
                   <Block width={screenWidth / 3.6}>
-                    <Text fontType="bold">{t('birthday')}</Text>
-                  </Block>
-                  <Block width={screenWidth / 1.55}>
-                    <Text>{dataPTDetail.birthday}</Text>
-                  </Block>
-                </Block>
-                <Block
-                  alignCenter
-                  paddingVertical={5}
-                  borderTopWidth={0.3}
-                  row
-                  borderColor={theme.colors.gray}>
-                  <Block width={screenWidth / 3.6}>
                     <Text fontType="bold">{t('price')}</Text>
                   </Block>
                   <Block width={screenWidth / 1.55}>
@@ -473,6 +528,7 @@ const TabDetails = ({route, props}) => {
             </KeyboardAvoidingView>
           </BottomSheet>
         </Block>
+        <ListSimilar type={'course'} />
       </ScrollView>
       {user ? (
         <Button
@@ -484,6 +540,10 @@ const TabDetails = ({route, props}) => {
                 quantity: 1,
               }),
             );
+            Snackbar.show({
+              text: t('addedToCart'),
+              duration: Snackbar.LENGTH_SHORT,
+            });
             modalizInf?.current.close();
           }}
         />

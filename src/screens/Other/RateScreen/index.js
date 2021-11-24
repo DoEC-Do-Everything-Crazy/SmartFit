@@ -1,13 +1,15 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {Block, Button, Header, Text, TextInput} from '@components';
 import {Image, Pressable, ScrollView} from 'react-native';
 import {PERMISSION_TYPE, checkPermission} from '../../../hook';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {addImage, removeImage} from 'reduxs/reducers';
 import {useDispatch, useSelector} from 'react-redux';
 
 import {Camera} from '@assets/icons';
 import ImagePicker from 'react-native-image-crop-picker';
 import {Rating} from 'react-native-ratings';
+import {SafeAreaView} from 'react-native-safe-area-context';
 import {icons} from '@assets';
 import {rateApi} from 'api/rateApi';
 import {routes} from '@navigation/routes';
@@ -15,7 +17,6 @@ import {useNavigation} from '@react-navigation/core';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {useTranslation} from 'react-i18next';
-import {SafeAreaView} from 'react-native-safe-area-context';
 
 const RateScreen = ({route, props}) => {
   const {item} = route.params;
@@ -24,17 +25,16 @@ const RateScreen = ({route, props}) => {
   const {
     theme: {theme: themeStore},
     image: {image},
-    user: {user},
   } = useSelector(stateRoot => stateRoot.root);
   const styles = useStyles(props, themeStore);
   const theme = useTheme(themeStore);
 
   const navigation = useNavigation();
-  const [content, setContent] = useState('');
+  const [content, setContent] = useState('a');
   const [rate, setRate] = useState(5);
-  const courseId = item.courseId || null;
-  const productId = item.productId || null;
-  const foodId = item.foodId || null;
+  const courseId = item.courseId || undefined;
+  const productId = item.productId || undefined;
+  const foodId = item.foodId || undefined;
 
   const handleCamera = async () => {
     const resultSP = await checkPermission(PERMISSION_TYPE.camera);
@@ -44,7 +44,6 @@ const RateScreen = ({route, props}) => {
   };
 
   const handleGallery = () => {
-    // dispatch(removeImage());
     ImagePicker.openPicker({
       width: 300,
       height: 400,
@@ -60,16 +59,13 @@ const RateScreen = ({route, props}) => {
   };
 
   const addRate = async formData => {
-    const res = await rateApi.addRateReview(formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    });
+    try {
+      await rateApi.addRateReview(formData);
 
-    if (res === 200) {
-      console.log('add rate success');
       dispatch(removeImage());
       navigation.navigate(routes.ORDER_SCREEN);
+    } catch (error) {
+      console.error(error.message);
     }
   };
 
@@ -79,10 +75,9 @@ const RateScreen = ({route, props}) => {
 
   const handleFormSubmit = () => {
     const formData = new FormData();
-    formData.append('userId', user.uid);
-    formData.append('productId', productId);
-    formData.append('courseId', courseId);
-    formData.append('foodId', foodId);
+    courseId && formData.append('courseId', courseId);
+    productId && formData.append('productId', productId);
+    foodId && formData.append('foodId', foodId);
     formData.append('rate', rate);
     formData.append('content', content);
 
@@ -92,16 +87,16 @@ const RateScreen = ({route, props}) => {
     addRate(formData);
   };
 
+  useEffect(() => {
+    dispatch(removeImage());
+  }, []);
+
   return (
     <SafeAreaView
       edges={['bottom', 'left', 'right']}
       style={styles.sendControlContainerOuter}>
       <Block flex backgroundColor={theme.colors.backgroundSetting}>
-        <Header
-          canGoBack
-          title={t('ratting')}
-          colorTheme={theme.colors.black}
-        />
+        <Header canGoBack title={t('rating')} colorTheme={theme.colors.black} />
         <ScrollView showsVerticalScrollIndicator={false}>
           <Block paddingVertical={15} marginTop={5}>
             <Text center fontType="bold" size={16}>

@@ -1,41 +1,46 @@
 import {Block, Text} from '@components';
-import React from 'react';
-import {width} from '@utils/responsive';
-import {useEffect, useState} from 'react';
+import {HeartPf, Rating} from '@assets/icons';
 import {Image, Pressable} from 'react-native';
+
+import React from 'react';
+import {courseApi} from 'api/courseApi';
+import {foodApi} from 'api/foodApi';
+import {routes} from '@navigation/routes';
+import {useNavigation} from '@react-navigation/core';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
-import {routes} from '@navigation/routes';
-import {useNavigation} from '@react-navigation/core';
-import {HeartPf, Ratting} from '@assets/icons';
-import {recommendedApi} from 'api/recommendedApi.js';
+import {width} from '@utils/responsive';
 
 const ItemRecommended = ({item, index, props}) => {
   const {
     theme: {theme: themeStore},
   } = useSelector(stateRoot => stateRoot.root);
-  const [rate, setRate] = useState([]);
   const styles = useStyles(props, themeStore);
   const theme = useTheme(themeStore);
   const navigation = useNavigation();
 
-  const fetchRateData = async () => {
-    const data = await recommendedApi.getAvgRate();
-    setRate(data);
+  const updateViewFood = async item => {
+    await foodApi.updateViewFood(item, {
+      validateStatus: false,
+    });
+  };
+
+  const updateViewCourse = async item => {
+    await courseApi.updateViewCourse(item, {
+      validateStatus: false,
+    });
   };
 
   const navigationWithId = async (key, id) => {
     if (key === 'F') {
       navigation.navigate(routes.FOOD_DETAILS_SCREEN, {id: id});
+      updateViewFood(id);
     } else {
       navigation.navigate(routes.TAB_DETAILS, {id: id});
+      updateViewCourse(id);
     }
   };
-
-  useEffect(() => {
-    fetchRateData();
-  }, []);
 
   return (
     <Pressable
@@ -58,22 +63,17 @@ const ItemRecommended = ({item, index, props}) => {
               backgroundColor={'#045694'}
               paddingHorizontal={10}
               radius={5}>
-              <Ratting />
+              <Rating />
               <Text fontType="bold" color={theme.colors.white} marginLeft={5}>
-                {rate
-                  .slice(0, 5)
-                  .map(itemRate =>
-                    itemRate.foodId === item._id ||
-                    itemRate.courseId === item._id
-                      ? Math.round(itemRate.rate * 10) / 10
-                      : null,
-                  )}
+                {item.averageRating}
               </Text>
             </Block>
           </Block>
-          <Block justifyEnd>
-            <HeartPf color={theme.colors.lightGray} />
-          </Block>
+          {!item.key.includes('C') && (
+            <Block justifyEnd>
+              <HeartPf color={theme.colors.lightGray} />
+            </Block>
+          )}
         </Block>
         <Block flex>
           <Text
@@ -111,7 +111,7 @@ const ItemRecommended = ({item, index, props}) => {
               fontType="bold"
               color={theme.colors.white}
               key={index}>
-              {item.price + ' ' + '$'}
+              {item.lastPrice + ' ' + '$'}
             </Text>
           </Block>
         </Block>

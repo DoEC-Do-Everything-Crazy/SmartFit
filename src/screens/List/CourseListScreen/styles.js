@@ -1,5 +1,5 @@
-import {makeStyles} from '@theme';
 import {getSize} from '@utils/responsive';
+import {makeStyles} from '@theme';
 
 export const useStyles = makeStyles()(({colors}) => ({
   layout: {
@@ -30,5 +30,8 @@ export const useStyles = makeStyles()(({colors}) => ({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: colors.blue,
+  },
+  sendControlContainerOuter: {
+    flex: 1,
   },
 }));

@@ -1,24 +1,23 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import {Block, Button, Text} from '@components';
 import {Dimensions, Image, Platform, Pressable, ScrollView} from 'react-native';
 import React, {useCallback, useEffect, useRef, useState} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-
-import {HeartPf} from '@assets/icons';
-import {BottomSheet} from '@components/BottomSheet';
-import Header from './Header';
-import LinearGradient from 'react-native-linear-gradient';
-import {Rating} from 'react-native-ratings';
-import RatingValue from '@components/RatingValue';
-import Review from '@components/Review';
 import {
   addCartItem,
   addWishListItem,
-  clearWishList,
   removeWishListItem,
 } from 'reduxs/reducers';
+import {useDispatch, useSelector} from 'react-redux';
+
+import {BottomSheet} from '@components/BottomSheet';
+import Header from './Header';
+/* eslint-disable react-hooks/exhaustive-deps */
+import {HeartPf} from '@assets/icons';
+import LinearGradient from 'react-native-linear-gradient';
+import ListSimilar from '../../Bottom/HomeScreen/components/ListSimilar/index';
+import {Rating} from 'react-native-ratings';
+import Review from '@components/Review';
+import Snackbar from 'react-native-snackbar';
 import {productApi} from 'api/productApi';
-import {rateApi} from 'api/rateApi';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {useTranslation} from 'react-i18next';
@@ -30,8 +29,8 @@ const ProductDetailScreen = ({props, route}) => {
   const [isShowReview, setShowReview] = useState();
   const {id} = route.params;
   const {height: MAX_HEIGHT} = Dimensions.get('screen');
+
   const [product, setProduct] = useState(undefined);
-  const [rate, setRate] = useState(1);
   const {
     theme: {theme: themeStore},
     cart: {wishList},
@@ -54,17 +53,9 @@ const ProductDetailScreen = ({props, route}) => {
 
   const getProductDetail = async productId => {
     try {
-      const resData = await productApi.getProduct(productId);
-      setProduct(resData);
-    } catch (error) {
-      console.error(error.message);
-    }
-  };
+      const response = await productApi.getProduct(productId);
 
-  const getProductRating = async productId => {
-    try {
-      const data = await rateApi.getRateById('productId', productId);
-      setRate(data);
+      setProduct(response);
     } catch (error) {
       console.error(error.message);
     }
@@ -79,7 +70,6 @@ const ProductDetailScreen = ({props, route}) => {
   };
 
   useEffect(() => {
-    getProductRating(id);
     getProductDetail(id);
   }, []);
 
@@ -93,9 +83,12 @@ const ProductDetailScreen = ({props, route}) => {
           <Image style={styles.image} source={{uri: product.image[0]}} />
           <Block style={styles.bottom}>
             <Button
-              title="Details"
+              title={t('viewDetails')}
               onPress={() => modalizRef?.current.open()}
             />
+          </Block>
+          <Block flex={1}>
+            <ListSimilar type={'product'} />
           </Block>
           <BottomSheet
             ref={modalizRef}
@@ -109,9 +102,7 @@ const ProductDetailScreen = ({props, route}) => {
             <ScrollView showsVerticalScrollIndicator={false}>
               <Block paddingBottom={50} flex>
                 <Block
-                  row
                   flex
-                  alignCenter
                   space={'between'}
                   paddingTop={20}
                   paddingHorizontal={16}>
@@ -119,7 +110,7 @@ const ProductDetailScreen = ({props, route}) => {
                     {product.name}
                   </Text>
 
-                  <Block row justifyCenter>
+                  <Block row marginTop={10}>
                     <Pressable onPress={handleFavorite} marginRight={10}>
                       <HeartPf
                         isActive={wishList.includes(product.key)}
@@ -128,12 +119,15 @@ const ProductDetailScreen = ({props, route}) => {
                       />
                     </Pressable>
                     <Rating
+                      readonly={true}
                       type="custom"
                       ratingColor={'#FFD700'}
                       ratingCount={5}
+                      startingValue={product.averageRating}
                       imageSize={18}
                       tintColor={theme.colors.backgroundSetting}
                     />
+                    <Text>({product.averageRating})</Text>
                   </Block>
                 </Block>
                 <Block
@@ -189,7 +183,7 @@ const ProductDetailScreen = ({props, route}) => {
                     </Pressable>
                     <Block justifyCenter flex alignEnd>
                       <Text center fontType="bold" size={20} color={'#FF7F50'}>
-                        {product.price}$
+                        {product.lastPrice}$
                       </Text>
                     </Block>
                   </Block>
@@ -199,6 +193,12 @@ const ProductDetailScreen = ({props, route}) => {
                     title={t('addToCart')}
                     onPress={() => {
                       dispatch(addCartItem({addItem: product, quantity: 1}));
+
+                      Snackbar.show({
+                        text: t('addedToCart'),
+                        duration: Snackbar.LENGTH_SHORT,
+                      });
+
                       modalizRef?.current.close();
                     }}
                   />
@@ -221,7 +221,7 @@ const ProductDetailScreen = ({props, route}) => {
                 </Block>
                 <Block row paddingBottom={20} paddingHorizontal={16}>
                   <Text fontType="bold" size={17}>
-                    {t('review')}:
+                    {t('Review')}:
                   </Text>
                   <Pressable onPress={handleShowReview}>
                     <Text style={styles.link} marginLeft={15} size={17}>
@@ -230,12 +230,14 @@ const ProductDetailScreen = ({props, route}) => {
                   </Pressable>
                 </Block>
                 {isShowReview ? (
-                  <>
-                    <RatingValue />
-                    <Review rate={rate} />
-                  </>
+                  <Review
+                    averageRating={product.averageRating}
+                    totalReviews={product.totalReviews}
+                    courseId={product._id}
+                  />
                 ) : null}
               </Block>
+              <Block />
             </ScrollView>
           </BottomSheet>
         </Block>

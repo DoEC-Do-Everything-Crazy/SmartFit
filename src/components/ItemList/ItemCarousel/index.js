@@ -4,13 +4,14 @@ import {Image, Pressable} from 'react-native';
 import {HeartPf} from '@assets/icons';
 import {Rating} from 'react-native-ratings';
 import React from 'react';
+import {productApi} from 'api/productApi';
 import {routes} from '@navigation/routes';
 import {useNavigation} from '@react-navigation/core';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
-import {width} from '@utils/responsive';
 import {useTranslation} from 'react-i18next';
+import {width} from '@utils/responsive';
 
 const ItemCarousel = ({item, props}) => {
   const {
@@ -21,6 +22,13 @@ const ItemCarousel = ({item, props}) => {
   const theme = useTheme(themeStore);
   const navigation = useNavigation();
   const {t} = useTranslation();
+
+  const updateViewProduct = async item => {
+    await productApi.updateViewProduct(item, {
+      validateStatus: false,
+    });
+  };
+
   return (
     <Block
       row
@@ -69,9 +77,10 @@ const ItemCarousel = ({item, props}) => {
           </Text>
         </Block>
         <Pressable
-          onPress={() =>
-            navigation.navigate(routes.PRODUCT_DETAIL_SCREEN, {id: item._id})
-          }>
+          onPress={() => {
+            navigation.navigate(routes.PRODUCT_DETAIL_SCREEN, {id: item._id});
+            updateViewProduct(item._id);
+          }}>
           <Block flex>
             <Text
               size={14}

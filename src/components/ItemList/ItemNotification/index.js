@@ -1,12 +1,13 @@
 import {Block, Text} from '@components';
 import React, {useCallback} from 'react';
+
+import Clipboard from '@react-native-clipboard/clipboard';
 import {Pressable} from 'react-native';
-import {useTranslation} from 'react-i18next';
+import Snackbar from 'react-native-snackbar';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
-import Clipboard from '@react-native-clipboard/clipboard';
-import Snackbar from 'react-native-snackbar';
+import {useTranslation} from 'react-i18next';
 
 const ItemNotification = ({item, props}) => {
   const {
@@ -100,7 +101,7 @@ const ItemNotification = ({item, props}) => {
                 </Text>
               </Block>
               <Block justifyCenter style={styles.code}>
-                <Pressable onPress={() => handleCopyToClipBoard('')}>
+                <Pressable onPress={() => handleCopyToClipBoard(item.key)}>
                   <Text fontType="bold" color={theme.colors.link}>
                     {t('getCode')}
                   </Text>
