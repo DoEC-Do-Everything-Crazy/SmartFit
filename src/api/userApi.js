@@ -35,4 +35,20 @@ const updateUser = async (data, options) => {
   }
 };
 
-export const userApi = {getUser, updateUser};
+const uploadImage = async (data, options) => {
+  try {
+    const response = await axios.post(`${apiUrl}/users/uploadImageUser`, data, {
+      ...options,
+      validateStatus: false,
+    });
+    if (response.status === 404 || response.status === 500) {
+      throw response.data;
+    }
+
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const userApi = {getUser, updateUser, uploadImage};
