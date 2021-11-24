@@ -7,9 +7,15 @@ import {foodApi} from 'api/foodApi';
 import {keyExtractor} from 'utils/keyExtractor';
 /* eslint-disable react-hooks/exhaustive-deps */
 import {lotties} from '@assets';
+import setAuthToken from 'utils/setAuthToken';
+import {useSelector} from 'react-redux';
 
 const ListItemPopular = ({...props}) => {
-  const {recommendData} = props;
+  const {
+    user: {token},
+  } = useSelector(stateRoot => stateRoot.root);
+
+  const {recommendData, dailyMeals} = props;
   const [data, setData] = useState(recommendData ? recommendData : []);
   const [pageNumber, setPageNumber] = useState(1);
   const [allLoaded, setAllLoaded] = useState(false);
@@ -23,9 +29,17 @@ const ListItemPopular = ({...props}) => {
     setIsLoading(true);
 
     try {
-      const response = await foodApi.getFoods({
-        pageNumber,
-      });
+      let response = {};
+
+      if (!dailyMeals) {
+        response = await foodApi.getFoods({
+          pageNumber,
+        });
+      } else {
+        response = await foodApi.getUserDailyMeals({
+          pageNumber,
+        });
+      }
 
       const {foods, page, pages} = response;
 
@@ -46,9 +60,17 @@ const ListItemPopular = ({...props}) => {
     setIsLoading(true);
 
     try {
-      const response = await foodApi.getFoods({
-        pageNumber,
-      });
+      let response = {};
+
+      if (!dailyMeals) {
+        response = await foodApi.getFoods({
+          pageNumber,
+        });
+      } else {
+        response = await foodApi.getUserDailyMeals({
+          pageNumber,
+        });
+      }
 
       const {foods, page, pages} = response;
 
@@ -56,8 +78,8 @@ const ListItemPopular = ({...props}) => {
         setAllLoaded(true);
       }
 
-      setData(data.concat(foods));
-      setPageNumber(pageNumber + 1);
+      setData(foods);
+      setPageNumber(2);
     } catch (e) {
       console.error(e.message);
     }
@@ -78,6 +100,7 @@ const ListItemPopular = ({...props}) => {
   );
 
   useEffect(() => {
+    setAuthToken(token);
     !recommendData && initData();
   }, []);
 

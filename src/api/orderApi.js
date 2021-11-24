@@ -7,7 +7,7 @@ const checkCardList = async (data, options) => {
       validateStatus: false,
     });
 
-    if (response.status === 404 || response.status === 500) {
+    if (response.status !== 200) {
       throw response.data;
     }
 
@@ -24,7 +24,7 @@ const addOrder = async (data, options) => {
       validateStatus: false,
     });
 
-    if (response.status === 404 || response.status === 500) {
+    if (response.status !== 200) {
       throw response.data;
     }
 
@@ -45,7 +45,7 @@ const getOrders = async (params, options) => {
       },
     );
 
-    if (response.status === 404 || response.status === 500) {
+    if (response.status !== 200) {
       throw response.data;
     }
 

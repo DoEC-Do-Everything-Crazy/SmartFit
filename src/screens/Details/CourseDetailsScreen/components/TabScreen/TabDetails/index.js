@@ -1,4 +1,12 @@
-import {Block, Button, Header, InviteLogin, PayInfo, Text} from '@components';
+import {
+  Block,
+  Button,
+  Header,
+  InviteLogin,
+  ListDataFooter,
+  PayInfo,
+  Text,
+} from '@components';
 import Carousel, {ParallaxImage} from 'react-native-snap-carousel';
 import {
   Dimensions,
@@ -19,7 +27,6 @@ import ItemPT from '@components/ItemList/ItemPT';
 import LinearGradient from 'react-native-linear-gradient';
 import ListSimilar from '@screens/Bottom/HomeScreen/components/ListSimilar';
 import {Rating} from 'react-native-ratings';
-import RatingValue from '@components/RatingValue';
 import Review from '@components/Review';
 import Snackbar from 'react-native-snackbar';
 import {addCartItem} from 'reduxs/reducers';
@@ -42,6 +49,11 @@ const TabDetails = ({route, props}) => {
   const {transferCourseScreen} = useSelector(state => state.root.screen);
   const modalizPTList = useRef(null);
   const modalizInf = useRef(null);
+
+  const [pageNumber, setPageNumber] = useState(1);
+  const [allLoaded, setAllLoaded] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
   const [dataDetail, setDataDetail] = useState([]);
   const [dataPT, setDataPT] = useState([]);
   const [dataPTDetail, setDataPTDetail] = useState([]);
@@ -108,21 +120,84 @@ const TabDetails = ({route, props}) => {
     }
   };
 
-  const getPt = async () => {
+  const handleLoadMore = async () => {
     try {
-      const resData = await ptApi.getPTs();
-      setDataPT(resData);
-    } catch (error) {
-      console.error('error', error.message);
+      if (allLoaded || isLoading) {
+        return;
+      }
+
+      setIsLoading(true);
+
+      const response = await ptApi.getPTs({
+        pageNumber,
+        courseId: id,
+        active: true,
+      });
+
+      const {pts, page, pages} = response;
+
+      if (page >= pages) {
+        setAllLoaded(true);
+      }
+
+      if (pts.length === 0) {
+        return;
+      }
+
+      setDataPT(dataPT.concat(pts));
+      setPageNumber(pageNumber + 1);
+    } catch (e) {
+      console.error(e.message);
     }
+
+    setIsLoading(false);
+  };
+
+  const initPTData = async () => {
+    try {
+      setIsLoading(true);
+
+      const response = await ptApi.getPTs({
+        pageNumber: 1,
+        courseId: id,
+        active: true,
+      });
+
+      const {pts, page, pages} = response;
+
+      if (page >= pages) {
+        setAllLoaded(true);
+      }
+
+      if (pts.length === 0) {
+        return;
+      }
+
+      setDataPT(pts);
+      setPageNumber(pageNumber + 1);
+    } catch (e) {
+      console.error(e.message);
+    }
+
+    setIsLoading(false);
+  };
+
+  const _footerComponent = () => {
+    return (
+      <ListDataFooter
+        allLoaded={allLoaded}
+        isLoading={isLoading}
+        onPress={handleLoadMore}
+      />
+    );
   };
 
   useEffect(() => {
     getCourseDetails(id);
-    getPt();
+    initPTData();
   }, []);
 
-  const sessions = dataDetail?.session;
+  const lessons = dataDetail.totalLessons;
 
   const {
     theme: {theme: themeStore},
@@ -130,11 +205,10 @@ const TabDetails = ({route, props}) => {
   const styles = useStyles(props, themeStore);
   const theme = useTheme(themeStore);
 
-  const randomMinute = sessions <= 50 ? 45 : 30;
-  const day = sessions <= 50 ? 3 : 5;
+  const randomMinute = lessons <= 50 ? 45 : 30;
+  const day = lessons <= 50 ? 3 : 5;
   const weeks =
-    sessions <= 50 ? Math.round(sessions / 3) : Math.round(sessions / 5);
-  const totalPrice = dataDetail?.price || 0 + dataPTDetail.price;
+    lessons <= 50 ? Math.round(lessons / 3) : Math.round(lessons / 5);
   const HeaderComponent = useCallback(
     props => {
       const {title, inf} = props;
@@ -226,7 +300,7 @@ const TabDetails = ({route, props}) => {
               tintColor={theme.colors.lightBlue}
             />
             <Text marginLeft={100} color={theme.colors.iconInf}>
-              6,5k {t('completed')}
+              {dataDetail.totalBuy} {t('bought')}
             </Text>
           </Block>
           <Block marginTop={10}>
@@ -299,8 +373,6 @@ const TabDetails = ({route, props}) => {
                     titlePrice1={dataDetail.lastPrice}
                     title2={t('PT')}
                     titlePrice2={infoPT?.price || 0}
-                    title3={t('total')}
-                    titlePrice3={dataDetail.price + infoPT?.price || 0}
                   />
                 </Block>
                 <Block
@@ -345,6 +417,7 @@ const TabDetails = ({route, props}) => {
                   data={dataPT}
                   keyExtractor={keyExtractor}
                   renderItem={_renderItemPT}
+                  ListFooterComponent={_footerComponent}
                 />
               </Block>
             </KeyboardAvoidingView>
@@ -374,7 +447,7 @@ const TabDetails = ({route, props}) => {
                 <Text marginTop={10} size={16} fontType="bold">
                   {t('description')}
                 </Text>
-                <Text>No something</Text>
+                <Text>{dataPTDetail.description}</Text>
                 <Block
                   marginTop={10}
                   paddingVertical={5}
@@ -387,8 +460,10 @@ const TabDetails = ({route, props}) => {
                   </Block>
                   <Block width={screenWidth / 1.55} alignStart>
                     <Rating
+                      readonly={true}
                       type="custom"
                       ratingCount={5}
+                      startingValue={0}
                       ratingBackgroundColor="#c8c7c8"
                       imageSize={20}
                       ratingColor="#FFD700"
@@ -406,7 +481,7 @@ const TabDetails = ({route, props}) => {
                     <Text fontType="bold">{t('gender')}</Text>
                   </Block>
                   <Block width={screenWidth / 1.55}>
-                    <Text>{dataPTDetail.gender}</Text>
+                    <Text>{t(`${dataPTDetail.gender}`)}</Text>
                   </Block>
                 </Block>
                 <Block
@@ -433,19 +508,6 @@ const TabDetails = ({route, props}) => {
                   </Block>
                   <Block width={screenWidth / 1.55}>
                     <Text>{dataPTDetail.mobile}</Text>
-                  </Block>
-                </Block>
-                <Block
-                  alignCenter
-                  paddingVertical={5}
-                  borderTopWidth={0.3}
-                  row
-                  borderColor={theme.colors.gray}>
-                  <Block width={screenWidth / 3.6}>
-                    <Text fontType="bold">{t('birthday')}</Text>
-                  </Block>
-                  <Block width={screenWidth / 1.55}>
-                    <Text>{dataPTDetail.birthday}</Text>
                   </Block>
                 </Block>
                 <Block

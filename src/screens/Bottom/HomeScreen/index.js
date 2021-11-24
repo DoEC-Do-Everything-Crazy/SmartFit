@@ -15,7 +15,7 @@ import ListHotFood from './components/ListHotFood';
 import ListMenu from './components/ListMenu';
 import ListProduct from './components/ListProduct';
 import ListRecommended from './components/ListRecommended';
-import Snackbar from 'react-native-snackbar';
+/* eslint-disable react-hooks/exhaustive-deps */
 import {images} from '@assets';
 import {routes} from '@navigation/routes';
 import setAuthToken from 'utils/setAuthToken';
@@ -77,6 +77,10 @@ const HomeScreen = props => {
 
     offsetList > 0 ? (offset.value = 1) : (offset.value = 0);
   };
+
+  useEffect(() => {
+    setAuthToken(token);
+  }, []);
 
   return (
     <Block flex backgroundColor={theme.colors.blue}>

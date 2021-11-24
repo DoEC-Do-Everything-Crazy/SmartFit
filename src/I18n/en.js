@@ -124,6 +124,7 @@ export default {
   equip: 'Equip',
   supple: 'Supple',
   clothing: 'Clothing & Accessories',
+  bought: 'bought',
 
   //Product Detail
   productDetail: 'Product Detail',

@@ -12,7 +12,7 @@ const getDataSearch = async (params, options) => {
       },
     );
 
-    if (response.status === 404 || response.status === 500) {
+    if (response.status !== 200) {
       throw response.data;
     }
     return response.data;

@@ -3,7 +3,7 @@ import Animated, {
   useSharedValue,
   withSpring,
 } from 'react-native-reanimated';
-import {Block, Header, Text} from '@components';
+import {Block, Header, ListDataFooter} from '@components';
 import {Pressable, ScrollView} from 'react-native';
 import React, {useEffect, useState} from 'react';
 
@@ -13,8 +13,10 @@ import LinearGradient from 'react-native-linear-gradient';
 import ListItemNavProduct from './components/ListItemNavProduct';
 import ListItemPopular from './components/ListItemPopular';
 import {bmiApi} from 'api/bmiApi';
+import {foodApi} from 'api/foodApi';
 import {recommendedApi} from 'api/recommendedApi';
 import {routes} from '@navigation/routes';
+import setAuthToken from 'utils/setAuthToken';
 import {useNavigation} from '@react-navigation/core';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
@@ -25,35 +27,14 @@ const FoodListScreen = ({route, props}) => {
   const navigation = useNavigation();
   const {
     theme: {theme: themeStore},
-    user: {user},
   } = useSelector(stateRoot => stateRoot.root);
+
   const theme = useTheme(themeStore);
   const {t} = useTranslation();
   const styles = useStyles(props, themeStore);
   const offset = useSharedValue(0);
 
   const {title, recommendData} = route.params;
-  const [foodsBMI, setFoodsBMI] = useState([]);
-
-  const fetchFoodsByBMI = async () => {
-    try {
-      const response = await bmiApi.getBMI(user.uid, {
-        validateStatus: false,
-      });
-      if (response) {
-        const resData = await recommendedApi.getFoodsByBMI(
-          response.bmi,
-          'food',
-          {
-            validateStatus: false,
-          },
-        );
-        setFoodsBMI(resData);
-      }
-    } catch (error) {
-      console.error('error', error.message);
-    }
-  };
 
   const animatedStyles = useAnimatedStyle(() => {
     return {
@@ -74,10 +55,6 @@ const FoodListScreen = ({route, props}) => {
     offsetList > 0 ? (offset.value = 1) : (offset.value = 0);
   };
 
-  useEffect(() => {
-    fetchFoodsByBMI();
-  }, []);
-
   return (
     <Block flex backgroundColor={theme.colors.backgroundSetting}>
       <Header
@@ -87,12 +64,10 @@ const FoodListScreen = ({route, props}) => {
         colorTheme={theme.colors.blue}
       />
       <ScrollView onScroll={onScroll} showsVerticalScrollIndicator={false}>
-        {recommendData ? (
-          <>
-            <ListItemPopular recommendData={recommendData} />
-          </>
-        ) : title === t('dailyMeals') ? (
-          <ListItemPopular />
+        {title === t('dailyMeals') ? (
+          <ListItemPopular dailyMeals />
+        ) : recommendData ? (
+          <ListItemPopular recommendData={recommendData} />
         ) : (
           <>
             <ListItemNavProduct />

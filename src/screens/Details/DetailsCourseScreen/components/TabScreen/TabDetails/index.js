@@ -306,11 +306,11 @@ const TabDetails = ({route, props}) => {
                   <Block paddingHorizontal={16}>
                     <PayInfo
                       title1={t('course')}
-                      titlePrice1={dataDetail.price}
+                      titlePrice1={dataDetail.lastPrice}
                       title2={t('PT')}
                       titlePrice2={infoPT?.price || 0}
                       title3={t('total')}
-                      titlePrice3={dataDetail.price + infoPT?.price || 0}
+                      titlePrice3={dataDetail.lastPrice + infoPT?.price || 0}
                     />
                   </Block>
                   <Block

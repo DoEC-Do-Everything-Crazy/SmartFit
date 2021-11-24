@@ -1,6 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {Block, Button, Header, Text} from '@components';
 import {Modal, Platform, Pressable, TouchableOpacity, View} from 'react-native';
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {removeUser, setUser} from 'reduxs/reducers';
 import {useDispatch, useSelector} from 'react-redux';
 
@@ -16,7 +17,7 @@ const Information = props => {
   const dispatch = useDispatch();
   const {
     theme: {theme: themeStore},
-    user: {user},
+    user: {user, token},
   } = useSelector(state => state.root);
   const {t} = useTranslation();
   const theme = useTheme(themeStore);
@@ -25,6 +26,11 @@ const Information = props => {
     setModalVisible(false);
     dispatch(removeUser());
   }, [dispatch]);
+
+  useEffect(() => {
+    setAuthToken(token);
+  }, []);
+
   return (
     <Block flex backgroundColor={theme.colors.blue}>
       <Header

@@ -124,6 +124,7 @@ export default {
   equip: 'Dụng cụ',
   supple: 'Thực phẩm chức năng',
   clothing: 'Quần áo & Phụ kiện',
+  bought: 'lượt mua',
 
   //Product Detail
   productDetail: 'Chi tiết sản phẩm',

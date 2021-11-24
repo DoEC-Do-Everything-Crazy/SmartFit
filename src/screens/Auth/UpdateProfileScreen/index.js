@@ -1,12 +1,13 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {Block, Button, DropDown, Header, TextInput} from '@components';
 import {Email, Fullname, List, Phone} from '@assets/icons';
 import {Platform, TouchableOpacity} from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {ScrollView} from 'react-native-gesture-handler';
+import setAuthToken from 'utils/setAuthToken';
 import {setUser} from 'reduxs/reducers';
 import {useNavigation} from '@react-navigation/core';
 import {useStyles} from './styles';
@@ -21,7 +22,7 @@ const UpdateProfileScreen = ({route, props}) => {
 
   const {
     theme: {theme: themeStore},
-    user: {user},
+    user: {user, token},
   } = useSelector(state => state.root);
 
   const styles = useStyles(props, themeStore);
@@ -76,6 +77,10 @@ const UpdateProfileScreen = ({route, props}) => {
   const handleOnSubmit = () => {
     updateProfile();
   };
+
+  useEffect(() => {
+    setAuthToken(token);
+  }, []);
 
   return (
     <SafeAreaView

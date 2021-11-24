@@ -12,7 +12,7 @@ const getFoods = async (params, options) => {
       },
     );
 
-    if (response.status === 404 || response.status === 500) {
+    if (response.status !== 200) {
       throw response.data;
     }
 
@@ -29,7 +29,7 @@ const getFood = async (id, options) => {
       validateStatus: false,
     });
 
-    if (response.status === 404 || response.status === 500) {
+    if (response.status !== 200) {
       throw response.data;
     }
 
@@ -46,7 +46,7 @@ const addFood = async (data, options) => {
       validateStatus: false,
     });
 
-    if (response.status === 404 || response.status === 500) {
+    if (response.status !== 200) {
       throw response.data;
     }
 
@@ -63,7 +63,7 @@ const updateFood = async (data, options) => {
       validateStatus: false,
     });
 
-    if (response.status === 404 || response.status === 500) {
+    if (response.status !== 200) {
       throw response.data;
     }
 
@@ -84,7 +84,7 @@ const deleteFood = async (id, options) => {
       },
     );
 
-    if (response.status === 404 || response.status === 500) {
+    if (response.status !== 200) {
       throw response.data;
     }
 
@@ -101,7 +101,7 @@ const getFoodByView = async options => {
       validateStatus: false,
     });
 
-    if (response.status === 404 || response.status === 500) {
+    if (response.status !== 200) {
       throw response.data;
     }
 
@@ -118,11 +118,32 @@ const updateViewFood = async (id, options) => {
       validateStatus: false,
     });
 
-    if (response.status === 404 || response.status === 500) {
+    if (response.status !== 200) {
       throw response.data;
     }
 
     return;
+  } catch (error) {
+    throw error;
+  }
+};
+
+const getUserDailyMeals = async (params, options) => {
+  try {
+    const response = await axios.get(
+      `${apiUrl}/foods/dailyMeals`,
+      {params},
+      {
+        ...options,
+        validateStatus: false,
+      },
+    );
+
+    if (response.status !== 200) {
+      throw response.data;
+    }
+
+    return response.data;
   } catch (error) {
     throw error;
   }
@@ -136,4 +157,5 @@ export const foodApi = {
   deleteFood,
   getFoodByView,
   updateViewFood,
+  getUserDailyMeals,
 };

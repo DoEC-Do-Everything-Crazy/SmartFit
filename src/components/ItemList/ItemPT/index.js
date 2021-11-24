@@ -38,12 +38,6 @@ const ItemPT = ({onPress, name, gender, price, image, index, props}) => {
             <Text size={20} fontType="bold">
               {name}
             </Text>
-            <Block marginLeft={15} alignCenter row>
-              <Rating />
-              <Text size={15} marginLeft={5}>
-                0.0
-              </Text>
-            </Block>
           </Block>
           <Block row alignCenter>
             <Text size={15} fontType="bold">
@@ -51,7 +45,7 @@ const ItemPT = ({onPress, name, gender, price, image, index, props}) => {
             </Text>
             <Block marginLeft={5} alignCenter>
               <Text size={15} marginLeft={5}>
-                {gender}
+                {t(`${gender}`)}
               </Text>
             </Block>
           </Block>

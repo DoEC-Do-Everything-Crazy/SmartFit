@@ -12,7 +12,7 @@ const getRates = async (queries, options) => {
       },
     );
 
-    if (response.status === 404 || response.status === 500) {
+    if (response.status !== 200) {
       throw response.data;
     }
 
@@ -29,7 +29,7 @@ const getRecommendedWithRate = async options => {
       validateStatus: false,
     });
 
-    if (response.status === 404 || response.status === 500) {
+    if (response.status !== 200) {
       throw response.data;
     }
 
@@ -46,7 +46,7 @@ const getRateById = async (type, id, options) => {
       validateStatus: false,
     });
 
-    if (response.status === 404 || response.status === 500) {
+    if (response.status !== 200) {
       throw response.data;
     }
 
@@ -61,7 +61,7 @@ const addRateReview = async (data, options) => {
       ...options,
       validateStatus: false,
     });
-    if (response.status === 404 || response.status === 500) {
+    if (response.status !== 200) {
       throw response.data;
     }
 
