@@ -1,15 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import {
-  Block,
-  Button,
-  DropDown,
-  Header,
-  TextInput,
-  Text,
-  Pressable,
-} from '@components';
+import {Block, Button, DropDown, Header, TextInput, Text} from '@components';
 import {Email, Fullname, List, Phone} from '@assets/icons';
-import {ScrollView, TouchableOpacity} from 'react-native';
+
+import {ScrollView, TouchableOpacity, Image, Pressable} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
@@ -22,6 +15,7 @@ import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {useTranslation} from 'react-i18next';
 import {userApi} from 'api/userApi';
+import {icons} from '@assets';
 
 const UpdateProfileScreen = ({route, props}) => {
   const navigation = useNavigation();
@@ -101,27 +95,47 @@ const UpdateProfileScreen = ({route, props}) => {
           colorTheme={theme.colors.blue}
         />
         <ScrollView>
-          <Block flex paddingTop={20}>
+          <Block flex alignCenter paddingTop={20}>
+            <Block alignCenter marginRight={16}>
+              <Image
+                style={styles.image}
+                source={{
+                  uri: 'https://i.pinimg.com/originals/e6/c0/ba/e6c0ba2042e46628276fffc6d4eb26d6.jpg',
+                }}
+              />
+              <Block style={styles.title}>
+                <Text />
+              </Block>
+              <Pressable style={styles.camera}>
+                <Image
+                  source={icons.camera}
+                  style={styles.cameraImage}
+                  ressource={'contain'}
+                />
+              </Pressable>
+            </Block>
             <Block style={styles.group}>
+              <Block marginTop={8} marginBottom={24} />
               <TextInput
                 label={t('enterFullName')}
                 inputStyle={styles.input}
                 leftIcon={true}
-                value={userProfile.displayName}
+                value={userProfile.fullName}
                 containerStyle={styles.holderInput}
                 onChangeText={text => {
                   setUserProfile({
                     ...userProfile,
-                    displayName: text,
+                    fullName: text,
                   });
                 }}>
                 <Fullname color={theme.colors.text} />
               </TextInput>
               <Block marginTop={8} marginBottom={24}>
-                {/* {error.displayName && (
-              <Text style={styles.text}>{error.displayName}</Text>
-            )} */}
+                {/* {error.fullName && (
+                <Text style={styles.text}>{error.fullName}</Text>
+              )} */}
               </Block>
+
               <TextInput
                 label={t('enterEmail')}
                 inputStyle={styles.input}
@@ -224,16 +238,13 @@ const UpdateProfileScreen = ({route, props}) => {
                 </>
               )}
             </Block>
-            <Block flex justifyEnd>
-              <Button
-                // containerStyle={{justifyContent: 'flex-end'}}
-                title={t('update')}
-                style={styles.button}
-                onPress={handleOnSubmit}
-              />
-            </Block>
           </Block>
         </ScrollView>
+        <Button
+          title={t('update')}
+          style={styles.button}
+          onPress={handleOnSubmit}
+        />
       </Block>
     </SafeAreaView>
   );
