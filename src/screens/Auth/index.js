@@ -7,6 +7,7 @@ import SendEmail from './SendEmail';
 import SplashScreen from './SplashScreen';
 import UpdateProfileScreen from './UpdateProfileScreen';
 import VFTPhoneNumberScreen from './VFTPhoneNumberScreen';
+import ChangePasswordAuth from './ChangePasswordAuth';
 
 export const auth = {
   LOGIN_SCREEN: LoginScreen,
@@ -18,4 +19,5 @@ export const auth = {
   SPLASH_SCREEN: SplashScreen,
   ONBOARD_SCREEN: OnBoardScreen,
   PASSWORD_SCREEN: PasswordScreen,
+  CHANGE_PASSWORD_AUTH: ChangePasswordAuth,
 };

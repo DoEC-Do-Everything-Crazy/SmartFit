@@ -129,12 +129,8 @@ const LoginScreen = ({navigation, props}) => {
         dirty,
       }) => (
         <Block flex backgroundColor={theme.colors.backgroundSetting}>
+          <Header canGoBack colorTheme={theme.colors.blue} title={t('login')} />
           <ScrollView>
-            <Header
-              canGoBack
-              colorTheme={theme.colors.blue}
-              title={t('login')}
-            />
             <Block style={styles.root}>
               {isProcessing && (
                 <Block
@@ -194,6 +190,14 @@ const LoginScreen = ({navigation, props}) => {
                     }}>
                     <Text center marginBottom={30}>
                       {t('createAccount')}
+                    </Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={() => {
+                      navigation.navigate(routes.SEND_EMAIL_SCREEN);
+                    }}>
+                    <Text center marginBottom={30}>
+                      {t('forgotPass')}
                     </Text>
                   </TouchableOpacity>
                 </Block>

@@ -47,26 +47,18 @@ const SettingScreen = () => {
         },
       ],
     },
-    // {
-    //     "title": "Notifications",
-    //     "id": 4,
-    //     "count": 3,
-    //     "isSwitch": true,
-    //     "data_item_switch": [
-    //         {
-    //             "name": "Sales",
-    //             "isSwitch": true
-    //         },
-    //         {
-    //             "name": "New arrivals",
-    //             "isSwitch": true
-    //         },
-    //         {
-    //             "name": "Delivery status changes",
-    //             "isSwitch": true
-    //         }
-    //     ]
-    // }
+    {
+      title: t('changePassword'),
+      id: 1,
+      count: 1,
+      data_item_switch: [
+        {
+          name: t('changePassword'),
+          isSwitch: false,
+          navigation: 'CHANGE_PASSWORD_AUTH',
+        },
+      ],
+    },
   ];
   return (
     <Block flex>
