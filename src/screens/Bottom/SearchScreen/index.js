@@ -16,11 +16,8 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {useTranslation} from 'react-i18next';
-import {useNavigation} from '@react-navigation/core';
-import {routes} from '@navigation/routes';
 
 const SearchScreen = ({props, route, match}) => {
-  const navigation = useNavigation();
   const {top} = useSafeAreaInsets();
   const [isSearch, setIsSearch] = useState(false);
   const {screen} = route?.params;
@@ -105,18 +102,6 @@ const SearchScreen = ({props, route, match}) => {
     const onPress = () => {
       dispatch(addHistoryItem(item.name));
     };
-    if (item.key.includes('C')) {
-      navigation.navigate(routes.TAB_DETAILS, {id: item._id});
-      return;
-    }
-    if (item.key.includes('F')) {
-      navigation.navigate(routes.FOOD_DETAILS_SCREEN, {id: item._id});
-      return;
-    }
-    if (item.key.includes('P')) {
-      navigation.navigate(routes.PRODUCT_DETAIL_SCREEN, {id: item._id});
-      return;
-    }
     return <ItemSearch onPress={onPress} item={item} />;
   };
 
