@@ -68,7 +68,7 @@ const CourseListScreen = ({route, props}) => {
   const _renderItem = useCallback(({item, index}) => {
     return (
       <Block paddingTop={index === 0 ? 20 : 0}>
-        <ItemCourse course={item} key={index} />
+        <ItemCourse nameScreen={nameScreen} course={item} key={index} />
       </Block>
     );
   });

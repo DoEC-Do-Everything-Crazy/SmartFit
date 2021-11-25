@@ -23,7 +23,7 @@ const ListItemFeature = () => {
   const DATA_FEATURE = [
     {
       id: 1,
-      title: t('yourCourse'),
+      title: t('yourFavorite'),
       image: <HeartPf activeColor={theme.colors.iconInf} isActive={true} />,
       navigation: routes.YOUR_FAVORITE_SCREEN,
     },

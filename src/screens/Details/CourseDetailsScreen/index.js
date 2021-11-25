@@ -34,7 +34,7 @@ const CourseDetailsScreen = () => {
             tabBarLabel: t('detail'),
           }}
           name={routes.TAB_DETAILS}
-          component={TabDetails}
+          component={TabLesson}
         />
         <Tab.Screen
           options={{

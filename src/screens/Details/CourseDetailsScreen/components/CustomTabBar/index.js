@@ -48,17 +48,21 @@ const CustomTabBar = ({state, descriptors, navigation, props}) => {
             });
           };
 
+          const color = isFocused ? theme.colors.white : theme.colors.blue;
+          const backgroundColor = isFocused
+            ? theme.colors.blue
+            : theme.colors.background;
           return (
             <Pressable
               key={index}
               accessibilityRole="button"
               accessibilityStates={isFocused ? ['selected'] : []}
               accessibilityLabel={options.tabBarAccessibilityLabel}
-              testID={options.tabBarTestID}
+              testID={options.tabBarLabel}
               onPress={onPress}
               onLongPress={onLongPress}
-              style={styles.btn(isFocused)}>
-              <Text style={styles.txt(isFocused)}>{label}</Text>
+              style={[styles.btn, {backgroundColor}]}>
+              <Text style={[styles.txt, {color}]}>{label}</Text>
             </Pressable>
           );
         })}

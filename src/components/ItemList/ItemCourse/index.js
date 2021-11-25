@@ -12,7 +12,7 @@ import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {useTranslation} from 'react-i18next';
 
-const ItemCourse = ({course, props}) => {
+const ItemCourse = ({course, nameScreen, props}) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const {t} = useTranslation();
@@ -25,8 +25,12 @@ const ItemCourse = ({course, props}) => {
 
   const handleOpenCourseDetail = useCallback(() => {
     dispatch(changeScreen('CourseDetail'));
-    navigation.navigate(routes.TAB_DETAILS, {id: course._id});
-  }, [course._id, dispatch, navigation]);
+    if (nameScreen === 'myCourse') {
+      navigation.navigate(routes.COURSE_DETAILS_SCREEN, {id: course._id});
+    } else {
+      navigation.navigate(routes.TAB_DETAILS, {id: course._id});
+    }
+  }, [course._id, dispatch, navigation, nameScreen]);
 
   const updateViewCourse = async item => {
     await courseApi.updateViewCourse(item, {
