@@ -234,7 +234,7 @@ const ProductDetailScreen = ({props, route}) => {
                   <Review
                     averageRating={product.averageRating}
                     totalReviews={product.totalReviews}
-                    courseId={product._id}
+                    productId={product._id}
                   />
                 ) : null}
               </Block>
