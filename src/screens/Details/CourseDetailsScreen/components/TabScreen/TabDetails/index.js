@@ -61,7 +61,7 @@ const TabDetails = ({route, props}) => {
   const [isShowReview, setShowReview] = useState();
   const {bottom} = useSafeAreaInsets();
   const keyboardVerticalOffset = Platform.OS === 'ios' ? 'padding' : 'height';
-
+  console.log(id);
   const getPtDetails = async _id => {
     try {
       const resData = await ptApi.getPT(_id, {validateStatus: false});

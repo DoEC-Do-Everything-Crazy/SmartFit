@@ -34,6 +34,7 @@ const CustomTabBar = ({state, descriptors, navigation, props}) => {
             const event = navigation.emit({
               type: 'tabPress',
               target: route.key,
+              canPreventDefault: true,
             });
 
             if (!isFocused && !event.defaultPrevented) {
@@ -56,7 +57,6 @@ const CustomTabBar = ({state, descriptors, navigation, props}) => {
             <Pressable
               key={index}
               accessibilityRole="button"
-              accessibilityStates={isFocused ? ['selected'] : []}
               accessibilityLabel={options.tabBarAccessibilityLabel}
               testID={options.tabBarLabel}
               onPress={onPress}
