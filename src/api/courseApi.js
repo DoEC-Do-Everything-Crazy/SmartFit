@@ -131,6 +131,84 @@ const updateViewCourse = async (id, options) => {
   }
 };
 
+/* Course API */
+const getUserCourses = async (params, options) => {
+  try {
+    const response = await axios.get(
+      `${apiUrl}/courses/user`,
+      {params},
+      {
+        ...options,
+        validateStatus: false,
+      },
+    );
+
+    if (response.status !== 200) {
+      throw response.data;
+    }
+
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+/* Lesson API */
+const getCourseLessons = async (params, courseId, options) => {
+  try {
+    const response = await axios.get(
+      `${apiUrl}/lessons/${courseId}`,
+      {params},
+      {
+        ...options,
+        validateStatus: false,
+      },
+    );
+
+    if (response.status !== 200) {
+      throw response.data;
+    }
+
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+/* Step API */
+const getLessonSteps = async (params, lessonId, options) => {
+  try {
+    const response = await axios.get(
+      `${apiUrl}/steps/${lessonId}`,
+      {params},
+      {
+        ...options,
+        validateStatus: false,
+      },
+    );
+
+    if (response.status !== 200) {
+      throw response.data;
+    }
+
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+// // get user course
+// setAuthToken(token);
+// const response = courseApi.getUserCourses({pageNumber, type});
+
+// // get user course
+// setAuthToken(token);
+// const response = lessonApi.getCourseLessons({pageNumber}, 'courseId');
+
+// // get user course
+// setAuthToken(token);
+// const response = courseApi.getLessonSteps({pageNumber}, 'lessonId');
+
 export const courseApi = {
   getCourses,
   getCourse,
@@ -138,5 +216,8 @@ export const courseApi = {
   updateCourse,
   deleteCourse,
   getCourseByView,
+  getUserCourses,
+  getCourseLessons,
+  getLessonSteps,
   updateViewCourse,
 };

@@ -20,6 +20,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {useSelector} from 'react-redux';
 import {keyExtractor} from 'utils/keyExtractor';
 import {useStyles} from './styles';
+import setAuthToken from 'utils/setAuthToken';
 
 const CourseListScreen = ({route, props}) => {
   const navigation = useNavigation();
@@ -27,24 +28,33 @@ const CourseListScreen = ({route, props}) => {
 
   const {
     theme: {theme: themeStore},
+    user: {token},
   } = useSelector(stateRoot => stateRoot.root);
   const theme = useTheme(themeStore);
   const styles = useStyles(props, themeStore);
   const offset = useSharedValue(0);
+  const [pageNumber, setPageNumber] = useState(1);
+  const [allLoaded, setAllLoaded] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const [data, setData] = useState([]);
 
+  console.log('---------------nameScreen', nameScreen);
+  console.log('---------------data', data);
   const fetchData = async () => {
     try {
-      const resData = await courseApi.getCoursesByType(type);
-      setData(resData);
+      if (nameScreen === 'course') {
+        const resData = courseApi.getUserCourses({pageNumber, type});
+        setData(resData);
+      } else {
+        setAuthToken(token);
+        const resData = courseApi.getUserCourses({pageNumber, type});
+        setData(resData);
+      }
     } catch (error) {
       console.log('error', error.message);
     }
   };
-  const [pageNumber, setPageNumber] = useState(1);
-  const [allLoaded, setAllLoaded] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
 
   const animatedStyles = useAnimatedStyle(() => {
     return {
@@ -136,11 +146,7 @@ const CourseListScreen = ({route, props}) => {
   };
 
   useEffect(() => {
-    if (nameScreen === 'course') {
-      fetchData();
-    } else {
-      null;
-    }
+    fetchData();
     initData();
   }, []);
 

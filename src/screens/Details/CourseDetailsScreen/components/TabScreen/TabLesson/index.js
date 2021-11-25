@@ -18,7 +18,7 @@ const TabLesson = props => {
   const styles = useStyles(themeStore);
   const theme = useTheme(themeStore);
 
-  const _renderItem = ({item, index}, parallaxProps) => {
+  const _renderItem = ({index}) => {
     return (
       <Block style={styles.item}>
         <ListStep index={index} />

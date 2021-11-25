@@ -18,8 +18,6 @@ const ItemCourseBig = ({nameScreen, props}) => {
       nameScreen: nameScreen,
     });
   };
-
-  console.log('aaaaaaaaa', nameScreen);
   const {
     theme: {theme: themeStore},
   } = useSelector(stateRoot => stateRoot.root);

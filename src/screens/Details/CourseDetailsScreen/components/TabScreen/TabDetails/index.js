@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+import {Back} from '@assets/icons';
 import {
   Block,
   Button,
@@ -7,7 +9,16 @@ import {
   PayInfo,
   Text,
 } from '@components';
-import Carousel, {ParallaxImage} from 'react-native-snap-carousel';
+import {BottomSheet} from '@components/BottomSheet';
+import ItemPT from '@components/ItemList/ItemPT';
+import Review from '@components/Review';
+import {routes} from '@navigation/routes';
+import ListSimilar from '@screens/Bottom/HomeScreen/components/ListSimilar';
+import {useTheme} from '@theme';
+import {courseApi} from 'api/courseApi';
+import {ptApi} from 'api/ptApi';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Dimensions,
   FlatList,
@@ -17,27 +28,15 @@ import {
   Pressable,
   ScrollView,
 } from 'react-native';
-import React, {useCallback, useEffect, useRef, useState} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-
-/* eslint-disable react-hooks/exhaustive-deps */
-import {Back} from '@assets/icons';
-import {BottomSheet} from '@components/BottomSheet';
-import ItemPT from '@components/ItemList/ItemPT';
 import LinearGradient from 'react-native-linear-gradient';
-import ListSimilar from '@screens/Bottom/HomeScreen/components/ListSimilar';
 import {Rating} from 'react-native-ratings';
-import Review from '@components/Review';
-import Snackbar from 'react-native-snackbar';
-import {addCartItem} from 'reduxs/reducers';
-import {courseApi} from 'api/courseApi';
-import {keyExtractor} from 'utils/keyExtractor';
-import {ptApi} from 'api/ptApi';
-import {routes} from '@navigation/routes';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import Snackbar from 'react-native-snackbar';
+import Carousel, {ParallaxImage} from 'react-native-snap-carousel';
+import {useDispatch, useSelector} from 'react-redux';
+import {addCartItem} from 'reduxs/reducers';
+import {keyExtractor} from 'utils/keyExtractor';
 import {useStyles} from './styles';
-import {useTheme} from '@theme';
-import {useTranslation} from 'react-i18next';
 
 const {width: screenWidth, height: screenHeight} = Dimensions.get('window');
 
