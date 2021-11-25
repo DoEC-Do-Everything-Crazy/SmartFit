@@ -31,16 +31,39 @@ const ItemOrder = ({item, onPress, index, props}) => {
   const styles = useStyles(props, themeStore);
   const theme = useTheme(themeStore);
 
-  const renderItem = ({item}) => <ItemCart notQuantity item={item} />;
+  const renderItem = ({item}) => {
+    const handleRate = () => {
+      console.log('aaa');
+      if (item.key.includes('C')) {
+        navigation.navigate(routes.RATE_SCREEN, {
+          item: {courseId: item._id},
+        });
+        return;
+      }
+      if (item.key.includes('F')) {
+        navigation.navigate(routes.RATE_SCREEN, {
+          item: {foodId: item._id},
+        });
+        return;
+      }
+      if (item.key.includes('P')) {
+        navigation.navigate(routes.RATE_SCREEN, {
+          item: {productId: item._id},
+        });
+      }
+    };
+    return <ItemCart onPress={handleRate} notQuantity notRate item={item} />;
+  };
 
   const handleToOrderDetail = useCallback(() => {
     modalizRef?.current.open();
     setShowDetail(true);
   }, []);
   const handleOpenConfirm = useCallback(() => {
-    navigation.navigate(routes.RATE_SCREEN, {
-      item: {foodId: '6176c277b585a7132c9bd557'},
-    });
+    console.log('confirm');
+    // navigation.navigate(routes.RATE_SCREEN, {
+    //   item: {foodId: '6176c277b585a7132c9bd557'},
+    // });
   }, []);
   const FloatingComponent = useCallback(() => {
     if (insets.bottom === 0) {

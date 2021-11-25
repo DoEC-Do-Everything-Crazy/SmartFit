@@ -1,5 +1,5 @@
 import {Block, Text} from '@components';
-import {Image, Pressable} from 'react-native';
+import {Image, Pressable, TouchableOpacity} from 'react-native';
 import {decreaseCartItem, increaseCartItem} from 'reduxs/reducers';
 import {useDispatch, useSelector} from 'react-redux';
 
@@ -8,7 +8,7 @@ import React from 'react';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
 
-const ItemCart = ({item, notQuantity, props}) => {
+const ItemCart = ({item, notQuantity, onPress, notRate, props}) => {
   const dispatch = useDispatch();
   const {
     theme: {theme: themeStore},
@@ -42,10 +42,17 @@ const ItemCart = ({item, notQuantity, props}) => {
             <Block flex justifyCenter alignCenter row space="between">
               <Text color={theme.colors.inconInf}>{item.lastPrice}</Text>
               {notQuantity ? (
-                <Block justifyCenter alignCenter marginHorizontal={15}>
+                <Block row>
                   <Text fontType="bold" size={15} center>
                     {item.quantity}
                   </Text>
+                  {notRate ? (
+                    <TouchableOpacity onPress={onPress}>
+                      <Text marginLeft={30}>Rate</Text>
+                    </TouchableOpacity>
+                  ) : (
+                    <></>
+                  )}
                 </Block>
               ) : (
                 <Block row justifyCenter alignCenter marginRight={10}>
