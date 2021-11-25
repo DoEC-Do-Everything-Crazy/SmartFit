@@ -126,6 +126,7 @@ export default {
   supple: 'Thực phẩm chức năng',
   clothing: 'Quần áo & Phụ kiện',
   bought: 'lượt mua',
+  view: 'Xem',
 
   //Product Detail
   productDetail: 'Chi tiết sản phẩm',

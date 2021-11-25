@@ -37,14 +37,16 @@ import {useDispatch, useSelector} from 'react-redux';
 import {addCartItem} from 'reduxs/reducers';
 import {keyExtractor} from 'utils/keyExtractor';
 import {useStyles} from './styles';
+import {useNavigation} from '@react-navigation/core';
 
 const {width: screenWidth, height: screenHeight} = Dimensions.get('window');
 
 const TabDetails = ({route, props}) => {
   const dispatch = useDispatch();
+  const navigation = useNavigation();
   const {t} = useTranslation();
   const {user} = useSelector(state => state.root.user);
-  const {id} = route.params;
+  const {id, nameScreen} = route.params;
   const {transferCourseScreen} = useSelector(state => state.root.screen);
   const modalizPTList = useRef(null);
   const modalizInf = useRef(null);
@@ -253,13 +255,11 @@ const TabDetails = ({route, props}) => {
 
   return (
     <Block flex backgroundColor={theme.colors.backgroundSetting}>
-      {transferCourseScreen === 'CourseDetail' ? (
-        <Header
-          canGoBack
-          title={t('courseDetail')}
-          colorTheme={theme.colors.black}
-        />
-      ) : null}
+      <Header
+        canGoBack
+        title={t('courseDetail')}
+        colorTheme={theme.colors.black}
+      />
       <ScrollView showsVerticalScrollIndicator={false}>
         <Block paddingTop={20}>
           <Block paddingHorizontal={16}>
@@ -317,7 +317,10 @@ const TabDetails = ({route, props}) => {
                 <Text>{t('duration')}: </Text>
                 <Text>{t('daysPerWeeks')}': </Text>
                 <Text>{t('bodyFocus')}: </Text>
-                <Text>{t('PT')}: </Text>
+                <Text marginBottom={10}>{t('PT')}: </Text>
+                {nameScreen === 'myCourse' ? (
+                  <Text>{t('courseDetail')}: </Text>
+                ) : null}
               </Block>
               <Block marginLeft={20}>
                 <Text fontType="bold">
@@ -337,7 +340,9 @@ const TabDetails = ({route, props}) => {
                     </Text>
                   )}
                   {transferCourseScreen === 'CourseDetail' ? (
-                    <Pressable onPress={() => modalizPTList?.current.open()}>
+                    <Pressable
+                      style={{marginBottom: 10}}
+                      onPress={() => modalizPTList?.current.open()}>
                       {themeStore === 'dark' ? (
                         <LinearGradient
                           start={{x: 0, y: 0}}
@@ -359,11 +364,43 @@ const TabDetails = ({route, props}) => {
                       )}
                     </Pressable>
                   ) : (
-                    <Text fontType="bold">{infoPT?.name}</Text>
+                    <Text marginBottom={10} fontType="bold">
+                      {infoPT?.name}
+                    </Text>
                   )}
                 </Block>
+                {nameScreen === 'myCourse' ? (
+                  <Pressable
+                    onPress={() =>
+                      navigation.navigate(routes.TAB_LESSON, {
+                        nameScreen,
+                        id: dataDetail._id,
+                      })
+                    }>
+                    {themeStore === 'dark' ? (
+                      <LinearGradient
+                        start={{x: 0, y: 0}}
+                        end={{x: 1, y: 0}}
+                        colors={['#70A2FF', '#54F0D1']}
+                        style={styles.choose}>
+                        <Text style={styles.choosePT} fontType="bold">
+                          {t('view')}
+                        </Text>
+                      </LinearGradient>
+                    ) : (
+                      <Block
+                        style={styles.choose}
+                        backgroundColor={theme.colors.blue}>
+                        <Text style={styles.choosePT} fontType="bold">
+                          {t('view')}
+                        </Text>
+                      </Block>
+                    )}
+                  </Pressable>
+                ) : null}
               </Block>
             </Block>
+
             {transferCourseScreen === 'CourseDetail' ? (
               <>
                 <Block paddingHorizontal={16}>

@@ -24,13 +24,8 @@ const ItemCourse = ({course, nameScreen, props}) => {
   const theme = useTheme(themeStore);
 
   const handleOpenCourseDetail = useCallback(() => {
-    if (nameScreen === 'myCourse') {
-      navigation.navigate(routes.COURSE_DETAILS_SCREEN, {id: course._id});
-      dispatch(changeScreen('myCourse'));
-    } else {
-      navigation.navigate(routes.TAB_DETAILS, {id: course._id});
-      dispatch(changeScreen('CourseDetail'));
-    }
+    navigation.navigate(routes.TAB_DETAILS, {id: course._id, nameScreen});
+    dispatch(changeScreen('CourseDetail'));
   }, [course._id, dispatch, navigation, nameScreen]);
 
   const updateViewCourse = async item => {

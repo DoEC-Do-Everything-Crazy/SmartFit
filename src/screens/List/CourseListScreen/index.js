@@ -39,23 +39,6 @@ const CourseListScreen = ({route, props}) => {
 
   const [data, setData] = useState([]);
 
-  console.log('---------------nameScreen', nameScreen);
-  console.log('---------------data', data);
-  const fetchData = async () => {
-    try {
-      if (nameScreen === 'course') {
-        const resData = courseApi.getUserCourses({pageNumber, type});
-        setData(resData);
-      } else {
-        setAuthToken(token);
-        const resData = courseApi.getUserCourses({pageNumber, type});
-        setData(resData);
-      }
-    } catch (error) {
-      console.log('error', error.message);
-    }
-  };
-
   const animatedStyles = useAnimatedStyle(() => {
     return {
       transform: [
@@ -87,14 +70,18 @@ const CourseListScreen = ({route, props}) => {
     if (allLoaded || isLoading) {
       return;
     }
-
     setIsLoading(true);
-
     try {
-      const response = await courseApi.getCourses({
-        pageNumber,
-        type,
-      });
+      let response;
+      if (nameScreen === 'course') {
+        response = await courseApi.getCourses({
+          pageNumber,
+          type,
+        });
+      } else {
+        setAuthToken(token);
+        response = await courseApi.getUserCourses({pageNumber, type});
+      }
 
       const {courses, page, pages} = response;
 
@@ -113,12 +100,17 @@ const CourseListScreen = ({route, props}) => {
 
   const initData = async () => {
     setIsLoading(true);
-
     try {
-      const response = await courseApi.getCourses({
-        pageNumber,
-        type,
-      });
+      let response;
+      if (nameScreen === 'course') {
+        response = await courseApi.getCourses({
+          pageNumber,
+          type,
+        });
+      } else {
+        setAuthToken(token);
+        response = await courseApi.getUserCourses({pageNumber, type});
+      }
 
       const {courses, page, pages} = response;
 
@@ -146,7 +138,6 @@ const CourseListScreen = ({route, props}) => {
   };
 
   useEffect(() => {
-    fetchData();
     initData();
   }, []);
 

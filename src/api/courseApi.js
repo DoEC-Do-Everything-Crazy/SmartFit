@@ -157,7 +157,7 @@ const getUserCourses = async (params, options) => {
 const getCourseLessons = async (params, courseId, options) => {
   try {
     const response = await axios.get(
-      `${apiUrl}/lessons/${courseId}`,
+      `${apiUrl}/lessons/user/${courseId}`,
       {params},
       {
         ...options,
@@ -179,7 +179,7 @@ const getCourseLessons = async (params, courseId, options) => {
 const getLessonSteps = async (params, lessonId, options) => {
   try {
     const response = await axios.get(
-      `${apiUrl}/steps/${lessonId}`,
+      `${apiUrl}/steps/user/${lessonId}`,
       {params},
       {
         ...options,
