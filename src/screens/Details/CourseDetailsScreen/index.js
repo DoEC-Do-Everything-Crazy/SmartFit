@@ -11,11 +11,12 @@ import {useTranslation} from 'react-i18next';
 
 const Tab = createMaterialTopTabNavigator();
 
-const CourseDetailsScreen = () => {
+const CourseDetailsScreen = ({route}) => {
   const {
     theme: {theme: themeStore},
   } = useSelector(stateRoot => stateRoot.root);
   const theme = useTheme(themeStore);
+  const {id} = route.params;
   const {t} = useTranslation();
   return (
     <Block flex backgroundColor={theme.colors.backgroundSetting}>
@@ -33,8 +34,9 @@ const CourseDetailsScreen = () => {
           options={{
             tabBarLabel: t('detail'),
           }}
+          initialParams={id}
           name={routes.TAB_DETAILS}
-          component={TabLesson}
+          component={TabDetails}
         />
         <Tab.Screen
           options={{
