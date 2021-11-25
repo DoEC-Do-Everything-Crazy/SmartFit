@@ -23,7 +23,6 @@ const ListItemNavProduct = ({...props}) => {
       const {foods} = response;
 
       setData(foods);
-      setPageNumber(pageNumber + 1);
     } catch (e) {
       console.error(e.message);
     }

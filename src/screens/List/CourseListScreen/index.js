@@ -107,7 +107,7 @@ const CourseListScreen = ({route, props}) => {
 
     try {
       const response = await courseApi.getCourses({
-        pageNumber,
+        pageNumber: 1,
         type,
         active: true,
       });
@@ -119,7 +119,7 @@ const CourseListScreen = ({route, props}) => {
       }
 
       setData(data.concat(courses));
-      setPageNumber(pageNumber + 1);
+      setPageNumber(2);
     } catch (e) {
       console.error(e.message);
     }

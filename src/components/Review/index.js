@@ -37,9 +37,13 @@ const Review = ({...props}) => {
       }
 
       setIsLoading(true);
-      const query = {pageNumber, courseId, foodId, productId};
 
-      const response = await rateApi.getRates(query);
+      const response = await rateApi.getRates({
+        pageNumber,
+        courseId,
+        foodId,
+        productId,
+      });
 
       const {rates, page, pages} = response;
 
@@ -64,9 +68,12 @@ const Review = ({...props}) => {
     try {
       setIsLoading(true);
 
-      const query = {pageNumber, courseId, foodId, productId};
-
-      const response = await rateApi.getRates(query);
+      const response = await rateApi.getRates({
+        pageNumber: 1,
+        courseId,
+        foodId,
+        productId,
+      });
 
       const {rates, page, pages, eachRateCount} = response;
 
@@ -81,7 +88,7 @@ const Review = ({...props}) => {
       }
 
       setData(rates);
-      setPageNumber(pageNumber + 1);
+      setPageNumber(2);
     } catch (e) {
       console.error(e.message);
     }

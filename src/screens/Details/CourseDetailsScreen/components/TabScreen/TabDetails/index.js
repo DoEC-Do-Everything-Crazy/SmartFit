@@ -176,7 +176,7 @@ const TabDetails = ({route, props}) => {
       }
 
       setDataPT(pts);
-      setPageNumber(pageNumber + 1);
+      setPageNumber(2);
     } catch (e) {
       console.error(e.message);
     }

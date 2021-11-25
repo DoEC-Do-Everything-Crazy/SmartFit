@@ -166,7 +166,7 @@ const OrderScreen = props => {
       }
 
       setData(orders);
-      setPageNumber(pageNumber + 1);
+      setPageNumber(2);
     } catch (e) {
       console.error(e.message);
     }
@@ -217,6 +217,7 @@ const OrderScreen = props => {
               data={status ? data.filter(item => item.status === status) : data}
               renderItem={_renderItem}
               keyExtractor={keyExtractor}
+              ListFooterComponent={_footerComponent}
             />
           </Block>
         </ScrollView>

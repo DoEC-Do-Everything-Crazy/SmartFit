@@ -80,7 +80,7 @@ const SearchScreen = ({props, route, match}) => {
       }
 
       setData(searchs);
-      setPageNumber(pageNumber + 1);
+      setPageNumber(2);
     } catch (e) {
       console.error(e.message);
     }

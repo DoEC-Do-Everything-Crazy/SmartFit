@@ -64,7 +64,7 @@ const ItemNotification = ({item, props}) => {
           textAlign={'center'}
           padding={7}>
           <Text center style={styles.valuePromotion}>
-            {item.value * 100 + '%'}
+            {item.value + '%'}
           </Text>
         </Block>
         {/* Details */}
