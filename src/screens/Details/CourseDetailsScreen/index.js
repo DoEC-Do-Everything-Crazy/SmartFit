@@ -38,6 +38,7 @@ const CourseDetailsScreen = ({route}) => {
         title={t('course')}
         colorTheme={theme.colors.blue}
       />
+      <Block marginTop={20} />
       <Tab.Navigator
         swipeEnabled={false}
         tabBar={props => <CustomTabBar {...props} />}>
