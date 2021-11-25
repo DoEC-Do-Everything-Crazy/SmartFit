@@ -78,9 +78,9 @@ const getOrdersByStatus = async (userId, status, options) => {
   }
 };
 
-const updateOrder = async (data, options) => {
+const cancelOrder = async (data, options) => {
   try {
-    const response = await axios.patch(`${apiUrl}/orders/updateStatus`, data, {
+    const response = await axios.put(`${apiUrl}/orders/cancelOrder`, data, {
       ...options,
       validateStatus: false,
     });
@@ -99,6 +99,6 @@ export const orderApi = {
   checkCartList,
   addOrder,
   getOrders,
-  updateOrder,
   getOrdersByStatus,
+  cancelOrder,
 };
