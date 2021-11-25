@@ -197,7 +197,7 @@ const LoginScreen = ({navigation, props}) => {
                       navigation.navigate(routes.SEND_EMAIL_SCREEN);
                     }}>
                     <Text center marginBottom={30}>
-                      Quên mật khẩu
+                      {t('forgotPass')}
                     </Text>
                   </TouchableOpacity>
                 </Block>

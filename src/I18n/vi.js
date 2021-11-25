@@ -245,4 +245,5 @@ export default {
   enterEmail: 'Nhập email của bạn',
   enterPassAgain: 'Nhập lại mật khẩu',
   enterOldPassword: 'Nhập mật khẩu cũ',
+  forgotPass: 'Quên mật khẩu',
 };

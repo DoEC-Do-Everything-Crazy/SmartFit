@@ -245,4 +245,5 @@ export default {
   enterEmail: 'Enter your email',
   enterPassAgain: 'Enter New Password Again',
   enterOldPassword: 'Enter old password',
+  forgotPass: 'Forgot password',
 };
