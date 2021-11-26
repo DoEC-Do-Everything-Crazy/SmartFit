@@ -13,8 +13,9 @@ export const useStyles = makeStyles()(({colors}) => ({
     backgroundColor: colors.background,
   },
   image: {
+    marginTop: getSize.s(16),
     borderRadius: getSize.s(10),
-    width: width,
+    width: width - 32,
     height: 240,
   },
   pagination: {

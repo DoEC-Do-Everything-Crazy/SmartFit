@@ -2,7 +2,7 @@
 import {Block, Header, ListDataFooter} from '@components';
 import React, {useEffect, useState} from 'react';
 
-import {FlatList} from 'react-native';
+import {FlatList, Image} from 'react-native';
 import ItemStep from '@components/ItemList/ItemStep';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {ScrollView} from 'react-native-gesture-handler';
@@ -16,12 +16,11 @@ import {useTranslation} from 'react-i18next';
 const TabStep = ({props, route}) => {
   const {
     theme: {theme: themeStore},
-    user: {token},
   } = useSelector(stateRoot => stateRoot.root);
   const styles = useStyles(themeStore);
   const theme = useTheme(themeStore);
   const {t} = useTranslation();
-  const {id} = route?.params;
+  const {id, image} = route?.params;
 
   const [data, setData] = useState([]);
   const [pageNumber, setPageNumber] = useState(1);
@@ -96,6 +95,7 @@ const TabStep = ({props, route}) => {
     initData();
   }, []);
 
+  console.log('image', data);
   return (
     <SafeAreaView
       edges={['bottom', 'left', 'right']}
@@ -103,7 +103,8 @@ const TabStep = ({props, route}) => {
       <Block backgroundColor={theme.colors.backgroundSetting}>
         <Header canGoBack title={t('steps')} colorTheme={theme.colors.black} />
         <ScrollView>
-          <Block paddingHorizontal={16}>
+          <Block flex paddingHorizontal={16}>
+            {image && <Image style={styles.image} source={{uri: image}} />}
             <FlatList
               showsVerticalScrollIndicator={false}
               data={data}

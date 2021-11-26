@@ -1,18 +1,14 @@
 import {Block, Text} from '@components';
-
-import React from 'react';
-import {useNavigation} from '@react-navigation/core';
-import {useSelector} from 'react-redux';
 import {useTheme} from '@theme';
+import React from 'react';
+import {useSelector} from 'react-redux';
 
 const ItemStep = ({...props}) => {
   const {
     theme: {theme: themeStore},
   } = useSelector(stateRoot => stateRoot.root);
   const theme = useTheme(themeStore);
-
   const {item} = props;
-
   return (
     <Block
       row

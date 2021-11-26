@@ -8,7 +8,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {ScrollView} from 'react-native-gesture-handler';
 import {courseApi} from 'api/courseApi';
 import {keyExtractor} from 'utils/keyExtractor';
-import setAuthToken from './../../../../../../utils/setAuthToken';
+import setAuthToken from '@utils/setAuthToken';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
@@ -94,7 +94,6 @@ const TabLesson = ({props, route}) => {
 
   useEffect(() => {
     setAuthToken(token);
-
     initData();
   }, []);
 
