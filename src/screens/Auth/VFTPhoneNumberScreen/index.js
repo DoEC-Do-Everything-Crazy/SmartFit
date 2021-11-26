@@ -1,6 +1,6 @@
 import {Block, Button, Header, Text} from '@components';
 import React, {useEffect, useRef, useState} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import {useSelector} from 'react-redux';
 
 import {TextInput} from 'react-native';
 import {routes} from '@navigation/routes';
@@ -9,6 +9,7 @@ import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {useTranslation} from 'react-i18next';
 import {userApi} from 'api/userApi';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 const VFTPhoneNumberScreen = ({route, props}) => {
   const {t} = useTranslation();
@@ -86,107 +87,118 @@ const VFTPhoneNumberScreen = ({route, props}) => {
   };
 
   return (
-    <Block flex backgroundColor={theme.colors.backgroundSetting}>
-      <Header canGoBack title={t('checkCode')} colorTheme={theme.colors.blue} />
-      <Block flex justifyCenter>
-        <Block>
-          <Text
-            size={18}
-            marginBottom={75}
-            fontType="bold"
-            style={{textAlign: 'center'}}>
-            {t('codeIsSendTo')} {email}
-          </Text>
-          <Block row flex justifyContent="space-evenly">
-            <TextInput
-              ref={inputRef1}
-              maxLength={1}
-              keyboardType="number-pad"
-              value={number1}
-              onChangeText={text => {
-                setNumber1(text);
-              }}
-              style={styles.textInput}
-            />
+    <SafeAreaView
+      edges={['top', 'left', 'right']}
+      style={styles.sendControlContainerOuter}>
+      <Block flex backgroundColor={theme.colors.backgroundSetting}>
+        <Header
+          canGoBack
+          title={t('checkCode')}
+          colorTheme={theme.colors.blue}
+        />
+        <Block flex justifyCenter>
+          <Block>
+            <Block paddingHorizontal={16}>
+              <Text
+                center
+                size={18}
+                marginBottom={75}
+                fontType="bold"
+                style={{textAlign: 'center'}}>
+                {t('codeIsSendTo')} {email}
+              </Text>
+            </Block>
+            <Block row flex justifyContent="space-evenly">
+              <TextInput
+                ref={inputRef1}
+                maxLength={1}
+                keyboardType="number-pad"
+                value={number1}
+                onChangeText={text => {
+                  setNumber1(text);
+                }}
+                style={styles.textInput}
+              />
 
-            <TextInput
-              ref={inputRef2}
-              maxLength={1}
-              keyboardType="number-pad"
-              value={number2}
-              onChangeText={text => {
-                setNumber2(text);
-              }}
-              style={styles.textInput}
-            />
+              <TextInput
+                ref={inputRef2}
+                maxLength={1}
+                keyboardType="number-pad"
+                value={number2}
+                onChangeText={text => {
+                  setNumber2(text);
+                }}
+                style={styles.textInput}
+              />
 
-            <TextInput
-              ref={inputRef3}
-              maxLength={1}
-              keyboardType="number-pad"
-              value={number3}
-              onChangeText={text => {
-                setNumber3(text);
-              }}
-              style={styles.textInput}
-            />
+              <TextInput
+                ref={inputRef3}
+                maxLength={1}
+                keyboardType="number-pad"
+                value={number3}
+                onChangeText={text => {
+                  setNumber3(text);
+                }}
+                style={styles.textInput}
+              />
 
-            <TextInput
-              ref={inputRef4}
-              maxLength={1}
-              keyboardType="number-pad"
-              value={number4}
-              onChangeText={text => {
-                setNumber4(text);
-              }}
-              style={styles.textInput}
-            />
+              <TextInput
+                ref={inputRef4}
+                maxLength={1}
+                keyboardType="number-pad"
+                value={number4}
+                onChangeText={text => {
+                  setNumber4(text);
+                }}
+                style={styles.textInput}
+              />
 
-            <TextInput
-              ref={inputRef5}
-              maxLength={1}
-              keyboardType="number-pad"
-              value={number5}
-              onChangeText={text => {
-                setNumber5(text);
-              }}
-              style={styles.textInput}
-            />
+              <TextInput
+                ref={inputRef5}
+                maxLength={1}
+                keyboardType="number-pad"
+                value={number5}
+                onChangeText={text => {
+                  setNumber5(text);
+                }}
+                style={styles.textInput}
+              />
 
-            <TextInput
-              ref={inputRef6}
-              maxLength={1}
-              keyboardType="number-pad"
-              value={number6}
-              onChangeText={text => {
-                setNumber6(text);
-              }}
-              style={styles.textInput}
-            />
-          </Block>
-          <Block row alignCenter justifyCenter>
-            <Text
-              color={theme.colors.text}
-              size={18}
-              marginTop={60}
-              fontType="bold"
-              center>
-              {t('receiveCode')}
-            </Text>
-            <Text center style={styles.textRequestAgain}>
-              {t('requestAgain')}
-            </Text>
+              <TextInput
+                ref={inputRef6}
+                maxLength={1}
+                keyboardType="number-pad"
+                value={number6}
+                onChangeText={text => {
+                  setNumber6(text);
+                }}
+                style={styles.textInput}
+              />
+            </Block>
+            <Block row alignCenter justifyCenter>
+              <Text
+                color={theme.colors.text}
+                size={18}
+                marginTop={60}
+                fontType="bold"
+                center>
+                {t('receiveCode')}
+              </Text>
+              <Text center style={styles.textRequestAgain}>
+                {t('requestAgain')}
+              </Text>
+            </Block>
           </Block>
         </Block>
+        <Button
+          onPress={confirmCode}
+          title="Verify"
+          height={45}
+          marginLeft={10}
+          containerStyle={{justifyContent: 'flex-end'}}
+        />
       </Block>
-      <Button
-        onPress={confirmCode}
-        title="Verify"
-        height={45}
-        marginLeft={10}
-        containerStyle={{justifyContent: 'flex-end'}}
-      />
-    </Block>
+    </SafeAreaView>
   );
 };
 

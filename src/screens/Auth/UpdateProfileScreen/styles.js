@@ -65,6 +65,7 @@ export const useStyles = makeStyles()(({colors}) => ({
   },
   sendControlContainerOuter: {
     flex: 1,
+    backgroundColor: colors.border,
   },
   text: {
     color: colors.red,

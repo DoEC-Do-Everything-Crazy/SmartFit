@@ -67,7 +67,7 @@ const OnBoardScreen = props => {
   );
 
   return (
-    <SafeAreaView edges={['bottom', 'left', 'right']} style={styles.root}>
+    <SafeAreaView edges={['left', 'right']} style={styles.root}>
       <Block style={styles.bodyLayout}>
         <Carousel
           layout={'default'}
@@ -96,8 +96,9 @@ const OnBoardScreen = props => {
           />
         }
       </Block>
-
-      <Button title={t('gotIt')} onPress={handleNext} style={styles.button} />
+      <Block flex justifyEnd>
+        <Button title={t('gotIt')} onPress={handleNext} style={styles.button} />
+      </Block>
     </SafeAreaView>
   );
 };

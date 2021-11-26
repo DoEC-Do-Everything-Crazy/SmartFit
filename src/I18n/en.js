@@ -92,6 +92,9 @@ export default {
   total: 'Total',
   cart: 'Cart',
   addedToCart: 'Added to cart',
+  startOrder: 'Start ordering',
+  noOrder: 'No order yet',
+  titleNoOder: 'Hit the blue button down below to Create an order',
 
   //Course Type Screen
   courseCategory: 'Course Category',
@@ -150,6 +153,7 @@ export default {
 
   //Order Screen
   status: 'Status',
+  rate: 'Rate',
   pending: 'Pending',
   processing: 'Processing',
   delivering: 'Delivering',

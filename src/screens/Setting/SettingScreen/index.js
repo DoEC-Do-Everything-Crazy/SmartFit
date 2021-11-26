@@ -2,7 +2,14 @@ import React from 'react';
 import {Block, Header} from '@components';
 import ListFeatureSetting from './components/ListFeatureSetting';
 import {useTranslation} from 'react-i18next';
-const SettingScreen = () => {
+import {SafeAreaView} from 'react-native-safe-area-context';
+import {makeStyles} from '@theme';
+import {useSelector} from 'react-redux';
+const SettingScreen = props => {
+  const {
+    theme: {theme: themeStore},
+  } = useSelector(state => state.root);
+  const styles = useStyles(props, themeStore);
   const {t} = useTranslation();
   const DATA = [
     {
@@ -61,11 +68,21 @@ const SettingScreen = () => {
     },
   ];
   return (
-    <Block flex>
-      <Header canGoBack title={t('setting')} />
-      <ListFeatureSetting data={DATA} />
-    </Block>
+    <SafeAreaView
+      edges={['top', 'left', 'right']}
+      style={styles.sendControlContainerOuter}>
+      <Block flex>
+        <Header canGoBack title={t('setting')} />
+        <ListFeatureSetting data={DATA} />
+      </Block>
+    </SafeAreaView>
   );
 };
 
 export default SettingScreen;
+export const useStyles = makeStyles()(({colors}) => ({
+  sendControlContainerOuter: {
+    flex: 1,
+    backgroundColor: colors.border,
+  },
+}));

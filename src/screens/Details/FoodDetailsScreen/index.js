@@ -56,7 +56,7 @@ const FoodDetailsScreen = ({route, props}) => {
 
   return (
     <SafeAreaView
-      edges={['bottom', 'left', 'right']}
+      edges={['top', 'left', 'right']}
       style={styles.sendControlContainerOuter}>
       {food && (
         <Block flex backgroundColor={theme.colors.backgroundSetting}>

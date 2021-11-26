@@ -4,6 +4,7 @@ import * as yup from 'yup';
 import {Block, Button, Header, Text, TextInput} from '@components';
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
+import {KeyboardAvoidingView, Platform} from 'react-native';
 
 import {Formik} from 'formik';
 import {authApi} from 'api/authApi';
@@ -12,7 +13,9 @@ import {setUser} from 'reduxs/reducers';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {useTranslation} from 'react-i18next';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
+const verticalOffset = Platform.OS === 'ios' ? 'padding' : 'height';
 const RegisterScreen = ({navigation, props}) => {
   const {
     theme: {theme: themeStore},
@@ -92,79 +95,88 @@ const RegisterScreen = ({navigation, props}) => {
         values,
         isValid,
       }) => (
-        <Block flex backgroundColor={theme.colors.backgroundSetting}>
-          <Header
-            canGoBack
-            colorTheme={theme.colors.blue}
-            title={t('register')}
-          />
-          <Block flex>
-            {isProcessing && (
-              <Block
-                backgroundColor={theme.colors.backgroundSetting + '95'}
-                flex
-                justifyCenter
-                alignCenter
-                style={styles.processing}>
-                <Block style={{padding: 50}}>
-                  <Text style={{color: 'black'}}>Processing...</Text>
+        <SafeAreaView
+          edges={['top', 'left', 'right']}
+          style={styles.sendControlContainerOuter}>
+          <KeyboardAvoidingView
+            style={styles.sendControlContainerOuter}
+            behavior={verticalOffset}
+            keyboardVerticalOffset={-20}>
+            <Block flex backgroundColor={theme.colors.backgroundSetting}>
+              <Header
+                canGoBack
+                colorTheme={theme.colors.blue}
+                title={t('register')}
+              />
+              <Block flex>
+                {isProcessing && (
+                  <Block
+                    backgroundColor={theme.colors.backgroundSetting + '95'}
+                    flex
+                    justifyCenter
+                    alignCenter
+                    style={styles.processing}>
+                    <Block style={{padding: 50}}>
+                      <Text style={{color: 'black'}}>Processing...</Text>
+                    </Block>
+                  </Block>
+                )}
+                <Block flex justifyCenter>
+                  <Block marginBottom={10} paddingHorizontal={16}>
+                    <TextInput
+                      onChangeText={handleChange('fullName')}
+                      value={values.fullName}
+                      inputStyle={styles.inputStyle}
+                      keyboardType="default"
+                      label={t('enterYourName')}
+                      onBlur={handleBlur('fullName')}
+                    />
+                    {errors.fullName && touched.fullName && (
+                      <Text style={styles.text}>{errors.fullName}</Text>
+                    )}
+                  </Block>
+                  <Block marginBottom={10} paddingHorizontal={16}>
+                    <TextInput
+                      onChangeText={handleChange('email')}
+                      value={values.email}
+                      inputStyle={styles.inputStyle}
+                      keyboardType="email-address"
+                      label={t('enterYourEmail')}
+                      onBlur={handleBlur('email')}
+                    />
+                    {errors.email && touched.email && (
+                      <Text style={styles.text}>{errors.email}</Text>
+                    )}
+                  </Block>
+                  <Block marginBottom={10} paddingHorizontal={16}>
+                    <TextInput
+                      onChangeText={handleChange('password')}
+                      value={values.password}
+                      inputStyle={styles.inputStyle}
+                      keyboardType="default"
+                      label={t('enterYourPassword')}
+                      onBlur={handleBlur('password')}
+                      isSecure
+                    />
+                    {errors.password && touched.password && (
+                      <Text style={styles.text}>{errors.password}</Text>
+                    )}
+                  </Block>
+                  <Block marginBottom={10} paddingHorizontal={16}>
+                    <TextInput
+                      onChangeText={handleChange('confirmPassword')}
+                      value={values.confirmPassword}
+                      inputStyle={styles.inputStyle}
+                      keyboardType="default"
+                      label={t('confirmPassword')}
+                      onBlur={handleBlur('confirmPassword')}
+                      isSecure
+                    />
+                    {errors.confirmPassword && touched.confirmPassword && (
+                      <Text style={styles.text}>{errors.confirmPassword}</Text>
+                    )}
+                  </Block>
                 </Block>
-              </Block>
-            )}
-            <Block flex justifyCenter>
-              <Block marginBottom={10} paddingHorizontal={16}>
-                <TextInput
-                  onChangeText={handleChange('fullName')}
-                  value={values.fullName}
-                  inputStyle={styles.inputStyle}
-                  keyboardType="default"
-                  label={t('enterYourName')}
-                  onBlur={handleBlur('fullName')}
-                />
-                {errors.fullName && touched.fullName && (
-                  <Text style={styles.text}>{errors.fullName}</Text>
-                )}
-              </Block>
-              <Block marginBottom={10} paddingHorizontal={16}>
-                <TextInput
-                  onChangeText={handleChange('email')}
-                  value={values.email}
-                  inputStyle={styles.inputStyle}
-                  keyboardType="email-address"
-                  label={t('enterYourEmail')}
-                  onBlur={handleBlur('email')}
-                />
-                {errors.email && touched.email && (
-                  <Text style={styles.text}>{errors.email}</Text>
-                )}
-              </Block>
-              <Block marginBottom={10} paddingHorizontal={16}>
-                <TextInput
-                  onChangeText={handleChange('password')}
-                  value={values.password}
-                  inputStyle={styles.inputStyle}
-                  keyboardType="default"
-                  label={t('enterYourPassword')}
-                  onBlur={handleBlur('password')}
-                  isSecure
-                />
-                {errors.password && touched.password && (
-                  <Text style={styles.text}>{errors.password}</Text>
-                )}
-              </Block>
-              <Block marginBottom={10} paddingHorizontal={16}>
-                <TextInput
-                  onChangeText={handleChange('confirmPassword')}
-                  value={values.confirmPassword}
-                  inputStyle={styles.inputStyle}
-                  keyboardType="default"
-                  label={t('confirmPassword')}
-                  onBlur={handleBlur('confirmPassword')}
-                  isSecure
-                />
-                {errors.confirmPassword && touched.confirmPassword && (
-                  <Text style={styles.text}>{errors.confirmPassword}</Text>
-                )}
               </Block>
               <Block marginBottom={10}>
                 <Button
@@ -175,8 +187,8 @@ const RegisterScreen = ({navigation, props}) => {
                 />
               </Block>
             </Block>
-          </Block>
-        </Block>
+          </KeyboardAvoidingView>
+        </SafeAreaView>
       )}
     </Formik>
   );

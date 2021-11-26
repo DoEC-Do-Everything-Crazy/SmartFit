@@ -54,4 +54,8 @@ export const useStyles = makeStyles()(({colors}) => ({
   title: {
     fontSize: getSize.s(20),
   },
+  sendControlContainerOuter: {
+    flex: 1,
+    backgroundColor: colors.border,
+  },
 }));

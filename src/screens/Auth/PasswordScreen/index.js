@@ -14,7 +14,7 @@ import {exitApp} from 'hook';
 import {useTranslation} from 'react-i18next';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
-const keyboardVerticalOffset = Platform.OS === 'ios' ? 'padding' : 'height';
+const verticalOffset = Platform.OS === 'ios' ? 'padding' : 'height';
 const {width: SliderWidth} = Dimensions.get('screen');
 
 const PasswordScreen = props => {
@@ -43,11 +43,11 @@ const PasswordScreen = props => {
   }, [navigation, passInput, password]);
   return (
     <SafeAreaView
-      edges={['bottom', 'left', 'right']}
+      edges={['top', 'left', 'right']}
       style={styles.sendControlContainerOuter}>
       <KeyboardAvoidingView
         style={styles.sendControlContainerOuter}
-        behavior={keyboardVerticalOffset}
+        behavior={verticalOffset}
         keyboardVerticalOffset={-5}>
         <Block style={styles.root}>
           <Block style={styles.renderRoot}>

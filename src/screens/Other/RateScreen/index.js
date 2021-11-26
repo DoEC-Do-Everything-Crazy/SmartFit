@@ -93,7 +93,7 @@ const RateScreen = ({route, props}) => {
 
   return (
     <SafeAreaView
-      edges={['bottom', 'left', 'right']}
+      edges={['top', 'left', 'right']}
       style={styles.sendControlContainerOuter}>
       <Block flex backgroundColor={theme.colors.backgroundSetting}>
         <Header canGoBack title={t('rating')} colorTheme={theme.colors.black} />

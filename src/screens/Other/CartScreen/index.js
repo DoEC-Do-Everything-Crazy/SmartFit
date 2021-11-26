@@ -1,5 +1,5 @@
 import {Block, Button, InviteLogin, PayInfo, Text} from '@components';
-import React, {useEffect} from 'react';
+import React, {useCallback, useEffect} from 'react';
 
 import CartList from './components/CartList';
 /* eslint-disable react-hooks/exhaustive-deps */
@@ -41,7 +41,9 @@ const CartScreen = props => {
       console.error(error.message);
     }
   };
-
+  const handleToHome = useCallback(() => {
+    navigation.navigate(routes.BOTTOM_TAB);
+  }, []);
   const handleConfirm = () => {
     checkCart(cart);
   };
@@ -49,7 +51,7 @@ const CartScreen = props => {
   const Cart = () => {
     return (
       <SafeAreaView
-        edges={['bottom', 'left', 'right']}
+        edges={['top', 'left', 'right']}
         style={styles.sendControlContainerOuter}>
         {cart.length > 0 ? (
           <Block flex backgroundColor={theme.colors.backgroundSetting}>
@@ -88,17 +90,13 @@ const CartScreen = props => {
       <Block flex justifyCenter alignCenter marginHorizontal={16}>
         <Cart_data />
         <Text size={30} marginTop={20} fontType="bold">
-          No order yet
+          {t('noOrder')}
         </Text>
         <Text center marginHorizontal={40}>
-          Hit the orange button down below to Create an order
+          {t('titleNoOder')}
         </Text>
       </Block>
-      <Pressable style={styles.press}>
-        <Text fontType="bold" color={theme.colors.white}>
-          START ORDERING
-        </Text>
-      </Pressable>
+      <Button title={t('startOrder')} onPress={handleToHome} />
     </Block>
   );
 

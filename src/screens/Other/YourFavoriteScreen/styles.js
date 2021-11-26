@@ -1,7 +1,7 @@
 import {getSize} from '@utils/responsive';
 import {makeStyles} from '@theme';
 
-export const useStyles = makeStyles()(({}) => ({
+export const useStyles = makeStyles()(({colors}) => ({
   item: {
     width: getSize.m(200),
     height: getSize.m(260),
@@ -16,5 +16,6 @@ export const useStyles = makeStyles()(({}) => ({
   },
   sendControlContainerOuter: {
     flex: 1,
+    backgroundColor: colors.border,
   },
 }));

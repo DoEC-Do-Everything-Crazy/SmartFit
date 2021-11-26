@@ -33,7 +33,7 @@ export const useStyles = makeStyles()(({colors}) => ({
   },
 
   bodyLayout: {
-    flex: 4.5,
+    flex: 6,
   },
   bottomLayout: {
     flex: 1,
@@ -45,7 +45,6 @@ export const useStyles = makeStyles()(({colors}) => ({
     marginHorizontal: getSize.s(16),
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: getSize.s(20),
     marginTop: getSize.s(10),
     borderRadius: getSize.s(8),
   },

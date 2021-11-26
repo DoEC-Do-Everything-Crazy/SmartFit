@@ -21,6 +21,7 @@ import {useTheme} from '@theme';
 import {useTranslation} from 'react-i18next';
 import {userApi} from 'api/userApi';
 import {width} from 'utils/responsive';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 const LoginScreen = ({navigation, props}) => {
   const {
@@ -128,112 +129,120 @@ const LoginScreen = ({navigation, props}) => {
         isValid,
         dirty,
       }) => (
-        <Block flex backgroundColor={theme.colors.backgroundSetting}>
-          <Header canGoBack colorTheme={theme.colors.blue} title={t('login')} />
-          <ScrollView>
-            <Block style={styles.root}>
-              {isProcessing && (
-                <Block
-                  backgroundColor={theme.colors.backgroundSetting + '95'}
-                  flex
-                  justifyCenter
-                  alignCenter
-                  style={styles.processing}>
-                  <Block style={{padding: 50}}>
-                    <Text style={{color: 'black'}}>Processing...</Text>
+        <SafeAreaView
+          edges={['top', 'left', 'right']}
+          style={styles.sendControlContainerOuter}>
+          <Block flex backgroundColor={theme.colors.backgroundSetting}>
+            <Header
+              canGoBack
+              colorTheme={theme.colors.blue}
+              title={t('login')}
+            />
+            <ScrollView>
+              <Block style={styles.root}>
+                {isProcessing && (
+                  <Block
+                    backgroundColor={theme.colors.backgroundSetting + '95'}
+                    flex
+                    justifyCenter
+                    alignCenter
+                    style={styles.processing}>
+                    <Block style={{padding: 50}}>
+                      <Text style={{color: 'black'}}>Processing...</Text>
+                    </Block>
+                  </Block>
+                )}
+                <Block flex justifyCenter>
+                  <Text center fontType={'bold'} marginBottom={30}>
+                    {t('signInWithYourEmail')}
+                  </Text>
+                  <Block marginBottom={10} paddingHorizontal={16}>
+                    <TextInput
+                      onChangeText={handleChange('email')}
+                      value={values.email}
+                      inputStyle={styles.inputStyle}
+                      keyboardType="email-address"
+                      label={t('enterYourEmail')}
+                      onBlur={handleBlur('email')}
+                    />
+                    {errors.email && touched.email && (
+                      <Text style={styles.text}>{errors.email}</Text>
+                    )}
+                  </Block>
+                  <Block marginBottom={10} paddingHorizontal={16}>
+                    <TextInput
+                      onChangeText={handleChange('password')}
+                      value={values.password}
+                      inputStyle={styles.inputStyle}
+                      keyboardType="default"
+                      label={t('enterYourPassword')}
+                      onBlur={handleBlur('password')}
+                      isSecure
+                    />
+                    {errors.password && touched.password && (
+                      <Text style={styles.text}>{errors.password}</Text>
+                    )}
+                  </Block>
+                  <Block marginVertical={30}>
+                    <Button
+                      disabled={dirty && isValid ? false : true}
+                      // disabled={isValid ? isSubmitting : false}
+                      onPress={handleSubmit}
+                      title={t('login')}
+                    />
+                  </Block>
+                  <Block>
+                    <TouchableOpacity
+                      onPress={() => {
+                        navigation.navigate(routes.REGISTER_SCREEN);
+                      }}>
+                      <Text center marginBottom={30}>
+                        {t('createAccount')}
+                      </Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      onPress={() => {
+                        navigation.navigate(routes.SEND_EMAIL_SCREEN);
+                      }}>
+                      <Text center marginBottom={30}>
+                        {t('forgotPass')}
+                      </Text>
+                    </TouchableOpacity>
                   </Block>
                 </Block>
-              )}
-              <Block flex justifyCenter>
-                <Text center fontType={'bold'} marginBottom={30}>
-                  {t('signInWithYourEmail')}
-                </Text>
-                <Block marginBottom={10} paddingHorizontal={16}>
-                  <TextInput
-                    onChangeText={handleChange('email')}
-                    value={values.email}
-                    inputStyle={styles.inputStyle}
-                    keyboardType="email-address"
-                    label={t('enterYourEmail')}
-                    onBlur={handleBlur('email')}
-                  />
-                  {errors.email && touched.email && (
-                    <Text style={styles.text}>{errors.email}</Text>
-                  )}
-                </Block>
-                <Block marginBottom={10} paddingHorizontal={16}>
-                  <TextInput
-                    onChangeText={handleChange('password')}
-                    value={values.password}
-                    inputStyle={styles.inputStyle}
-                    keyboardType="default"
-                    label={t('enterYourPassword')}
-                    onBlur={handleBlur('password')}
-                    isSecure
-                  />
-                  {errors.password && touched.password && (
-                    <Text style={styles.text}>{errors.password}</Text>
-                  )}
-                </Block>
-                <Block marginBottom={10}>
-                  <Button
-                    disabled={dirty && isValid ? false : true}
-                    // disabled={isValid ? isSubmitting : false}
-                    onPress={handleSubmit}
-                    title={t('login')}
-                  />
-                </Block>
-                <Block>
-                  <TouchableOpacity
-                    onPress={() => {
-                      navigation.navigate(routes.REGISTER_SCREEN);
-                    }}>
-                    <Text center marginBottom={30}>
-                      {t('createAccount')}
+                <Block width={width} marginBottom={50}>
+                  <Block row alignCenter justifyCenter margin={16}>
+                    <Block
+                      width={150}
+                      borderWidth={0.7}
+                      borderColor={theme.colors.black}
+                    />
+                    <Text
+                      size={14}
+                      color={theme.colors.black}
+                      marginHorizontal={16}
+                      fontType="bold">
+                      {t('or')}
                     </Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    onPress={() => {
-                      navigation.navigate(routes.SEND_EMAIL_SCREEN);
-                    }}>
-                    <Text center marginBottom={30}>
-                      {t('forgotPass')}
-                    </Text>
-                  </TouchableOpacity>
+                    <Block
+                      borderWidth={0.7}
+                      borderColor={theme.colors.black}
+                      width={150}
+                    />
+                  </Block>
+                  <Block row alignCenter justifyCenter>
+                    <GoogleSigninButton
+                      style={styles.googleSigninButton}
+                      size={GoogleSigninButton.Size.Wide}
+                      color={GoogleSigninButton.Color.Dark}
+                      onPress={signIn}
+                    />
+                  </Block>
                 </Block>
               </Block>
-              <Block width={width} marginBottom={50}>
-                <Block row alignCenter justifyCenter margin={16}>
-                  <Block
-                    width={150}
-                    borderWidth={0.7}
-                    borderColor={theme.colors.black}
-                  />
-                  <Text
-                    size={14}
-                    color={theme.colors.black}
-                    marginHorizontal={16}
-                    fontType="bold">
-                    {t('or')}
-                  </Text>
-                  <Block
-                    borderWidth={0.7}
-                    borderColor={theme.colors.black}
-                    width={150}
-                  />
-                </Block>
-                <Block row alignCenter justifyCenter>
-                  <GoogleSigninButton
-                    style={styles.googleSigninButton}
-                    size={GoogleSigninButton.Size.Wide}
-                    color={GoogleSigninButton.Color.Dark}
-                    onPress={signIn}
-                  />
-                </Block>
-              </Block>
-            </Block>
-          </ScrollView>
-        </Block>
+            </ScrollView>
+          </Block>
+        </SafeAreaView>
       )}
     </Formik>
   );

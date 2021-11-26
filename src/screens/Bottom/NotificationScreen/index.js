@@ -21,9 +21,12 @@ const NotificationScreen = ({route, props}) => {
 
   return (
     <SafeAreaView
-      edges={['bottom', 'left', 'right']}
+      edges={['top', 'left', 'right']}
       style={styles.sendControlContainerOuter}>
-      <Block flex backgroundColor={theme.colors.backgroundSetting}>
+      <Block
+        paddingBottom={10}
+        flex
+        backgroundColor={theme.colors.backgroundSetting}>
         <Header
           canGoBack
           cart

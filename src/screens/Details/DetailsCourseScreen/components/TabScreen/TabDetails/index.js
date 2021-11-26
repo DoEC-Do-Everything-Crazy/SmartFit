@@ -47,7 +47,7 @@ const TabDetails = ({route, props}) => {
   const [infoPT, setInfoPT] = useState([]);
   const [isShowReview, setShowReview] = useState();
   const {bottom} = useSafeAreaInsets();
-  const keyboardVerticalOffset = Platform.OS === 'ios' ? 'padding' : 'height';
+  const verticalOffset = Platform.OS === 'ios' ? 'padding' : 'height';
 
   const getPtDetails = async _id => {
     try {
@@ -348,7 +348,7 @@ const TabDetails = ({route, props}) => {
               adjustToContentHeight={false}>
               <KeyboardAvoidingView
                 style={styles.sendControlContainerOuter}
-                behavior={keyboardVerticalOffset}
+                behavior={verticalOffset}
                 keyboardVerticalOffset={bottom * 0.7}>
                 <Block flex alignCenter>
                   <FlatList
@@ -368,7 +368,7 @@ const TabDetails = ({route, props}) => {
               }>
               <KeyboardAvoidingView
                 style={styles.sendControlContainerOuter}
-                behavior={keyboardVerticalOffset}
+                behavior={verticalOffset}
                 keyboardVerticalOffset={bottom * 0.7}>
                 <Block marginHorizontal={16}>
                   <Block alignCenter>

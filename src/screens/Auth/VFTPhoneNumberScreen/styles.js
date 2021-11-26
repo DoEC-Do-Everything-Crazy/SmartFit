@@ -36,4 +36,8 @@ export const useStyles = makeStyles()(({colors}) => ({
     borderWidth: 0.5,
     borderColor: 'grey',
   },
+  sendControlContainerOuter: {
+    flex: 1,
+    backgroundColor: colors.border,
+  },
 }));

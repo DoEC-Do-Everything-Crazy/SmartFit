@@ -12,6 +12,10 @@ export const useStyles = makeStyles()(({colors}) => ({
     borderColor: colors.border,
     backgroundColor: colors.border,
     zIndex: 100,
+    shadowColor: 'black',
+    shadowOffset: {width: 0, height: 5},
+    shadowRadius: 2,
+    shadowOpacity: 0.1,
   },
   arrowLeftBack: {
     position: 'absolute',

@@ -24,4 +24,7 @@ export const useStyles = makeStyles()(({colors}) => ({
     marginHorizontal: -5,
     backgroundColor: colors.blue,
   },
+  sendControlContainerOuter: {
+    backgroundColor: colors.border,
+  },
 }));

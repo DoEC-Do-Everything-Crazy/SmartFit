@@ -6,7 +6,10 @@ export const useStyles = makeStyles()(({colors}) => ({
     width: width / 2,
     height: 200,
   },
-
+  sendControlContainerOuter: {
+    flex: 1,
+    backgroundColor: colors.border,
+  },
   button: {
     width: 100,
     height: 48,

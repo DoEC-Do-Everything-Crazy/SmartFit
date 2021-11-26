@@ -98,9 +98,11 @@ const TabStep = ({props, route}) => {
   console.log('image', data);
   return (
     <SafeAreaView
-      edges={['bottom', 'left', 'right']}
+      edges={['top', 'left', 'right']}
       style={styles.sendControlContainerOuter}>
-      <Block backgroundColor={theme.colors.backgroundSetting}>
+      <Block
+        paddingBottom={10}
+        backgroundColor={theme.colors.backgroundSetting}>
         <Header canGoBack title={t('steps')} colorTheme={theme.colors.black} />
         <ScrollView>
           <Block flex paddingHorizontal={16}>

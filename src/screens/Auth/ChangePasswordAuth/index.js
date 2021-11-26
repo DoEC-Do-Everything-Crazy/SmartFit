@@ -10,9 +10,9 @@ import {useTranslation} from 'react-i18next';
 import {KeyboardAvoidingView, Platform} from 'react-native';
 import {userApi} from 'api/userApi';
 import setAuthToken from 'utils/setAuthToken';
-import {routes} from '@navigation/routes';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
-const keyboardVerticalOffset = Platform.OS === 'ios' ? 'padding' : 'height';
+const verticalOffset = Platform.OS === 'ios' ? 'padding' : 'height';
 const ChangePasswordAuth = props => {
   const navigation = useNavigation();
   const {t} = useTranslation();
@@ -70,71 +70,74 @@ const ChangePasswordAuth = props => {
         isValid,
         dirty,
       }) => (
-        <KeyboardAvoidingView
-          style={styles.sendControlContainerOuter}
-          behavior={keyboardVerticalOffset}
-          keyboardVerticalOffset={-5}>
-          <Block flex>
-            <Header
-              canGoBack
-              title={t('changePassword')}
-              colorTheme={theme.colors.blue}
-            />
-            <Block
-              justifyCenter
-              paddingHorizontal={16}
-              backgroundColor={theme.colors.backgroundSetting}>
-              <TextInput
-                inputStyle={{paddingHorizontal: 16}}
-                onChangeText={handleChange('oldPassword')}
-                value={values.oldPassword}
-                containerInputStyle={{marginTop: 16}}
-                label={t('enterOldPassword')}
-                onBlur={handleBlur('oldPassword')}
-                isSecure
-              />
-              <Block marginTop={8} marginBottom={24}>
-                {errors.oldPassword && touched.oldPassword && (
-                  <Text style={styles.text}>{errors.oldPassword}</Text>
-                )}
-              </Block>
-              <TextInput
-                inputStyle={{paddingHorizontal: 16}}
-                onChangeText={handleChange('newPassWord')}
-                value={values.newPassWord}
-                label={t('enterNewPassword')}
-                onBlur={handleBlur('newPassWord')}
-                isSecure
-              />
-              <Block marginTop={8} marginBottom={24}>
-                {errors.newPassWord && touched.newPassWord && (
-                  <Text style={styles.text}>{errors.newPassWord}</Text>
-                )}
-              </Block>
-              <TextInput
-                inputStyle={{paddingHorizontal: 16}}
-                onChangeText={handleChange('confirmPassword')}
-                value={values.confirmPassword}
-                label={t('enterConfimPassword')}
-                onBlur={handleBlur('confirmPassword')}
-                isSecure
-              />
-              <Block marginTop={8} marginBottom={24}>
-                {errors.confirmPassword && touched.confirmPassword && (
-                  <Text style={styles.text}>{errors.confirmPassword}</Text>
-                )}
-              </Block>
-            </Block>
-            <Block backgroundColor={theme.colors.backgroundSetting}>
-              <Button
-                disabled={dirty && isValid ? false : true}
-                containerStyle={{justifyContent: 'flex-end'}}
-                onPress={handleSubmit}
+        <SafeAreaView edges={['top', 'left', 'right']} style={styles.root}>
+          <KeyboardAvoidingView
+            style={styles.sendControlContainerOuter}
+            behavior={verticalOffset}
+            keyboardVerticalOffset={-5}>
+            <Block flex>
+              <Header
+                canGoBack
                 title={t('changePassword')}
+                colorTheme={theme.colors.blue}
               />
+              <Block
+                marginTop={20}
+                justifyCenter
+                paddingHorizontal={16}
+                backgroundColor={theme.colors.backgroundSetting}>
+                <TextInput
+                  inputStyle={{paddingHorizontal: 16}}
+                  onChangeText={handleChange('oldPassword')}
+                  value={values.oldPassword}
+                  containerInputStyle={{marginTop: 16}}
+                  label={t('enterOldPassword')}
+                  onBlur={handleBlur('oldPassword')}
+                  isSecure
+                />
+                <Block marginTop={8} marginBottom={24}>
+                  {errors.oldPassword && touched.oldPassword && (
+                    <Text style={styles.text}>{errors.oldPassword}</Text>
+                  )}
+                </Block>
+                <TextInput
+                  inputStyle={{paddingHorizontal: 16}}
+                  onChangeText={handleChange('newPassWord')}
+                  value={values.newPassWord}
+                  label={t('enterNewPassword')}
+                  onBlur={handleBlur('newPassWord')}
+                  isSecure
+                />
+                <Block marginTop={8} marginBottom={24}>
+                  {errors.newPassWord && touched.newPassWord && (
+                    <Text style={styles.text}>{errors.newPassWord}</Text>
+                  )}
+                </Block>
+                <TextInput
+                  inputStyle={{paddingHorizontal: 16}}
+                  onChangeText={handleChange('confirmPassword')}
+                  value={values.confirmPassword}
+                  label={t('enterConfimPassword')}
+                  onBlur={handleBlur('confirmPassword')}
+                  isSecure
+                />
+                <Block marginTop={8} marginBottom={24}>
+                  {errors.confirmPassword && touched.confirmPassword && (
+                    <Text style={styles.text}>{errors.confirmPassword}</Text>
+                  )}
+                </Block>
+              </Block>
+              <Block backgroundColor={theme.colors.backgroundSetting}>
+                <Button
+                  disabled={dirty && isValid ? false : true}
+                  containerStyle={{justifyContent: 'flex-end'}}
+                  onPress={handleSubmit}
+                  title={t('changePassword')}
+                />
+              </Block>
             </Block>
-          </Block>
-        </KeyboardAvoidingView>
+          </KeyboardAvoidingView>
+        </SafeAreaView>
       )}
     </Formik>
   );

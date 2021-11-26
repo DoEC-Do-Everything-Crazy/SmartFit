@@ -144,7 +144,7 @@ const UpdateProfileScreen = ({route, props}) => {
 
   return (
     <SafeAreaView
-      edges={['bottom', 'left', 'right']}
+      edges={['top', 'left', 'right']}
       style={styles.sendControlContainerOuter}>
       <Block flex backgroundColor={theme.colors.backgroundSetting}>
         <Header
@@ -309,6 +309,7 @@ const UpdateProfileScreen = ({route, props}) => {
             </Block>
           </Block>
         </ScrollView>
+
         <Button
           title={t('update')}
           style={styles.button}

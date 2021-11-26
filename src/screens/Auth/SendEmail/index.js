@@ -10,6 +10,7 @@ import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
 import {userApi} from 'api/userApi';
 import {useNavigation} from '@react-navigation/core';
 import {routes} from '@navigation/routes';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 const SendEmail = props => {
   const navigation = useNavigation();
@@ -32,62 +33,70 @@ const SendEmail = props => {
     }
   };
   return (
-    <Block flex>
-      <Header canGoBack title={t('vertifyEmail')} />
-      <ScrollView>
-        <Block paddingHorizontal={16} marginTop={40}>
-          <Block alignCenter>
-            <Image
-              resizeMode="contain"
-              style={styles.image}
-              source={icons.sendemail}
-            />
-          </Block>
+    <SafeAreaView
+      edges={['top', 'left', 'right']}
+      style={styles.sendControlContainerOuter}>
+      <Block flex backgroundColor={theme.colors.backgroundSetting}>
+        <Header canGoBack title={t('vertifyEmail')} />
+        <ScrollView>
+          <Block paddingHorizontal={16} marginTop={40}>
+            <Block alignCenter>
+              <Image
+                resizeMode="contain"
+                style={styles.image}
+                source={icons.sendemail}
+              />
+            </Block>
 
-          {isSended ? (
-            <Block alignCenter marginTop={30}>
-              <Text center size={18} fontType="bold" color={theme.colors.blue}>
-                {t('confitmEmail')}
-              </Text>
-              <Block alignCenter>
-                <Text size={18}>{t('weSent')}</Text>
-                <Text size={18} fontType="bold">
-                  {email}
-                </Text>
-                <Text size={18}>{t('checkEmail')}</Text>
-                <Text size={18}>{t('confirmation')}</Text>
-              </Block>
-              <Pressable width={200}>
+            {isSended ? (
+              <Block alignCenter marginTop={30}>
                 <Text
-                  marginTop={15}
-                  marginBottom={15}
                   center
                   size={18}
                   fontType="bold"
                   color={theme.colors.blue}>
-                  {t('resendEmail')}
+                  {t('confitmEmail')}
                 </Text>
-              </Pressable>
-            </Block>
-          ) : (
-            <>
-              <TextInput
-                containerInputStyle={{marginTop: 15}}
-                paddingHorizontal={10}
-                inputStyle={{flex: 1}}
-                placeholder={t('enterEmail')}
-                onChangeText={text => setemail(text)}
-              />
-              <TouchableOpacity onPress={handleConfirm} style={styles.button}>
-                <Text color="white" fontType="bold">
-                  {t('confirm')}
-                </Text>
-              </TouchableOpacity>
-            </>
-          )}
-        </Block>
-      </ScrollView>
-    </Block>
+                <Block alignCenter>
+                  <Text size={18}>{t('weSent')}</Text>
+                  <Text size={18} fontType="bold">
+                    {email}
+                  </Text>
+                  <Text size={18}>{t('checkEmail')}</Text>
+                  <Text size={18}>{t('confirmation')}</Text>
+                </Block>
+                <Pressable width={200}>
+                  <Text
+                    marginTop={15}
+                    marginBottom={15}
+                    center
+                    size={18}
+                    fontType="bold"
+                    color={theme.colors.blue}>
+                    {t('resendEmail')}
+                  </Text>
+                </Pressable>
+              </Block>
+            ) : (
+              <>
+                <TextInput
+                  containerInputStyle={{marginTop: 15}}
+                  paddingHorizontal={10}
+                  inputStyle={{flex: 1}}
+                  placeholder={t('enterEmail')}
+                  onChangeText={text => setemail(text)}
+                />
+                <TouchableOpacity onPress={handleConfirm} style={styles.button}>
+                  <Text color="white" fontType="bold">
+                    {t('confirm')}
+                  </Text>
+                </TouchableOpacity>
+              </>
+            )}
+          </Block>
+        </ScrollView>
+      </Block>
+    </SafeAreaView>
   );
 };
 

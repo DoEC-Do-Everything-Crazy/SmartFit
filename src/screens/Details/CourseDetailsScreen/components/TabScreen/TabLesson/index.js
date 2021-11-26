@@ -99,9 +99,11 @@ const TabLesson = ({props, route}) => {
 
   return (
     <SafeAreaView
-      edges={['bottom', 'left', 'right']}
+      edges={['top', 'left', 'right']}
       style={styles.sendControlContainerOuter}>
-      <Block backgroundColor={theme.colors.backgroundSetting}>
+      <Block
+        paddingBottom={10}
+        backgroundColor={theme.colors.backgroundSetting}>
         <Header
           canGoBack
           title={t('lessons')}

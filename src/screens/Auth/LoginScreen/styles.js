@@ -21,9 +21,7 @@ export const useStyles = makeStyles()(({colors}) => ({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  sendControlContainerOuter: {
-    flex: 1,
-  },
+
   inputStyle: {
     height: getSize.m(48),
     paddingLeft: getSize.m(16),
@@ -38,5 +36,9 @@ export const useStyles = makeStyles()(({colors}) => ({
   googleSigninButton: {
     width: 192,
     height: 48,
+  },
+  sendControlContainerOuter: {
+    flex: 1,
+    backgroundColor: colors.border,
   },
 }));

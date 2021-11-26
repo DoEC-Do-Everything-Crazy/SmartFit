@@ -6,7 +6,7 @@ import Animated, {
 import {Block, Header, ListDataFooter} from '@components';
 import {Pressable, ScrollView} from 'react-native';
 import React, {useEffect, useState} from 'react';
-
+import {SafeAreaView} from 'react-native-safe-area-context';
 /* eslint-disable react-hooks/exhaustive-deps */
 import {Cart} from '@assets/icons';
 import LinearGradient from 'react-native-linear-gradient';
@@ -56,42 +56,46 @@ const FoodListScreen = ({route, props}) => {
   };
 
   return (
-    <Block flex backgroundColor={theme.colors.backgroundSetting}>
-      <Header
-        canGoBack
-        search
-        title={title ? title : t('healthyFood')}
-        colorTheme={theme.colors.blue}
-      />
-      <ScrollView onScroll={onScroll} showsVerticalScrollIndicator={false}>
-        {title === t('dailyMeals') ? (
-          <ListItemPopular dailyMeals />
-        ) : recommendData ? (
-          <ListItemPopular recommendData={recommendData} />
-        ) : (
-          <>
-            <ListItemNavProduct />
-            <ListItemPopular />
-          </>
-        )}
-      </ScrollView>
-      <Animated.View style={[styles.groupButton, animatedStyles]}>
-        <Pressable
-          onPress={() => {
-            navigation.navigate(routes.CART_SCREEN);
-          }}>
-          {themeStore === 'dark' ? (
-            <LinearGradient
-              start={{x: 0, y: 0}}
-              end={{x: 1, y: 0}}
-              colors={['#70A2FF', '#54F0D1']}
-              style={styles.layout}
-            />
-          ) : null}
-          <Cart color={theme.colors.white} />
-        </Pressable>
-      </Animated.View>
-    </Block>
+    <SafeAreaView
+      edges={['top', 'left', 'right']}
+      style={styles.sendControlContainerOuter}>
+      <Block flex backgroundColor={theme.colors.backgroundSetting}>
+        <Header
+          canGoBack
+          search
+          title={title ? title : t('healthyFood')}
+          colorTheme={theme.colors.blue}
+        />
+        <ScrollView onScroll={onScroll} showsVerticalScrollIndicator={false}>
+          {title === t('dailyMeals') ? (
+            <ListItemPopular dailyMeals />
+          ) : recommendData ? (
+            <ListItemPopular recommendData={recommendData} />
+          ) : (
+            <>
+              <ListItemNavProduct />
+              <ListItemPopular />
+            </>
+          )}
+        </ScrollView>
+        <Animated.View style={[styles.groupButton, animatedStyles]}>
+          <Pressable
+            onPress={() => {
+              navigation.navigate(routes.CART_SCREEN);
+            }}>
+            {themeStore === 'dark' ? (
+              <LinearGradient
+                start={{x: 0, y: 0}}
+                end={{x: 1, y: 0}}
+                colors={['#70A2FF', '#54F0D1']}
+                style={styles.layout}
+              />
+            ) : null}
+            <Cart color={theme.colors.white} />
+          </Pressable>
+        </Animated.View>
+      </Block>
+    </SafeAreaView>
   );
 };
 

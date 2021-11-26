@@ -3,7 +3,7 @@ import {Block, Header, ListDataFooter, Text, TextInput} from '@components';
 import React, {useEffect, useState} from 'react';
 import {addHistoryItem, clearHistory, removeHistoryItem} from 'reduxs/reducers';
 import {useDispatch, useSelector} from 'react-redux';
-
+import {SafeAreaView} from 'react-native-safe-area-context';
 import {Empty} from '@components';
 import {FlatList} from 'react-native';
 import ItemSearch from '@components/ItemList/ItemSearch';
@@ -131,68 +131,72 @@ const SearchScreen = ({props, route, match}) => {
   }, [name]);
 
   return (
-    <Block flex backgroundColor={theme.colors.backgroundSetting}>
-      <Header
-        canGoBack={screen === 'screen' ? true : null}
-        title={t('search')}
-        colorTheme={theme.colors.black}
-      />
-      <Block paddingTop={20}>
-        <Block paddingHorizontal={16}>
-          <TextInput
-            onFocus={() => setIsSearch(true)}
-            label={t('search')}
-            inputStyle={styles.inputStyle}
-            containerInputStyle={styles.containerInputStyle}
-            onChangeText={debounce(text => setName(text), 500)}
-          />
-        </Block>
-        {data?.length > 0 ? (
-          <FlatList
-            showsVerticalScrollIndicator={false}
-            data={data}
-            keyExtractor={keyExtractor}
-            renderItem={_renderItem}
-            ListFooterComponent={_footerComponent}
-          />
-        ) : (
-          <Block>
-            {isSearch === true ? (
-              <Block marginTop={top + 100}>
-                <Empty lottie={lotties.emptySearch} />
-              </Block>
-            ) : (
-              <Block marginTop={20}>
-                <Block
-                  justifyCenter
-                  height={30}
-                  backgroundColor={theme.colors.border}>
-                  <TouchableOpacity
-                    onPress={() => {
-                      dispatch(clearHistory());
-                    }}>
-                    <Text
-                      paddingHorizontal={16}
-                      size={17}
-                      fontType="bold"
-                      color={'#045694'}>
-                      {t('recentSearch')}| {t('clearAll')}
-                    </Text>
-                  </TouchableOpacity>
-                </Block>
-                <FlatList
-                  showsVerticalScrollIndicator={false}
-                  data={history}
-                  keyExtractor={keyExtractor}
-                  renderItem={_renderItemSearch}
-                  ListFooterComponent={_footerComponent}
-                />
-              </Block>
-            )}
+    <SafeAreaView
+      edges={['top', 'left', 'right']}
+      style={styles.sendControlContainerOuter}>
+      <Block flex backgroundColor={theme.colors.backgroundSetting}>
+        <Header
+          canGoBack={screen === 'screen' ? true : null}
+          title={t('search')}
+          colorTheme={theme.colors.black}
+        />
+        <Block paddingTop={20}>
+          <Block paddingHorizontal={16}>
+            <TextInput
+              onFocus={() => setIsSearch(true)}
+              label={t('search')}
+              inputStyle={styles.inputStyle}
+              containerInputStyle={styles.containerInputStyle}
+              onChangeText={debounce(text => setName(text), 500)}
+            />
           </Block>
-        )}
+          {data?.length > 0 ? (
+            <FlatList
+              showsVerticalScrollIndicator={false}
+              data={data}
+              keyExtractor={keyExtractor}
+              renderItem={_renderItem}
+              ListFooterComponent={_footerComponent}
+            />
+          ) : (
+            <Block>
+              {isSearch === true ? (
+                <Block marginTop={top + 100}>
+                  <Empty lottie={lotties.emptySearch} />
+                </Block>
+              ) : (
+                <Block marginTop={20}>
+                  <Block
+                    justifyCenter
+                    height={30}
+                    backgroundColor={theme.colors.border}>
+                    <TouchableOpacity
+                      onPress={() => {
+                        dispatch(clearHistory());
+                      }}>
+                      <Text
+                        paddingHorizontal={16}
+                        size={17}
+                        fontType="bold"
+                        color={'#045694'}>
+                        {t('recentSearch')}| {t('clearAll')}
+                      </Text>
+                    </TouchableOpacity>
+                  </Block>
+                  <FlatList
+                    showsVerticalScrollIndicator={false}
+                    data={history}
+                    keyExtractor={keyExtractor}
+                    renderItem={_renderItemSearch}
+                    ListFooterComponent={_footerComponent}
+                  />
+                </Block>
+              )}
+            </Block>
+          )}
+        </Block>
       </Block>
-    </Block>
+    </SafeAreaView>
   );
 };
 

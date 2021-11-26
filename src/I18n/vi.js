@@ -92,6 +92,9 @@ export default {
   total: 'Tổng',
   cart: 'Giỏ hàng',
   addedToCart: 'Đã thêm vào giỏ hàng',
+  startOrder: 'Bắt đầu mua sắm',
+  noOrder: 'Chưa có đơn hàng',
+  titleNoOder: 'Nhấn vào nút màu xanh lam bên dưới để Tạo đơn hàng',
 
   //Course Type Screen
   courseCategory: 'Các hạng mục khóa học',
@@ -150,6 +153,7 @@ export default {
   camera: 'Máy ảnh',
 
   //Order Screen
+  rate: 'Đánh giá',
   status: 'Trạng thái',
   pending: 'Đang chờ',
   processing: 'Đang xử lí',

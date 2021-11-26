@@ -147,9 +147,12 @@ const CourseListScreen = ({route, props}) => {
 
   return (
     <SafeAreaView
-      edges={['left', 'right']}
+      edges={['top', 'left', 'right']}
       style={styles.sendControlContainerOuter}>
-      <Block flex backgroundColor={theme.colors.backgroundSetting}>
+      <Block
+        paddingBottom={10}
+        flex
+        backgroundColor={theme.colors.backgroundSetting}>
         <Header
           canGoBack
           title={courseType.find(element => element.name === type).displayName}

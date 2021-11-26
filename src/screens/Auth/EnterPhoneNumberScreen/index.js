@@ -11,6 +11,7 @@ import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {useTranslation} from 'react-i18next';
 import {userApi} from 'api/userApi';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 const EnterPhoneNumberScreen = ({props, route}) => {
   const email = route.params?.email;
@@ -54,46 +55,50 @@ const EnterPhoneNumberScreen = ({props, route}) => {
         }
       }}>
       {({handleChange, handleBlur, handleSubmit, touched, errors, values}) => (
-        <Block flex backgroundColor={theme.colors.backgroundSetting}>
-          <Header
-            canGoBack
-            colorTheme={theme.colors.blue}
-            title={t('reserPass')}
-          />
-          <Block flex justifyCenter paddingHorizontal={16}>
-            <Text center fontType={'bold'} marginBottom={30}>
-              {t('EnterNPass')}
-            </Text>
-            <Block marginBottom={10}>
-              <TextInput
-                onChangeText={handleChange('newPassword')}
-                inputStyle={styles.textInput}
-                label={t('enterYourPassword')}
-                onBlur={handleBlur('newPassword')}
-                isSecure
-              />
-              {errors.newPassword && touched.newPassword && (
-                <Text style={styles.text}>{errors.newPassword}</Text>
-              )}
-              <Block marginVertical={10} />
-              <TextInput
-                onChangeText={handleChange('newPasswordAgain')}
-                inputStyle={styles.textInput}
-                label={t('enterPassAgain')}
-                onBlur={handleBlur('newPasswordAgain')}
-                isSecure
-              />
-              {errors.newPasswordAgain && touched.newPasswordAgain && (
-                <Text style={styles.text}>{errors.newPasswordAgain}</Text>
-              )}
+        <SafeAreaView
+          edges={['top', 'left', 'right']}
+          style={styles.sendControlContainerOuter}>
+          <Block flex backgroundColor={theme.colors.backgroundSetting}>
+            <Header
+              canGoBack
+              colorTheme={theme.colors.blue}
+              title={t('reserPass')}
+            />
+            <Block flex justifyCenter paddingHorizontal={16}>
+              <Text center fontType={'bold'} marginBottom={30}>
+                {t('EnterNPass')}
+              </Text>
+              <Block marginBottom={10}>
+                <TextInput
+                  onChangeText={handleChange('newPassword')}
+                  inputStyle={styles.textInput}
+                  label={t('enterYourPassword')}
+                  onBlur={handleBlur('newPassword')}
+                  isSecure
+                />
+                {errors.newPassword && touched.newPassword && (
+                  <Text style={styles.text}>{errors.newPassword}</Text>
+                )}
+                <Block marginVertical={10} />
+                <TextInput
+                  onChangeText={handleChange('newPasswordAgain')}
+                  inputStyle={styles.textInput}
+                  label={t('enterPassAgain')}
+                  onBlur={handleBlur('newPasswordAgain')}
+                  isSecure
+                />
+                {errors.newPasswordAgain && touched.newPasswordAgain && (
+                  <Text style={styles.text}>{errors.newPasswordAgain}</Text>
+                )}
+              </Block>
             </Block>
+            <Button
+              containerStyle={{justifyContent: 'flex-end'}}
+              onPress={handleSubmit}
+              title={t('send')}
+            />
           </Block>
-          <Button
-            containerStyle={{justifyContent: 'flex-end'}}
-            onPress={handleSubmit}
-            title={t('send')}
-          />
-        </Block>
+        </SafeAreaView>
       )}
     </Formik>
   );

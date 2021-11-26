@@ -24,7 +24,7 @@ const Button = ({
   const theme = useTheme(themeStore);
 
   return (
-    <Pressable disabled={disabled} onPress={onPress}>
+    <Pressable marginBottom={10} disabled={disabled} onPress={onPress}>
       <LinearGradient
         start={{x: 0, y: 0}}
         end={{x: 1, y: 0}}

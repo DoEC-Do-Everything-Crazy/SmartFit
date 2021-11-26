@@ -18,4 +18,8 @@ export const useStyles = makeStyles()(({colors}) => ({
     marginRight: getSize.m(10),
     tintColor: colors.yellowFood,
   },
+  sendControlContainerOuter: {
+    flex: 1,
+    backgroundColor: colors.border,
+  },
 }));

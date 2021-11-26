@@ -10,7 +10,7 @@ import {useTheme} from '@theme';
 import {useTranslation} from 'react-i18next';
 
 const {width: SliderWidth} = Dimensions.get('screen');
-const keyboardVerticalOffset = Platform.OS === 'ios' ? 'padding' : 'height';
+const verticalOffset = Platform.OS === 'ios' ? 'padding' : 'height';
 const ChangePinCode = props => {
   const navigation = useNavigation();
   const {t} = useTranslation();
@@ -35,7 +35,7 @@ const ChangePinCode = props => {
   return (
     <KeyboardAvoidingView
       style={styles.sendControlContainerOuter}
-      behavior={keyboardVerticalOffset}
+      behavior={verticalOffset}
       keyboardVerticalOffset={-5}>
       <Block style={styles.root}>
         <Block style={styles.renderRoot}>

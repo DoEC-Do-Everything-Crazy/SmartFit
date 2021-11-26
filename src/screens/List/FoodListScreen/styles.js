@@ -1,5 +1,6 @@
 import {makeStyles} from '@theme';
 import {getSize} from '@utils/responsive';
+import {color} from 'react-native-reanimated';
 export const useStyles = makeStyles()(({colors}) => ({
   layout: {
     shadowColor: 'white',
@@ -32,5 +33,6 @@ export const useStyles = makeStyles()(({colors}) => ({
   },
   sendControlContainerOuter: {
     flex: 1,
+    backgroundColor: colors.border,
   },
 }));

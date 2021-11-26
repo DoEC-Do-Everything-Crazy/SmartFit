@@ -26,6 +26,7 @@ import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {useTranslation} from 'react-i18next';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 const StatsScreen = props => {
   const navigation = useNavigation();
@@ -206,7 +207,15 @@ const StatsScreen = props => {
           <Block
             paddingHorizontal={16}
             backgroundColor={theme.colors.backgroreundSetting}>
-            <ItemFeature shadow height={50} title={t('dailyMeals')}>
+            <ItemFeature
+              onPress={() =>
+                navigation.navigate(routes.FOOD_LIST_SCREEN, {
+                  title: t('dailyMeals'),
+                })
+              }
+              shadow
+              height={50}
+              title={t('dailyMeals')}>
               <Order color={theme.colors.iconInf} />
             </ItemFeature>
           </Block>
@@ -276,14 +285,16 @@ const StatsScreen = props => {
       </Block>
     </Block>
   ) : (
-    <>
+    <SafeAreaView
+      edges={['top', 'left', 'right']}
+      style={styles.sendControlContainerOuter}>
       <Header
         title={t('stats')}
         colorTheme={theme.colors.blue}
         backgroundColor={theme.colors.white}
       />
       <InviteLogin navigate={routes.LOGIN_SCREEN} routes={routes.INFO_SCREEN} />
-    </>
+    </SafeAreaView>
   );
 };
 

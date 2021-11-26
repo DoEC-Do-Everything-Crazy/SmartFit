@@ -7,6 +7,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import React from 'react';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
+import {useTranslation} from 'react-i18next';
 
 const ItemCart = ({item, notQuantity, onPress, notRate, props}) => {
   const dispatch = useDispatch();
@@ -15,7 +16,7 @@ const ItemCart = ({item, notQuantity, onPress, notRate, props}) => {
   } = useSelector(stateRoot => stateRoot.root);
   const styles = useStyles(props, themeStore);
   const theme = useTheme(themeStore);
-
+  const {t} = useTranslation();
   const handleSub = () => {
     dispatch(decreaseCartItem({key: item.key}));
   };
@@ -46,9 +47,11 @@ const ItemCart = ({item, notQuantity, onPress, notRate, props}) => {
                   <Text fontType="bold" size={15} center>
                     {item.quantity}
                   </Text>
-                  {notRate ? (
+                  {!notRate ? (
                     <TouchableOpacity onPress={onPress}>
-                      <Text marginLeft={30}>Rate</Text>
+                      <Text marginLeft={30} fontType="bold" color="green">
+                        {t('rate')}
+                      </Text>
                     </TouchableOpacity>
                   ) : (
                     <></>
