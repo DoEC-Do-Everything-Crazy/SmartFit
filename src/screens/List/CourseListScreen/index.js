@@ -1,26 +1,27 @@
-import {lotties} from '@assets';
-import {Cart} from '@assets/icons';
-/* eslint-disable react-hooks/exhaustive-deps */
-import {Block, Empty, Header, ListDataFooter} from '@components';
-import ItemCourse from '@components/ItemList/ItemCourse';
-import {routes} from '@navigation/routes';
-import {useNavigation} from '@react-navigation/core';
-import {useTheme} from '@theme';
-import {courseApi} from 'api/courseApi';
-import {courseType} from 'data/courseType';
-import React, {useCallback, useEffect, useState} from 'react';
-import {FlatList, Pressable} from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withSpring,
 } from 'react-native-reanimated';
+/* eslint-disable react-hooks/exhaustive-deps */
+import {Block, Empty, Header, ListDataFooter} from '@components';
+import {FlatList, Pressable} from 'react-native';
+import React, {useCallback, useEffect, useState} from 'react';
+
+import {Cart} from '@assets/icons';
+import ItemCourse from '@components/ItemList/ItemCourse';
+import LinearGradient from 'react-native-linear-gradient';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {useSelector} from 'react-redux';
+import {courseApi} from 'api/courseApi';
+import {courseType} from 'data/courseType';
 import {keyExtractor} from 'utils/keyExtractor';
-import {useStyles} from './styles';
+import {lotties} from '@assets';
+import {routes} from '@navigation/routes';
 import setAuthToken from 'utils/setAuthToken';
+import {useNavigation} from '@react-navigation/core';
+import {useSelector} from 'react-redux';
+import {useStyles} from './styles';
+import {useTheme} from '@theme';
 
 const CourseListScreen = ({route, props}) => {
   const navigation = useNavigation();
@@ -70,17 +71,18 @@ const CourseListScreen = ({route, props}) => {
     if (allLoaded || isLoading) {
       return;
     }
+
     setIsLoading(true);
     try {
       let response;
-      if (nameScreen === 'course') {
+      if (nameScreen === 'myCourse') {
+        setAuthToken(token);
+        response = await courseApi.getUserCourses({pageNumber, type});
+      } else {
         response = await courseApi.getCourses({
           pageNumber,
           type,
         });
-      } else {
-        setAuthToken(token);
-        response = await courseApi.getUserCourses({pageNumber, type});
       }
 
       const {courses, page, pages} = response;
@@ -102,14 +104,14 @@ const CourseListScreen = ({route, props}) => {
     setIsLoading(true);
     try {
       let response;
-      if (nameScreen === 'course') {
-        response = await courseApi.getCourses({
-          pageNumber,
-          type,
-        });
-      } else {
+      if (nameScreen === 'myCourse') {
         setAuthToken(token);
         response = await courseApi.getUserCourses({pageNumber, type});
+      } else {
+        response = await courseApi.getCourses({
+          pageNumber: 1,
+          type,
+        });
       }
 
       const {courses, page, pages} = response;
@@ -118,8 +120,8 @@ const CourseListScreen = ({route, props}) => {
         setAllLoaded(true);
       }
 
-      setData(data.concat(courses));
-      setPageNumber(pageNumber + 1);
+      setData(courses);
+      setPageNumber(2);
     } catch (e) {
       console.error(e.message);
     }

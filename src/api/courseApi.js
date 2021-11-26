@@ -131,7 +131,6 @@ const updateViewCourse = async (id, options) => {
   }
 };
 
-/* Course API */
 const getUserCourses = async (params, options) => {
   try {
     const response = await axios.get(
@@ -153,7 +152,6 @@ const getUserCourses = async (params, options) => {
   }
 };
 
-/* Lesson API */
 const getCourseLessons = async (params, courseId, options) => {
   try {
     const response = await axios.get(
@@ -175,7 +173,6 @@ const getCourseLessons = async (params, courseId, options) => {
   }
 };
 
-/* Step API */
 const getLessonSteps = async (params, lessonId, options) => {
   try {
     const response = await axios.get(
@@ -196,18 +193,6 @@ const getLessonSteps = async (params, lessonId, options) => {
     throw error;
   }
 };
-
-// // get user course
-// setAuthToken(token);
-// const response = courseApi.getUserCourses({pageNumber, type});
-
-// // get user course
-// setAuthToken(token);
-// const response = lessonApi.getCourseLessons({pageNumber}, 'courseId');
-
-// // get user course
-// setAuthToken(token);
-// const response = courseApi.getLessonSteps({pageNumber}, 'lessonId');
 
 export const courseApi = {
   getCourses,

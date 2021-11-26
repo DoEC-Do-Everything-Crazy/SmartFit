@@ -5,7 +5,6 @@ import {useDispatch, useSelector} from 'react-redux';
 
 import {changeScreen} from 'reduxs/reducers';
 import {courseApi} from 'api/courseApi';
-import {icons} from '@assets';
 import {routes} from '@navigation/routes';
 import {useNavigation} from '@react-navigation/core';
 import {useStyles} from './styles';

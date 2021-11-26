@@ -99,6 +99,7 @@ export default {
   //Course list
   detail: 'Chi tiết',
   lessons: 'Buổi học',
+  steps: 'Các bước',
 
   //Course Detail Screen
   courseDetail: 'Chi tiết khoá học',

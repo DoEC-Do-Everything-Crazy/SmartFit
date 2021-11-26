@@ -19,7 +19,7 @@ const ListSimilar = ({...props}) => {
   const themeStore = useSelector(state => state.root.theme.theme);
   const theme = useTheme(themeStore);
 
-  const {type} = props;
+  const {type, courseType} = props;
 
   const [data, setData] = useState([]);
 
@@ -28,6 +28,7 @@ const ListSimilar = ({...props}) => {
       if (type === 'course') {
         const response = await courseApi.getCourses({
           pageNumber: 1,
+          type: courseType,
           orderBy: 'view',
         });
 

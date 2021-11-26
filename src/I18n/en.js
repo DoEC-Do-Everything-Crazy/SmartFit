@@ -99,6 +99,7 @@ export default {
   //Course list
   detail: 'Detail',
   lessons: 'Lessons',
+  steps: 'Steps',
 
   //Course Detail Screen
   courseDetail: 'Course Detail',
