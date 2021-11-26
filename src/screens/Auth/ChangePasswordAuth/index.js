@@ -1,16 +1,18 @@
+import * as yup from 'yup';
+
 import {Block, Button, Header, Text, TextInput} from '@components';
-import {useNavigation} from '@react-navigation/core';
+import {KeyboardAvoidingView, Platform} from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
+
 import {Formik} from 'formik';
 import React from 'react';
-import * as yup from 'yup';
-import {useDispatch, useSelector} from 'react-redux';
+import {routes} from '@navigation/routes';
+import setAuthToken from 'utils/setAuthToken';
+import {useNavigation} from '@react-navigation/core';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {useTranslation} from 'react-i18next';
-import {KeyboardAvoidingView, Platform} from 'react-native';
 import {userApi} from 'api/userApi';
-import setAuthToken from 'utils/setAuthToken';
-import {routes} from '@navigation/routes';
 
 const keyboardVerticalOffset = Platform.OS === 'ios' ? 'padding' : 'height';
 const ChangePasswordAuth = props => {
@@ -57,7 +59,7 @@ const ChangePasswordAuth = props => {
             navigation.goBack();
           }
         } catch (error) {
-          console.log(error);
+          console.error(error);
         }
       }}>
       {({

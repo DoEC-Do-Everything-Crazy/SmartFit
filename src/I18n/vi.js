@@ -245,7 +245,6 @@ export default {
 
   //auth
   EnterNPass: 'Nhập mật khẩu mới',
-  enterEmail: 'Nhập email của bạn',
   enterPassAgain: 'Nhập lại mật khẩu',
   enterOldPassword: 'Nhập mật khẩu cũ',
   forgotPass: 'Quên mật khẩu',

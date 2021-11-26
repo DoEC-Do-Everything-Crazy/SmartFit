@@ -1,18 +1,21 @@
+import * as yup from 'yup';
+
 import {Block, Button, Header, Text, TextInput} from '@components';
-import {routes} from '@navigation/routes';
-import {useNavigation} from '@react-navigation/core';
-import {width} from '@utils/responsive';
+import {KeyboardAvoidingView, Platform} from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
+
 import {Formik} from 'formik';
 import React from 'react';
-import * as yup from 'yup';
-import {useDispatch, useSelector} from 'react-redux';
+import {changePassword} from 'reduxs/reducers';
+import {routes} from '@navigation/routes';
+import {useNavigation} from '@react-navigation/core';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
-import {changePassword} from 'reduxs/reducers';
 import {useTranslation} from 'react-i18next';
-import {KeyboardAvoidingView, Platform} from 'react-native';
+import {width} from '@utils/responsive';
 
-const keyboardVerticalOffset = Platform.OS === 'ios' ? 'padding' : 'height';
+const keyboardBehavior = Platform.OS === 'ios' ? 'padding' : 'height';
+
 const ChangePassword = props => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -54,7 +57,7 @@ const ChangePassword = props => {
       }) => (
         <KeyboardAvoidingView
           style={styles.sendControlContainerOuter}
-          behavior={keyboardVerticalOffset}
+          behavior={keyboardBehavior}
           keyboardVerticalOffset={-5}>
           <Block flex>
             <Header

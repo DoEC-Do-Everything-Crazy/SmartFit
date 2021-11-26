@@ -1,15 +1,16 @@
-import {icons} from '@assets';
 import {Block, Header, Text, TextInput} from '@components';
-import {useTheme} from '@theme';
-import React, {useState} from 'react';
 import {Image, Pressable} from 'react-native';
+import React, {useState} from 'react';
+import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
+
+import {icons} from '@assets';
+import {routes} from '@navigation/routes';
+import {useNavigation} from '@react-navigation/core';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
+import {useTheme} from '@theme';
 import {useTranslation} from 'react-i18next';
-import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
 import {userApi} from 'api/userApi';
-import {useNavigation} from '@react-navigation/core';
-import {routes} from '@navigation/routes';
 
 const SendEmail = props => {
   const navigation = useNavigation();
@@ -24,11 +25,14 @@ const SendEmail = props => {
   const [email, setemail] = useState('');
 
   const handleConfirm = async () => {
-    const res = await userApi.sendEmail({email: email});
-    if (res.status === 200) {
-      setIsSended(true);
-      console.log(res.statusText);
-      navigation.navigate(routes.VFT_PHONE_NUMBER_SCREEN, {email: email});
+    try {
+      const res = await userApi.sendEmail({email: email});
+      if (res.status === 200) {
+        setIsSended(true);
+        navigation.navigate(routes.VFT_PHONE_NUMBER_SCREEN, {email: email});
+      }
+    } catch (error) {
+      console.error(error.message);
     }
   };
   return (

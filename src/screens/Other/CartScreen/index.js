@@ -32,8 +32,6 @@ const CartScreen = props => {
     try {
       const res = await orderApi.checkCartList({cartList: formData});
 
-      console.log(res);
-
       if (res) {
         navigation.navigate(routes.PAYMENT_SCREEN);
       }

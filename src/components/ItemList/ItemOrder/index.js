@@ -33,7 +33,6 @@ const ItemOrder = ({item, onPress, index, props}) => {
 
   const renderItem = ({item}) => {
     const handleRate = () => {
-      console.log('aaa');
       if (item.key.includes('C')) {
         navigation.navigate(routes.RATE_SCREEN, {
           item: {courseId: item._id},

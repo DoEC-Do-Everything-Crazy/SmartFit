@@ -43,14 +43,18 @@ const EnterPhoneNumberScreen = ({props, route}) => {
         newPasswordAgain: '',
       }}
       onSubmit={async props => {
-        const res = await userApi.resetPassword({
-          code: code,
-          email: email,
-          newPassword: props.newPassword,
-        });
+        try {
+          const res = await userApi.resetPassword({
+            code: code,
+            email: email,
+            newPassword: props.newPassword,
+          });
 
-        if (res.status === 200) {
-          navigation.navigate(routes.LOGIN_SCREEN);
+          if (res.status === 200) {
+            navigation.navigate(routes.LOGIN_SCREEN);
+          }
+        } catch (error) {
+          console.error(error.message);
         }
       }}>
       {({handleChange, handleBlur, handleSubmit, touched, errors, values}) => (

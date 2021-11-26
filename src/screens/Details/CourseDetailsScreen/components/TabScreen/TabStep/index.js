@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import {Block, Header, ListDataFooter} from '@components';
+import {FlatList, Image} from 'react-native';
 import React, {useEffect, useState} from 'react';
 
-import {FlatList, Image} from 'react-native';
 import ItemStep from '@components/ItemList/ItemStep';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {ScrollView} from 'react-native-gesture-handler';
@@ -32,8 +32,6 @@ const TabStep = ({props, route}) => {
     try {
       const response = await courseApi.getLessonSteps({pageNumber: 1}, id);
       const {steps, page, pages} = response;
-
-      console.log({response});
 
       if (page >= pages) {
         setAllLoaded(true);
@@ -95,7 +93,6 @@ const TabStep = ({props, route}) => {
     initData();
   }, []);
 
-  console.log('image', data);
   return (
     <SafeAreaView
       edges={['bottom', 'left', 'right']}
