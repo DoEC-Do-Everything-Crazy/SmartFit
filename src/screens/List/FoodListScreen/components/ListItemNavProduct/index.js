@@ -17,12 +17,12 @@ const ListItemNavProduct = ({...props}) => {
       const response = await foodApi.getFoods({
         pageNumber,
         orderBy: 'rate',
+        active: true,
       });
 
       const {foods} = response;
 
       setData(foods);
-      setPageNumber(pageNumber + 1);
     } catch (e) {
       console.error(e.message);
     }

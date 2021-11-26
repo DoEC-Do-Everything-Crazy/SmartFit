@@ -56,6 +56,7 @@ const ProductDetailScreen = ({props, route}) => {
       const response = await productApi.getProduct(productId);
 
       setProduct(response);
+      await productApi.updateViewProduct(response._id);
     } catch (error) {
       console.error(error.message);
     }
@@ -233,7 +234,7 @@ const ProductDetailScreen = ({props, route}) => {
                   <Review
                     averageRating={product.averageRating}
                     totalReviews={product.totalReviews}
-                    courseId={product._id}
+                    productId={product._id}
                   />
                 ) : null}
               </Block>

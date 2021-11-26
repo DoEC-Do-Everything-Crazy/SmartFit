@@ -75,6 +75,10 @@ const RootStack = () => {
         name={routes.UPDATE_PROFILE_SCREEN}
         component={auth.UPDATE_PROFILE_SCREEN}
       />
+      <Stack.Screen
+        name={routes.CHANGE_PASSWORD_AUTH}
+        component={auth.CHANGE_PASSWORD_AUTH}
+      />
       {/* LIST */}
       <Stack.Screen
         name={routes.COURSE_LIST_SCREEN}

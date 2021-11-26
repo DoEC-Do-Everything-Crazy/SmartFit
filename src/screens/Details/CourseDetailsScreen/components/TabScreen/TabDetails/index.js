@@ -116,6 +116,8 @@ const TabDetails = ({route, props}) => {
     try {
       const resData = await courseApi.getCourse(courseId);
       setDataDetail(resData);
+
+      await courseApi.updateViewCourse(resData._id);
     } catch (error) {
       console.error('error', error.message);
     }
@@ -175,7 +177,7 @@ const TabDetails = ({route, props}) => {
       }
 
       setDataPT(pts);
-      setPageNumber(pageNumber + 1);
+      setPageNumber(2);
     } catch (e) {
       console.error(e.message);
     }

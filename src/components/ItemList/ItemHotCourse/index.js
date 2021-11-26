@@ -25,17 +25,10 @@ const ItemHotCourse = ({item, props}) => {
     navigation.navigate(routes.TAB_DETAILS, {id: item._id});
   }, [item._id, dispatch, navigation]);
 
-  const updateViewCourse = async item => {
-    await courseApi.updateViewCourse(item, {
-      validateStatus: false,
-    });
-  };
-
   return (
     <Pressable
       onPress={() => {
         handleOpenCourseDetail();
-        updateViewCourse(item._id);
       }}
       style={styles.container}>
       <Image

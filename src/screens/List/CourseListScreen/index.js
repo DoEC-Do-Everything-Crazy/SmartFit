@@ -82,6 +82,7 @@ const CourseListScreen = ({route, props}) => {
         response = await courseApi.getCourses({
           pageNumber,
           type,
+          active: true,
         });
       }
 
@@ -111,6 +112,7 @@ const CourseListScreen = ({route, props}) => {
         response = await courseApi.getCourses({
           pageNumber: 1,
           type,
+          active: true,
         });
       }
 

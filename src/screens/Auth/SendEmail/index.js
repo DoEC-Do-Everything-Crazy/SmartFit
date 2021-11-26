@@ -1,13 +1,18 @@
 import {icons} from '@assets';
-import {Block, Header, Text} from '@components';
+import {Block, Header, Text, TextInput} from '@components';
 import {useTheme} from '@theme';
-import React from 'react';
+import React, {useState} from 'react';
 import {Image, Pressable} from 'react-native';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import {useTranslation} from 'react-i18next';
+import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
+import {userApi} from 'api/userApi';
+import {useNavigation} from '@react-navigation/core';
+import {routes} from '@navigation/routes';
 
 const SendEmail = props => {
+  const navigation = useNavigation();
   const {
     theme: {theme: themeStore},
   } = useSelector(state => state.root);
@@ -15,49 +20,73 @@ const SendEmail = props => {
   const theme = useTheme(themeStore);
   const {t} = useTranslation();
 
+  const [isSended, setIsSended] = useState(false);
+  const [email, setemail] = useState('');
+
+  const handleConfirm = async () => {
+    const res = await userApi.sendEmail({email: email});
+    if (res.status === 200) {
+      setIsSended(true);
+      console.log(res.statusText);
+      navigation.navigate(routes.VFT_PHONE_NUMBER_SCREEN, {email: email});
+    }
+  };
   return (
-    <Block flex backgroundColor={theme.colors.white}>
-      <Header canGoBack title="Vertify email" />
-      <Block
-        paddingHorizontal={16}
-        alignCenter
-        marginTop={40}
-        backgroundColor={theme.colors.white}>
-        <Image
-          resizeMode="contain"
-          style={styles.image}
-          source={icons.sendemail}
-        />
-        <Block alignCenter>
-          <Text
-            center
-            size={18}
-            paddingVertical={10}
-            fontType="bold"
-            color={theme.colors.blue}>
-            {t('confitmEmail')}
-          </Text>
-          <Block alignCenter paddingVertical={10}>
-            <Text size={18}>{t('weSent')}</Text>
-            <Text size={18} fontType="bold">
-              congkhanh2424@gmail.com
-            </Text>
-            <Text size={18}>{t('checkEmail')}</Text>
-            <Text size={18}>{t('confirmation')}</Text>
+    <Block flex>
+      <Header canGoBack title={t('vertifyEmail')} />
+      <ScrollView>
+        <Block paddingHorizontal={16} marginTop={40}>
+          <Block alignCenter>
+            <Image
+              resizeMode="contain"
+              style={styles.image}
+              source={icons.sendemail}
+            />
           </Block>
-          <Pressable width={200} backgroundColor={theme.colors.white}>
-            <Text
-              marginTop={15}
-              marginBottom={15}
-              center
-              size={18}
-              fontType="bold"
-              color={theme.colors.blue}>
-              {t('resendEmail')}
-            </Text>
-          </Pressable>
+
+          {isSended ? (
+            <Block alignCenter marginTop={30}>
+              <Text center size={18} fontType="bold" color={theme.colors.blue}>
+                {t('confitmEmail')}
+              </Text>
+              <Block alignCenter>
+                <Text size={18}>{t('weSent')}</Text>
+                <Text size={18} fontType="bold">
+                  {email}
+                </Text>
+                <Text size={18}>{t('checkEmail')}</Text>
+                <Text size={18}>{t('confirmation')}</Text>
+              </Block>
+              <Pressable width={200}>
+                <Text
+                  marginTop={15}
+                  marginBottom={15}
+                  center
+                  size={18}
+                  fontType="bold"
+                  color={theme.colors.blue}>
+                  {t('resendEmail')}
+                </Text>
+              </Pressable>
+            </Block>
+          ) : (
+            <>
+              <TextInput
+                containerInputStyle={{marginTop: 15}}
+                paddingHorizontal={10}
+                inputStyle={{flex: 1}}
+                placeholder={t('enterEmail')}
+                onChangeText={text => setemail(text)}
+              />
+              <TouchableOpacity onPress={handleConfirm} style={styles.button}>
+                <Text color="white" fontType="bold">
+                  {t('confirm')}
+                </Text>
+              </TouchableOpacity>
+            </>
+          )}
         </Block>
-      </Block>
+      </ScrollView>
     </Block>
   );
 };

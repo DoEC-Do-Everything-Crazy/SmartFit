@@ -3,15 +3,15 @@ import {makeStyles} from '@theme';
 
 export const useStyles = makeStyles()(({colors}) => ({
   image: {
-    width: getSize.s(120),
-    height: getSize.s(160),
+    width: getSize.s(100),
+    height: getSize.s(140),
     borderRadius: getSize.s(8),
   },
 
   heartContainer: {
     position: 'absolute',
     top: getSize.s(5),
-    left: getSize.s(90),
+    left: getSize.s(70),
     zIndex: 1,
   },
 }));

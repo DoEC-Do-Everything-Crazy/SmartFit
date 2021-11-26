@@ -20,17 +20,10 @@ const ItemHotFood = ({item, index, props}) => {
 
   const navigation = useNavigation();
 
-  const updateViewFood = async item => {
-    await foodApi.updateViewFood(item, {
-      validateStatus: false,
-    });
-  };
-
   return (
     <Pressable
       onPress={() => {
         navigation.navigate(routes.FOOD_DETAILS_SCREEN, {id: item._id});
-        updateViewFood(item._id);
       }}>
       <Block
         key={index}

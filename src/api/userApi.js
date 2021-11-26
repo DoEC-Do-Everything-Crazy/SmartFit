@@ -35,4 +35,97 @@ const updateUser = async (data, options) => {
   }
 };
 
-export const userApi = {getUser, updateUser};
+const sendEmail = async (data, options) => {
+  try {
+    const response = await axios.post(`${apiUrl}/users/sendResetEmail`, data, {
+      ...options,
+      validateStatus: false,
+    });
+
+    if (response.status === 404 || response.status === 500) {
+      throw response.data;
+    }
+
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
+const checkCode = async (data, options) => {
+  try {
+    const response = await axios.post(`${apiUrl}/users/checkResetCode`, data, {
+      ...options,
+      validateStatus: false,
+    });
+
+    if (response.status === 404 || response.status === 500) {
+      throw response.data;
+    }
+
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
+const resetPassword = async (data, options) => {
+  try {
+    const response = await axios.post(`${apiUrl}/users/resetPassword`, data, {
+      ...options,
+      validateStatus: false,
+    });
+
+    if (response.status === 404 || response.status === 500) {
+      throw response.data;
+    }
+
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
+const uploadImage = async (data, options) => {
+  try {
+    const response = await axios.post(`${apiUrl}/users/uploadImageUser`, data, {
+      ...options,
+
+      validateStatus: false,
+    });
+
+    if (response.status === 404 || response.status === 500) {
+      throw response.data;
+    }
+
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+const changePassword = async (data, options) => {
+  try {
+    const response = await axios.post(`${apiUrl}/users/changePassword`, data, {
+      ...options,
+      validateStatus: false,
+    });
+
+    if (response.status === 404 || response.status === 500) {
+      throw response.data;
+    }
+
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const userApi = {
+  getUser,
+  updateUser,
+  sendEmail,
+  checkCode,
+  resetPassword,
+  changePassword,
+  uploadImage
+};

@@ -17,6 +17,26 @@ const getPromotionByUserID = async (userID, value, options) => {
     throw error;
   }
 };
+const getPromotions = async (params, options) => {
+  try {
+    const response = await axios.get(
+      `${apiUrl}/promotion`,
+      {params},
+      {
+        ...options,
+        validateStatus: false,
+      },
+    );
+
+    if (response.status !== 200) {
+      throw response.data;
+    }
+
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
 
 const getPromotionByKey = async (key, options) => {
   try {
@@ -38,4 +58,5 @@ const getPromotionByKey = async (key, options) => {
 export const promotionApi = {
   getPromotionByUserID,
   getPromotionByKey,
+  getPromotions,
 };

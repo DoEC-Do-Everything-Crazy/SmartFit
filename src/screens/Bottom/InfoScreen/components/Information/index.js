@@ -24,7 +24,8 @@ const Information = props => {
   const styles = useStyles(props, themeStore);
   const handleLogout = useCallback(() => {
     setModalVisible(false);
-    dispatch(removeUser());
+    setAuthToken(undefined);
+    dispatch(setUser(undefined));
   }, [dispatch]);
 
   useEffect(() => {
@@ -47,8 +48,7 @@ const Information = props => {
         <Button
           title={t('logout')}
           onPress={() => {
-            setAuthToken(undefined);
-            dispatch(setUser(undefined));
+            setModalVisible(true);
           }}
         />
       </Block>

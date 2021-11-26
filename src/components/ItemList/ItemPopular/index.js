@@ -22,28 +22,14 @@ const ItemPopular = ({item, props}) => {
   const styles = useStyles(props, themeStore);
   const theme = useTheme(themeStore);
 
-  const updateViewFood = async item => {
-    await foodApi.updateViewFood(item, {
-      validateStatus: false,
-    });
-  };
-
-  const updateViewCourse = async item => {
-    await courseApi.updateViewCourse(item, {
-      validateStatus: false,
-    });
-  };
-
   return (
     <Pressable
       style={styles.press}
       onPress={() => {
         if (item.key.includes('C')) {
           navigation.navigate(routes.TAB_DETAILS, {id: item._id});
-          updateViewCourse(item._id);
         } else {
           navigation.navigate(routes.FOOD_DETAILS_SCREEN, {id: item._id});
-          updateViewFood(item._id);
         }
       }}>
       <Block

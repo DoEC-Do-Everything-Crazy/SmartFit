@@ -178,10 +178,11 @@ export default {
   address: 'Address',
 
   //Request OTP
-  signInWithPhoneNumber: 'Sign in with phone number',
+  reserPass: 'Reset password',
   codeIsSendTo: 'Code is send to',
   receiveCode: 'Didn’t receive code ?',
   requestAgain: 'Request again',
+  checkCode: 'Check code',
 
   //Update profile
   male: 'Male',
@@ -240,4 +241,11 @@ export default {
   //Footer
   LoadMore: 'Load more',
   loadMore: 'load more',
+
+  //auth
+  EnterNPass: 'Enter new password',
+  enterEmail: 'Enter your email',
+  enterPassAgain: 'Enter New Password Again',
+  enterOldPassword: 'Enter old password',
+  forgotPass: 'Forgot password',
 };

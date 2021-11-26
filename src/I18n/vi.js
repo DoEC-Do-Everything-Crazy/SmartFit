@@ -179,10 +179,11 @@ export default {
   address: 'Địa chỉ',
 
   //Request OTP
-  signInWithPhoneNumber: 'Đăng nhập bằng số điện thoại',
+  reserPass: 'Đặt lại mật khẩu',
   codeIsSendTo: 'Mã được gửi tới',
   receiveCode: 'Không nhận được mã ?',
   requestAgain: 'Gửi lại mã',
+  checkCode: 'Kiểm tra mã code',
 
   //Update profile
   male: 'Nam',
@@ -241,4 +242,11 @@ export default {
   //Footer
   LoadMore: 'Xem thêm',
   loadMore: 'Xem thêm',
+
+  //auth
+  EnterNPass: 'Nhập mật khẩu mới',
+  enterEmail: 'Nhập email của bạn',
+  enterPassAgain: 'Nhập lại mật khẩu',
+  enterOldPassword: 'Nhập mật khẩu cũ',
+  forgotPass: 'Quên mật khẩu',
 };

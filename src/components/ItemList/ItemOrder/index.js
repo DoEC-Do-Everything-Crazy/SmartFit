@@ -8,6 +8,7 @@ import ItemCart from '@components/ItemList/ItemCart';
 import {keyExtractor} from 'utils/keyExtractor';
 import {orderApi} from 'api/orderApi';
 import {routes} from '@navigation/routes';
+import setAuthToken from 'utils/setAuthToken';
 import {useNavigation} from '@react-navigation/core';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useSelector} from 'react-redux';
@@ -25,20 +26,44 @@ const ItemOrder = ({item, onPress, index, props}) => {
 
   const {
     theme: {theme: themeStore},
+    user: {token},
   } = useSelector(stateRoot => stateRoot.root);
   const styles = useStyles(props, themeStore);
   const theme = useTheme(themeStore);
 
-  const renderItem = ({item}) => <ItemCart notQuantity item={item} />;
+  const renderItem = ({item}) => {
+    const handleRate = () => {
+      console.log('aaa');
+      if (item.key.includes('C')) {
+        navigation.navigate(routes.RATE_SCREEN, {
+          item: {courseId: item._id},
+        });
+        return;
+      }
+      if (item.key.includes('F')) {
+        navigation.navigate(routes.RATE_SCREEN, {
+          item: {foodId: item._id},
+        });
+        return;
+      }
+      if (item.key.includes('P')) {
+        navigation.navigate(routes.RATE_SCREEN, {
+          item: {productId: item._id},
+        });
+      }
+    };
+    return <ItemCart onPress={handleRate} notQuantity notRate item={item} />;
+  };
 
   const handleToOrderDetail = useCallback(() => {
     modalizRef?.current.open();
     setShowDetail(true);
   }, []);
   const handleOpenConfirm = useCallback(() => {
-    navigation.navigate(routes.RATE_SCREEN, {
-      item: {foodId: '6176c277b585a7132c9bd557'},
-    });
+    console.log('confirm');
+    // navigation.navigate(routes.RATE_SCREEN, {
+    //   item: {foodId: '6176c277b585a7132c9bd557'},
+    // });
   }, []);
   const FloatingComponent = useCallback(() => {
     if (insets.bottom === 0) {
@@ -87,8 +112,9 @@ const ItemOrder = ({item, onPress, index, props}) => {
   ]);
   const handleCancelBill = async () => {
     try {
-      await orderApi.updateOrder({id: item._id, status: 'Cancel'});
-      setStatus('Cancel');
+      setAuthToken(token);
+      await orderApi.cancelOrder({id: item._id});
+      setStatus('cancelled');
     } catch (error) {
       console.error(error.message);
     }
@@ -138,36 +164,52 @@ const ItemOrder = ({item, onPress, index, props}) => {
                 <Text>{t('detail')}</Text>
               </Pressable>
             </Block>
-            {status === 'Received' && (
+            {status === 'delivered' ? (
               <Block row flex={1} justifyEnd alignCenter>
+                <Text
+                  marginRight={10}
+                  fontType="bold"
+                  color={theme.colors.lightBlue}>
+                  {t(`${status}`)}
+                </Text>
                 <Pressable
                   onPress={handleOpenConfirm}
                   style={styles.itemConfirm}>
                   <Text color={theme.colors.white}>{t('confirm')}</Text>
                 </Pressable>
               </Block>
-            )}
-            {status === 'Cancel' && (
+            ) : status === 'cancelled' ? (
               <Block row flex={1} justifyEnd alignCenter>
-                <Text
-                  marginRight={10}
-                  fontType="bold"
-                  color={theme.colors.green}>
-                  {t('cancelOrder')}
+                <Text marginRight={10} fontType="bold" color={theme.colors.red}>
+                  {t(`${status}`)}
                 </Text>
               </Block>
-            )}
-            {status === 'Pending' && (
+            ) : status === 'pending' ? (
               <Block row flex={1} justifyEnd alignCenter>
                 <Text
                   marginRight={10}
                   fontType="bold"
-                  color={theme.colors.green}>
-                  {t('pendingOrder')}
+                  color={theme.colors.blue}>
+                  {t(`${status}`)}
                 </Text>
                 <Pressable onPress={handleCancelBill} style={styles.itemCancel}>
                   <Text color={theme.colors.white}>{t('cancel')}</Text>
                 </Pressable>
+              </Block>
+            ) : (
+              <Block row flex={1} justifyEnd alignCenter>
+                <Text
+                  marginRight={10}
+                  fontType="bold"
+                  color={
+                    status === 'processing'
+                      ? theme.colors.green
+                      : status === 'delivering'
+                      ? theme.colors.yellow
+                      : theme.colors.red
+                  }>
+                  {t(`${status}`)}
+                </Text>
               </Block>
             )}
           </Block>

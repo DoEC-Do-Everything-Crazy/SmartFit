@@ -1,11 +1,15 @@
 import {apiUrl} from '@config/api';
 import axios from 'axios';
-const checkCardList = async (data, options) => {
+
+const checkCartList = async (data, options) => {
   try {
+    console.log('checkCartList');
     const response = await axios.post(`${apiUrl}/orders/checkCart`, data, {
       ...options,
       validateStatus: false,
     });
+
+    console.log({response});
 
     if (response.status !== 200) {
       throw response.data;
@@ -74,9 +78,9 @@ const getOrdersByStatus = async (userId, status, options) => {
   }
 };
 
-const updateOrder = async (data, options) => {
+const cancelOrder = async (data, options) => {
   try {
-    const response = await axios.patch(`${apiUrl}/orders/updateStatus`, data, {
+    const response = await axios.put(`${apiUrl}/orders/cancelOrder`, data, {
       ...options,
       validateStatus: false,
     });
@@ -92,9 +96,9 @@ const updateOrder = async (data, options) => {
 };
 
 export const orderApi = {
-  checkCardList,
+  checkCartList,
   addOrder,
   getOrders,
-  updateOrder,
   getOrdersByStatus,
+  cancelOrder,
 };

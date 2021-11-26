@@ -28,11 +28,6 @@ const ItemCourse = ({course, nameScreen, props}) => {
     dispatch(changeScreen('CourseDetail'));
   }, [course._id, dispatch, navigation, nameScreen]);
 
-  const updateViewCourse = async item => {
-    await courseApi.updateViewCourse(item, {
-      validateStatus: false,
-    });
-  };
   return (
     <Block style={styles.container}>
       <Block
@@ -94,7 +89,6 @@ const ItemCourse = ({course, nameScreen, props}) => {
           <Pressable
             onPress={() => {
               handleOpenCourseDetail();
-              updateViewCourse(course._id);
             }}
             key={course.key}>
             <Block alignEnd width={'103%'}>

@@ -8,6 +8,11 @@ export const useStyles = makeStyles()(({colors}) => ({
     flex: 1,
     alignItems: 'center',
   },
+  root: {
+    justifyContent: 'center',
+    paddingTop: getSize.m(100),
+    flex: 1,
+  },
   button: {
     height: 60,
     backgroundColor: colors.blue,

@@ -35,13 +35,6 @@ const ListItemFeature = () => {
       value: 'myCourse',
     },
     {
-      id: 3,
-      title: t('promotion'),
-      image: <Promotion color={theme.colors.iconInf} />,
-      navigation: routes.NOTIFICATION_SCREEN,
-      value: 0,
-    },
-    {
       id: 4,
       title: t('order'),
       image: <Order color={theme.colors.iconInf} />,

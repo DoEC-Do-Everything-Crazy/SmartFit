@@ -30,6 +30,7 @@ const ListHotFood = props => {
       const response = await foodApi.getFoods({
         pageNumber: 1,
         orderBy: 'type',
+        active: true,
       });
 
       const {foods} = response;

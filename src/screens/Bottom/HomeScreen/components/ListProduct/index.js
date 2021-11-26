@@ -20,12 +20,14 @@ const ListProduct = props => {
   const styles = useStyles(props, themeStore);
 
   const navigation = useNavigation();
+
   const fetchData = async () => {
     try {
       const response = await productApi.getProducts({
         pageNumber: 1,
         orderBy: 'buy',
         desc: -1,
+        active: true,
       });
 
       const {products} = response;

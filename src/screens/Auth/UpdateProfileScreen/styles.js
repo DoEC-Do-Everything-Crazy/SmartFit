@@ -79,7 +79,6 @@ export const useStyles = makeStyles()(({colors}) => ({
     marginHorizontal: getSize.s(16),
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: getSize.s(20),
     marginTop: getSize.s(10),
     borderRadius: getSize.s(8),
   },
