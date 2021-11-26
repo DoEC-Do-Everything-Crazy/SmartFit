@@ -3,13 +3,10 @@ import axios from 'axios';
 
 const checkCartList = async (data, options) => {
   try {
-    console.log('checkCartList');
     const response = await axios.post(`${apiUrl}/orders/checkCart`, data, {
       ...options,
       validateStatus: false,
     });
-
-    console.log({response});
 
     if (response.status !== 200) {
       throw response.data;

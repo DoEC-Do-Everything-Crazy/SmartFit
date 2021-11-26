@@ -166,7 +166,7 @@ export const useStyles = makeStyles()(({colors}) => ({
     alignItems: 'center',
     flexDirection: 'column',
     justifyContent: 'center',
-    height: getSize.s(60),
+    height: getSize.s(80),
     marginBottom: getSize.s(50),
   },
 

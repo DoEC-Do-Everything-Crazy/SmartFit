@@ -17,9 +17,7 @@ const ItemLesson = ({...props}) => {
   const styles = useStyles(themeStore);
   const {item} = props;
 
-  console.log(item);
   const handleOnLessonPress = () => {
-    console.log('navigates');
     navigation.navigate(routes.TAB_STEP, {
       id: item._id,
       image: item.image[0],

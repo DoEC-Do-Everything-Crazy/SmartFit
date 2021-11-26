@@ -1,6 +1,12 @@
 import {Block, Button, DropDown, Header, Text, TextInput} from '@components';
 import {Email, Fullname, List, Phone} from '@assets/icons';
-import {Image, Pressable, ScrollView, TouchableOpacity} from 'react-native';
+import {
+  Image,
+  Platform,
+  Pressable,
+  ScrollView,
+  TouchableOpacity,
+} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {addImage, removeImage, setUser} from 'reduxs/reducers';
 import {useDispatch, useSelector} from 'react-redux';
@@ -35,7 +41,7 @@ const UpdateProfileScreen = ({route, props}) => {
   const [userProfile, setUserProfile] = useState({
     email: user.email,
     birthday: user.birthday,
-    phoneNumber: user.phoneNumber || '',
+    phoneNumber: user.phoneNumber,
     fullName: user.fullName,
     photoURL: user.photoURL,
   });
@@ -82,15 +88,18 @@ const UpdateProfileScreen = ({route, props}) => {
   };
 
   const addImageUser = async formData => {
-    console.log({formData});
-    const res = await userApi.uploadImage(formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    });
+    try {
+      const res = await userApi.uploadImage(formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
 
-    dispatch(removeImage());
-    dispatch(setUser(res.data));
+      dispatch(removeImage());
+      dispatch(setUser(res.data));
+    } catch (error) {
+      console.error(error.message);
+    }
   };
 
   const handleGallery = () => {
@@ -228,14 +237,13 @@ const UpdateProfileScreen = ({route, props}) => {
                 label={t('enterPhoneNumber')}
                 inputStyle={styles.input}
                 leftIcon={true}
-                value={user.phoneNumber}
+                value={userProfile.phoneNumber}
                 onChangeText={text => {
                   setUserProfile({
                     ...userProfile,
                     phoneNumber: text,
                   });
-                }}
-                disabled={userProfile.phoneNumber && true}>
+                }}>
                 <Phone color={theme.colors.text} />
               </TextInput>
               <Block marginTop={8} marginBottom={24}>
@@ -278,17 +286,19 @@ const UpdateProfileScreen = ({route, props}) => {
               </TouchableOpacity>
               {show && (
                 <>
-                  <Pressable onPress={showDatepicker}>
-                    <Block width={80} radius={8} backgroundColor={'#045694'}>
-                      <Text
-                        center
-                        paddingVertical={5}
-                        fontType="bold"
-                        color="white">
-                        {t('choose')}
-                      </Text>
-                    </Block>
-                  </Pressable>
+                  {Platform.OS === 'ios' && (
+                    <Pressable onPress={showDatepicker}>
+                      <Block width={80} radius={8} backgroundColor={'#045694'}>
+                        <Text
+                          center
+                          paddingVertical={5}
+                          fontType="bold"
+                          color="white">
+                          {t('choose')}
+                        </Text>
+                      </Block>
+                    </Pressable>
+                  )}
                   <DateTimePicker
                     testID="dateTimePicker"
                     value={new Date(userProfile.birthday)}
@@ -296,12 +306,13 @@ const UpdateProfileScreen = ({route, props}) => {
                     is24Hour={true}
                     display="spinner"
                     onChange={(event, selectedDay) => {
-                      if (event.type !== 'set') {
+                      if (event.type !== 'dismissed') {
                         setUserProfile({
                           ...userProfile,
                           birthday: new Date(selectedDay),
                         });
                       }
+                      setShow(!show);
                     }}
                   />
                 </>

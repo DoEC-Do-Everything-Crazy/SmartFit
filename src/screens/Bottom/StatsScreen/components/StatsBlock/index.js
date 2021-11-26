@@ -1,13 +1,14 @@
-import {WeightBig} from '@assets/icons';
 import {Block, Text} from '@components';
-import React from 'react';
-import {Pressable} from 'react-native';
+
 import CircularProgress from 'react-native-circular-progress-indicator';
-import {useStyles} from './styles';
-import {useSelector} from 'react-redux';
-import {useTheme} from '@theme';
 import {HeightBig} from '@assets/icons/HeightBig';
+import {Pressable} from 'react-native';
+import React from 'react';
+import {WeightBig} from '@assets/icons';
 import {getSize} from 'utils/responsive';
+import {useSelector} from 'react-redux';
+import {useStyles} from './styles';
+import {useTheme} from '@theme';
 
 const StatsBlock = ({
   title,
@@ -47,7 +48,7 @@ const StatsBlock = ({
           width={widthComponent}
           height={heightComponent}
           alignCenter
-          paddingTop={getSize.s(40)}
+          paddingTop={getSize.s(20)}
           justifyCenter>
           {circular ? (
             <Block alignCenter height="50%">

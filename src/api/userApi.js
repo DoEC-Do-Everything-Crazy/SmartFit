@@ -42,7 +42,7 @@ const sendEmail = async (data, options) => {
       validateStatus: false,
     });
 
-    if (response.status === 404 || response.status === 500) {
+    if (response.status !== 200) {
       throw response.data;
     }
 
@@ -59,7 +59,7 @@ const checkCode = async (data, options) => {
       validateStatus: false,
     });
 
-    if (response.status === 404 || response.status === 500) {
+    if (response.status !== 200) {
       throw response.data;
     }
 
@@ -76,7 +76,7 @@ const resetPassword = async (data, options) => {
       validateStatus: false,
     });
 
-    if (response.status === 404 || response.status === 500) {
+    if (response.status !== 200) {
       throw response.data;
     }
 
@@ -110,7 +110,7 @@ const changePassword = async (data, options) => {
       validateStatus: false,
     });
 
-    if (response.status === 404 || response.status === 500) {
+    if (response.status !== 200) {
       throw response.data;
     }
 
@@ -127,5 +127,5 @@ export const userApi = {
   checkCode,
   resetPassword,
   changePassword,
-  uploadImage
+  uploadImage,
 };

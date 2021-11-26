@@ -73,7 +73,6 @@ const VFTPhoneNumberScreen = ({route, props}) => {
 
   const confirmCode = async () => {
     try {
-      console.log(code);
       const res = await userApi.checkCode({email: email, code: code});
       if (res.status === 200) {
         navigation.navigate(routes.ENTER_PHONE_NUMBER_SCREEN, {
