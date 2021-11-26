@@ -12,7 +12,7 @@ import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {useTranslation} from 'react-i18next';
 
-const ItemCourse = ({course, props}) => {
+const ItemCourse = ({course, nameScreen, props}) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const {t} = useTranslation();
@@ -24,9 +24,9 @@ const ItemCourse = ({course, props}) => {
   const theme = useTheme(themeStore);
 
   const handleOpenCourseDetail = useCallback(() => {
+    navigation.navigate(routes.TAB_DETAILS, {id: course._id, nameScreen});
     dispatch(changeScreen('CourseDetail'));
-    navigation.navigate(routes.TAB_DETAILS, {id: course._id});
-  }, [course._id, dispatch, navigation]);
+  }, [course._id, dispatch, navigation, nameScreen]);
 
   return (
     <Block style={styles.container}>

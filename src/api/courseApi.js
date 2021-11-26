@@ -131,6 +131,69 @@ const updateViewCourse = async (id, options) => {
   }
 };
 
+const getUserCourses = async (params, options) => {
+  try {
+    const response = await axios.get(
+      `${apiUrl}/courses/user`,
+      {params},
+      {
+        ...options,
+        validateStatus: false,
+      },
+    );
+
+    if (response.status !== 200) {
+      throw response.data;
+    }
+
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+const getCourseLessons = async (params, courseId, options) => {
+  try {
+    const response = await axios.get(
+      `${apiUrl}/lessons/user/${courseId}`,
+      {params},
+      {
+        ...options,
+        validateStatus: false,
+      },
+    );
+
+    if (response.status !== 200) {
+      throw response.data;
+    }
+
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+const getLessonSteps = async (params, lessonId, options) => {
+  try {
+    const response = await axios.get(
+      `${apiUrl}/steps/user/${lessonId}`,
+      {params},
+      {
+        ...options,
+        validateStatus: false,
+      },
+    );
+
+    if (response.status !== 200) {
+      throw response.data;
+    }
+
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const courseApi = {
   getCourses,
   getCourse,
@@ -138,5 +201,8 @@ export const courseApi = {
   updateCourse,
   deleteCourse,
   getCourseByView,
+  getUserCourses,
+  getCourseLessons,
+  getLessonSteps,
   updateViewCourse,
 };

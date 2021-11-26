@@ -11,12 +11,25 @@ import {useTranslation} from 'react-i18next';
 
 const Tab = createMaterialTopTabNavigator();
 
-const CourseDetailsScreen = () => {
+const CourseDetailsScreen = ({route}) => {
   const {
     theme: {theme: themeStore},
   } = useSelector(stateRoot => stateRoot.root);
   const theme = useTheme(themeStore);
+  const {id} = route.params;
   const {t} = useTranslation();
+  const TabArr = [
+    {
+      label: t('detail'),
+      name: routes.TAB_DETAILS,
+      component: TabDetails,
+    },
+    {
+      label: t('lessons'),
+      name: routes.TAB_LESSON,
+      component: TabLesson,
+    },
+  ];
   return (
     <Block flex backgroundColor={theme.colors.backgroundSetting}>
       <Header
@@ -25,24 +38,22 @@ const CourseDetailsScreen = () => {
         title={t('course')}
         colorTheme={theme.colors.blue}
       />
+      <Block marginTop={20} />
       <Tab.Navigator
-        lazy
         swipeEnabled={false}
         tabBar={props => <CustomTabBar {...props} />}>
-        <Tab.Screen
-          options={{
-            tabBarLabel: t('detail'),
-          }}
-          name={routes.TAB_DETAILS}
-          component={TabDetails}
-        />
-        <Tab.Screen
-          options={{
-            tabBarLabel: t('lessons'),
-          }}
-          name={routes.TAB_LESSON}
-          component={TabLesson}
-        />
+        {TabArr.map(item => {
+          return (
+            <Tab.Screen
+              options={{
+                tabBarLabel: item.label,
+              }}
+              initialParams={{id: id}}
+              name={item.name}
+              component={item.component}
+            />
+          );
+        })}
       </Tab.Navigator>
     </Block>
   );

@@ -118,6 +118,7 @@ const RootStack = () => {
       {/* Tabs */}
       <Stack.Screen name={routes.TAB_DETAILS} component={details.TAB_DETAILS} />
       <Stack.Screen name={routes.TAB_LESSON} component={details.TAB_LESSON} />
+      <Stack.Screen name={routes.TAB_STEP} component={details.TAB_STEP} />
 
       {/*SETTING */}
       <Stack.Screen

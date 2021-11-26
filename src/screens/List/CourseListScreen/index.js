@@ -1,19 +1,11 @@
-import {ActivityIndicator, FlatList, Platform, Pressable} from 'react-native';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withSpring,
 } from 'react-native-reanimated';
 /* eslint-disable react-hooks/exhaustive-deps */
-import {
-  Block,
-  Empty,
-  Header,
-  ListDataFooter,
-  LoadMore,
-  Loading,
-  Text,
-} from '@components';
+import {Block, Empty, Header, ListDataFooter} from '@components';
+import {FlatList, Pressable} from 'react-native';
 import React, {useCallback, useEffect, useState} from 'react';
 
 import {Cart} from '@assets/icons';
@@ -25,6 +17,7 @@ import {courseType} from 'data/courseType';
 import {keyExtractor} from 'utils/keyExtractor';
 import {lotties} from '@assets';
 import {routes} from '@navigation/routes';
+import setAuthToken from 'utils/setAuthToken';
 import {useNavigation} from '@react-navigation/core';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
@@ -32,19 +25,20 @@ import {useTheme} from '@theme';
 
 const CourseListScreen = ({route, props}) => {
   const navigation = useNavigation();
-  const {type} = route.params;
+  const {type, nameScreen} = route.params;
 
   const {
     theme: {theme: themeStore},
+    user: {token},
   } = useSelector(stateRoot => stateRoot.root);
   const theme = useTheme(themeStore);
   const styles = useStyles(props, themeStore);
   const offset = useSharedValue(0);
-
-  const [data, setData] = useState([]);
   const [pageNumber, setPageNumber] = useState(1);
   const [allLoaded, setAllLoaded] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
+  const [data, setData] = useState([]);
 
   const animatedStyles = useAnimatedStyle(() => {
     return {
@@ -68,7 +62,7 @@ const CourseListScreen = ({route, props}) => {
   const _renderItem = useCallback(({item, index}) => {
     return (
       <Block paddingTop={index === 0 ? 20 : 0}>
-        <ItemCourse course={item} key={index} />
+        <ItemCourse nameScreen={nameScreen} course={item} key={index} />
       </Block>
     );
   });
@@ -79,13 +73,18 @@ const CourseListScreen = ({route, props}) => {
     }
 
     setIsLoading(true);
-
     try {
-      const response = await courseApi.getCourses({
-        pageNumber,
-        type,
-        active: true,
-      });
+      let response;
+      if (nameScreen === 'myCourse') {
+        setAuthToken(token);
+        response = await courseApi.getUserCourses({pageNumber, type});
+      } else {
+        response = await courseApi.getCourses({
+          pageNumber,
+          type,
+          active: true,
+        });
+      }
 
       const {courses, page, pages} = response;
 
@@ -104,13 +103,18 @@ const CourseListScreen = ({route, props}) => {
 
   const initData = async () => {
     setIsLoading(true);
-
     try {
-      const response = await courseApi.getCourses({
-        pageNumber: 1,
-        type,
-        active: true,
-      });
+      let response;
+      if (nameScreen === 'myCourse') {
+        setAuthToken(token);
+        response = await courseApi.getUserCourses({pageNumber, type});
+      } else {
+        response = await courseApi.getCourses({
+          pageNumber: 1,
+          type,
+          active: true,
+        });
+      }
 
       const {courses, page, pages} = response;
 
@@ -118,7 +122,7 @@ const CourseListScreen = ({route, props}) => {
         setAllLoaded(true);
       }
 
-      setData(data.concat(courses));
+      setData(courses);
       setPageNumber(2);
     } catch (e) {
       console.error(e.message);

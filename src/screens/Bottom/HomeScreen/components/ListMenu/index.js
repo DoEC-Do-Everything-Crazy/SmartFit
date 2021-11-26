@@ -23,6 +23,7 @@ const ListMenu = () => {
       title: t('course'),
       icon: <Course color={theme.colors.white} />,
       navigation: routes.COURSE_LIST_TYPE_SCREEN,
+      value: 'course',
     },
     {
       title: t('product'),

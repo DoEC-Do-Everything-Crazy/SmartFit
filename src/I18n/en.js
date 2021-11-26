@@ -32,7 +32,8 @@ export default {
   promotion: 'Promotion',
   order: 'Order List',
   logout: 'Logout',
-  notUpdateYet: 'Not update yet',
+  notUpdateYet: 'not update yet',
+  myCourse: 'My course',
 
   //Login Screen , Register Screen
   pleaseLogin: "Please log in to connect and use SmartFit's services",
@@ -98,6 +99,7 @@ export default {
   //Course list
   detail: 'Detail',
   lessons: 'Lessons',
+  steps: 'Steps',
 
   //Course Detail Screen
   courseDetail: 'Course Detail',
@@ -125,7 +127,7 @@ export default {
   supple: 'Supple',
   clothing: 'Clothing & Accessories',
   bought: 'bought',
-
+  view: 'View',
   //Product Detail
   productDetail: 'Product Detail',
   brand: 'Brand',

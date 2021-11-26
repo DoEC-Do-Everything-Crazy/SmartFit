@@ -1,44 +1,49 @@
 import {Block, Text} from '@components';
+
+import {Pressable, Image} from 'react-native';
 import React from 'react';
-import {Image} from 'react-native';
+import {routes} from '@navigation/routes';
+import {useNavigation} from '@react-navigation/core';
 import {useSelector} from 'react-redux';
+import {useTheme} from '@theme';
 import {useStyles} from './styles';
 
-const ItemStep = ({picture, title, group_id, index, props}) => {
+const ItemLesson = ({...props}) => {
+  const navigation = useNavigation();
   const {
     theme: {theme: themeStore},
   } = useSelector(stateRoot => stateRoot.root);
-  const styles = useStyles(props, themeStore);
+  const theme = useTheme(themeStore);
+  const styles = useStyles(themeStore);
+  const {item} = props;
+
+  console.log(item);
+  const handleOnLessonPress = () => {
+    console.log('navigates');
+    navigation.navigate(routes.TAB_STEP, {
+      id: item._id,
+      image: item.image[0],
+    });
+  };
 
   return (
-    <Block
-      flex
-      row
-      key={index}
-      marginTop={16}
-      padding={16}
-      radius={5}
-      borderWidth={0.3}>
-      <Block>
-        <Image
-          source={{
-            uri: 'https://i.pinimg.com/564x/5a/93/ce/5a93ceca8cf5277d2fc552ad4092a571.jpg',
-          }}
-          style={styles.image}
-        />
-      </Block>
-      <Block marginLeft={10} width="80%">
-        <Text size={20} fontType="bold">
-          Step 1
-        </Text>
-        <Text>
-          Giơ hai tay lên trời, giơ hai tay lên trời, giơ hai tay lên trời, giơ
-          hai tay lên trời, giơ hai tay lên trời, giơ hai tay lên trời, giơ hai
-          tay lên trời, giơ hai tay lên trời, giơ hai tay lên trời,
+    <Pressable onPress={handleOnLessonPress}>
+      <Block
+        row
+        alignCenter
+        padding={16}
+        radius={8}
+        borderWidth={2}
+        space="between"
+        borderColor={theme.colors.yellowFood}
+        backgroundColor={theme.colors.white}>
+        <Image style={styles.image} source={{uri: item.image[0]}} />
+        <Text size={16} fontType="bold">
+          {item.name}
         </Text>
       </Block>
-    </Block>
+    </Pressable>
   );
 };
 
-export default ItemStep;
+export default ItemLesson;

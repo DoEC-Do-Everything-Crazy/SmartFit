@@ -1,20 +1,18 @@
-import {getSize, width} from '@utils/responsive';
 import {makeStyles} from '@theme';
+import {getSize, width} from '@utils/responsive';
 
 export const useStyles = makeStyles()(({colors, fonts}) => ({
-  btn: isFocused => ({
+  btn: {
     width: (width - 32) / 2,
     height: getSize.s(48),
     borderRadius: getSize.m(6),
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: isFocused ? colors.blue : colors.background,
-  }),
-  txt: isFocused => ({
-    color: isFocused ? colors.white : colors.blue,
+  },
+  txt: {
     fontSize: getSize.s(14),
     fontWeight: fonts.fontWeight.bold,
-  }),
+  },
   container: {
     flexDirection: 'row',
     borderRadius: getSize.m(6),

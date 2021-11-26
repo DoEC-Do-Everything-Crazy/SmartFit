@@ -33,6 +33,7 @@ export default {
   order: 'Đơn hàng',
   logout: 'Đăng xuất',
   notUpdateYet: 'Chưa cập nhật',
+  myCourse: 'Khóa học của tôi',
 
   //Login Screen , Register Screen
   pleaseLogin: 'Đăng nhập để kết nối và trải nghiệm SmartFit tốt hơn',
@@ -98,6 +99,7 @@ export default {
   //Course list
   detail: 'Chi tiết',
   lessons: 'Buổi học',
+  steps: 'Các bước',
 
   //Course Detail Screen
   courseDetail: 'Chi tiết khoá học',
@@ -125,6 +127,7 @@ export default {
   supple: 'Thực phẩm chức năng',
   clothing: 'Quần áo & Phụ kiện',
   bought: 'lượt mua',
+  view: 'Xem',
 
   //Product Detail
   productDetail: 'Chi tiết sản phẩm',
