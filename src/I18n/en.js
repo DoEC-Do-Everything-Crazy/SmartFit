@@ -24,7 +24,7 @@ export default {
   enterNewPassword: 'Enter New Password',
   enterCurrentCode: 'Enter current Pin Code',
   enterConfimPassword: 'Enter confim password',
-  create: 'create',
+  create: 'Create',
 
   //Information Screen
   yourCourse: 'Your course',
@@ -32,7 +32,7 @@ export default {
   promotion: 'Promotion',
   order: 'Order List',
   logout: 'Logout',
-  notUpdateYet: 'not update yet',
+  notUpdateYet: 'Not update yet',
   myCourse: 'My course',
 
   //Login Screen , Register Screen
@@ -114,9 +114,9 @@ export default {
   PT: 'Personal Trainer',
   choose: 'Choose',
   addToCart: 'Add cart',
-  days: 'days',
-  minutes: 'minutes',
-  weeks: 'weeks',
+  days: 'Days',
+  minutes: 'Minutes',
+  weeks: 'Weeks',
   personalTrainerList: 'Personal Trainer List',
   gender: 'Gender',
   mobile: 'Mobile',
@@ -129,7 +129,7 @@ export default {
   equip: 'Equip',
   supple: 'Supple',
   clothing: 'Clothing & Accessories',
-  bought: 'bought',
+  bought: 'Bought',
   view: 'View',
   //Product Detail
   productDetail: 'Product Detail',
@@ -180,6 +180,7 @@ export default {
   fullName: 'Full name',
   phoneNumber: 'Phone number',
   address: 'Address',
+  finish: 'Finish',
 
   //Request OTP
   reserPass: 'Reset password',
@@ -245,7 +246,7 @@ export default {
 
   //Footer
   LoadMore: 'Load more',
-  loadMore: 'load more',
+  loadMore: 'Load more',
 
   //auth
   EnterNPass: 'Enter new password',

@@ -114,9 +114,9 @@ export default {
   PT: 'Huấn luyện viên',
   choose: 'Chọn',
   addToCart: 'Thêm vào giỏ hàng',
-  days: 'ngày',
-  minutes: 'phút',
-  weeks: 'tuần',
+  days: 'Ngày',
+  minutes: 'Phút',
+  weeks: 'Tuần',
   personalTrainerList: 'Danh sách huấn luyện viên',
   gender: 'Giới tính',
   mobile: 'Điện thoại',
@@ -129,14 +129,14 @@ export default {
   equip: 'Dụng cụ',
   supple: 'Thực phẩm chức năng',
   clothing: 'Quần áo & Phụ kiện',
-  bought: 'lượt mua',
+  bought: 'Lượt mua',
   view: 'Xem',
 
   //Product Detail
   productDetail: 'Chi tiết sản phẩm',
   brand: 'Thương hiệu',
   Review: 'Đánh giá',
-  review: 'đánh giá',
+  review: 'Đánh giá',
   viewDetails: 'Xem chi tiết',
 
   //Food List Screen
@@ -181,6 +181,7 @@ export default {
   fullName: 'Họ tên',
   phoneNumber: 'Số điện thoại',
   address: 'Địa chỉ',
+  finish: 'Hoàn thành',
 
   //Request OTP
   reserPass: 'Đặt lại mật khẩu',

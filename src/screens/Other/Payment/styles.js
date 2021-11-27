@@ -8,6 +8,10 @@ export const useStyles = makeStyles()(({colors}) => ({
     marginVertical: 5,
     borderRadius: 8,
     marginHorizontal: 16,
-    backgroundColor: colors.white,
+    backgroundColor: colors.inputText,
+  },
+  sendControlContainerOuter: {
+    flex: 1,
+    backgroundColor: colors.border,
   },
 }));
