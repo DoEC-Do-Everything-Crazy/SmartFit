@@ -117,6 +117,7 @@ const OrderScreen = props => {
   };
 
   const _renderItem = ({item, index}) => {
+    console.log({item, index});
     return <ItemOrder item={item} index={index} />;
   };
 

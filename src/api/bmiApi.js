@@ -1,9 +1,9 @@
 import {apiUrl} from '@config/api';
 import axios from 'axios';
 
-const getBMI = async (userId, options) => {
+const getBMI = async options => {
   try {
-    const response = await axios.get(`${apiUrl}/bmi/${userId}`, {
+    const response = await axios.get(`${apiUrl}/bmi/myBmi`, {
       ...options,
       validateStatus: false,
     });

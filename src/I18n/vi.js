@@ -207,6 +207,7 @@ export default {
   checkEmail: 'Kiểm tra email của bạn và nhấp vào',
   confirmation: 'liên kết xác nhận để tiếp tục.',
   resendEmail: 'Gửi lại email',
+  Verify: 'Xác nhận',
 
   //Password Screen
   errPassword: 'Bạn đã nhập sai mật khẩu',
@@ -252,4 +253,8 @@ export default {
   enterPassAgain: 'Nhập lại mật khẩu',
   enterOldPassword: 'Nhập mật khẩu cũ',
   forgotPass: 'Quên mật khẩu',
+  send: 'Gửi',
+
+  //update
+  hide: 'Ẩn',
 };

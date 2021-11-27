@@ -8,11 +8,12 @@ import {
   statusCodes,
 } from '@react-native-google-signin/google-signin';
 import React, {useEffect, useState} from 'react';
+import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
 import {setToken, setUser} from 'reduxs/reducers';
 import {useDispatch, useSelector} from 'react-redux';
 
 import {Formik} from 'formik';
-import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
+import {SafeAreaView} from 'react-native-safe-area-context';
 import {authApi} from 'api/authApi';
 import {routes} from '@navigation/routes';
 import setAuthToken from 'utils/setAuthToken';
@@ -21,7 +22,6 @@ import {useTheme} from '@theme';
 import {useTranslation} from 'react-i18next';
 import {userApi} from 'api/userApi';
 import {width} from 'utils/responsive';
-import {SafeAreaView} from 'react-native-safe-area-context';
 
 const LoginScreen = ({navigation, props}) => {
   const {
@@ -53,6 +53,7 @@ const LoginScreen = ({navigation, props}) => {
       const token = await GoogleSignin.getTokens();
       if (token.idToken) {
         setAuthToken(token.idToken);
+        console.log({token: token.idToken});
         let resUser = await userApi.getUser();
 
         dispatch(setUser(resUser));

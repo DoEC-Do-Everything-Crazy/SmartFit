@@ -206,6 +206,7 @@ export default {
   checkEmail: 'Check your email and click on the',
   confirmation: 'confirmation link to continue.',
   resendEmail: 'Resend email',
+  Verify: 'Verify',
 
   //Password Screen
   errPassword: 'You have entered the wrong password',
@@ -251,4 +252,8 @@ export default {
   enterPassAgain: 'Enter New Password Again',
   enterOldPassword: 'Enter old password',
   forgotPass: 'Forgot password',
+  send: 'Send',
+
+  //update
+  hide: 'Hide',
 };

@@ -286,19 +286,6 @@ const UpdateProfileScreen = ({route, props}) => {
               </TouchableOpacity>
               {show && (
                 <>
-                  {Platform.OS === 'ios' && (
-                    <Pressable onPress={showDatepicker}>
-                      <Block width={80} radius={8} backgroundColor={'#045694'}>
-                        <Text
-                          center
-                          paddingVertical={5}
-                          fontType="bold"
-                          color="white">
-                          {t('choose')}
-                        </Text>
-                      </Block>
-                    </Pressable>
-                  )}
                   <DateTimePicker
                     testID="dateTimePicker"
                     value={new Date(userProfile.birthday)}
@@ -312,9 +299,29 @@ const UpdateProfileScreen = ({route, props}) => {
                           birthday: new Date(selectedDay),
                         });
                       }
-                      setShow(!show);
+                      if (!Platform.OS === 'ios') {
+                        setShow(!show);
+                      }
                     }}
                   />
+
+                  {Platform.OS === 'ios' && (
+                    <Pressable onPress={showDatepicker}>
+                      <Block
+                        width={80}
+                        radius={8}
+                        marginBottom={8}
+                        backgroundColor={'#045694'}>
+                        <Text
+                          center
+                          paddingVertical={5}
+                          fontType="bold"
+                          color="white">
+                          {t('hide')}
+                        </Text>
+                      </Block>
+                    </Pressable>
+                  )}
                 </>
               )}
             </Block>

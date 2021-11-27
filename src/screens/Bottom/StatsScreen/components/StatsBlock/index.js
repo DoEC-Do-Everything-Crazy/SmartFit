@@ -23,6 +23,20 @@ const StatsBlock = ({
   onPress,
   props,
 }) => {
+  console.log({
+    title,
+    heightComponent,
+    widthComponent,
+    circular,
+    icon,
+    valueCir,
+    userHeight,
+    userWeight,
+    bmp,
+    onPress,
+    props,
+  });
+
   const {
     theme: {theme: themeStore},
   } = useSelector(state => state.root);

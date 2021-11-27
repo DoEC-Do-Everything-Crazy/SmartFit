@@ -1,15 +1,15 @@
 import {Block, Button, Header, Text} from '@components';
 import React, {useEffect, useRef, useState} from 'react';
-import {useSelector} from 'react-redux';
 
+import {SafeAreaView} from 'react-native-safe-area-context';
 import {TextInput} from 'react-native';
 import {routes} from '@navigation/routes';
 import {useNavigation} from '@react-navigation/core';
+import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {useTranslation} from 'react-i18next';
 import {userApi} from 'api/userApi';
-import {SafeAreaView} from 'react-native-safe-area-context';
 
 const VFTPhoneNumberScreen = ({route, props}) => {
   const {t} = useTranslation();
@@ -191,7 +191,7 @@ const VFTPhoneNumberScreen = ({route, props}) => {
         </Block>
         <Button
           onPress={confirmCode}
-          title="Verify"
+          title={t('Verify')}
           height={45}
           marginLeft={10}
           containerStyle={{justifyContent: 'flex-end'}}

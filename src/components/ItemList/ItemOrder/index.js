@@ -17,6 +17,7 @@ import {useTheme} from '@theme';
 import {useTranslation} from 'react-i18next';
 
 const ItemOrder = ({item, onPress, index, props}) => {
+  const isDelivered = item.status === 'delivered';
   const modalizRef = useRef(null);
   const [status, setStatus] = useState(item.status);
   const {t} = useTranslation();
@@ -51,19 +52,28 @@ const ItemOrder = ({item, onPress, index, props}) => {
         });
       }
     };
-    return <ItemCart onPress={handleRate} notQuantity notRate item={item} />;
+    return (
+      <ItemCart
+        onPress={handleRate}
+        notQuantity
+        notRate={!isDelivered}
+        item={item}
+      />
+    );
   };
 
   const handleToOrderDetail = useCallback(() => {
     modalizRef?.current.open();
     setShowDetail(true);
   }, []);
+
   const handleOpenConfirm = useCallback(() => {
     console.log('confirm');
     // navigation.navigate(routes.RATE_SCREEN, {
     //   item: {foodId: '6176c277b585a7132c9bd557'},
     // });
   }, []);
+
   const FloatingComponent = useCallback(() => {
     if (insets.bottom === 0) {
       return null;
@@ -171,11 +181,11 @@ const ItemOrder = ({item, onPress, index, props}) => {
                   color={theme.colors.lightBlue}>
                   {t(`${status}`)}
                 </Text>
-                <Pressable
+                {/* <Pressable
                   onPress={handleOpenConfirm}
                   style={styles.itemConfirm}>
                   <Text color={theme.colors.white}>{t('confirm')}</Text>
-                </Pressable>
+                </Pressable> */}
               </Block>
             ) : status === 'cancelled' ? (
               <Block row flex={1} justifyEnd alignCenter>

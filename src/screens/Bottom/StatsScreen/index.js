@@ -16,6 +16,7 @@ import {getSize, width} from '@utils/responsive';
 import {BottomSheet} from '@components/BottomSheet';
 import ItemFeature from '@components/ItemList/ItemFeature';
 import {Overweight} from '@assets/icons/Overweight';
+import {SafeAreaView} from 'react-native-safe-area-context';
 import StatsBlock from './components/StatsBlock';
 import {bmiApi} from 'api/bmiApi';
 import {routes} from '@navigation/routes';
@@ -26,7 +27,6 @@ import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {useTranslation} from 'react-i18next';
-import {SafeAreaView} from 'react-native-safe-area-context';
 
 const StatsScreen = props => {
   const navigation = useNavigation();

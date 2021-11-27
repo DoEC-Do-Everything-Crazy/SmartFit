@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {Block, Text} from '@components';
 import React, {useEffect, useRef, useState} from 'react';
 import {height, width} from '@utils/responsive';
