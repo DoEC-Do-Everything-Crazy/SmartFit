@@ -1,5 +1,5 @@
 import {Block, Button, Header, PayInfo, Text, TextInput} from '@components';
-import {FlatList, Pressable, ScrollView} from 'react-native';
+import {FlatList, Pressable, ScrollView, SafeAreaView} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
@@ -94,56 +94,60 @@ const Payment = ({props, route}) => {
   }, [promotionCode]);
 
   return (
-    <Block flex>
-      <Header canGoBack cart title={t('payment')} />
-      <ScrollView>
-        <Pressable onPress={handleAddress} style={styles.address}>
-          <Address />
-          <Block width="90%" marginHorizontal={5} marginVertical={5}>
-            <Text size={18}>{t('addressShip')}</Text>
-            {isAddress ? (
-              <>
-                <Text>{name + ' - ' + phone}</Text>
-                <Text>{address}</Text>
-              </>
-            ) : (
-              <>
-                <Text>{t('enterAddress')}</Text>
-              </>
-            )}
+    <SafeAreaView
+      edges={['top', 'left', 'right']}
+      style={styles.sendControlContainerOuter}>
+      <Block flex backgroundColor={theme.colors.backgroundSetting}>
+        <Header canGoBack colorTheme={theme.colors.blue} title={t('payment')} />
+        <ScrollView>
+          <Pressable onPress={handleAddress} style={styles.address}>
+            <Address />
+            <Block width="90%" marginHorizontal={5} marginVertical={5}>
+              <Text size={18}>{t('addressShip')}</Text>
+              {isAddress ? (
+                <>
+                  <Text>{name + ' - ' + phone}</Text>
+                  <Text>{address}</Text>
+                </>
+              ) : (
+                <>
+                  <Text>{t('enterAddress')}</Text>
+                </>
+              )}
+            </Block>
+          </Pressable>
+          <Block>
+            <FlatList
+              data={cart}
+              renderItem={renderItem}
+              keyExtractor={keyExtractor}
+            />
           </Block>
-        </Pressable>
-        <Block>
-          <FlatList
-            data={cart}
-            renderItem={renderItem}
-            keyExtractor={keyExtractor}
-          />
-        </Block>
+          <Block marginHorizontal={16}>
+            <Text marginVertical={5}>{t('promotion')}</Text>
+            <TextInput
+              inputStyle={{flex: 1}}
+              paddingHorizontal={10}
+              value={promotionCode}
+              onChangeText={text => setPromotionCode(text.toUpperCase())}
+            />
+          </Block>
+        </ScrollView>
         <Block marginHorizontal={16}>
-          <Text marginVertical={5}>{t('promotion')}</Text>
-          <TextInput
-            inputStyle={{flex: 1}}
-            paddingHorizontal={10}
-            value={promotionCode}
-            onChangeText={text => setPromotionCode(text.toUpperCase())}
+          <PayInfo
+            title1={t('orderCart')}
+            titlePrice1={totalPriceCart}
+            title2={t('delivery')}
+            titlePrice2={20000}
+            title3={t('discount')}
+            titlePrice3={discount}
+            isDiscount
           />
         </Block>
-      </ScrollView>
-      <Block marginHorizontal={16}>
-        <PayInfo
-          title1={t('orderCart')}
-          titlePrice1={totalPriceCart}
-          title2={t('delivery')}
-          titlePrice2={20000}
-          title3={t('discount')}
-          titlePrice3={discount}
-          isDiscount
-        />
-      </Block>
 
-      <Button onPress={handleOrder} title={t('ORDER')} />
-    </Block>
+        <Button onPress={handleOrder} title={t('ORDER')} />
+      </Block>
+    </SafeAreaView>
   );
 };
 
