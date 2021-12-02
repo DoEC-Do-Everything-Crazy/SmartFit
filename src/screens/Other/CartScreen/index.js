@@ -5,7 +5,6 @@ import CartList from './components/CartList';
 /* eslint-disable react-hooks/exhaustive-deps */
 import {Cart_data} from '@assets/icons';
 import Header from '@components/Header';
-import {Pressable} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {orderApi} from 'api/orderApi';
 import {routes} from '@navigation/routes';
@@ -42,6 +41,7 @@ const CartScreen = props => {
   const handleToHome = useCallback(() => {
     navigation.navigate(routes.BOTTOM_TAB);
   }, []);
+
   const handleConfirm = () => {
     checkCart(cart);
   };
@@ -59,7 +59,7 @@ const CartScreen = props => {
               title={t('cart')}
             />
             <CartList />
-            <Block paddingHorizontal={16}>
+            <Block paddingHorizontal={16} marginVertical={16}>
               <PayInfo
                 title1={t('orderCart')}
                 titlePrice1={cart.reduce(
@@ -69,8 +69,6 @@ const CartScreen = props => {
                     total,
                   0,
                 )}
-                title2={t('delivery')}
-                titlePrice2={20000}
               />
             </Block>
             <Button title={t('confirm')} onPress={handleConfirm} />

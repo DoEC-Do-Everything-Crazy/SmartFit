@@ -1,7 +1,10 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import {Block, Button, Empty, Header} from '@components';
-import React, {useEffect, useState} from 'react';
-import {clearWishList, removeWishListItem} from 'reduxs/reducers';
+import {Block, Empty, Header} from '@components';
+import React, {useCallback, useEffect} from 'react';
+import {
+  setTempWishList,
+  setTempWishListItemTouched,
+  tempWishListToWishList,
+} from 'reduxs/reducers';
 import {useDispatch, useSelector} from 'react-redux';
 
 import {FlatList} from 'react-native';
@@ -10,37 +13,49 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {favoriteApi} from 'api/favoriteApi';
 import {getSize} from '@utils/responsive';
 import {keyExtractor} from 'utils/keyExtractor';
+/* eslint-disable react-hooks/exhaustive-deps */
 import {lotties} from '@assets';
+import {useNavigation} from '@react-navigation/core';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {useTranslation} from 'react-i18next';
 
 const YourFavoriteScreen = props => {
+  const navigation = useNavigation();
+
   const dispatch = useDispatch();
-  const styles = useStyles(props, themeStore);
-  const {t} = useTranslation();
   const {
     theme: {theme: themeStore},
-    cart: {wishList},
+    cart: {wishList, tempWishList},
   } = useSelector(stateRoot => stateRoot.root);
+
+  const styles = useStyles(props, themeStore);
+  const {t} = useTranslation();
   const theme = useTheme(themeStore);
 
-  const [favorite, setFavorite] = useState([]);
-
-  const getFavorite = async wishList => {
+  const getFavorite = async list => {
     try {
-      const data = await favoriteApi.getFavorites({keyList: wishList});
+      const data = await favoriteApi.getFavorites({keyList: list});
 
-      setFavorite(data);
+      dispatch(setTempWishList(data));
     } catch (error) {
       console.error(error);
     }
   };
 
-  const _renderItemCarousel = ({item, index}) => {
-    const marginTop = index % 2 === 0 ? 0 : 30;
-    return <ItemFavorite item={item} marginTop={marginTop} />;
+  const handleOnFavoriteClick = item => {
+    dispatch(setTempWishListItemTouched(item.key));
   };
+
+  const _renderItem = useCallback(({item, index}) => {
+    return (
+      <ItemFavorite
+        item={item}
+        marginTop={index % 2 !== 0 ? 96 : 0}
+        onFavoriteClick={handleOnFavoriteClick}
+      />
+    );
+  }, []);
 
   useEffect(() => {
     getFavorite(wishList);
@@ -50,25 +65,29 @@ const YourFavoriteScreen = props => {
     <SafeAreaView
       edges={['top', 'left', 'right']}
       style={styles.sendControlContainerOuter}>
-      <Block
-        paddingBottom={10}
-        flex
-        backgroundColor={theme.colors.backgroundSetting}>
+      <Block flex>
         <Header
           canGoBack
           title={t('favorite')}
-          colorTheme={theme.colors.black}
+          onBackPress={() => {
+            dispatch(tempWishListToWishList());
+            navigation.goBack();
+          }}
         />
-        <Block flex paddingHorizontal={16}>
-          {wishList.length === 0 ? (
+        <Block
+          flex
+          paddingHorizontal={16}
+          paddingTop={16}
+          backgroundColor={theme.colors.backgroundSetting}>
+          {tempWishList.length === 0 ? (
             <Empty lottie={lotties.emptySearch} />
           ) : (
             <FlatList
               showsVerticalScrollIndicator={false}
               style={{marginBottom: getSize.m(16)}}
               numColumns={2}
-              data={favorite}
-              renderItem={_renderItemCarousel}
+              data={tempWishList}
+              renderItem={_renderItem}
               keyExtractor={keyExtractor}
             />
           )}

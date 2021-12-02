@@ -1,12 +1,13 @@
+import {Back, Cart} from '@assets/icons';
 import {Block, GradientText, Text} from '@components';
-import React from 'react';
+
 import {Pressable} from 'react-native';
+import React from 'react';
+import {routes} from '@navigation/routes';
+import {useNavigation} from '@react-navigation/core';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
-import {useNavigation} from '@react-navigation/core';
-import {Back, Cart} from '@assets/icons';
-import {routes} from '@navigation/routes';
 import {useTranslation} from 'react-i18next';
 
 const Header = props => {
@@ -17,6 +18,7 @@ const Header = props => {
   const styles = useStyles(props, themeStore);
   const theme = useTheme(themeStore);
   const navigation = useNavigation();
+
   return (
     <Block style={styles.root}>
       <Block style={styles.arrowLeftBack}>

@@ -3,6 +3,7 @@ import {Email, Gender, List, Phone} from '@assets/icons';
 
 import {Image} from 'react-native';
 import React from 'react';
+import {images} from '@assets';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
@@ -24,9 +25,13 @@ const InfoProfile = ({user, props}) => {
       <Block flex row alignCenter>
         <Image
           style={styles.image}
-          source={{
-            uri: user.photoURL,
-          }}
+          source={
+            user?.photoURL
+              ? {
+                  uri: user.photoURL,
+                }
+              : images.unknown
+          }
         />
         <Block
           flex

@@ -14,6 +14,7 @@ export default {
   updateProfile: 'Cập nhật hồ sơ',
   security: 'Bảo mật',
   changePassword: 'Thay đổi mật khẩu',
+  changePincode: 'Thay đổi mã pin',
   usingPincode: 'Sử dụng mã pin',
   theme: 'Chủ đề',
   darkMode: 'Chế độ ban đêm',
@@ -22,8 +23,9 @@ export default {
   errNotMatch: 'Xác nhận mật khẩu không khớp',
   createNewPassword: 'Tạo mật khẩu mới',
   enterNewPassword: 'Nhập mật khẩu mới',
+  enterPinCode: 'Nhập mã pin',
   enterCurrentCode: 'Nhập mã pin hiện tại',
-  enterConfimPassword: 'Nhập mật khẩu confim',
+  enterConfimPassword: 'Xác nhận mật khẩu',
   create: 'Tạo',
 
   //Information Screen
@@ -32,7 +34,7 @@ export default {
   promotion: 'Khuyến mãi',
   order: 'Đơn hàng',
   logout: 'Đăng xuất',
-  notUpdateYet: 'Chưa cập nhật',
+  notUpdateYet: 'chưa cập nhật',
   myCourse: 'Khóa học của tôi',
 
   //Login Screen , Register Screen
@@ -89,7 +91,8 @@ export default {
   orderCart: 'Đơn hàng',
   delivery: 'Vận chuyển',
   discount: 'Giảm giá',
-  total: 'Tổng',
+  total: 'Giá',
+  subTotal: 'Tổng',
   cart: 'Giỏ hàng',
   addedToCart: 'Đã thêm vào giỏ hàng',
   startOrder: 'Bắt đầu mua sắm',
@@ -210,9 +213,9 @@ export default {
   Verify: 'Xác nhận',
 
   //Password Screen
-  errPassword: 'Bạn đã nhập sai mật khẩu',
-  enterPassword: 'Nhập mật khẩu',
-  pleaseEnter: 'Vui lòng nhập mật khẩu của bạn để truy cập ứng dụng',
+  errPassword: 'Bạn đã nhập sai mã pin',
+  enterPassword: 'Nhập mã pin',
+  pleaseEnter: 'Nhập mã pin của bạn để truy cập ứng dụng',
 
   //Onboard Screen
   learnAnywhere: 'Học mọi lúc mọi nơi',
@@ -257,4 +260,9 @@ export default {
 
   //update
   hide: 'Ẩn',
+
+  // logout
+  wantLogout: 'Bạn có muốn đăng xuất?',
+  yes: 'Có',
+  no: 'Không',
 };

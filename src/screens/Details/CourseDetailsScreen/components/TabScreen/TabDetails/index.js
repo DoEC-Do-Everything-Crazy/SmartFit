@@ -19,7 +19,7 @@ import {
 } from 'react-native';
 import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {SafeAreaView} from 'react-native-safe-area-context';
+
 /* eslint-disable react-hooks/exhaustive-deps */
 import {Back} from '@assets/icons';
 import {BottomSheet} from '@components/BottomSheet';
@@ -28,6 +28,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import ListSimilar from '@screens/Bottom/HomeScreen/components/ListSimilar';
 import {Rating} from 'react-native-ratings';
 import Review from '@components/Review';
+import {SafeAreaView} from 'react-native-safe-area-context';
 import Snackbar from 'react-native-snackbar';
 import {addCartItem} from 'reduxs/reducers';
 import {courseApi} from 'api/courseApi';
@@ -46,9 +47,17 @@ const TabDetails = ({route, props}) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const {t} = useTranslation();
-  const {user} = useSelector(state => state.root.user);
+  const {
+    user: {user},
+    screen: {transferCourseScreen},
+    theme: {theme: themeStore},
+  } = useSelector(state => state.root);
+
+  const styles = useStyles(props, themeStore);
+  const theme = useTheme(themeStore);
+
   const {id, nameScreen} = route.params;
-  const {transferCourseScreen} = useSelector(state => state.root.screen);
+
   const modalizPTList = useRef(null);
   const modalizInf = useRef(null);
 
@@ -62,10 +71,19 @@ const TabDetails = ({route, props}) => {
   const [infoPT, setInfoPT] = useState([]);
   const [isShowReview, setShowReview] = useState();
   const {bottom} = useSafeAreaInsets();
+
   const verticalOffset = Platform.OS === 'ios' ? 'padding' : 'height';
+  const lessons = dataDetail.totalLessons;
+
+  const randomMinute = lessons <= 50 ? 45 : 30;
+  const day = lessons <= 50 ? 3 : 5;
+  const weeks =
+    lessons <= 50 ? Math.round(lessons / 3) : Math.round(lessons / 5);
+
   const getPtDetails = async _id => {
     try {
       const resData = await ptApi.getPT(_id, {validateStatus: false});
+
       setDataPTDetail(resData);
     } catch (error) {
       console.error('error', error.message);
@@ -108,6 +126,7 @@ const TabDetails = ({route, props}) => {
       />
     );
   };
+
   const handleShowReview = useCallback(() => {
     setShowReview(!isShowReview);
   }, [isShowReview]);
@@ -115,6 +134,7 @@ const TabDetails = ({route, props}) => {
   const getCourseDetails = async courseId => {
     try {
       const resData = await courseApi.getCourse(courseId);
+
       setDataDetail(resData);
 
       await courseApi.updateViewCourse(resData._id);
@@ -185,7 +205,7 @@ const TabDetails = ({route, props}) => {
     setIsLoading(false);
   };
 
-  const _footerComponent = () => {
+  const _footerComponent = useCallback(() => {
     return (
       <ListDataFooter
         allLoaded={allLoaded}
@@ -193,25 +213,8 @@ const TabDetails = ({route, props}) => {
         onPress={handleLoadMore}
       />
     );
-  };
-
-  useEffect(() => {
-    getCourseDetails(id);
-    initPTData();
   }, []);
 
-  const lessons = dataDetail.totalLessons;
-
-  const {
-    theme: {theme: themeStore},
-  } = useSelector(stateRoot => stateRoot.root);
-  const styles = useStyles(props, themeStore);
-  const theme = useTheme(themeStore);
-
-  const randomMinute = lessons <= 50 ? 45 : 30;
-  const day = lessons <= 50 ? 3 : 5;
-  const weeks =
-    lessons <= 50 ? Math.round(lessons / 3) : Math.round(lessons / 5);
   const HeaderComponent = useCallback(
     props => {
       const {title, inf} = props;
@@ -240,7 +243,8 @@ const TabDetails = ({route, props}) => {
     },
     [handleCloseInf, styles.headerWrapper, theme.colors.blue],
   );
-  const _renderItem = ({item, index}, parallaxProps) => {
+
+  const _renderItem = useCallback(({item, index}, parallaxProps) => {
     return (
       <Block style={styles.item}>
         <ParallaxImage
@@ -253,7 +257,18 @@ const TabDetails = ({route, props}) => {
         />
       </Block>
     );
+  }, []);
+
+  const handleOnRate = () => {
+    navigation.navigate(routes.RATE_SCREEN, {
+      item: {name: dataDetail.name, courseId: dataDetail._id},
+    });
   };
+
+  useEffect(() => {
+    getCourseDetails(id);
+    initPTData();
+  }, []);
 
   return (
     <SafeAreaView
@@ -283,6 +298,7 @@ const TabDetails = ({route, props}) => {
                 containerCustomStyle={styles.slider}
               />
             </Block>
+
             <Text
               paddingHorizontal={16}
               marginTop={32}
@@ -291,97 +307,66 @@ const TabDetails = ({route, props}) => {
               fontType="bold">
               {dataDetail.name}
             </Text>
+
             <Block
               row
               paddingVertical={10}
               paddingHorizontal={16}
               backgroundColor={theme.colors.lightBlue}>
-              <Rating
-                type="custom"
-                ratingColor="#045694"
-                ratingCount={5}
-                imageSize={18}
-                tintColor={theme.colors.lightBlue}
-              />
-              <Text marginLeft={100} color={theme.colors.iconInf}>
+              <Block row flex>
+                <Rating
+                  type="custom"
+                  ratingColor="#045694"
+                  ratingCount={5}
+                  imageSize={18}
+                  startingValue={dataDetail.averageRating}
+                  tintColor={theme.colors.lightBlue}
+                />
+                <Text marginLeft={8}>({dataDetail.totalReviews})</Text>
+              </Block>
+              <Text flex center color={theme.colors.iconInf}>
                 {dataDetail.totalBuy} {t('bought')}
               </Text>
             </Block>
-            <Block marginTop={10}>
+
+            <Block marginTop={16}>
               <Text paddingHorizontal={16} fontType="bold">
                 {dataDetail.description}
               </Text>
-              <Block
-                row
-                alignCenter
-                marginVertical={16}
-                paddingHorizontal={16}
-                marginBottom={32}>
-                <Block>
-                  <Text>{t('planLength')}: </Text>
-                  <Text>{t('duration')}: </Text>
-                  <Text>{t('daysPerWeeks')}': </Text>
-                  <Text>{t('bodyFocus')}: </Text>
-                  <Text marginBottom={10}>{t('PT')}: </Text>
-                  {nameScreen === 'myCourse' ? (
-                    <Text>{t('courseDetail')}: </Text>
-                  ) : null}
-                </Block>
-                <Block marginLeft={20}>
-                  <Text fontType="bold">
-                    {weeks} {t('weeks')}
-                  </Text>
-                  <Text fontType="bold">
-                    {randomMinute} {t('minutes')}
-                  </Text>
-                  <Text fontType="bold">
-                    {day} {t('days')}
-                  </Text>
-                  <Text fontType="bold">Total body </Text>
-                  <Block row alignCenter>
-                    {infoPT?.name && (
-                      <Text marginRight={10} fontType="bold">
-                        {infoPT?.name}
-                      </Text>
-                    )}
-                    {transferCourseScreen === 'CourseDetail' ? (
-                      <Pressable
-                        style={{marginBottom: 10}}
-                        onPress={() => modalizPTList?.current.open()}>
-                        {themeStore === 'dark' ? (
-                          <LinearGradient
-                            start={{x: 0, y: 0}}
-                            end={{x: 1, y: 0}}
-                            colors={['#70A2FF', '#54F0D1']}
-                            style={styles.choose}>
-                            <Text style={styles.choosePT} fontType="bold">
-                              {t('choose')}
-                            </Text>
-                          </LinearGradient>
-                        ) : (
-                          <Block
-                            style={styles.choose}
-                            backgroundColor={theme.colors.blue}>
-                            <Text style={styles.choosePT} fontType="bold">
-                              {t('choose')}
-                            </Text>
-                          </Block>
-                        )}
-                      </Pressable>
-                    ) : (
-                      <Text marginBottom={10} fontType="bold">
-                        {infoPT?.name}
-                      </Text>
-                    )}
-                  </Block>
-                  {nameScreen === 'myCourse' ? (
+            </Block>
+
+            <Block marginTop={16} row alignCenter paddingHorizontal={16}>
+              <Block>
+                <Text>{t('planLength')}: </Text>
+                <Text>{t('duration')}: </Text>
+                <Text>{t('daysPerWeeks')}': </Text>
+                <Text>{t('bodyFocus')}: </Text>
+                <Text marginBottom={10}>{t('PT')}: </Text>
+                {nameScreen === 'myCourse' ? (
+                  <Text>{t('courseDetail')}: </Text>
+                ) : null}
+              </Block>
+              <Block marginLeft={20}>
+                <Text fontType="bold">
+                  {weeks} {t('weeks')}
+                </Text>
+                <Text fontType="bold">
+                  {randomMinute} {t('minutes')}
+                </Text>
+                <Text fontType="bold">
+                  {day} {t('days')}
+                </Text>
+                <Text fontType="bold">Total body </Text>
+                <Block row alignCenter>
+                  {infoPT?.name && (
+                    <Text marginRight={10} fontType="bold">
+                      {infoPT?.name}
+                    </Text>
+                  )}
+                  {transferCourseScreen === 'CourseDetail' ? (
                     <Pressable
-                      onPress={() =>
-                        navigation.navigate(routes.TAB_LESSON, {
-                          nameScreen,
-                          id: dataDetail._id,
-                        })
-                      }>
+                      style={{marginBottom: 10}}
+                      onPress={() => modalizPTList?.current.open()}>
                       {themeStore === 'dark' ? (
                         <LinearGradient
                           start={{x: 0, y: 0}}
@@ -389,7 +374,7 @@ const TabDetails = ({route, props}) => {
                           colors={['#70A2FF', '#54F0D1']}
                           style={styles.choose}>
                           <Text style={styles.choosePT} fontType="bold">
-                            {t('view')}
+                            {t('choose')}
                           </Text>
                         </LinearGradient>
                       ) : (
@@ -397,16 +382,51 @@ const TabDetails = ({route, props}) => {
                           style={styles.choose}
                           backgroundColor={theme.colors.blue}>
                           <Text style={styles.choosePT} fontType="bold">
-                            {t('view')}
+                            {t('choose')}
                           </Text>
                         </Block>
                       )}
                     </Pressable>
-                  ) : null}
+                  ) : (
+                    <Text marginBottom={10} fontType="bold">
+                      {infoPT?.name}
+                    </Text>
+                  )}
                 </Block>
+                {nameScreen === 'myCourse' ? (
+                  <Pressable
+                    onPress={() =>
+                      navigation.navigate(routes.TAB_LESSON, {
+                        nameScreen,
+                        id: dataDetail._id,
+                      })
+                    }>
+                    {themeStore === 'dark' ? (
+                      <LinearGradient
+                        start={{x: 0, y: 0}}
+                        end={{x: 1, y: 0}}
+                        colors={['#70A2FF', '#54F0D1']}
+                        style={styles.choose}>
+                        <Text style={styles.choosePT} fontType="bold">
+                          {t('view')}
+                        </Text>
+                      </LinearGradient>
+                    ) : (
+                      <Block
+                        style={styles.choose}
+                        backgroundColor={theme.colors.blue}>
+                        <Text style={styles.choosePT} fontType="bold">
+                          {t('view')}
+                        </Text>
+                      </Block>
+                    )}
+                  </Pressable>
+                ) : null}
               </Block>
+            </Block>
 
-              {transferCourseScreen === 'CourseDetail' ? (
+            <Block>
+              {transferCourseScreen === 'CourseDetail' && (
                 <>
                   <Block paddingHorizontal={16}>
                     <PayInfo
@@ -416,30 +436,37 @@ const TabDetails = ({route, props}) => {
                       titlePrice2={infoPT?.price || 0}
                     />
                   </Block>
-                  <Block
-                    row
-                    marginTop={20}
-                    paddingBottom={20}
-                    paddingHorizontal={16}>
+
+                  <Block row marginTop={16} paddingHorizontal={16}>
                     <Text fontType="bold" size={17}>
                       {t('Review')}:
                     </Text>
                     <Pressable onPress={handleShowReview}>
-                      <Text style={styles.link} marginLeft={15} size={17}>
+                      <Text style={styles.link} marginLeft={16} size={17}>
                         {isShowReview ? t('hidden') : t('readMore')}
                       </Text>
                     </Pressable>
                   </Block>
-                  {isShowReview ? (
-                    <Review
-                      averageRating={dataDetail.averageRating}
-                      totalReviews={dataDetail.totalReviews}
-                      courseId={dataDetail._id}
-                    />
-                  ) : null}
+
+                  {isShowReview && (
+                    <Block marginTop={16}>
+                      <Review
+                        averageRating={dataDetail.averageRating}
+                        totalReviews={dataDetail.totalReviews}
+                        itemKey={dataDetail.key}
+                        courseId={dataDetail._id}
+                        onRate={handleOnRate}
+                      />
+                    </Block>
+                  )}
                 </>
-              ) : null}
+              )}
             </Block>
+
+            <Block marginVertical={16}>
+              <ListSimilar type={'course'} courseType={dataDetail.type} />
+            </Block>
+
             {/* BOTTOM SHEET PT */}
             <BottomSheet
               ref={modalizPTList}
@@ -569,7 +596,6 @@ const TabDetails = ({route, props}) => {
               </KeyboardAvoidingView>
             </BottomSheet>
           </Block>
-          <ListSimilar type={'course'} courseType={dataDetail.type} />
         </ScrollView>
         {user ? (
           <Button

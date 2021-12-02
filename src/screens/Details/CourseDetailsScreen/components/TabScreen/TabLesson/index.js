@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import {Block, Header, ListDataFooter} from '@components';
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 
 import {FlatList} from 'react-native';
 import ItemLesson from '@components/ItemList/ItemLesson';
@@ -74,13 +74,13 @@ const TabLesson = ({props, route}) => {
     setIsLoading(false);
   };
 
-  const _renderItem = ({item}) => {
+  const _renderItem = useCallback(({item}) => {
     return (
       <Block marginTop={16}>
         <ItemLesson item={item} />
       </Block>
     );
-  };
+  }, []);
 
   const _footerComponent = () => {
     return (

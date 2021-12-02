@@ -1,5 +1,5 @@
-import {makeStyles} from '@theme';
 import {getSize} from '@utils/responsive';
+import {makeStyles} from '@theme';
 
 export const useStyles = makeStyles()(({colors}) => ({
   btn: {

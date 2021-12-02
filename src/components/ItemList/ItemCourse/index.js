@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {Block, Text} from '@components';
 import {Image, Pressable} from 'react-native';
 import React, {useCallback} from 'react';
@@ -26,7 +27,7 @@ const ItemCourse = ({course, nameScreen, props}) => {
   const handleOpenCourseDetail = useCallback(() => {
     navigation.navigate(routes.TAB_DETAILS, {id: course._id, nameScreen});
     dispatch(changeScreen('CourseDetail'));
-  }, [course._id, dispatch, navigation, nameScreen]);
+  }, []);
 
   return (
     <Block style={styles.container}>

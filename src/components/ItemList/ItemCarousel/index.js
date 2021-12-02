@@ -4,7 +4,6 @@ import {Image, Pressable} from 'react-native';
 import {HeartPf} from '@assets/icons';
 import {Rating} from 'react-native-ratings';
 import React from 'react';
-import {productApi} from 'api/productApi';
 import {routes} from '@navigation/routes';
 import {useNavigation} from '@react-navigation/core';
 import {useSelector} from 'react-redux';
@@ -54,11 +53,12 @@ const ItemCarousel = ({item, props}) => {
             ratingCount={5}
             readonly={true}
             imageSize={18}
+            startingValue={item.averageRating}
             tintColor={theme.colors.backgroundSetting}
             ratingBackgroundColor={theme.colors.lightGray}
           />
-          <Text size={14} color={theme.colors.gray}>
-            (3)
+          <Text size={14} marginLeft={8} color={theme.colors.gray}>
+            ({item.totalReviews})
           </Text>
         </Block>
         <Text size={12} marginTop={8} numberOfLines={5}>

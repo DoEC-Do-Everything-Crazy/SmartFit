@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import {Block, Header, ListDataFooter} from '@components';
 import {FlatList, Image} from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 
 import ItemStep from '@components/ItemList/ItemStep';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -71,13 +71,13 @@ const TabStep = ({props, route}) => {
     setIsLoading(false);
   };
 
-  const _renderItem = ({item}) => {
+  const _renderItem = useCallback(({item}) => {
     return (
       <Block marginTop={16}>
         <ItemStep item={item} />
       </Block>
     );
-  };
+  }, []);
 
   const _footerComponent = () => {
     return (

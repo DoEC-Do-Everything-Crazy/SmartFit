@@ -1,12 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import {Block, Header, ListDataFooter, Text, TextInput} from '@components';
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {addHistoryItem, clearHistory, removeHistoryItem} from 'reduxs/reducers';
 import {useDispatch, useSelector} from 'react-redux';
-import {SafeAreaView} from 'react-native-safe-area-context';
+
 import {Empty} from '@components';
 import {FlatList} from 'react-native';
 import ItemSearch from '@components/ItemList/ItemSearch';
+import {SafeAreaView} from 'react-native-safe-area-context';
 import {TouchableOpacity} from 'react-native';
 import {debounce} from 'lodash';
 import {keyExtractor} from 'utils/keyExtractor';
@@ -98,12 +99,12 @@ const SearchScreen = ({props, route, match}) => {
     );
   };
 
-  const _renderItem = ({item}) => {
+  const _renderItem = useCallback(({item}) => {
     const onPress = () => {
       dispatch(addHistoryItem(item.name));
     };
     return <ItemSearch onPress={onPress} item={item} />;
-  };
+  }, []);
 
   const _renderItemSearch = ({item}) => {
     const onPress = () => {

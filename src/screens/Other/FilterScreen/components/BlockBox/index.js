@@ -1,6 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {Block, Text} from '@components';
 import {FlatList, Pressable} from 'react-native';
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 
 import LinearGradient from 'react-native-linear-gradient';
 import {keyExtractor} from 'utils/keyExtractor';
@@ -19,11 +20,6 @@ const BlockBox = ({category, data, props}) => {
   const a = item => {
     setSelectedId(item.id);
     item.check = !item.check;
-    if (item.check) {
-      console.log(item.name);
-    } else {
-      console.log(item.name + 'cliecked');
-    }
   };
 
   const Item = ({name, onPress, backgroundColor, color, fontType}) => {
@@ -47,7 +43,7 @@ const BlockBox = ({category, data, props}) => {
       </Pressable>
     );
   };
-  const _renderItem = ({item}) => {
+  const _renderItem = useCallback(({item}) => {
     const backgroundColor =
       themeStore === 'light'
         ? item.check
@@ -72,7 +68,7 @@ const BlockBox = ({category, data, props}) => {
         fontType={fontType}
       />
     );
-  };
+  }, []);
   return (
     <Block marginHorizontal={8} marginTop={20}>
       <Text

@@ -7,11 +7,11 @@ import {useTranslation} from 'react-i18next';
 
 const PayInfo = ({
   title1,
-  titlePrice1,
+  titlePrice1 = 0,
   title2,
-  titlePrice2,
+  titlePrice2 = 0,
   title3,
-  titlePrice3,
+  titlePrice3 = 0,
   isDiscount,
 }) => {
   const {
@@ -29,17 +29,21 @@ const PayInfo = ({
         <Text>{title1}:</Text>
         <Text>{titlePrice1}$</Text>
       </Block>
-      <Block
-        height={0.5}
-        backgroundColor={theme.colors.text}
-        marginBottom={5}
-        marginTop={10}
-        marginHorizontal={25}
-      />
-      <Block row marginHorizontal={16} marginTop={5} space="between">
-        <Text>{title2}:</Text>
-        <Text>{titlePrice2}$</Text>
-      </Block>
+      {title2 && (
+        <>
+          <Block
+            height={0.5}
+            backgroundColor={theme.colors.text}
+            marginBottom={5}
+            marginTop={10}
+            marginHorizontal={25}
+          />
+          <Block row marginHorizontal={16} marginTop={5} space="between">
+            <Text>{title2}:</Text>
+            <Text>{titlePrice2}$</Text>
+          </Block>
+        </>
+      )}
       {isDiscount ? (
         <Block>
           <Block

@@ -3,6 +3,7 @@ import {createSlice} from '@reduxjs/toolkit';
 const defaultCartState = {
   cart: [],
   wishList: [],
+  tempWishList: [],
 };
 
 const cartSlice = createSlice({
@@ -99,6 +100,52 @@ const cartSlice = createSlice({
 
       state.wishList = newWishList;
     },
+
+    setTempWishList(state, action) {
+      const newList = action.payload;
+      state.tempWishList = newList;
+    },
+    clearTempWishList(state, action) {
+      state.tempWishList = [];
+    },
+    addTempWishListItem(state, action) {
+      let key = action.payload;
+
+      state.tempWishList = [...state.tempWishList, key];
+    },
+    removeTempWishListItem(state, action) {
+      let key = action.payload;
+
+      const newWishList = state.tempWishList.filter(element => element !== key);
+
+      state.tempWishList = newWishList;
+    },
+
+    setTempWishListItemTouched(state, action) {
+      const key = action.payload;
+
+      const objIndex = state.tempWishList.findIndex(obj => obj.key === key);
+
+      console.log(objIndex);
+
+      if (objIndex === -1) {
+        return;
+      }
+
+      state.tempWishList[objIndex].touched =
+        !state.tempWishList[objIndex].touched;
+    },
+
+    tempWishListToWishList(state, action) {
+      let keyList = [];
+
+      state.tempWishList.map(item => {
+        item.touched && keyList.push(item.key);
+      });
+
+      state.wishList = keyList;
+      state.tempWishList = [];
+    },
   },
 });
 export const {
@@ -110,5 +157,11 @@ export const {
   clearWishList,
   addWishListItem,
   removeWishListItem,
+  setTempWishList,
+  clearTempWishList,
+  addTempWishListItem,
+  removeTempWishListItem,
+  setTempWishListItemTouched,
+  tempWishListToWishList,
 } = cartSlice.actions;
 export const CartReducer = cartSlice.reducer;

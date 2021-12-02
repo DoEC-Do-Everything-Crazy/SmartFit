@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import {Block, ListDataFooter, Text} from '@components';
 import {FlatList, Pressable} from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 
 import ItemHotFood from '@components/ItemList/ItemHotFood';
 import {foodApi} from 'api/foodApi';
@@ -43,9 +43,9 @@ const ListHotFood = props => {
     setIsLoading(false);
   };
 
-  const _renderItem = ({item, index}) => (
-    <ItemHotFood item={item} index={index} />
-  );
+  const _renderItem = useCallback(({item, index}) => {
+    return <ItemHotFood item={item} index={index} />;
+  }, []);
 
   useEffect(() => {
     initData();

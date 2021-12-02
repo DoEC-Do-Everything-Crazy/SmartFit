@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import {Block, DropDown, Text} from '@components';
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
 import {FlatList} from 'react-native';
@@ -34,13 +34,16 @@ const ListFeatureSetting = ({data, props}) => {
     ]);
   }, [dispatch, languageStore, valueLanguage]);
 
-  const _renderItem = ({index}) => (
-    <ItemSetting
-      title={data[index].title}
-      data={data[index].data_item_switch}
-      index={index}
-    />
-  );
+  const _renderItem = useCallback(({index}) => {
+    return (
+      <ItemSetting
+        title={data[index].title}
+        data={data[index].data_item_switch}
+        index={index}
+      />
+    );
+  }, []);
+
   return (
     <Block
       backgroundColor={theme.colors.backgroundSetting}
@@ -69,6 +72,7 @@ const ListFeatureSetting = ({data, props}) => {
 
       <Block style={styles.list}>
         <FlatList
+          scrollEnabled={false}
           data={data}
           renderItem={_renderItem}
           keyExtractor={keyExtractor}

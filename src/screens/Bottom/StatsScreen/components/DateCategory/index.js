@@ -1,6 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {Block, Text} from '@components';
 import {Pressable, ScrollView} from 'react-native';
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 
 import LinearGradient from 'react-native-linear-gradient';
 import {useSelector} from 'react-redux';
@@ -28,7 +29,8 @@ const DateCategory = props => {
   } = useSelector(state => state.root);
   const styles = useStyles(props, themeStore);
   const [selectedId, setSelectedId] = useState(1);
-  const _renderItem = ({item}) => {
+
+  const _renderItem = useCallback(({item}) => {
     const backgroundColor =
       themeStore === 'light'
         ? item.id === selectedId
@@ -61,6 +63,7 @@ const DateCategory = props => {
         )}
       </Pressable>
     );
+
     return (
       <Item
         item={item}
@@ -71,7 +74,7 @@ const DateCategory = props => {
         textColor={{color}}
       />
     );
-  };
+  }, []);
   return (
     <Block>
       <ScrollView

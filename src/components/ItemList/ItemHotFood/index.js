@@ -1,40 +1,44 @@
 import {Block, Text} from '@components';
+/* eslint-disable react-hooks/exhaustive-deps */
 import {HeartPf, Layout} from '@assets/icons';
 import {Image, Pressable} from 'react-native';
+import React, {useCallback} from 'react';
 
-import React from 'react';
-import {foodApi} from 'api/foodApi';
 import {routes} from '@navigation/routes';
 import {useNavigation} from '@react-navigation/core';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
+import {width} from 'utils/responsive';
 
 const ItemHotFood = ({item, index, props}) => {
   const {
     theme: {theme: themeStore},
     cart: {wishList},
   } = useSelector(stateRoot => stateRoot.root);
+
   const styles = useStyles(props, themeStore);
   const theme = useTheme(themeStore);
 
   const navigation = useNavigation();
 
+  const handleOnPress = useCallback(() => {
+    navigation.push(routes.FOOD_DETAILS_SCREEN, {id: item._id});
+  }, []);
+
   return (
-    <Pressable
-      onPress={() => {
-        navigation.navigate(routes.FOOD_DETAILS_SCREEN, {id: item._id});
-      }}>
+    <Pressable onPress={handleOnPress}>
       <Block
         key={index}
-        style={{marginLeft: index === 0 ? 16 : 0}}
+        marginLeft={index === 0 ? 16 : 0}
+        marginTop={16}
         marginRight={16}>
         <Image style={styles.image} source={{uri: item.image[0]}} />
         <Block flex style={styles.shadow}>
-          <Layout color={`${theme.colors.black}20`} />
+          <Layout color={`${theme.colors.black}20`} width={width / 2 - 8} />
         </Block>
         <Block flex style={styles.layout}>
-          <Layout color={theme.colors.white} />
+          <Layout color={theme.colors.white} width={width / 2 - 8} />
         </Block>
         <Block row flex>
           <Block shadow style={styles.icon}>

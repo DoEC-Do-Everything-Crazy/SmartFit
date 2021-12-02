@@ -1,4 +1,4 @@
-import {makeStyles} from '@theme';
+import {makeStyles, theme} from '@theme';
 
 export const useStyles = makeStyles()(({colors}) => ({
   address: {
@@ -8,6 +8,11 @@ export const useStyles = makeStyles()(({colors}) => ({
     marginVertical: 5,
     borderRadius: 8,
     marginHorizontal: 16,
-    backgroundColor: colors.white,
+    marginTop: 16,
+    backgroundColor: colors.border,
+  },
+  sendControlContainerOuter: {
+    flex: 1,
+    backgroundColor: colors.border,
   },
 }));

@@ -1,4 +1,12 @@
-import {Block, Button, Header, InviteLogin, Text, TextInput} from '@components';
+import {
+  Block,
+  Button,
+  Error,
+  Header,
+  InviteLogin,
+  Text,
+  TextInput,
+} from '@components';
 /* eslint-disable react-hooks/exhaustive-deps */
 import {
   Body,
@@ -39,15 +47,21 @@ const StatsScreen = props => {
     weight: 0,
     bmi: 0,
   });
+
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+
   const modalizRef = useRef(null);
   const {
     theme: {theme: themeStore},
     user: {user},
   } = useSelector(state => state.root);
+
   const {t} = useTranslation();
   const theme = useTheme(themeStore);
   const styles = useStyles(props, themeStore);
   const insets = useSafeAreaInsets();
+
   const HeaderComponent = useCallback(() => {
     return (
       <Block style={styles.headerWrapper}>
@@ -57,6 +71,7 @@ const StatsScreen = props => {
       </Block>
     );
   }, [styles.headerWrapper, styles.title]);
+
   const FloatingComponent = useCallback(() => {
     if (insets.bottom === 0) {
       return null;
@@ -91,14 +106,19 @@ const StatsScreen = props => {
   }, [user]);
 
   const handleBMI = async () => {
-    const newBMI = {
-      id: bmi.id || undefined,
-      userId: user._id,
-      height: height,
-      weight: weight,
-    };
+    if (isProcessing) {
+      return;
+    }
+
+    setIsProcessing(true);
 
     try {
+      const newBMI = {
+        id: bmi.id || undefined,
+        userId: user._id,
+        height: height,
+        weight: weight,
+      };
       const {data} = bmi.id
         ? await bmiApi.updateBMI(newBMI, {validateStatus: false})
         : await bmiApi.addBMI(newBMI, {validateStatus: false});
@@ -123,7 +143,10 @@ const StatsScreen = props => {
       }
 
       console.error('error', error.message);
+      setErrorMessage(error.message);
     }
+
+    setIsProcessing(false);
   };
 
   const handleAddUpdateBMI = async () => {
@@ -147,6 +170,7 @@ const StatsScreen = props => {
         paddingTop={20}
         paddingHorizontal={16}
         backgroundColor={theme.colors.backgroundSetting}>
+        <Error setError={setErrorMessage} errorMessage={errorMessage} />
         <Block backgroundColor={theme.colors.backgroundSetting}>
           <StatsBlock
             widthComponent={width / 2 - 24}

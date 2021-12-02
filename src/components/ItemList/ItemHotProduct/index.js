@@ -1,6 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {Block, Text} from '@components';
 import {Image, Pressable} from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {useCallback} from 'react';
 
 import {HeartPf} from '@assets/icons';
 import {routes} from '@navigation/routes';
@@ -10,35 +11,28 @@ import {useStyles} from './styles';
 import {useTheme} from '@theme';
 
 const ItemHotProduct = ({item, index, props}) => {
-  const [isTouch, setTouch] = useState(true);
-  const [color, setColor] = useState();
+  const navigation = useNavigation();
   const {
     theme: {theme: themeStore},
     cart: {wishList},
   } = useSelector(stateRoot => stateRoot.root);
+
   const styles = useStyles(props, themeStore);
   const theme = useTheme(themeStore);
-  const navigation = useNavigation();
 
-  useEffect(() => {
-    isTouch ? setColor(theme.colors.red) : setColor(theme.colors.gray);
-  }, [isTouch, theme.colors.gray, theme.colors.red]);
+  const handleOnPress = useCallback(() => {
+    navigation.push(routes.PRODUCT_DETAIL_SCREEN, {id: item._id});
+  }, []);
 
   return (
-    <Pressable
-      key={index}
-      onPress={() => {
-        navigation.navigate(routes.PRODUCT_DETAIL_SCREEN, {id: item._id});
-      }}>
-      <Block style={{marginLeft: index === 0 ? 16 : 0}} marginRight={16}>
+    <Pressable key={index} onPress={handleOnPress}>
+      <Block
+        style={{marginLeft: index === 0 ? 16 : 0, marginTop: 16}}
+        marginRight={16}>
         <Image style={styles.image} source={{uri: item.image[0]}} />
-        <Pressable
-          style={styles.iconHeart}
-          onPress={() => {
-            setTouch(!isTouch);
-          }}>
+        <Block style={styles.iconHeart}>
           <HeartPf isActive={wishList.includes(item.key)} />
-        </Pressable>
+        </Block>
         <Block style={styles.title}>
           <Text color={theme.colors.white} numberOfLines={1} fontType="bold">
             {item.name}

@@ -35,6 +35,8 @@ export const colors = {
     pink: '#FFCCB6',
     textLight: '#808080',
     blueLight: '#D9FFDF',
+    modalBackground: '#000000',
+    modalTransparent: '#FFFFFF90',
   },
   light: {
     transparent: '#00000000',
@@ -72,5 +74,7 @@ export const colors = {
     pink: '#FFCCB6',
     textLight: '#808080',
     blueLight: '#D9FFDF',
+    modalBackground: '#FFFFFF',
+    modalTransparent: '#00000090',
   },
 };

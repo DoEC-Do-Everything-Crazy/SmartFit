@@ -1,6 +1,10 @@
 import * as React from 'react';
+
 import Svg, {Path} from 'react-native-svg';
+
 export const Cancel = props => {
+  const {color} = props;
+
   return (
     <Svg
       width={24}
@@ -10,8 +14,8 @@ export const Cancel = props => {
       {...props}>
       <Path
         d="M16.95 7.05l-9.9 9.9M7.05 7.05l9.9 9.9"
-        stroke="#9098B1"
         strokeWidth={2}
+        stroke={color}
         strokeLinecap="round"
         strokeLinejoin="round"
       />

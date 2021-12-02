@@ -6,6 +6,7 @@ import {useDispatch, useSelector} from 'react-redux';
 
 import {Formik} from 'formik';
 import React from 'react';
+import {SafeAreaView} from 'react-native-safe-area-context';
 import {changePassword} from 'reduxs/reducers';
 import {routes} from '@navigation/routes';
 import {useNavigation} from '@react-navigation/core';
@@ -13,8 +14,6 @@ import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {useTranslation} from 'react-i18next';
 import {width} from '@utils/responsive';
-
-import {SafeAreaView} from 'react-native-safe-area-context';
 
 const verticalOffset = Platform.OS === 'ios' ? 'padding' : 'height';
 const ChangePassword = props => {

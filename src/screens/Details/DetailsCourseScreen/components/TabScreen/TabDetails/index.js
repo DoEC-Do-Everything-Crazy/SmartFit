@@ -35,38 +35,55 @@ const {width: screenWidth, height: screenHeight} = Dimensions.get('window');
 
 const TabDetails = ({route, props}) => {
   const dispatch = useDispatch();
+
+  const {
+    theme: {theme: themeStore},
+    user: {user},
+    screen: {transferCourseScreen},
+  } = useSelector(stateRoot => stateRoot.root);
+
   const {t} = useTranslation();
-  const {user} = useSelector(state => state.root.user);
   const {id} = route.params;
-  const {transferCourseScreen} = useSelector(state => state.root.screen);
+
   const modalizPTList = useRef(null);
   const modalizInf = useRef(null);
+
   const [dataDetail, setDataDetail] = useState([]);
   const [dataPT, setDataPT] = useState([]);
   const [dataPTDetail, setDataPTDetail] = useState([]);
   const [infoPT, setInfoPT] = useState([]);
   const [isShowReview, setShowReview] = useState();
   const {bottom} = useSafeAreaInsets();
+
+  const styles = useStyles(props, themeStore);
+  const theme = useTheme(themeStore);
+
+  const sessions = dataDetail?.session;
   const verticalOffset = Platform.OS === 'ios' ? 'padding' : 'height';
 
-  const getPtDetails = async _id => {
+  const randomMinute = sessions <= 50 ? 45 : 30;
+  const day = sessions <= 50 ? 3 : 5;
+  const weeks =
+    sessions <= 50 ? Math.round(sessions / 3) : Math.round(sessions / 5);
+
+  const getPtDetails = useCallback(async _id => {
     try {
       const resData = await ptApi.getPT(_id, {validateStatus: false});
       setDataPTDetail(resData);
     } catch (error) {
       console.error('error', error.message);
     }
-  };
+  }, []);
 
   const handleCloseInf = useCallback(() => {
     modalizPTList?.current.open();
     modalizInf?.current.close();
   }, [modalizInf, modalizPTList]);
 
-  const handleChoosePT = () => {
+  const handleChoosePT = useCallback(() => {
     modalizInf?.current.close();
     setInfoPT(dataPTDetail);
-  };
+  }, []);
 
   const handleOpenInf = useCallback(
     item => {
@@ -107,35 +124,19 @@ const TabDetails = ({route, props}) => {
     }
   };
 
-  const getPt = async () => {
+  const getPt = useCallback(async () => {
     try {
       const resData = await ptApi.getPTs();
       setDataPT(resData);
     } catch (error) {
       console.error('error', error.message);
     }
-  };
-
-  useEffect(() => {
-    getCourseDetails(id);
-    getPt();
   }, []);
 
-  const sessions = dataDetail?.session;
-
-  const {
-    theme: {theme: themeStore},
-  } = useSelector(stateRoot => stateRoot.root);
-  const styles = useStyles(props, themeStore);
-  const theme = useTheme(themeStore);
-
-  const randomMinute = sessions <= 50 ? 45 : 30;
-  const day = sessions <= 50 ? 3 : 5;
-  const weeks =
-    sessions <= 50 ? Math.round(sessions / 3) : Math.round(sessions / 5);
   const HeaderComponent = useCallback(
     props => {
       const {title, inf} = props;
+
       return (
         <Block style={styles.headerWrapper}>
           {inf ? (
@@ -161,7 +162,8 @@ const TabDetails = ({route, props}) => {
     },
     [handleCloseInf, styles.headerWrapper, theme.colors.blue],
   );
-  const _renderItem = ({item, index}, parallaxProps) => {
+
+  const _renderItem = useCallback(({item, index}, parallaxProps) => {
     return (
       <Block style={styles.item}>
         <ParallaxImage
@@ -174,7 +176,12 @@ const TabDetails = ({route, props}) => {
         />
       </Block>
     );
-  };
+  }, []);
+
+  useEffect(() => {
+    getCourseDetails(id);
+    getPt();
+  }, []);
 
   return (
     <SafeAreaView
@@ -480,7 +487,7 @@ const TabDetails = ({route, props}) => {
           </Block>
           <ListSimilar type={'course'} />
         </ScrollView>
-        {JSON.stringify(user) !== '{}' ? (
+        {user ? (
           <Button
             title={t('addToCart')}
             onPress={() => {

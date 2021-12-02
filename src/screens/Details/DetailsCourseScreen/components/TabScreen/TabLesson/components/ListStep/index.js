@@ -1,8 +1,8 @@
 import {Block, Text} from '@components';
+import React, {useCallback} from 'react';
 
 import {FlatList} from 'react-native';
 import ItemLesson from '@components/ItemList/ItemLesson';
-import React from 'react';
 import {keyExtractor} from 'utils/keyExtractor';
 import {useSelector} from 'react-redux';
 import {useTheme} from '@theme';
@@ -13,7 +13,10 @@ const ListStep = () => {
   } = useSelector(stateRoot => stateRoot.root);
   const theme = useTheme(themeStore);
 
-  const _renderItem = (item, index) => <ItemLesson index={index} />;
+  const _renderItem = useCallback((item, index) => {
+    return <ItemLesson index={index} />;
+  }, []);
+
   return (
     <Block
       flex

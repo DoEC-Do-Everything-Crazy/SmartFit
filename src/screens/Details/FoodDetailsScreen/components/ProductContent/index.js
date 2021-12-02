@@ -1,5 +1,5 @@
 import {Block, Text} from '@components';
-import React, {useEffect} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import {addWishListItem, removeWishListItem} from 'reduxs/reducers';
 import {useDispatch, useSelector} from 'react-redux';
 
@@ -35,9 +35,9 @@ const ProductContent = ({food, props}) => {
     }
   };
 
-  const _renderItem = item => (
-    <ItemStats title={item.title} stats={item.stats} />
-  );
+  const _renderItem = useCallback(item => {
+    return <ItemStats title={item.title} stats={item.stats} />;
+  }, []);
 
   return (
     <Block row alignCenter space="between" paddingTop={20}>
@@ -60,12 +60,17 @@ const ProductContent = ({food, props}) => {
           backgroundColor={theme.colors.border}>
           <Block flex alignCenter justifyCenter>
             <Block style={styles.header}>
-              <Text center size={22} fontType="bold" marginHorizontal={16}>
+              <Text
+                center
+                size={22}
+                fontType="bold"
+                marginHorizontal={16}
+                paddingVertical={8}>
                 {food.name}
               </Text>
             </Block>
             <Image source={{uri: food.image[0]}} style={styles.image} />
-            <Block style={styles.bottom}>
+            <Block style={styles.bottom} paddingVertical={8}>
               <Text size={24} color={'#FF7F50'} center fontType="bold">
                 {`$${food.lastPrice}`}
               </Text>

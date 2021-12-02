@@ -1,9 +1,11 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {Block, Text} from '@components';
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
+
+import LinearGradient from 'react-native-linear-gradient';
 import {Pressable} from 'react-native';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
-import LinearGradient from 'react-native-linear-gradient';
 import {useTranslation} from 'react-i18next';
 
 const CategorySort = props => {
@@ -37,7 +39,7 @@ const CategorySort = props => {
     </Pressable>
   );
 
-  const _renderItem = ({item}) => {
+  const _renderItem = useCallback(({item}) => {
     const backgroundColor =
       themeStore === 'light'
         ? item.id === selectedId
@@ -63,7 +65,7 @@ const CategorySort = props => {
         textColor={{color}}
       />
     );
-  };
+  }, []);
 
   return (
     <Block row justifyContent="center">

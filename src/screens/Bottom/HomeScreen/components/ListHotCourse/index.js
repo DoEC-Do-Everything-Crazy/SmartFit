@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import {Block, Text} from '@components';
 import {FlatList, Pressable} from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 
 import ItemHotCourse from '@components/ItemList/ItemHotCourse';
 import {courseApi} from 'api/courseApi';
@@ -15,16 +15,13 @@ import {useTranslation} from 'react-i18next';
 
 const ListHotCourse = ({props}) => {
   const navigation = useNavigation();
+
   const {t} = useTranslation();
   const themeStore = useSelector(state => state.root.theme.theme);
   const theme = useTheme(themeStore);
   const styles = useStyles(props, themeStore);
 
   const [data, setData] = useState([]);
-
-  const _renderItem = ({item, index}) => (
-    <ItemHotCourse item={item} key={index} />
-  );
 
   const initData = async () => {
     try {
@@ -40,6 +37,14 @@ const ListHotCourse = ({props}) => {
     }
   };
 
+  const _renderItem = useCallback(({item}) => {
+    return <ItemHotCourse item={item} />;
+  }, []);
+
+  const handleOnpress = useCallback(() => {
+    navigation.navigate(routes.COURSE_LIST_TYPE_SCREEN);
+  }, []);
+
   useEffect(() => {
     initData();
   }, []);
@@ -50,8 +55,7 @@ const ListHotCourse = ({props}) => {
         <Text size={20} fontType="bold" color={theme.colors.iconInf}>
           {t('hotCourse')}
         </Text>
-        <Pressable
-          onPress={() => navigation.navigate(routes.COURSE_LIST_TYPE_SCREEN)}>
+        <Pressable onPress={handleOnpress}>
           <Text size={17} style={styles.link}>
             {t('seeAll')}
           </Text>

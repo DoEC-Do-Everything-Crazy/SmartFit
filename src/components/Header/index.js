@@ -1,9 +1,10 @@
 import {Back, Cart, Search} from '@assets/icons';
 import {Block, GradientText, Text} from '@components';
+
+import {Pressable} from 'react-native';
+import React from 'react';
 import {routes} from '@navigation/routes';
 import {useNavigation} from '@react-navigation/native';
-import React from 'react';
-import {Pressable} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
@@ -16,15 +17,23 @@ const Header = props => {
   const styles = useStyles(props, themeStore);
   const theme = useTheme(themeStore);
 
-  const HeaderCommon = ({title, canGoBack, cart, search}) => {
+  const HeaderCommon = ({title, canGoBack, cart, search, onBackPress}) => {
     const navigation = useNavigation();
     return (
       <Block style={styles.root}>
         <Block style={styles.arrowLeftBack}>
           {canGoBack && (
-            <Pressable onPress={() => navigation.goBack()}>
-              <Back color={theme.colors.text} />
-            </Pressable>
+            <>
+              {!onBackPress ? (
+                <Pressable onPress={() => navigation.goBack()}>
+                  <Back color={theme.colors.text} />
+                </Pressable>
+              ) : (
+                <Pressable onPress={onBackPress}>
+                  <Back color={theme.colors.text} />
+                </Pressable>
+              )}
+            </>
           )}
         </Block>
         {title &&

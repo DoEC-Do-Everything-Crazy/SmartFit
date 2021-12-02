@@ -70,21 +70,21 @@ const Information = props => {
           <View style={styles.alertBox}>
             <View>
               <Text style={styles.titleDialog} fontType="bold">
-                Do you really want to log out?
+                {t('wantLogout')}
               </Text>
             </View>
             <View style={styles.btnSubmit}>
               <TouchableOpacity onPress={() => setModalVisible(false)}>
                 <View style={styles.btnNo}>
                   <Text style={styles.titleNo} variant="bold">
-                    NO
+                    {t('no')}
                   </Text>
                 </View>
               </TouchableOpacity>
               <TouchableOpacity onPress={handleLogout}>
                 <View style={styles.btnYes}>
                   <Text style={styles.titleNo} variant="bold">
-                    YES
+                    {t('yes')}
                   </Text>
                 </View>
               </TouchableOpacity>

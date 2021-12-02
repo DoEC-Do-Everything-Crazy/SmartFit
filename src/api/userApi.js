@@ -114,7 +114,7 @@ const changePassword = async (data, options) => {
       throw response.data;
     }
 
-    return response;
+    return;
   } catch (error) {
     throw error;
   }

@@ -18,55 +18,56 @@ const RatingValue = ({...props}) => {
 
   const {t} = useTranslation();
 
-  const _renderItem = (item, index) => (
-    <Block row key={keyExtractor(item, index)}>
-      <Block>
-        <Rating
-          flex
-          ratingColor="#FF7F50"
-          ratingCount={5}
-          readonly={true}
-          startingValue={item._id}
-          imageSize={15}
-          tintColor={theme.colors.backgroundSetting}
-          ratingBackgroundColor="transparent"
-          style={{alignSelf: 'flex-end'}}
-        />
-      </Block>
+  const _renderItem = (item, index) => {
+    return (
+      <Block row key={keyExtractor(item, index)}>
+        <Block>
+          <Rating
+            flex
+            ratingColor="#FF7F50"
+            ratingCount={5}
+            readonly={true}
+            startingValue={item._id}
+            imageSize={15}
+            tintColor={theme.colors.backgroundSetting}
+            ratingBackgroundColor="transparent"
+            style={{alignSelf: 'flex-end'}}
+          />
+        </Block>
 
-      <Block
-        marginVertical={5}
-        height={6}
-        width={100}
-        borderRadius={8}
-        backgroundColor={themeStore === 'dark' ? 'white' : 'lightgray'}
-        marginLeft={8}>
         <Block
-          width={item.percent}
-          borderRadius={8}
+          marginVertical={5}
           height={6}
-          backgroundColor={
-            item.percent !== 0
-              ? themeStore === 'dark'
-                ? 'orange'
-                : 'red'
-              : undefined
-          }
-        />
+          width={100}
+          borderRadius={8}
+          backgroundColor={themeStore === 'dark' ? 'white' : 'lightgray'}
+          marginLeft={8}>
+          <Block
+            width={item.percent}
+            borderRadius={8}
+            height={6}
+            backgroundColor={
+              item.percent !== 0
+                ? themeStore === 'dark'
+                  ? 'orange'
+                  : 'red'
+                : undefined
+            }
+          />
+        </Block>
+        <Block>
+          <Text size={10} lineHeight={16} marginLeft={8}>
+            {item.count}
+          </Text>
+        </Block>
       </Block>
-
-      <Block>
-        <Text size={10} lineHeight={16} marginLeft={8}>
-          {item.count}
-        </Text>
-      </Block>
-    </Block>
-  );
+    );
+  };
 
   return (
     <Block flex marginHorizontal={16}>
-      <Block row space="between">
-        <Block>
+      <Block row>
+        <Block flex>
           <Text size={40} fontType="bold">
             {averageRating}
           </Text>
@@ -74,7 +75,7 @@ const RatingValue = ({...props}) => {
             {totalReviews} {t('reviews')}
           </Text>
         </Block>
-        {}
+
         <Block>{eachRateCount.reverse().map(_renderItem)}</Block>
       </Block>
     </Block>

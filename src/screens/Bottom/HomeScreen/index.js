@@ -1,12 +1,12 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withSpring,
 } from 'react-native-reanimated';
-import {Block, Header} from '@components';
-import Carousel, {Pagination} from 'react-native-snap-carousel';
-import {Image, Pressable, ScrollView} from 'react-native';
-import React, {useEffect, useRef, useState} from 'react';
+import {Block, Header, HeaderBanner} from '@components';
+import {Pressable, ScrollView} from 'react-native';
+import React, {useCallback, useEffect} from 'react';
 
 import {Cart} from '@assets/icons';
 import LinearGradient from 'react-native-linear-gradient';
@@ -15,8 +15,6 @@ import ListHotFood from './components/ListHotFood';
 import ListMenu from './components/ListMenu';
 import ListProduct from './components/ListProduct';
 import ListRecommended from './components/ListRecommended';
-/* eslint-disable react-hooks/exhaustive-deps */
-import {images} from '@assets';
 import {routes} from '@navigation/routes';
 import setAuthToken from 'utils/setAuthToken';
 import {useNavigation} from '@react-navigation/native';
@@ -24,36 +22,19 @@ import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {useTranslation} from 'react-i18next';
-import {width} from '@utils/responsive';
 
 const HomeScreen = props => {
   const navigation = useNavigation();
   const {t} = useTranslation();
   const offset = useSharedValue(0);
+
   const {
     theme: {theme: themeStore},
-    user: {user, token},
+    user: {token},
   } = useSelector(stateRoot => stateRoot.root);
+
   const theme = useTheme(themeStore);
   const styles = useStyles(props, themeStore);
-  const carouselRef = useRef(null);
-
-  const [activeIndex, setActivateIndex] = useState(0);
-
-  const dataBanner = [
-    {
-      img: images.banner1,
-    },
-    {
-      img: images.banner2,
-    },
-    {
-      img: images.banner3,
-    },
-    {
-      img: images.banner4,
-    },
-  ];
 
   const animatedStyles = useAnimatedStyle(() => {
     return {
@@ -68,15 +49,15 @@ const HomeScreen = props => {
     };
   });
 
-  const _renderItemCarousel = ({item, index}) => (
-    <Image source={item.img} style={styles.image} />
-  );
-
-  const onScroll = event => {
+  const onScroll = useCallback(event => {
     const offsetList = event.nativeEvent.contentOffset.y;
 
     offsetList > 0 ? (offset.value = 1) : (offset.value = 0);
-  };
+  }, []);
+
+  const handleNavigateCartScreen = useCallback(() => {
+    navigation.navigate(routes.CART_SCREEN);
+  }, []);
 
   useEffect(() => {
     setAuthToken(token);
@@ -90,47 +71,21 @@ const HomeScreen = props => {
         alignCenter
         backgroundColor={theme.colors.backgroundSetting}
         style={styles.container}>
-        <ScrollView onScroll={onScroll} showsVerticalScrollIndicator={false}>
-          <Block alignCenter marginTop={20}>
-            <Carousel
-              loop
-              ref={carouselRef}
-              sliderWidth={width}
-              sliderHeight={width}
-              autoplay
-              loopClonesPerSide={4}
-              layout="tinder"
-              itemWidth={width - 20}
-              data={dataBanner}
-              hasParallaxImages={true}
-              renderItem={_renderItemCarousel}
-              onSnapToItem={index => {
-                setActivateIndex(index);
-              }}
-            />
-            {
-              <Pagination
-                dotsLength={dataBanner.length}
-                activeDotIndex={activeIndex}
-                dotStyle={styles.pagination}
-                tappableDots
-                carouselRef={carouselRef}
-                inactiveDotOpacity={0.4}
-                inactiveDotScale={0.6}
-              />
-            }
-          </Block>
-          <ListMenu />
-          {user && <ListRecommended />}
-          <ListHotFood />
-          <ListHotCourse />
-          <ListProduct />
-        </ScrollView>
+        <Block>
+          <ScrollView
+            scrollEventThrottle={16}
+            onScroll={onScroll}
+            showsVerticalScrollIndicator={false}>
+            <HeaderBanner />
+            <ListMenu />
+            <ListRecommended />
+            <ListHotFood />
+            <ListHotCourse />
+            <ListProduct />
+          </ScrollView>
+        </Block>
         <Animated.View style={[styles.groupButton, animatedStyles]}>
-          <Pressable
-            onPress={() => {
-              navigation.navigate(routes.CART_SCREEN);
-            }}>
+          <Pressable onPress={handleNavigateCartScreen}>
             {themeStore === 'dark' ? (
               <LinearGradient
                 start={{x: 0, y: 0}}

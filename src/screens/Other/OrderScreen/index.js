@@ -6,7 +6,7 @@ import {
   Text,
 } from '@components';
 import {FlatList, Pressable, ScrollView} from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 
 import ItemOrder from '@components/ItemList/ItemOrder';
 import LinearGradient from 'react-native-linear-gradient';
@@ -116,10 +116,9 @@ const OrderScreen = props => {
     );
   };
 
-  const _renderItem = ({item, index}) => {
-    console.log({item, index});
+  const _renderItem = useCallback(({item, index}) => {
     return <ItemOrder item={item} index={index} />;
-  };
+  }, []);
 
   const handleLoadMore = async () => {
     try {

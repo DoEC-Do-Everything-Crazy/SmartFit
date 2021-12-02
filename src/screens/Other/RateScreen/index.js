@@ -2,7 +2,7 @@
 import {Block, Button, Header, Text, TextInput} from '@components';
 import {Image, Pressable, ScrollView} from 'react-native';
 import {PERMISSION_TYPE, checkPermission} from '../../../hook';
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {addImage, removeImage} from 'reduxs/reducers';
 import {useDispatch, useSelector} from 'react-redux';
 
@@ -10,6 +10,7 @@ import {Camera} from '@assets/icons';
 import ImagePicker from 'react-native-image-crop-picker';
 import {Rating} from 'react-native-ratings';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import Snackbar from 'react-native-snackbar';
 import {icons} from '@assets';
 import {rateApi} from 'api/rateApi';
 import {routes} from '@navigation/routes';
@@ -20,33 +21,36 @@ import {useTranslation} from 'react-i18next';
 
 const RateScreen = ({route, props}) => {
   const {item} = route.params;
+
+  const courseId = item.courseId || undefined;
+  const productId = item.productId || undefined;
+  const foodId = item.foodId || undefined;
+
+  const navigation = useNavigation();
   const dispatch = useDispatch();
-  const {t} = useTranslation();
+
   const {
     theme: {theme: themeStore},
     image: {image},
   } = useSelector(stateRoot => stateRoot.root);
   const styles = useStyles(props, themeStore);
   const theme = useTheme(themeStore);
+  const {t} = useTranslation();
 
-  const navigation = useNavigation();
-  const [content, setContent] = useState('a');
+  const [content, setContent] = useState('');
   const [rate, setRate] = useState(5);
-  const courseId = item.courseId || undefined;
-  const productId = item.productId || undefined;
-  const foodId = item.foodId || undefined;
 
-  const handleCamera = async () => {
+  const handleCamera = useCallback(async () => {
     const resultSP = await checkPermission(PERMISSION_TYPE.camera);
     if (resultSP === true) {
       navigation.navigate(routes.TAKE_PICTURE);
     }
-  };
+  }, []);
 
-  const handleGallery = () => {
+  const handleGallery = useCallback(() => {
     ImagePicker.openPicker({
       width: 300,
-      height: 400,
+      height: 300,
       cropping: true,
     }).then(images => {
       const newImage = {
@@ -56,18 +60,23 @@ const RateScreen = ({route, props}) => {
       };
       dispatch(addImage(newImage));
     });
-  };
+  }, []);
 
-  const addRate = async formData => {
+  const addRate = useCallback(async formData => {
     try {
       await rateApi.addRateReview(formData);
 
+      Snackbar.show({
+        text: `Đã đánh giá sản phẩm ${item.name}`,
+        duration: Snackbar.LENGTH_SHORT,
+      });
+
       dispatch(removeImage());
-      navigation.navigate(routes.ORDER_SCREEN);
+      navigation.goBack();
     } catch (error) {
       console.error(error.message);
     }
-  };
+  }, []);
 
   const ratingCompleted = rating => {
     setRate(rating);

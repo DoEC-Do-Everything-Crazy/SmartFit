@@ -14,6 +14,7 @@ export default {
   updateProfile: 'Update profile',
   security: 'Security',
   changePassword: 'Change password',
+  changePincode: 'Change pincode',
   usingPincode: 'Using pincode',
   theme: 'Theme',
   darkMode: 'Dark mode',
@@ -23,6 +24,7 @@ export default {
   createNewPassword: 'Create new password',
   enterNewPassword: 'Enter New Password',
   enterCurrentCode: 'Enter current Pin Code',
+  enterPinCode: 'Enter Pin Code',
   enterConfimPassword: 'Enter confim password',
   create: 'create',
 
@@ -32,7 +34,7 @@ export default {
   promotion: 'Promotion',
   order: 'Order List',
   logout: 'Logout',
-  notUpdateYet: 'not update yet',
+  notUpdateYet: 'unknown',
   myCourse: 'My course',
 
   //Login Screen , Register Screen
@@ -90,6 +92,7 @@ export default {
   delivery: 'Delivery',
   discount: 'Discount',
   total: 'Total',
+  subTotal: 'Sub total',
   cart: 'Cart',
   addedToCart: 'Added to cart',
   startOrder: 'Start ordering',
@@ -126,8 +129,8 @@ export default {
   price: 'Price',
   readMore: 'Read more',
   hidden: 'Hidden',
-  equip: 'Equip',
-  supple: 'Supple',
+  equip: 'Equipment',
+  supple: 'Supplement',
   clothing: 'Clothing & Accessories',
   bought: 'bought',
   view: 'View',
@@ -171,7 +174,7 @@ export default {
   pendingOrder: 'Pending',
   totalAmount: 'Total Amount',
   promotionCode: 'Promotion code',
-  addressShip: 'Shipping Adress',
+  addressShip: 'Shipping Address',
   orderInformation: 'Order information',
   reOrder: 'Reorder',
   leaveFeedback: 'Close',
@@ -209,9 +212,9 @@ export default {
   Verify: 'Verify',
 
   //Password Screen
-  errPassword: 'You have entered the wrong password',
-  enterPassword: 'Enter password',
-  pleaseEnter: 'Please enter your password to access the application',
+  errPassword: 'You have entered the wrong pin code',
+  enterPassword: 'Enter pin code',
+  pleaseEnter: 'Enter your pin code to access the application',
 
   //Onboard Screen
   learnAnywhere: 'Learn anytime and anywhere',
@@ -256,4 +259,9 @@ export default {
 
   //update
   hide: 'Hide',
+
+  // logout
+  wantLogout: 'Do you want to log out?',
+  yes: 'Yes',
+  no: 'No',
 };
