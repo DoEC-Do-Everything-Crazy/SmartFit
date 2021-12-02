@@ -110,7 +110,7 @@ const ItemSetting = ({data, title, index}, props) => {
                   <Text center fontType="bold" size={16}>
                     {t('createNewPassword')}
                   </Text>
-                  <Block marginTop={30} marginHorizontal={16}>
+                  <Block marginVertical={30} marginHorizontal={16}>
                     <TextInput
                       onChangeText={handleChange('newPassword')}
                       value={values.newPassword}
@@ -141,7 +141,7 @@ const ItemSetting = ({data, title, index}, props) => {
               <Text center fontType="bold" size={16}>
                 {t('enterPassword')}
               </Text>
-              <Block marginTop={30} marginHorizontal={16}>
+              <Block marginVertical={20} marginHorizontal={16}>
                 <TextInput
                   onChangeText={setPassInput}
                   value={passInput}
