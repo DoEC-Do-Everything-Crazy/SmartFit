@@ -2,7 +2,7 @@
 import {Block, Button, Header, Text} from '@components';
 import {Modal, Platform, Pressable, TouchableOpacity, View} from 'react-native';
 import React, {useCallback, useEffect, useState} from 'react';
-import {removeUser, setUser} from 'reduxs/reducers';
+import {setToken, setUser} from 'reduxs/reducers';
 import {useDispatch, useSelector} from 'react-redux';
 
 import InfoProfile from './components/InfoProfile';
@@ -22,9 +22,10 @@ const Information = props => {
   const {t} = useTranslation();
   const theme = useTheme(themeStore);
   const styles = useStyles(props, themeStore);
-  const handleLogout = useCallback(() => {
+  const handleLogout = useCallback(async () => {
     setModalVisible(false);
     setAuthToken(undefined);
+    dispatch(setToken(undefined));
     dispatch(setUser(undefined));
   }, [dispatch]);
 

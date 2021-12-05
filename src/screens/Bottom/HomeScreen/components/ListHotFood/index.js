@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import {Block, ListDataFooter, Text} from '@components';
+import {Block, Text} from '@components';
 import {FlatList, Pressable} from 'react-native';
 import React, {useCallback, useEffect, useState} from 'react';
 
@@ -23,7 +23,7 @@ const ListHotFood = props => {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const initData = async () => {
+  const initData = useCallback(async () => {
     setIsLoading(true);
 
     try {
@@ -41,10 +41,16 @@ const ListHotFood = props => {
     }
 
     setIsLoading(false);
-  };
+  }, []);
 
   const _renderItem = useCallback(({item, index}) => {
     return <ItemHotFood item={item} index={index} />;
+  }, []);
+
+  const handleOnPress = useCallback(() => {
+    navigation.navigate(routes.FOOD_LIST_SCREEN, {
+      title: t('healthyFood'),
+    });
   }, []);
 
   useEffect(() => {
@@ -62,12 +68,7 @@ const ListHotFood = props => {
         <Text size={20} fontType="bold" color={theme.colors.iconInf}>
           {t('hotFood')}
         </Text>
-        <Pressable
-          onPress={() =>
-            navigation.navigate(routes.FOOD_LIST_SCREEN, {
-              title: t('healthyFood'),
-            })
-          }>
+        <Pressable onPress={handleOnPress}>
           <Text size={17} style={styles.link}>
             {t('seeAll')}
           </Text>

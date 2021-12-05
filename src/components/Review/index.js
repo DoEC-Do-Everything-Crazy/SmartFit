@@ -10,6 +10,7 @@ import {rateApi} from 'api/rateApi';
 import {useSelector} from 'react-redux';
 // import {useStyles} from './styles';
 import {useTheme} from '@theme';
+import {useTranslation} from 'react-i18next';
 
 const Review = ({...props}) => {
   const {
@@ -36,6 +37,8 @@ const Review = ({...props}) => {
   const [rateCountList, setRateCountList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
+  const {t} = useTranslation();
+
   const handleLoadMore = async () => {
     try {
       if (allLoaded || isLoading) {
@@ -49,6 +52,7 @@ const Review = ({...props}) => {
         courseId,
         foodId,
         productId,
+        active: true,
       });
 
       const {rates, page, pages} = response;
@@ -79,6 +83,7 @@ const Review = ({...props}) => {
         courseId,
         foodId,
         productId,
+        active: true,
       });
 
       const {rates, page, pages, eachRateCount} = response;
@@ -136,7 +141,7 @@ const Review = ({...props}) => {
             borderRadius={8}
             backgroundColor={theme.colors.border}>
             <Block>
-              <Text>Write review ...</Text>
+              <Text>{t('writeReview')}</Text>
             </Block>
           </Block>
         </Pressable>

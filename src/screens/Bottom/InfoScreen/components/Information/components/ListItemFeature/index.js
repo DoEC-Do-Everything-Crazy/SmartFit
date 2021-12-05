@@ -65,8 +65,8 @@ const ListItemFeature = () => {
   return (
     <Block flex paddingHorizontal={16} height="50%">
       <FlatList
+        scrollEnabled={false}
         showsVerticalScrollIndicator={false}
-        nestedScrollEnabled
         data={DATA_FEATURE}
         keyExtractor={keyExtractor}
         renderItem={_renderItem}

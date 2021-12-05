@@ -265,4 +265,10 @@ export default {
   wantLogout: 'Bạn có muốn đăng xuất?',
   yes: 'Có',
   no: 'Không',
+  //
+  alreadyBought: 'Đã mua hàng',
+  notBuyYet: 'Chưa mua hàng',
+  helpful: 'Hữu ích',
+
+  writeReview: 'Viết đánh giá...',
 };

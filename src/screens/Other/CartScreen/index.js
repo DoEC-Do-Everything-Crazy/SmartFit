@@ -1,21 +1,22 @@
-import {Block, Button, InviteLogin, PayInfo, Text} from '@components';
+import {Block, Button, Header, InviteLogin, PayInfo, Text} from '@components';
 import React, {useCallback, useEffect} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 
 import CartList from './components/CartList';
 /* eslint-disable react-hooks/exhaustive-deps */
 import {Cart_data} from '@assets/icons';
-import Header from '@components/Header';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import {clearCart} from 'reduxs/reducers';
 import {orderApi} from 'api/orderApi';
 import {routes} from '@navigation/routes';
 import setAuthToken from 'utils/setAuthToken';
 import {useNavigation} from '@react-navigation/core';
-import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {useTranslation} from 'react-i18next';
 
 const CartScreen = props => {
+  const dispatch = useDispatch();
   const navigation = useNavigation();
   const {
     theme: {theme: themeStore},
@@ -39,7 +40,7 @@ const CartScreen = props => {
     }
   };
   const handleToHome = useCallback(() => {
-    navigation.navigate(routes.BOTTOM_TAB);
+    navigation.goBack();
   }, []);
 
   const handleConfirm = () => {
@@ -48,16 +49,9 @@ const CartScreen = props => {
 
   const Cart = () => {
     return (
-      <SafeAreaView
-        edges={['top', 'left', 'right']}
-        style={styles.sendControlContainerOuter}>
-        {cart.length > 0 ? (
-          <Block flex backgroundColor={theme.colors.backgroundSetting}>
-            <Header
-              canGoBack
-              colorTheme={theme.colors.blue}
-              title={t('cart')}
-            />
+      <>
+        {cart.length !== 0 ? (
+          <>
             <CartList />
             <Block paddingHorizontal={16} marginVertical={16}>
               <PayInfo
@@ -72,17 +66,16 @@ const CartScreen = props => {
               />
             </Block>
             <Button title={t('confirm')} onPress={handleConfirm} />
-          </Block>
+          </>
         ) : (
           <NotData />
         )}
-      </SafeAreaView>
+      </>
     );
   };
 
   const NotData = () => (
     <Block flex>
-      <Header canGoBack colorTheme={theme.colors.blue} title="Cart" />
       <Block flex justifyCenter alignCenter marginHorizontal={16}>
         <Cart_data />
         <Text size={30} marginTop={20} fontType="bold">
@@ -98,16 +91,25 @@ const CartScreen = props => {
 
   useEffect(() => {
     user && setAuthToken(token);
-    // dispatch(clearCart());
+    dispatch(clearCart());
   }, []);
 
-  return user ? (
-    <Cart color={theme.colors.white} />
-  ) : (
-    <>
-      <Header title="Cart" />
-      <InviteLogin navigate={routes.LOGIN_SCREEN} routes={routes.CART_SCREEN} />
-    </>
+  return (
+    <SafeAreaView
+      edges={['top', 'left', 'right']}
+      style={styles.sendControlContainerOuter}>
+      <Block flex backgroundColor={theme.colors.backgroundSetting}>
+        <Header canGoBack colorTheme={theme.colors.blue} title={t('cart')} />
+        {user ? (
+          <Cart color={theme.colors.white} />
+        ) : (
+          <InviteLogin
+            navigate={routes.LOGIN_SCREEN}
+            routes={routes.CART_SCREEN}
+          />
+        )}
+      </Block>
+    </SafeAreaView>
   );
 };
 

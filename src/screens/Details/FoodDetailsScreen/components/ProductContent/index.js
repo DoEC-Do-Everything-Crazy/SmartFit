@@ -1,4 +1,5 @@
 import {Block, Text} from '@components';
+import {FlatList, Pressable} from 'react-native';
 import React, {useCallback, useEffect} from 'react';
 import {addWishListItem, removeWishListItem} from 'reduxs/reducers';
 import {useDispatch, useSelector} from 'react-redux';
@@ -6,7 +7,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {HeartPf} from '@assets/icons';
 import {Image} from 'react-native';
 import ItemStats from '../ItemStats';
-import {Pressable} from 'react-native';
+import {keyExtractor} from 'utils/keyExtractor';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {useTranslation} from 'react-i18next';
@@ -35,14 +36,18 @@ const ProductContent = ({food, props}) => {
     }
   };
 
-  const _renderItem = useCallback(item => {
+  const _renderItem = useCallback(({item}) => {
     return <ItemStats title={item.title} stats={item.stats} />;
   }, []);
 
   return (
     <Block row alignCenter space="between" paddingTop={20}>
       <Block alignCenter justifyCenter width="40%">
-        {content.map(_renderItem)}
+        <FlatList
+          data={content}
+          renderItem={_renderItem}
+          keyExtractor={keyExtractor}
+        />
         <Pressable onPress={handleFavorite}>
           <Block alignCenter marginTop={10} marginBottom={20}>
             <HeartPf

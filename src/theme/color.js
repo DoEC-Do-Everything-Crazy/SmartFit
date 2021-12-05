@@ -37,6 +37,7 @@ export const colors = {
     blueLight: '#D9FFDF',
     modalBackground: '#000000',
     modalTransparent: '#FFFFFF90',
+    textLiked: '#088A08',
   },
   light: {
     transparent: '#00000000',
@@ -76,5 +77,6 @@ export const colors = {
     blueLight: '#D9FFDF',
     modalBackground: '#FFFFFF',
     modalTransparent: '#00000090',
+    textLiked: '#5F97FF',
   },
 };

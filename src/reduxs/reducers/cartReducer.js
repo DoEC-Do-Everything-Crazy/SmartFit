@@ -126,8 +126,6 @@ const cartSlice = createSlice({
 
       const objIndex = state.tempWishList.findIndex(obj => obj.key === key);
 
-      console.log(objIndex);
-
       if (objIndex === -1) {
         return;
       }

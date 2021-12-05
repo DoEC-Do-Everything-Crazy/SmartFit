@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import {Block, Text} from '@components';
 
+import {FlatList} from 'react-native-gesture-handler';
 import {Rating} from 'react-native-ratings';
 import React from 'react';
 import {keyExtractor} from 'utils/keyExtractor';
@@ -18,9 +19,9 @@ const RatingValue = ({...props}) => {
 
   const {t} = useTranslation();
 
-  const _renderItem = (item, index) => {
+  const _renderItem = ({item}) => {
     return (
-      <Block row key={keyExtractor(item, index)}>
+      <Block row>
         <Block>
           <Rating
             flex
@@ -72,11 +73,17 @@ const RatingValue = ({...props}) => {
             {averageRating}
           </Text>
           <Text>
-            {totalReviews} {t('reviews')}
+            {totalReviews} {t('review')}
           </Text>
         </Block>
 
-        <Block>{eachRateCount.reverse().map(_renderItem)}</Block>
+        <Block>
+          <FlatList
+            data={eachRateCount.reverse()}
+            renderItem={_renderItem}
+            keyExtractor={keyExtractor}
+          />
+        </Block>
       </Block>
     </Block>
   );

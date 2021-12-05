@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
@@ -6,8 +5,9 @@ import Animated, {
 } from 'react-native-reanimated';
 import {Block, Header, HeaderBanner} from '@components';
 import {Pressable, ScrollView} from 'react-native';
-import React, {useCallback, useEffect} from 'react';
+import React, {useCallback} from 'react';
 
+/* eslint-disable react-hooks/exhaustive-deps */
 import {Cart} from '@assets/icons';
 import LinearGradient from 'react-native-linear-gradient';
 import ListHotCourse from './components/ListHotCourse';
@@ -16,7 +16,6 @@ import ListMenu from './components/ListMenu';
 import ListProduct from './components/ListProduct';
 import ListRecommended from './components/ListRecommended';
 import {routes} from '@navigation/routes';
-import setAuthToken from 'utils/setAuthToken';
 import {useNavigation} from '@react-navigation/native';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
@@ -59,10 +58,6 @@ const HomeScreen = props => {
     navigation.navigate(routes.CART_SCREEN);
   }, []);
 
-  useEffect(() => {
-    setAuthToken(token);
-  }, []);
-
   return (
     <Block flex backgroundColor={theme.colors.blue}>
       <Header type="Bottom" title={t('home')} colorTheme={theme.colors.white} />
@@ -75,10 +70,11 @@ const HomeScreen = props => {
           <ScrollView
             scrollEventThrottle={16}
             onScroll={onScroll}
-            showsVerticalScrollIndicator={false}>
+            showsVerticalScrollIndicator={false}
+            nestedScrollEnabled={true}>
             <HeaderBanner />
             <ListMenu />
-            <ListRecommended />
+            {token && <ListRecommended />}
             <ListHotFood />
             <ListHotCourse />
             <ListProduct />

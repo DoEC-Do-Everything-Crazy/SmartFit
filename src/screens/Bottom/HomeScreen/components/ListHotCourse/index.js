@@ -23,7 +23,7 @@ const ListHotCourse = ({props}) => {
 
   const [data, setData] = useState([]);
 
-  const initData = async () => {
+  const initData = useCallback(async () => {
     try {
       const response = await courseApi.getCourses({
         pageNumber: 1,
@@ -35,7 +35,7 @@ const ListHotCourse = ({props}) => {
     } catch (error) {
       console.error('error', error.message);
     }
-  };
+  }, []);
 
   const _renderItem = useCallback(({item}) => {
     return <ItemHotCourse item={item} />;
@@ -64,6 +64,7 @@ const ListHotCourse = ({props}) => {
       <Block flex>
         <FlatList
           showsVerticalScrollIndicator={false}
+          horizontal
           data={data.slice(0, 3)}
           keyExtractor={keyExtractor}
           renderItem={_renderItem}

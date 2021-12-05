@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import {Block, Text} from '@components';
 import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {height, width} from '@utils/responsive';
@@ -19,7 +18,7 @@ const ListRecommended = ({props}) => {
   const {t} = useTranslation();
   const {
     theme: {theme: themeStore},
-    user: {user, token},
+    user: {token},
   } = useSelector(stateRoot => stateRoot.root);
   const theme = useTheme(themeStore);
   const carouselRef = useRef(null);
@@ -45,13 +44,15 @@ const ListRecommended = ({props}) => {
   }, []);
 
   useEffect(() => {
-    setAuthToken(token);
-    initData();
+    if (token) {
+      setAuthToken(token);
+      initData();
+    }
   }, [token]);
 
   return (
     <Block>
-      {user && (
+      {token && (
         <Block space="between" marginTop={20}>
           <Block marginHorizontal={16} flex row>
             <Block flex>

@@ -48,7 +48,6 @@ const TabDetails = ({route, props}) => {
   const navigation = useNavigation();
   const {t} = useTranslation();
   const {
-    user: {user},
     screen: {transferCourseScreen},
     theme: {theme: themeStore},
   } = useSelector(state => state.root);
@@ -597,29 +596,22 @@ const TabDetails = ({route, props}) => {
             </BottomSheet>
           </Block>
         </ScrollView>
-        {user ? (
-          <Button
-            title={t('addToCart')}
-            onPress={() => {
-              dispatch(
-                addCartItem({
-                  addItem: {...dataDetail, pt: dataPTDetail},
-                  quantity: 1,
-                }),
-              );
-              Snackbar.show({
-                text: t('addedToCart'),
-                duration: Snackbar.LENGTH_SHORT,
-              });
-              modalizInf?.current.close();
-            }}
-          />
-        ) : (
-          <InviteLogin
-            navigate={routes.LOGIN_SCREEN}
-            routes={routes.TAB_DETAILS}
-          />
-        )}
+        <Button
+          title={t('addToCart')}
+          onPress={() => {
+            dispatch(
+              addCartItem({
+                addItem: {...dataDetail, pt: dataPTDetail},
+                quantity: 1,
+              }),
+            );
+            Snackbar.show({
+              text: t('addedToCart'),
+              duration: Snackbar.LENGTH_SHORT,
+            });
+            modalizInf?.current.close();
+          }}
+        />
       </Block>
     </SafeAreaView>
   );

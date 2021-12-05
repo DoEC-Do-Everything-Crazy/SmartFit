@@ -39,6 +39,8 @@ const LoginScreen = ({navigation, props}) => {
 
   useEffect(() => {
     GoogleSignin.configure({
+      webClientId:
+        '927927486039-qk09b0k52hcs9vj04ghvh58fv0q9o9vd.apps.googleusercontent.com',
       androidClientId:
         '927927486039-0m1dpqbd9cbd94rst8p1d2b7ldo48lbo.apps.googleusercontent.com',
       iosClientId:
@@ -66,6 +68,7 @@ const LoginScreen = ({navigation, props}) => {
         dispatch(setToken(token.idToken));
       }
     } catch (error) {
+      console.error(error);
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
         console.error('User Cancelled the Login Flow');
       } else if (error.code === statusCodes.IN_PROGRESS) {
@@ -121,6 +124,17 @@ const LoginScreen = ({navigation, props}) => {
       navigation.goBack();
     }
   }, [user]);
+
+  useEffect(async () => {
+    try {
+      const isSignedIn = await GoogleSignin.isSignedIn();
+      if (isSignedIn) {
+        await GoogleSignin.signOut();
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }, []);
 
   return (
     <Formik

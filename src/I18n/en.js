@@ -264,4 +264,10 @@ export default {
   wantLogout: 'Do you want to log out?',
   yes: 'Yes',
   no: 'No',
+
+  //
+  alreadyBought: 'Already bought',
+  notBuyYet: 'Not buy yet',
+  helpful: 'Helpful',
+  writeReview: 'Write review...',
 };
