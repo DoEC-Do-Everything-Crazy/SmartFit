@@ -44,7 +44,7 @@ const Error = ({errorMessage, setError, errorImage, props}) => {
                   {errorImage}
                 ) : (
                   <Image
-                    source={require('../../../assets/icons/success.png')}
+                    source={require('../../../assets/icons/error.png')}
                     style={{height: 64, width: 64}}
                   />
                 )}
