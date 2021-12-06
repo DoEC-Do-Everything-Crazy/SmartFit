@@ -91,7 +91,6 @@ const CartScreen = props => {
 
   useEffect(() => {
     user && setAuthToken(token);
-    dispatch(clearCart());
   }, []);
 
   return (
