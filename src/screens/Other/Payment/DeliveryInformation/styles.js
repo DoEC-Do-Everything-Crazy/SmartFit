@@ -3,6 +3,9 @@ import {getSize, width} from '@utils/responsive';
 import {makeStyles} from '@theme';
 
 export const useStyles = makeStyles()(({colors}) => ({
+  root: {
+    flex: 1,
+  },
   containerDropdown: {
     flexDirection: 'row',
     alignItems: 'center',

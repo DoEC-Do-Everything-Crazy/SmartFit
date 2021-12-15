@@ -6,6 +6,7 @@ import {useNavigation} from '@react-navigation/core';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import {useTranslation} from 'react-i18next';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 const DeliveryInformation = ({props}) => {
   const navigation = useNavigation();
@@ -21,7 +22,7 @@ const DeliveryInformation = ({props}) => {
   const [address, setAddress] = useState(user.address);
 
   return (
-    <Block flex>
+    <SafeAreaView edges={['top', 'left', 'right']} style={styles.root}>
       <Header canGoBack title={t('addAddress')} />
       <Block flex padding={10}>
         <Text marginHorizontal={16} size={20} fontType="bold">
@@ -67,7 +68,7 @@ const DeliveryInformation = ({props}) => {
           </Text>
         </Pressable>
       </Block>
-    </Block>
+    </SafeAreaView>
   );
 };
 
