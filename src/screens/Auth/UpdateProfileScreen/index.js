@@ -86,10 +86,9 @@ const UpdateProfileScreen = ({route, props}) => {
         photoURL: userProfile.photoURL,
       };
 
-      dispatch(removeImage());
-
       const resData = await userApi.updateUser(newUser);
 
+      dispatch(removeImage());
       dispatch(setUser(resData.data));
       navigation.goBack();
     } catch (error) {
@@ -131,7 +130,7 @@ const UpdateProfileScreen = ({route, props}) => {
     setIsProcessing(false);
   };
 
-  const handleOnSubmit = useCallback(() => {
+  const handleOnSubmit = () => {
     if (isProcessing) {
       return;
     }
@@ -143,7 +142,7 @@ const UpdateProfileScreen = ({route, props}) => {
     } else {
       updateProfile();
     }
-  }, []);
+  };
 
   const handleGallery = useCallback(() => {
     ImageCropPicker.openPicker({

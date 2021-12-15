@@ -3,7 +3,7 @@ import * as yup from 'yup';
 
 import {Block, Button, Error, Header, Text, TextInput} from '@components';
 import {KeyboardAvoidingView, Platform, SafeAreaView} from 'react-native';
-import React, {useCallback, useState} from 'react';
+import React, {useState} from 'react';
 
 import {Formik} from 'formik';
 import setAuthToken from 'utils/setAuthToken';
@@ -51,7 +51,7 @@ const ChangePasswordAuth = props => {
         newPassWord: '',
         confirmPassword: '',
       }}
-      onSubmit={async () => {
+      onSubmit={async props => {
         try {
           setAuthToken(token);
           await userApi.changePassword({
