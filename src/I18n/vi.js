@@ -98,6 +98,7 @@ export default {
   startOrder: 'Bắt đầu mua sắm',
   noOrder: 'Chưa có đơn hàng',
   titleNoOder: 'Nhấn vào nút màu xanh lam bên dưới để Tạo đơn hàng',
+  confirmOrder: 'Đặt hàng',
 
   //Course Type Screen
   courseCategory: 'Các hạng mục khóa học',

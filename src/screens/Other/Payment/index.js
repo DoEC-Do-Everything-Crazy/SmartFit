@@ -150,7 +150,7 @@ const Payment = ({props, route}) => {
           />
         </Block>
 
-        <Button onPress={handleOrder} title={t('ORDER')} />
+        <Button onPress={handleOrder} title={t('confirmOrder')} />
       </Block>
     </SafeAreaView>
   );

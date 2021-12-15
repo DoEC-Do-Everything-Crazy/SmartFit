@@ -98,6 +98,7 @@ export default {
   startOrder: 'Start ordering',
   noOrder: 'No order yet',
   titleNoOder: 'Hit the blue button down below to Create an order',
+  confirmOrder: 'Order',
 
   //Course Type Screen
   courseCategory: 'Course Category',

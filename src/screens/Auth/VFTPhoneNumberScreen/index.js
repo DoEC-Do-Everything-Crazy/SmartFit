@@ -1,20 +1,20 @@
 import {Block, Button, Header, Text} from '@components';
-import React, {useEffect, useRef, useState} from 'react';
-
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {TextInput} from 'react-native';
 import {routes} from '@navigation/routes';
 import {useNavigation} from '@react-navigation/core';
+import {useTheme} from '@theme';
+import {userApi} from 'api/userApi';
+import React, {useEffect, useRef, useState} from 'react';
+import {useTranslation} from 'react-i18next';
+import {KeyboardAvoidingView, TextInput} from 'react-native';
+import {SafeAreaView} from 'react-native-safe-area-context';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
-import {useTheme} from '@theme';
-import {useTranslation} from 'react-i18next';
-import {userApi} from 'api/userApi';
 
 const VFTPhoneNumberScreen = ({route, props}) => {
   const {t} = useTranslation();
   const navigation = useNavigation();
   const {email} = route.params;
+
   const [code, setCode] = useState('');
 
   const [number1, setNumber1] = useState('');
@@ -89,6 +89,8 @@ const VFTPhoneNumberScreen = ({route, props}) => {
     <SafeAreaView
       edges={['top', 'left', 'right']}
       style={styles.sendControlContainerOuter}>
+      {/* <KeyboardAvoidingView style={styles.keyboardContainer}> */}
+      {/* {isShow && <Block style={styles.overlay} />} */}
       <Block flex backgroundColor={theme.colors.backgroundSetting}>
         <Header
           canGoBack
@@ -197,6 +199,7 @@ const VFTPhoneNumberScreen = ({route, props}) => {
           containerStyle={{justifyContent: 'flex-end'}}
         />
       </Block>
+      {/* </KeyboardAvoidingView> */}
     </SafeAreaView>
   );
 };

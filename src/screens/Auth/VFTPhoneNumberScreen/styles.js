@@ -40,4 +40,15 @@ export const useStyles = makeStyles()(({colors}) => ({
     flex: 1,
     backgroundColor: colors.border,
   },
+  overlay: {
+    position: 'absolute',
+    top: 110,
+    zIndex: 100,
+    // backgroundColor: 'red',
+    height: 500,
+    width: '100%',
+  },
+  keyboardContainer: {
+    flex: 1,
+  },
 }));
