@@ -52,3 +52,4 @@ export * from './Underweight';
 export * from './Ordinary';
 export * from './Body';
 export * from './Address';
+export * from './Like';

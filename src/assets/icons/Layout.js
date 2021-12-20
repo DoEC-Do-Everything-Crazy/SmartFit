@@ -1,10 +1,11 @@
 import * as React from 'react';
+
 import Svg, {Path} from 'react-native-svg';
 export const Layout = props => {
-  const {color} = props;
+  const {color, width} = props;
   return (
     <Svg
-      width="198"
+      width={width}
       height="130"
       viewBox="0 0 256 144"
       fill="none"

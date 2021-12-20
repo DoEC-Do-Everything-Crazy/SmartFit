@@ -34,13 +34,16 @@ const ListFeatureSetting = ({data, props}) => {
     ]);
   }, [dispatch, languageStore, valueLanguage]);
 
-  const _renderItem = ({index}) => (
-    <ItemSetting
-      title={data[index].title}
-      data={data[index].data_item_switch}
-      index={index}
-    />
-  );
+  const _renderItem = ({index}) => {
+    return (
+      <ItemSetting
+        title={data[index].title}
+        data={data[index].data_item_switch}
+        index={index}
+      />
+    );
+  };
+
   return (
     <Block
       backgroundColor={theme.colors.backgroundSetting}
@@ -69,6 +72,7 @@ const ListFeatureSetting = ({data, props}) => {
 
       <Block style={styles.list}>
         <FlatList
+          scrollEnabled={false}
           data={data}
           renderItem={_renderItem}
           keyExtractor={keyExtractor}

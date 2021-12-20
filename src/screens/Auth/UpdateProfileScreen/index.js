@@ -1,4 +1,12 @@
-import {Block, Button, DropDown, Header, Text, TextInput} from '@components';
+import {
+  Block,
+  Button,
+  DropDown,
+  Error,
+  Header,
+  Text,
+  TextInput,
+} from '@components';
 import {Email, Fullname, List, Phone} from '@assets/icons';
 import {
   Image,
@@ -7,15 +15,15 @@ import {
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
-import {addImage, removeImage, setUser} from 'reduxs/reducers';
+import React, {useCallback, useEffect, useState} from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import {icons, images} from '@assets';
+import {removeImage, setUser} from 'reduxs/reducers';
 import {useDispatch, useSelector} from 'react-redux';
 
 import DateTimePicker from '@react-native-community/datetimepicker';
 import ImageCropPicker from 'react-native-image-crop-picker';
 import {SafeAreaView} from 'react-native-safe-area-context';
-/* eslint-disable react-hooks/exhaustive-deps */
-import {icons} from '@assets';
 import setAuthToken from 'utils/setAuthToken';
 import {useNavigation} from '@react-navigation/core';
 import {useStyles} from './styles';
@@ -31,7 +39,6 @@ const UpdateProfileScreen = ({route, props}) => {
   const {
     theme: {theme: themeStore},
     user: {user, token},
-    image: {image},
   } = useSelector(state => state.root);
 
   const styles = useStyles(props, themeStore);
@@ -40,7 +47,7 @@ const UpdateProfileScreen = ({route, props}) => {
 
   const [userProfile, setUserProfile] = useState({
     email: user.email,
-    birthday: user.birthday,
+    birthday: user.birthday || new Date(),
     phoneNumber: user.phoneNumber,
     fullName: user.fullName,
     photoURL: user.photoURL,
@@ -56,16 +63,18 @@ const UpdateProfileScreen = ({route, props}) => {
     {label: t('other'), value: 'other'},
   ]);
   const [openGender, setOpenGender] = useState(false);
-  const [imageUri, setImageUri] = useState('');
+  const [imageUri, setImageUri] = useState(undefined);
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const showMode = currentMode => {
     setShow(!show);
     setMode(currentMode);
   };
 
-  const showDatepicker = () => {
+  const showDatepicker = useCallback(() => {
     showMode('date');
-  };
+  }, []);
 
   const updateProfile = async () => {
     try {
@@ -74,77 +83,82 @@ const UpdateProfileScreen = ({route, props}) => {
         birthday: userProfile.birthday,
         phoneNumber: userProfile.phoneNumber,
         gender: valueGender,
+        photoURL: userProfile.photoURL,
       };
-
-      dispatch(removeImage());
 
       const resData = await userApi.updateUser(newUser);
 
+      dispatch(removeImage());
       dispatch(setUser(resData.data));
       navigation.goBack();
     } catch (error) {
       console.error(error.message);
+      setErrorMessage(error.message);
     }
+    setIsProcessing(true);
   };
 
-  const addImageUser = async formData => {
+  const updateUserImage = async () => {
     try {
-      const res = await userApi.uploadImage(formData, {
+      const formData = new FormData();
+
+      const newImage = {
+        uri: imageUri,
+        name: new Date().getTime() + '.jpg',
+        type: 'image/jpg',
+      };
+
+      formData.append('images', newImage);
+
+      const response = await userApi.uploadImage(formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       });
 
-      dispatch(removeImage());
-      dispatch(setUser(res.data));
+      setUserProfile({
+        ...userProfile,
+        photoURL: response.newPhotoURL,
+      });
+
+      updateProfile();
     } catch (error) {
       console.error(error.message);
+      setErrorMessage(error.message);
+    }
+
+    setIsProcessing(false);
+  };
+
+  const handleOnSubmit = () => {
+    if (isProcessing) {
+      return;
+    }
+
+    setIsProcessing(true);
+
+    if (imageUri) {
+      updateUserImage();
+    } else {
+      updateProfile();
     }
   };
 
-  const handleGallery = () => {
+  const handleGallery = useCallback(() => {
     ImageCropPicker.openPicker({
       width: 300,
       height: 400,
       cropping: true,
-    }).then(images => {
+    }).then(image => {
       const newImage = {
-        uri: images.path,
+        uri: image.path,
         name: new Date().getTime() + '.jpg',
         type: 'image/jpg',
       };
 
       setImageUri(newImage.uri);
-      dispatch(addImage(newImage));
     });
-  };
-
-  const handleFormSubmit = () => {
-    const formData = new FormData();
-
-    user._id && formData.append('userId', user._id);
-    if (image.length !== 0) {
-      for (let i = 0; i < image.length; i++) {
-        if (image.length - 1 === i) {
-          formData.append('images', image[i]);
-        }
-      }
-    } else {
-      const newImage = {
-        uri: user.photoURL,
-        name: new Date().getTime() + '.jpg',
-        type: 'image/jpg',
-      };
-      user.photoURL && formData.append('images', newImage);
-    }
-
-    addImageUser(formData);
-  };
-
-  const handleOnSubmit = () => {
-    updateProfile();
-    handleFormSubmit();
-  };
+  }, []);
 
   useEffect(() => {
     setAuthToken(token);
@@ -163,6 +177,7 @@ const UpdateProfileScreen = ({route, props}) => {
         />
         <ScrollView>
           <Block flex alignCenter paddingTop={20}>
+            <Error setError={setErrorMessage} errorMessage={errorMessage} />
             <Block alignCenter marginRight={16}>
               <Pressable style={styles.camera} onPress={handleGallery}>
                 {user.photoURL ? (
@@ -175,11 +190,13 @@ const UpdateProfileScreen = ({route, props}) => {
                 ) : (
                   <Image
                     style={styles.image}
-                    source={{
-                      uri: imageUri
-                        ? imageUri
-                        : 'https://i.pinimg.com/originals/e6/c0/ba/e6c0ba2042e46628276fffc6d4eb26d6.jpg',
-                    }}
+                    source={
+                      imageUri
+                        ? {
+                            uri: imageUri,
+                          }
+                        : images.unknown
+                    }
                   />
                 )}
                 <Block style={styles.title}>
@@ -264,15 +281,13 @@ const UpdateProfileScreen = ({route, props}) => {
                 onChangeValue={setValueGender}
                 label={t('selectAGender')}
               />
-
-              <TouchableOpacity
-                style={{marginTop: 8, marginBottom: 24}}
-                onPress={showDatepicker}>
+              <TouchableOpacity onPress={showDatepicker}>
                 <Block
                   column
                   paddingLeft={10}
                   radius={8}
-                  backgroundColor={'white'}>
+                  style={styles.group}
+                  backgroundColor={theme.colors.inputText}>
                   <Text paddingTop={5}>{t('selectDate')}</Text>
                   <Block paddingTop={5} paddingBottom={10} row alignCenter>
                     <List color={theme.colors.text} />
@@ -303,6 +318,7 @@ const UpdateProfileScreen = ({route, props}) => {
                         setShow(!show);
                       }
                     }}
+                    themeVariant={themeStore}
                   />
 
                   {Platform.OS === 'ios' && (
@@ -327,7 +343,6 @@ const UpdateProfileScreen = ({route, props}) => {
             </Block>
           </Block>
         </ScrollView>
-
         <Button
           title={t('update')}
           style={styles.button}

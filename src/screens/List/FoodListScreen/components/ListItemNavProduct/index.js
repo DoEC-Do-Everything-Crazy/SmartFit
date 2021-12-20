@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 
 import {Block} from '@components';
 import Carousel from 'react-native-snap-carousel';
@@ -28,9 +28,9 @@ const ListItemNavProduct = ({...props}) => {
     }
   };
 
-  const _renderItem = ({item, index}) => {
+  const _renderItem = useCallback(({item, index}) => {
     return <ItemNavProduct item={item} />;
-  };
+  }, []);
 
   useEffect(() => {
     initData();

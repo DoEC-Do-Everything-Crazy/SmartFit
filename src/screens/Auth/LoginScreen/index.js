@@ -1,7 +1,7 @@
 import * as yup from 'yup';
 
 /* eslint-disable react-hooks/exhaustive-deps */
-import {Block, Button, Header, Text, TextInput} from '@components';
+import {Block, Button, Error, Header, Text, TextInput} from '@components';
 import {
   GoogleSignin,
   GoogleSigninButton,
@@ -35,9 +35,12 @@ const LoginScreen = ({navigation, props}) => {
   const theme = useTheme(themeStore);
 
   const [isProcessing, setIsProcessing] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
     GoogleSignin.configure({
+      webClientId:
+        '927927486039-qk09b0k52hcs9vj04ghvh58fv0q9o9vd.apps.googleusercontent.com',
       androidClientId:
         '927927486039-0m1dpqbd9cbd94rst8p1d2b7ldo48lbo.apps.googleusercontent.com',
       iosClientId:
@@ -47,19 +50,25 @@ const LoginScreen = ({navigation, props}) => {
   }, []);
 
   const signIn = async () => {
+    if (isProcessing) {
+      return;
+    }
+
+    setIsProcessing(true);
+
     try {
       await GoogleSignin.hasPlayServices();
       await GoogleSignin.signIn();
       const token = await GoogleSignin.getTokens();
       if (token.idToken) {
         setAuthToken(token.idToken);
-        console.log({token: token.idToken});
         let resUser = await userApi.getUser();
 
         dispatch(setUser(resUser));
         dispatch(setToken(token.idToken));
       }
     } catch (error) {
+      console.error(error);
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
         console.error('User Cancelled the Login Flow');
       } else if (error.code === statusCodes.IN_PROGRESS) {
@@ -68,8 +77,11 @@ const LoginScreen = ({navigation, props}) => {
         console.error('Play Services Not Available or Outdated');
       } else {
         console.error(error.message);
+        setErrorMessage('Google sign in error');
       }
     }
+
+    setIsProcessing(false);
   };
 
   const validationSchema = yup.object().shape({
@@ -89,18 +101,19 @@ const LoginScreen = ({navigation, props}) => {
   const handleOnSubmit = async values => {
     setIsProcessing(true);
 
-    let userCredentials = {
-      email: values.email,
-      password: values.password,
-    };
-
     try {
+      let userCredentials = {
+        email: values.email,
+        password: values.password,
+      };
+
       const resData = await authApi.login(userCredentials);
       setAuthToken(resData.token);
       dispatch(setToken(resData.token));
       dispatch(setUser(resData.user));
     } catch (error) {
       console.error(error);
+      setErrorMessage(error.message);
     }
 
     setIsProcessing(false);
@@ -111,6 +124,17 @@ const LoginScreen = ({navigation, props}) => {
       navigation.goBack();
     }
   }, [user]);
+
+  useEffect(async () => {
+    try {
+      const isSignedIn = await GoogleSignin.isSignedIn();
+      if (isSignedIn) {
+        await GoogleSignin.signOut();
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }, []);
 
   return (
     <Formik
@@ -141,18 +165,8 @@ const LoginScreen = ({navigation, props}) => {
             />
             <ScrollView>
               <Block style={styles.root}>
-                {isProcessing && (
-                  <Block
-                    backgroundColor={theme.colors.backgroundSetting + '95'}
-                    flex
-                    justifyCenter
-                    alignCenter
-                    style={styles.processing}>
-                    <Block style={{padding: 50}}>
-                      <Text style={{color: 'black'}}>Processing...</Text>
-                    </Block>
-                  </Block>
-                )}
+                <Error errorMessage={errorMessage} setError={setErrorMessage} />
+
                 <Block flex justifyCenter>
                   <Text center fontType={'bold'} marginBottom={30}>
                     {t('signInWithYourEmail')}
@@ -186,8 +200,9 @@ const LoginScreen = ({navigation, props}) => {
                   </Block>
                   <Block marginVertical={30}>
                     <Button
-                      disabled={dirty && isValid ? false : true}
-                      // disabled={isValid ? isSubmitting : false}
+                      disabled={
+                        dirty && isValid ? (isProcessing ? true : false) : true
+                      }
                       onPress={handleSubmit}
                       title={t('login')}
                     />

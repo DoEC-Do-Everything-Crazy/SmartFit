@@ -5,17 +5,21 @@ import React, {useCallback, useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
 import DescriptionDetail from './components/DescriptionDetail';
+import ListSimilar from '@screens/Bottom/HomeScreen/components/ListSimilar';
 import ProductContent from './components/ProductContent';
 import Review from '@components/Review';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import Snackbar from 'react-native-snackbar';
 import {addCartItem} from 'reduxs/reducers';
 import {foodApi} from 'api/foodApi';
+import {routes} from '@navigation/routes';
+import {useNavigation} from '@react-navigation/core';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {useTranslation} from 'react-i18next';
 
 const FoodDetailsScreen = ({route, props}) => {
+  const navigation = useNavigation();
   const dispatch = useDispatch();
   const {id} = route.params;
   const [food, setFood] = useState(undefined);
@@ -50,6 +54,12 @@ const FoodDetailsScreen = ({route, props}) => {
     });
   };
 
+  const handleOnRate = () => {
+    navigation.navigate(routes.RATE_SCREEN, {
+      item: {name: food.name, foodId: food._id},
+    });
+  };
+
   useEffect(() => {
     getFoodDetail(id);
   }, []);
@@ -67,8 +77,10 @@ const FoodDetailsScreen = ({route, props}) => {
           />
           <ScrollView showsVerticalScrollIndicator={false}>
             <ProductContent food={food} />
+
             <DescriptionDetail desc={food.description} />
-            <Block marginTop={20} paddingBottom={20} row paddingHorizontal={16}>
+
+            <Block marginTop={16} row paddingHorizontal={16}>
               <Text fontType="bold" size={17}>
                 {t('Review')}:
               </Text>
@@ -83,8 +95,14 @@ const FoodDetailsScreen = ({route, props}) => {
                 averageRating={food.averageRating}
                 totalReviews={food.totalReviews}
                 foodId={food._id}
+                itemKey={food.key}
+                onRate={handleOnRate}
               />
             ) : null}
+
+            <Block marginVertical={16}>
+              <ListSimilar type={'food'} />
+            </Block>
           </ScrollView>
           <Button
             onPress={addToCart}

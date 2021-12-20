@@ -1,11 +1,10 @@
-import {Block, Header, Text, TextInput} from '@components';
-import React, {useState} from 'react';
-
-import {Pressable} from 'react-native';
+import {Block, Button, Header, Text, TextInput} from '@components';
 import {useNavigation} from '@react-navigation/core';
+import React, {useState} from 'react';
+import {useTranslation} from 'react-i18next';
+import {SafeAreaView} from 'react-native-safe-area-context';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
-import {useTranslation} from 'react-i18next';
 
 const DeliveryInformation = ({props}) => {
   const navigation = useNavigation();
@@ -21,7 +20,7 @@ const DeliveryInformation = ({props}) => {
   const [address, setAddress] = useState(user.address);
 
   return (
-    <Block flex>
+    <SafeAreaView edges={['top', 'left', 'right']} style={styles.root}>
       <Header canGoBack title={t('addAddress')} />
       <Block flex padding={10}>
         <Text marginHorizontal={16} size={20} fontType="bold">
@@ -53,21 +52,19 @@ const DeliveryInformation = ({props}) => {
             onChangeText={text => setAddress(text)}
           />
         </Block>
-        <Pressable
-          onPress={() =>
-            navigation.navigate({
-              name: 'PAYMENT_SCREEN',
-              params: {name: name, phone: phone, address: address},
-              merge: true,
-            })
-          }
-          style={styles.button}>
-          <Text color="white" fontType="bold">
-            Hoàn thành
-          </Text>
-        </Pressable>
       </Block>
-    </Block>
+      <Button
+        onPress={() =>
+          navigation.navigate({
+            name: 'PAYMENT_SCREEN',
+            params: {name: name, phone: phone, address: address},
+            merge: true,
+          })
+        }
+        style={styles.button}
+        title={t('confirm')}
+      />
+    </SafeAreaView>
   );
 };
 

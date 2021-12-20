@@ -1,14 +1,14 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import * as yup from 'yup';
 
-import {Block, Button, Header, Text, TextInput} from '@components';
+import {Block, Button, Error, Header, Text, TextInput} from '@components';
 import {KeyboardAvoidingView, Platform, SafeAreaView} from 'react-native';
-import {useDispatch, useSelector} from 'react-redux';
+import React, {useState} from 'react';
 
 import {Formik} from 'formik';
-import React from 'react';
-import {routes} from '@navigation/routes';
 import setAuthToken from 'utils/setAuthToken';
 import {useNavigation} from '@react-navigation/core';
+import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {useTranslation} from 'react-i18next';
@@ -25,6 +25,8 @@ const ChangePasswordAuth = props => {
   const styles = useStyles(props, themeStore);
   const theme = useTheme(themeStore);
 
+  const [errorMessage, setErrorMessage] = useState('');
+
   const validationSchema = yup.object().shape({
     oldPassword: yup
       .string()
@@ -40,6 +42,7 @@ const ChangePasswordAuth = props => {
       .min(8, 'Password is too short - should be 8 chars minimum.')
       .required('Password is Required'),
   });
+
   return (
     <Formik
       validationSchema={validationSchema}
@@ -51,15 +54,15 @@ const ChangePasswordAuth = props => {
       onSubmit={async props => {
         try {
           setAuthToken(token);
-          const res = await userApi.changePassword({
+          await userApi.changePassword({
             oldPassword: props.oldPassword,
             newPassword: props.newPassWord,
           });
-          if (res.status === 200) {
-            navigation.goBack();
-          }
+
+          navigation.goBack();
         } catch (error) {
           console.error(error);
+          setErrorMessage(error.message);
         }
       }}>
       {({
@@ -88,6 +91,7 @@ const ChangePasswordAuth = props => {
                 justifyCenter
                 paddingHorizontal={16}
                 backgroundColor={theme.colors.backgroundSetting}>
+                <Error errorMessage={errorMessage} setError={setErrorMessage} />
                 <TextInput
                   inputStyle={{paddingHorizontal: 16}}
                   onChangeText={handleChange('oldPassword')}

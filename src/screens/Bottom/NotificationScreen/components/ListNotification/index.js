@@ -1,6 +1,6 @@
 import {Block, ListDataFooter} from '@components';
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 
 import {FlatList} from 'react-native';
 import ItemNotification from '@components/ItemList/ItemNotification';
@@ -84,7 +84,9 @@ const ListNotification = props => {
     );
   };
 
-  const _renderItem = ({item}) => <ItemNotification item={item} />;
+  const _renderItem = useCallback(({item}) => {
+    return <ItemNotification item={item} />;
+  }, []);
 
   useEffect(() => {
     initData();

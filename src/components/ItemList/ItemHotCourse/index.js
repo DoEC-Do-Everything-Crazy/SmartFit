@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {Block, Text} from '@components';
 import {Image, Pressable} from 'react-native';
 import React, {useCallback} from 'react';
@@ -17,20 +18,17 @@ const ItemHotCourse = ({item, props}) => {
   const {
     theme: {theme: themeStore},
   } = useSelector(stateRoot => stateRoot.root);
+
   const styles = useStyles(props, themeStore);
   const theme = useTheme(themeStore);
 
   const handleOpenCourseDetail = useCallback(() => {
     dispatch(changeScreen('CourseDetail'));
-    navigation.navigate(routes.TAB_DETAILS, {id: item._id});
-  }, [item._id, dispatch, navigation]);
+    navigation.push(routes.TAB_DETAILS, {id: item._id});
+  }, []);
 
   return (
-    <Pressable
-      onPress={() => {
-        handleOpenCourseDetail();
-      }}
-      style={styles.container}>
+    <Pressable onPress={handleOpenCourseDetail} style={styles.container}>
       <Image
         style={styles.image}
         source={{

@@ -24,12 +24,12 @@ export const useStyles = makeStyles()(({colors}) => ({
   shadow: {
     position: 'absolute',
     bottom: -11,
-    left: -2,
+    left: -1,
   },
   layout: {
     position: 'absolute',
     bottom: -13,
-    left: -2,
+    left: 0,
   },
   title: {
     width: '100%',

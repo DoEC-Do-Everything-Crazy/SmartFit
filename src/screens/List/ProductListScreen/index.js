@@ -145,7 +145,7 @@ const ProductListScreen = ({props, navigation, route}) => {
       style={styles.sendControlContainerOuter}>
       <Block flex backgroundColor={theme.colors.backgroundSetting}>
         <ScrollView
-          // onScroll={onScroll}
+          onScroll={onScroll}
           showsVerticalScrollIndicator={false}
           showsHorizontalScrollIndicator={false}>
           <Animatable.View

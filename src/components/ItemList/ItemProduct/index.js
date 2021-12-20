@@ -1,7 +1,8 @@
-import {icons, images} from '@assets';
 import {Block, Text} from '@components';
-import React from 'react';
+import {icons, images} from '@assets';
+
 import {Image} from 'react-native';
+import React from 'react';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';

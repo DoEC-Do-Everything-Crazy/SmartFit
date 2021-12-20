@@ -161,36 +161,33 @@ const CourseListScreen = ({route, props}) => {
           search
         />
         <Block flex>
-          {!isLoading && data.length === 0 ? (
-            <Empty lottie={lotties.emptySearch} />
-          ) : (
-            <>
-              <FlatList
-                onScroll={onScroll}
-                data={data}
-                keyExtractor={keyExtractor}
-                renderItem={_renderItem}
-                showsVerticalScrollIndicator={false}
-                ListFooterComponent={_footerComponent}
-              />
-              <Animated.View style={[styles.groupButton, animatedStyles]}>
-                <Pressable
-                  onPress={() => {
-                    navigation.navigate(routes.CART_SCREEN);
-                  }}>
-                  {themeStore === 'dark' ? (
-                    <LinearGradient
-                      start={{x: 0, y: 0}}
-                      end={{x: 1, y: 0}}
-                      colors={['#70A2FF', '#54F0D1']}
-                      style={styles.layout}
-                    />
-                  ) : null}
-                  <Cart color={theme.colors.white} />
-                </Pressable>
-              </Animated.View>
-            </>
-          )}
+          <>
+            <FlatList
+              onScroll={onScroll}
+              data={data}
+              keyExtractor={keyExtractor}
+              renderItem={_renderItem}
+              showsVerticalScrollIndicator={false}
+              ListFooterComponent={_footerComponent}
+              ListEmptyComponent={<Empty lottie={lotties.emptySearch} />}
+            />
+            <Animated.View style={[styles.groupButton, animatedStyles]}>
+              <Pressable
+                onPress={() => {
+                  navigation.navigate(routes.CART_SCREEN);
+                }}>
+                {themeStore === 'dark' && (
+                  <LinearGradient
+                    start={{x: 0, y: 0}}
+                    end={{x: 1, y: 0}}
+                    colors={['#70A2FF', '#54F0D1']}
+                    style={styles.layout}
+                  />
+                )}
+                <Cart color={theme.colors.white} />
+              </Pressable>
+            </Animated.View>
+          </>
         </Block>
       </Block>
     </SafeAreaView>

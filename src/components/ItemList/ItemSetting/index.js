@@ -1,15 +1,17 @@
+import * as yup from 'yup';
+
 /* eslint-disable react-hooks/exhaustive-deps */
 import {Block, Button, Switcher, Text, TextInput} from '@components';
+import {Platform, Pressable} from 'react-native';
 import React, {useCallback, useRef, useState} from 'react';
-import {Pressable, Platform} from 'react-native';
-import {useNavigation} from '@react-navigation/core';
-import {Right} from '@assets/icons';
-import * as yup from 'yup';
-import {Formik} from 'formik';
-import {BottomSheet} from '@components/BottomSheet';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {useDispatch, useSelector} from 'react-redux';
 import {changePassword, changeTheme, turnPassword} from 'reduxs/reducers';
+import {useDispatch, useSelector} from 'react-redux';
+
+import {BottomSheet} from '@components/BottomSheet';
+import {Formik} from 'formik';
+import {Right} from '@assets/icons';
+import {useNavigation} from '@react-navigation/core';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {useTranslation} from 'react-i18next';
@@ -246,7 +248,7 @@ const ItemSetting = ({data, title, index}, props) => {
     );
   };
 
-  const renderItem = item => {
+  const renderItem = useCallback(item => {
     const onPress = () => {
       navigation.navigate(item.navigation);
     };
@@ -260,7 +262,8 @@ const ItemSetting = ({data, title, index}, props) => {
         index={index}
       />
     );
-  };
+  }, []);
+
   return (
     <Block marginHorizontal={16} marginBottom={10}>
       <Text color={theme.colors.text} size={18} fontType="bold">

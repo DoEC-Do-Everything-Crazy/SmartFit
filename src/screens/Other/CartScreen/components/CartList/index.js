@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {AddToWishList, CartDelete} from '@assets/icons';
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import {addWishListItem, removeCartItem} from 'reduxs/reducers';
 import {useDispatch, useSelector} from 'react-redux';
 
@@ -53,19 +54,21 @@ const CartList = ({...props}) => {
     }
   };
 
-  const renderItem = ({item, index}) => (
-    <Swipeout
-      style={styles.swipeOut}
-      right={swipeoutBtns}
-      onOpen={() => onSwipeOpen(index)}
-      close={row !== index}
-      onClose={() => onSwipeClose(index)}
-      rowIndex={index}
-      sectionId={0}
-      autoClose={true}>
-      <ItemCart item={item} />
-    </Swipeout>
-  );
+  const renderItem = useCallback(({item, index}) => {
+    return (
+      <Swipeout
+        style={styles.swipeOut}
+        right={swipeoutBtns}
+        onOpen={() => onSwipeOpen(index)}
+        close={row !== index}
+        onClose={() => onSwipeClose(index)}
+        rowIndex={index}
+        sectionId={0}
+        autoClose={true}>
+        <ItemCart item={item} />
+      </Swipeout>
+    );
+  }, []);
   return (
     <Block flex justifyCenter paddingTop={20}>
       <FlatList

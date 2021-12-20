@@ -1,14 +1,16 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {Course, HeartPf, Order, Promotion, Setting} from '@assets/icons';
+import React, {useCallback} from 'react';
+
 import {Block} from '@components';
+import {FlatList} from 'react-native';
 import ItemFeature from '@components/ItemList/ItemFeature';
+import {keyExtractor} from 'utils/keyExtractor';
 import {routes} from '@navigation/routes';
 import {useNavigation} from '@react-navigation/core';
-import {useTheme} from '@theme';
-import React from 'react';
-import {useTranslation} from 'react-i18next';
-import {FlatList} from 'react-native';
 import {useSelector} from 'react-redux';
-import {keyExtractor} from 'utils/keyExtractor';
+import {useTheme} from '@theme';
+import {useTranslation} from 'react-i18next';
 
 const ListItemFeature = () => {
   const {t} = useTranslation();
@@ -48,21 +50,23 @@ const ListItemFeature = () => {
     },
   ];
 
-  const _renderItem = ({item}) => {
+  const _renderItem = useCallback(({item}) => {
     const onPress = () => {
       navigation.navigate(item.navigation, {valuePromotion: item.value});
     };
+
     return (
       <ItemFeature height={50} title={item.title} onPress={onPress}>
         <Block>{item.image}</Block>
       </ItemFeature>
     );
-  };
+  }, []);
+
   return (
     <Block flex paddingHorizontal={16} height="50%">
       <FlatList
+        scrollEnabled={false}
         showsVerticalScrollIndicator={false}
-        nestedScrollEnabled
         data={DATA_FEATURE}
         keyExtractor={keyExtractor}
         renderItem={_renderItem}

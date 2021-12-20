@@ -17,12 +17,6 @@ import {useTheme} from '@theme';
 import {useTranslation} from 'react-i18next';
 
 const ItemOrder = ({item, onPress, index, props}) => {
-  const isDelivered = item.status === 'delivered';
-  const modalizRef = useRef(null);
-  const [status, setStatus] = useState(item.status);
-  const {t} = useTranslation();
-  const insets = useSafeAreaInsets();
-  const [showDetail, setShowDetail] = useState(false);
   const navigation = useNavigation();
 
   const {
@@ -31,47 +25,31 @@ const ItemOrder = ({item, onPress, index, props}) => {
   } = useSelector(stateRoot => stateRoot.root);
   const styles = useStyles(props, themeStore);
   const theme = useTheme(themeStore);
+  const insets = useSafeAreaInsets();
+  const {t} = useTranslation();
 
-  const renderItem = ({item}) => {
-    const handleRate = () => {
+  const [showDetail, setShowDetail] = useState(false);
+  const [status, setStatus] = useState(item.status);
+  const modalizRef = useRef(null);
+
+  const renderItem = useCallback(({item}) => {
+    const handleOnPress = () => {
+      modalizRef.current.close();
       if (item.key.includes('C')) {
-        navigation.navigate(routes.RATE_SCREEN, {
-          item: {courseId: item._id},
-        });
-        return;
-      }
-      if (item.key.includes('F')) {
-        navigation.navigate(routes.RATE_SCREEN, {
-          item: {foodId: item._id},
-        });
-        return;
-      }
-      if (item.key.includes('P')) {
-        navigation.navigate(routes.RATE_SCREEN, {
-          item: {productId: item._id},
-        });
+        navigation.navigate(routes.TAB_DETAILS, {id: item._id});
+      } else if (item.key.includes('F')) {
+        navigation.navigate(routes.FOOD_DETAILS_SCREEN, {id: item._id});
+      } else if (item.key.includes('P')) {
+        navigation.navigate(routes.PRODUCT_DETAIL_SCREEN, {id: item._id});
       }
     };
-    return (
-      <ItemCart
-        onPress={handleRate}
-        notQuantity
-        notRate={!isDelivered}
-        item={item}
-      />
-    );
-  };
+
+    return <ItemCart notQuantity item={item} onPress={handleOnPress} />;
+  }, []);
 
   const handleToOrderDetail = useCallback(() => {
     modalizRef?.current.open();
     setShowDetail(true);
-  }, []);
-
-  const handleOpenConfirm = useCallback(() => {
-    console.log('confirm');
-    // navigation.navigate(routes.RATE_SCREEN, {
-    //   item: {foodId: '6176c277b585a7132c9bd557'},
-    // });
   }, []);
 
   const FloatingComponent = useCallback(() => {
@@ -93,13 +71,14 @@ const ItemOrder = ({item, onPress, index, props}) => {
       </>
     );
   }, [theme.colors.backgroundSetting, showDetail]);
+
   const FooterComponent = useCallback(() => {
     return (
       <Block marginBottom={20} row alignCenter justifyCenter>
         <Pressable
           onPress={() => {
             modalizRef?.current.close();
-            navigation.navigate(routes.FOOD_LIST_SCREEN);
+            // navigation.navigate(routes.FOOD_LIST_SCREEN);
           }}
           style={styles.itemReorder}
           borderColor={theme.colors.text}>
@@ -153,13 +132,13 @@ const ItemOrder = ({item, onPress, index, props}) => {
             <Block row flex={1}>
               <Text>{t('promotion')}:</Text>
               <Text marginLeft={10} fontType="bold">
-                {item.promotion}
+                {item.promotionCode || 'no'}
               </Text>
             </Block>
             <Block row flex={1} justifyEnd>
               <Text>{t('totalAmount')}:</Text>
               <Text marginLeft={10} fontType="bold">
-                {item.total}$
+                {item.subTotal}$
               </Text>
             </Block>
           </Block>
@@ -181,11 +160,6 @@ const ItemOrder = ({item, onPress, index, props}) => {
                   color={theme.colors.lightBlue}>
                   {t(`${status}`)}
                 </Text>
-                {/* <Pressable
-                  onPress={handleOpenConfirm}
-                  style={styles.itemConfirm}>
-                  <Text color={theme.colors.white}>{t('confirm')}</Text>
-                </Pressable> */}
               </Block>
             ) : status === 'cancelled' ? (
               <Block row flex={1} justifyEnd alignCenter>
@@ -283,7 +257,23 @@ const ItemOrder = ({item, onPress, index, props}) => {
                       <Text>{t('addressShip')}:</Text>
                     </Block>
                     <Block width="60%">
-                      <Text fontType="bold">{item.address}</Text>
+                      <Text fontType="bold">{item.shippingInfo}</Text>
+                    </Block>
+                  </Block>
+                  <Block row marginTop={10}>
+                    <Block width="40%">
+                      <Text>{t('total')}:</Text>
+                    </Block>
+                    <Block width="60%">
+                      <Text fontType="bold">{`$${item.total}`}</Text>
+                    </Block>
+                  </Block>
+                  <Block row marginTop={10}>
+                    <Block width="40%">
+                      <Text>{t('delivery')}:</Text>
+                    </Block>
+                    <Block width="60%">
+                      <Text fontType="bold">{`$${item.delivery}`}</Text>
                     </Block>
                   </Block>
                   <Block row marginTop={10}>
@@ -291,15 +281,15 @@ const ItemOrder = ({item, onPress, index, props}) => {
                       <Text>{t('discount')}:</Text>
                     </Block>
                     <Block width="60%">
-                      <Text fontType="bold">{item.discount * 100}%</Text>
+                      <Text fontType="bold">{`$${item.discount}`}</Text>
                     </Block>
                   </Block>
                   <Block row marginTop={10}>
                     <Block width="40%">
-                      <Text>{t('totalAmount')}:</Text>
+                      <Text>{t('subTotal')}:</Text>
                     </Block>
                     <Block width="60%">
-                      <Text fontType="bold">{item.total}$</Text>
+                      <Text fontType="bold">{`$${item.subTotal}`}</Text>
                     </Block>
                   </Block>
                 </Block>

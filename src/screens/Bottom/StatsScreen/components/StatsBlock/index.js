@@ -23,26 +23,15 @@ const StatsBlock = ({
   onPress,
   props,
 }) => {
-  console.log({
-    title,
-    heightComponent,
-    widthComponent,
-    circular,
-    icon,
-    valueCir,
-    userHeight,
-    userWeight,
-    bmp,
-    onPress,
-    props,
-  });
-
   const {
     theme: {theme: themeStore},
   } = useSelector(state => state.root);
+
   const styles = useStyles(props, themeStore);
   const theme = useTheme(themeStore);
+
   const colorProgress = themeStore === 'dark' ? '#045694' : '#2ecc71';
+
   return (
     <Block
       shadow={20}

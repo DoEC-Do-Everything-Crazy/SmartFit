@@ -1,16 +1,20 @@
-import React from 'react';
 import {Block, Header} from '@components';
+
 import ListFeatureSetting from './components/ListFeatureSetting';
-import {useTranslation} from 'react-i18next';
+import React from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {makeStyles} from '@theme';
 import {useSelector} from 'react-redux';
+import {useStyles} from './styles';
+import {useTranslation} from 'react-i18next';
+
 const SettingScreen = props => {
   const {
     theme: {theme: themeStore},
   } = useSelector(state => state.root);
+
   const styles = useStyles(props, themeStore);
   const {t} = useTranslation();
+
   const DATA = [
     {
       title: t('information'),
@@ -31,14 +35,14 @@ const SettingScreen = props => {
       isSwitch: false,
       data_item_switch: [
         {
-          name: t('changePassword'),
-          isSwitch: false,
-          navigation: 'CHANGE_PIN_CODE',
-        },
-        {
           name: t('usingPincode'),
           isSwitch: true,
           isPinCode: true,
+        },
+        {
+          name: t('changePincode'),
+          isSwitch: false,
+          navigation: 'CHANGE_PIN_CODE',
         },
       ],
     },
@@ -80,9 +84,3 @@ const SettingScreen = props => {
 };
 
 export default SettingScreen;
-export const useStyles = makeStyles()(({colors}) => ({
-  sendControlContainerOuter: {
-    flex: 1,
-    backgroundColor: colors.border,
-  },
-}));

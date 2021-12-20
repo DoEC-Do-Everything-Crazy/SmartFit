@@ -67,7 +67,6 @@ const SplashScreen = props => {
   }, [fadeAnim, first, moveAnim, navigation]);
   return (
     <Block flex justifyCenter alignCenter backgroundColor={theme.colors.blue}>
-      <StatusBar barStyle="light-content" />
       <Animated.View style={[styles.logo, {opacity: fadeAnim}]}>
         <Logo />
       </Animated.View>

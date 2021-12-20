@@ -1,6 +1,5 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import {Block, Text} from '@components';
-import React, {useEffect, useRef, useState} from 'react';
+import {Block, Loading, Text} from '@components';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {height, width} from '@utils/responsive';
 
 import Carousel from 'react-native-snap-carousel';
@@ -27,8 +26,11 @@ const ListRecommended = ({props}) => {
   const styles = useStyles(props, themeStore);
 
   const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const initData = async () => {
+    setIsLoading(true);
+
     try {
       const response = await recommendedApi.getRecommend({
         validateStatus: false,
@@ -38,51 +40,70 @@ const ListRecommended = ({props}) => {
     } catch (error) {
       console.error('error', error.message);
     }
+
+    setIsLoading(false);
   };
 
-  const _renderItem = ({item, index}) => (
-    <ItemRecommended item={item} index={index} />
-  );
+  const _renderItem = useCallback(({item, index}) => {
+    return <ItemRecommended item={item} index={index} />;
+  }, []);
 
   useEffect(() => {
-    setAuthToken(token);
-    initData();
+    if (token) {
+      setAuthToken(token);
+      initData();
+    }
   }, [token]);
 
   return (
-    <Block space="between" marginTop={20}>
-      <Block marginHorizontal={16} flex row>
-        <Block flex>
-          <Text size={20} fontType="bold" color={theme.colors.iconInf}>
-            {t('recommended')}
-          </Text>
-        </Block>
-        <Pressable
-          onPress={() =>
-            navigation.navigate(routes.FOOD_LIST_SCREEN, {
-              title: t('recommended'),
-              recommendData: data,
-            })
-          }>
-          <Text size={17} style={styles.link}>
-            {t('seeAll')}
-          </Text>
-        </Pressable>
-      </Block>
-      <Block marginLeft={-150} marginTop={16}>
-        <Carousel
-          ref={carouselRef}
-          hasParallaxImages={true}
-          data={data}
-          sliderWidth={width + 140}
-          itemWidth={width / 2}
-          sliderHeight={height / 2}
-          renderItem={_renderItem}
-          useScrollView
-          autoplayInterval={1000}
-          activeAnimationType={'decay'}
-        />
-      </Block>
+    <Block>
+      {token && (
+        <>
+          {isLoading ? (
+            <Loading />
+          ) : (
+            <>
+              <Block space="between" marginTop={20}>
+                <Block marginHorizontal={16} flex row>
+                  <Block flex>
+                    <Text
+                      size={20}
+                      fontType="bold"
+                      color={theme.colors.iconInf}>
+                      {t('recommended')}
+                    </Text>
+                  </Block>
+                  <Pressable
+                    onPress={() =>
+                      navigation.navigate(routes.FOOD_LIST_SCREEN, {
+                        title: t('recommended'),
+                        recommendData: data,
+                      })
+                    }>
+                    <Text size={17} style={styles.link}>
+                      {t('seeAll')}
+                    </Text>
+                  </Pressable>
+                </Block>
+                <Block marginLeft={-150} marginTop={16}>
+                  <Carousel
+                    ref={carouselRef}
+                    hasParallaxImages={true}
+                    data={data}
+                    sliderWidth={width + 140}
+                    itemWidth={width / 2}
+                    sliderHeight={height / 2}
+                    renderItem={_renderItem}
+                    useScrollView
+                    autoplayInterval={1000}
+                    activeAnimationType={'decay'}
+                  />
+                </Block>
+              </Block>
+            </>
+          )}
+        </>
+      )}
     </Block>
   );
 };

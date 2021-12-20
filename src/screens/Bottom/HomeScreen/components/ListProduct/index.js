@@ -1,6 +1,6 @@
 import {Block, Text} from '@components';
 import {FlatList, Pressable} from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 
 import ItemHotProduct from '@components/ItemList/ItemHotProduct';
 import {keyExtractor} from 'utils/keyExtractor';
@@ -42,18 +42,13 @@ const ListProduct = props => {
     fetchData();
   }, []);
 
-  const _renderItem = ({item, index}) => (
-    <ItemHotProduct item={item} index={index} />
-  );
+  const _renderItem = useCallback(({item, index}) => {
+    return <ItemHotProduct item={item} index={index} />;
+  }, []);
 
   return (
-    <Block flex marginTop={32} marginBottom={20}>
-      <Block
-        row
-        alignCenter
-        marginHorizontal={16}
-        marginBottom={20}
-        space="between">
+    <Block flex marginTop={32} marginBottom={16}>
+      <Block row alignCenter marginHorizontal={16} space="between">
         <Text size={20} fontType="bold" color={theme.colors.iconInf}>
           {t('hotProduct')}
         </Text>

@@ -1,7 +1,9 @@
-import {Block} from '@components';
-import React, {useRef, useState} from 'react';
-import {Dimensions} from 'react-native';
+/* eslint-disable react-hooks/exhaustive-deps */
 import Carousel, {Pagination} from 'react-native-snap-carousel';
+import React, {useCallback, useRef, useState} from 'react';
+
+import {Block} from '@components';
+import {Dimensions} from 'react-native';
 import ListStep from './components/ListStep';
 import {useSelector} from 'react-redux';
 import {useStyles} from './styles';
@@ -18,13 +20,14 @@ const TabLesson = props => {
   const styles = useStyles(themeStore);
   const theme = useTheme(themeStore);
 
-  const _renderItem = ({item, index}, parallaxProps) => {
+  const _renderItem = useCallback(({item, index}, parallaxProps) => {
     return (
       <Block style={styles.item}>
         <ListStep index={index} />
       </Block>
     );
-  };
+  }, []);
+
   return (
     <Block flex backgroundColor={theme.colors.backgroundSetting}>
       <Carousel

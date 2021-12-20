@@ -18,7 +18,7 @@ const ListDataFooter = ({...props}) => {
     loadingSize = 'small',
     loadingHeight = 60,
     loadingColor = themeStore === 'dark' ? 'white' : 'black',
-    loadTitle = t('loadMore'),
+    loadTitle = t('LoadMore'),
     loadHeight = 60,
     loadTextColor = themeStore === 'dark' ? 'white' : 'black',
     onPress,

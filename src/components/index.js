@@ -6,8 +6,10 @@ import CheckBox from './base/CheckBox';
 import DropDown from './base/DropDown';
 import Empty from './base/Empty';
 import EmptyScreen from './EmptyScreen';
+import Error from './base/Error';
 import GradientText from './base/GradientText';
 import Header from './Header';
+import HeaderBanner from './HeaderBanner';
 import Icon from './base/Icon';
 import InviteLogin from './InviteLogin';
 import ListDataFooter from './base/ListDataFooter';
@@ -42,4 +44,6 @@ export {
   Header,
   PayInfo,
   InviteLogin,
+  HeaderBanner,
+  Error,
 };

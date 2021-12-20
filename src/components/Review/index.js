@@ -1,15 +1,35 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import {Block, ListDataFooter} from '@components';
-import React, {useEffect, useState} from 'react';
+import {Block, ListDataFooter, Text} from '@components';
+import {FlatList, Pressable} from 'react-native';
+import React, {useCallback, useEffect, useState} from 'react';
 
-import {FlatList} from 'react-native';
 import ItemReview from '@components/ItemList/ItemReview';
 import RatingValue from '@components/RatingValue';
 import {keyExtractor} from 'utils/keyExtractor';
 import {rateApi} from 'api/rateApi';
+import {useSelector} from 'react-redux';
+// import {useStyles} from './styles';
+import {useTheme} from '@theme';
+import {useTranslation} from 'react-i18next';
 
 const Review = ({...props}) => {
-  const {averageRating, totalReviews, courseId, productId, foodId} = props;
+  const {
+    averageRating,
+    totalReviews,
+    itemKey,
+    courseId,
+    productId,
+    foodId,
+    onRate,
+  } = props;
+
+  const {
+    theme: {theme: themeStore},
+    user: {user},
+  } = useSelector(stateRoot => stateRoot.root);
+
+  // const styles = useStyles(props, themeStore);
+  const theme = useTheme(themeStore);
 
   const [data, setData] = useState([]);
   const [pageNumber, setPageNumber] = useState(1);
@@ -17,18 +37,7 @@ const Review = ({...props}) => {
   const [rateCountList, setRateCountList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const _renderItem = ({item, index}) => {
-    return (
-      <ItemReview
-        key={keyExtractor(item, index)}
-        author={item.author}
-        content={item.content}
-        date={item.updatedAt}
-        image={item.image}
-        rating={item.rate}
-      />
-    );
-  };
+  const {t} = useTranslation();
 
   const handleLoadMore = async () => {
     try {
@@ -43,6 +52,7 @@ const Review = ({...props}) => {
         courseId,
         foodId,
         productId,
+        active: true,
       });
 
       const {rates, page, pages} = response;
@@ -73,6 +83,7 @@ const Review = ({...props}) => {
         courseId,
         foodId,
         productId,
+        active: true,
       });
 
       const {rates, page, pages, eachRateCount} = response;
@@ -96,6 +107,10 @@ const Review = ({...props}) => {
     setIsLoading(false);
   };
 
+  const _renderItem = useCallback(({item}) => {
+    return <ItemReview item={item} />;
+  }, []);
+
   const _footerComponent = () => {
     return (
       <ListDataFooter
@@ -111,19 +126,32 @@ const Review = ({...props}) => {
   }, []);
 
   return (
-    <Block flex marginTop={10} marginHorizontal={16}>
+    <Block>
       <RatingValue
         averageRating={averageRating}
         totalReviews={totalReviews}
         eachRateCount={rateCountList}
       />
-      <FlatList
-        data={data}
-        keyExtractor={keyExtractor}
-        renderItem={_renderItem}
-        contentContainerStyle={{marginTop: 20}}
-        ListFooterComponent={_footerComponent}
-      />
+      <Block flex marginHorizontal={16}>
+        <Pressable onPress={onRate}>
+          <Block
+            marginTop={30}
+            padding={16}
+            paddingHorizontal={20}
+            borderRadius={8}
+            backgroundColor={theme.colors.border}>
+            <Block>
+              <Text>{t('writeReview')}</Text>
+            </Block>
+          </Block>
+        </Pressable>
+        <FlatList
+          data={data}
+          keyExtractor={keyExtractor}
+          renderItem={_renderItem}
+          ListFooterComponent={_footerComponent}
+        />
+      </Block>
     </Block>
   );
 };

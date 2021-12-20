@@ -1,9 +1,9 @@
 import {Course, Discount20, Discount50, Equipment, Food} from '@assets/icons';
+import React, {useCallback} from 'react';
 
 import {Block} from '@components';
 import {FlatList} from 'react-native';
 import ItemMenu from '@components/ItemList/ItemMenu';
-import React from 'react';
 import {keyExtractor} from 'utils/keyExtractor';
 import {routes} from '@navigation/routes';
 import {useNavigation} from '@react-navigation/core';
@@ -48,7 +48,7 @@ const ListMenu = () => {
       value: 50,
     },
   ];
-  const _renderItem = ({item, index}) => {
+  const _renderItem = useCallback(({item, index}) => {
     const onPress = () => {
       navigation.navigate(
         item.navigation,
@@ -64,7 +64,7 @@ const ListMenu = () => {
         icon={item.icon}
       />
     );
-  };
+  }, []);
   return (
     <Block flex alignCenter>
       <FlatList

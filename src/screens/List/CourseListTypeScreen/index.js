@@ -1,8 +1,9 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {Block, Header} from '@components';
+import React, {useCallback} from 'react';
 
 import {FlatList} from 'react-native';
 import ItemCourseBig from '@components/ItemList/ItemCourseBig';
-import React from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {keyExtractor} from 'utils/keyExtractor';
 import {useSelector} from 'react-redux';
@@ -19,13 +20,15 @@ const CourseListTypeScreen = ({props, route}) => {
   const {t} = useTranslation();
   const styles = useStyles(props, themeStore);
 
-  const _renderItem = item => (
-    <ItemCourseBig
-      nameScreen={valuePromotion}
-      title={item.title}
-      url={item.url}
-    />
-  );
+  const _renderItem = useCallback(item => {
+    return (
+      <ItemCourseBig
+        nameScreen={valuePromotion}
+        title={item.title}
+        url={item.url}
+      />
+    );
+  }, []);
   return (
     <SafeAreaView
       edges={['top', 'left', 'right']}

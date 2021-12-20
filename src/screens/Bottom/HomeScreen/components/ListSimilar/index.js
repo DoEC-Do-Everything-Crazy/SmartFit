@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import {Block, Text} from '@components';
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 
 import {FlatList} from 'react-native';
 import ItemHotCourse from '@components/ItemList/ItemHotCourse';
@@ -67,7 +67,7 @@ const ListSimilar = ({...props}) => {
     initData();
   }, []);
 
-  const _renderItem = ({item, index}) => {
+  const _renderItem = useCallback(({item, index}) => {
     if (type === 'product') {
       return <ItemHotProduct item={item} index={index} />;
     } else if (type === 'food') {
@@ -75,16 +75,11 @@ const ListSimilar = ({...props}) => {
     } else {
       return <ItemHotCourse item={item} index={index} />;
     }
-  };
+  }, []);
 
   return (
-    <Block flex marginTop={30} marginBottom={10}>
-      <Block
-        row
-        alignCenter
-        marginHorizontal={16}
-        marginBottom={20}
-        space="between">
+    <Block>
+      <Block row alignCenter marginHorizontal={16} space="between">
         <Text size={20} fontType="bold" color={theme.colors.iconInf}>
           {type === 'product'
             ? t('similarProduct')

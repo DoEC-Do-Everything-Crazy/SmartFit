@@ -1,32 +1,36 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {Block, Text} from '@components';
 import {Image, Pressable, TouchableOpacity} from 'react-native';
+import React, {useCallback} from 'react';
 import {decreaseCartItem, increaseCartItem} from 'reduxs/reducers';
 import {useDispatch, useSelector} from 'react-redux';
 
 import LinearGradient from 'react-native-linear-gradient';
-import React from 'react';
+import {routes} from '@navigation/routes';
 import {useStyles} from './styles';
 import {useTheme} from '@theme';
 import {useTranslation} from 'react-i18next';
 
-const ItemCart = ({item, notQuantity, onPress, notRate, props}) => {
+const ItemCart = ({item, notQuantity, onPress, props}) => {
   const dispatch = useDispatch();
+
   const {
     theme: {theme: themeStore},
   } = useSelector(stateRoot => stateRoot.root);
   const styles = useStyles(props, themeStore);
   const theme = useTheme(themeStore);
   const {t} = useTranslation();
-  const handleSub = () => {
-    dispatch(decreaseCartItem({key: item.key}));
-  };
 
-  const handleSum = () => {
+  const handleSub = useCallback(() => {
+    dispatch(decreaseCartItem({key: item.key}));
+  }, []);
+
+  const handleSum = useCallback(() => {
     dispatch(increaseCartItem(item.key));
-  };
+  }, []);
 
   return (
-    <Pressable>
+    <Pressable onPress={onPress}>
       <Block
         justifyCenter
         height={100}
@@ -41,21 +45,12 @@ const ItemCart = ({item, notQuantity, onPress, notRate, props}) => {
               {item.name}
             </Text>
             <Block flex justifyCenter alignCenter row space="between">
-              <Text color={theme.colors.inconInf}>{item.lastPrice}</Text>
+              <Text color={theme.colors.inconInf}>{`$${item.lastPrice}`}</Text>
               {notQuantity ? (
                 <Block row>
                   <Text fontType="bold" size={15} center>
                     {item.quantity}
                   </Text>
-                  {!notRate ? (
-                    <TouchableOpacity onPress={onPress}>
-                      <Text marginLeft={30} fontType="bold" color="green">
-                        {t('rate')}
-                      </Text>
-                    </TouchableOpacity>
-                  ) : (
-                    <></>
-                  )}
                 </Block>
               ) : (
                 <Block row justifyCenter alignCenter marginRight={10}>
